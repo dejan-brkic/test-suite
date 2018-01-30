@@ -162,12 +162,6 @@
 				name="org.craftercms.studio.test.cases.apitestcases.GetAvailableBlueprintsAPITest" />
 		</classes>
 	</test> 
-	<test name="Get Canned Message" preserve-order="true">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.apitestcases.GetCannedMessageAPITest" />
-		</classes>
-	</test> 
 	<test name="Get Configuration of Site" preserve-order="true">
 		<classes>
 			<class

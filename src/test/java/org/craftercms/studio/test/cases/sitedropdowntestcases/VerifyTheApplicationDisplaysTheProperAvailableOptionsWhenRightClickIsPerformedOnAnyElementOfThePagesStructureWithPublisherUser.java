@@ -3,9 +3,14 @@ package org.craftercms.studio.test.cases.sitedropdowntestcases;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.BaseTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
@@ -63,6 +68,10 @@ public class VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClick
 	private String articlesFolder2017;
 	private String articlesFolder1;
 	private String articlesFolderMenStylesForWinter;
+	private LinkedList<String> rightClickOptionsListInHomePage;
+	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
+	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
+	private String rightClickOptions;
 	private static Logger logger = LogManager
 			.getLogger(VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClickIsPerformedOnAnyElementOfThePagesStructureWithPublisherUser.class);
 
@@ -147,6 +156,8 @@ public class VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClick
 		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options_logout");
+		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("rightclick.list.all.options");
 
 	}
 
@@ -268,6 +279,29 @@ public class VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClick
 		this.rightClickHome();
 
 		driverManager.usingContextMenu(() -> {
+			
+			logger.info("Checking that only the expected options are listed");
+			rightClickOptionsListInHomePage = new LinkedList<String>();
+			rightClickOptionsListInHomePage.add(0, "Edit");
+			rightClickOptionsListInHomePage.add(1, "View");
+			rightClickOptionsListInHomePage.add(2, "New Content");
+			rightClickOptionsListInHomePage.add(3, "New Folder");
+			rightClickOptionsListInHomePage.add(4, "Cut");
+			rightClickOptionsListInHomePage.add(5, "Copy");
+			rightClickOptionsListInHomePage.add(6, "Dependencies");
+			rightClickOptionsListInHomePage.add(7, "History");
+
+			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
+					.findElements(By.xpath(rightClickOptions));
+			int currentIndex = 0;
+			for (WebElement element : rightClickOptionsList) {
+				this.driverManager.waitForAnimation();
+				this.driverManager.waitUntilSidebarOpens();
+				Assert.assertTrue(element.getText().equals(rightClickOptionsListInHomePage.get(currentIndex)),
+						"ERROR: Link Option: " + element.getText()
+								+ " is not in the correct order in the HomePage, check that the correct options are listed");
+				currentIndex++;
+			}
 
 			String section = "Step 4 Right Click on 'Home'";
 
@@ -290,6 +324,32 @@ public class VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClick
 		this.rightClickCategoryLandingPage();
 
 		driverManager.usingContextMenu(() -> {
+			
+			logger.info("Checking that only the expected options are listed");
+			rightClickOptionsListInCategoryLandingPage = new LinkedList<String>();
+			rightClickOptionsListInCategoryLandingPage.add(0, "Edit");
+			rightClickOptionsListInCategoryLandingPage.add(1, "View");
+			rightClickOptionsListInCategoryLandingPage.add(2, "New Content");
+			rightClickOptionsListInCategoryLandingPage.add(3, "New Folder");
+			rightClickOptionsListInCategoryLandingPage.add(4, "Delete");
+			rightClickOptionsListInCategoryLandingPage.add(5, "Cut");
+			rightClickOptionsListInCategoryLandingPage.add(6, "Copy");
+			rightClickOptionsListInCategoryLandingPage.add(7, "Duplicate");
+			rightClickOptionsListInCategoryLandingPage.add(8, "Dependencies");
+			rightClickOptionsListInCategoryLandingPage.add(9, "History");
+
+			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
+					.findElements(By.xpath(rightClickOptions));
+			int currentIndex = 0;
+			for (WebElement element : rightClickOptionsList) {
+				this.driverManager.waitForAnimation();
+				this.driverManager.waitUntilSidebarOpens();
+				Assert.assertTrue(
+						element.getText().equals(rightClickOptionsListInCategoryLandingPage.get(currentIndex)),
+						"ERROR: Link Option: " + element.getText()
+								+ " is not in the correct order in the selected category landing page, check that the correct options are listed");
+				currentIndex++;
+			}
 
 			String section = "Step 6 Right click on a 'Category Landing' page";
 
@@ -327,6 +387,32 @@ public class VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClick
 		this.rightClickArticlesFolderMenStylesForWinter();
 
 		driverManager.usingContextMenu(() -> {
+			
+			logger.info("Checking that only the expected options are listed");
+			rightClickOptionsListInMenStylesForWinterPage = new LinkedList<String>();
+			rightClickOptionsListInMenStylesForWinterPage.add(0, "Edit");
+			rightClickOptionsListInMenStylesForWinterPage.add(1, "View");
+			rightClickOptionsListInMenStylesForWinterPage.add(2, "New Content");
+			rightClickOptionsListInMenStylesForWinterPage.add(3, "New Folder");
+			rightClickOptionsListInMenStylesForWinterPage.add(4, "Delete");
+			rightClickOptionsListInMenStylesForWinterPage.add(5, "Cut");
+			rightClickOptionsListInMenStylesForWinterPage.add(6, "Copy");
+			rightClickOptionsListInMenStylesForWinterPage.add(7, "Duplicate");
+			rightClickOptionsListInMenStylesForWinterPage.add(8, "Dependencies");
+			rightClickOptionsListInMenStylesForWinterPage.add(9, "History");
+
+			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
+					.findElements(By.xpath(rightClickOptions));
+			int currentIndex = 0;
+			for (WebElement element : rightClickOptionsList) {
+				this.driverManager.waitForAnimation();
+				this.driverManager.waitUntilSidebarOpens();
+				Assert.assertTrue(
+						element.getText().equals(rightClickOptionsListInMenStylesForWinterPage.get(currentIndex)),
+						"ERROR: Link Option: " + element.getText()
+								+ " is not in the correct order in the Men Styles For Witner page, check that the correct options are listed");
+				currentIndex++;
+			}
 
 			String section = "Step 11 Right click on folder articles -2017- 1- Men Styles For Winter;";
 
