@@ -20,7 +20,7 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-//Test Case Studio- Site Dropdown ID:25
+// Test Case Studio- Site Dropdown ID:25
 public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingReviewerUser
 		extends BaseTest {
 
@@ -71,8 +71,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	private LinkedList<String> rightClickOptionsListInHomePage;
 	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
-	private static Logger logger = LogManager.getLogger(
-			VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingReviewerUser.class);
+	private static Logger logger = LogManager
+			.getLogger(VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingReviewerUser.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -490,7 +490,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 					"Site creation process is taking too long time and the element was not found");
 	}
 
-	
 	public void addUserToRespectiveGroup(String userGroup, String userToAdd) {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
@@ -584,7 +583,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 	private void logoutFromCrafter() {
 		logger.info("logout from Crafter");
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions).click();
@@ -594,7 +593,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout).click();
 
 	}
-	public void expandPagesTree(){
+
+	public void expandPagesTree() {
 		// Expand the site bar
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
 
@@ -611,11 +611,13 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	public void verifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingReviewerUser() {
 
 		this.login(userName, password);
-		
+		// wait for login page to close
+		driverManager.waitUntilLoginCloses();
+
 		logger.info("Add New User Author");
 		this.addNewUser("author");
 		this.driverManager.getDriver().navigate().refresh();
-		
+
 		logger.info("Add New User Reviewer");
 		this.addNewUser("reviewer");
 		this.driverManager.getDriver().navigate().refresh();
@@ -630,7 +632,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		logger.info("Add previous created author user to Author Group");
 		this.addUserToRespectiveGroup(editAuthorGroupOption, "author");
-		
+
 		logger.info("Add previous created reviewer user to Reviewer Group");
 		this.addUserToRespectiveGroup(editReviewerGroupOption, "reviewer");
 
@@ -641,11 +643,14 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		logger.info("login to application with Author user");
 		loginPage.loginToCrafter("author", "author");
 
+		// wait for login page to close
+		driverManager.waitUntilLoginCloses();
+
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
-		
+
 		this.driverManager.waitForAnimation();
-		
+
 		// Expand the site bar and Pages Tree
 		this.expandPagesTree();
 
@@ -691,7 +696,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		logger.info("Request Publish for the Men Styles For Winter under articles/2017/1 folders");
 		rightClickArticlesFolderMenStylesForWinter();
 		dashboardPage.requestPublish();
-	
+
 		// logout from Crafter
 		this.logoutFromCrafter();
 
@@ -711,7 +716,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.step4();
 
 		this.step6();
-		
+
 		this.step10();
 	}
 }

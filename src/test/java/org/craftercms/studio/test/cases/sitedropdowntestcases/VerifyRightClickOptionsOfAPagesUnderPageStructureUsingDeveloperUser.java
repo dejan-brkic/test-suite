@@ -658,6 +658,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingDeveloperUser
 		logger.info("login to application with developer user");
 		loginPage.loginToCrafter("developer", "developer");
 
+		driverManager.waitUntilLoginCloses();
+		
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 

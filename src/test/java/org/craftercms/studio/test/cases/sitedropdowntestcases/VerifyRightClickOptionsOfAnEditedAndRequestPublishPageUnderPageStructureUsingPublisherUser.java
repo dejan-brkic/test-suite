@@ -807,6 +807,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		logger.info("login to application with Publisher user");
 		loginPage.loginToCrafter("publisher", "publisher");
 
+		driverManager.waitUntilLoginCloses();
+		
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
