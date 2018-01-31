@@ -20,8 +20,8 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-// Test Case ID:96
-public class VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClickIsPerformedOnAnyElementOfThePagesStructureWithAdminUser
+//Test Case Studio- Site Dropdown ID:8
+public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 		extends BaseTest {
 
 	private String userName;
@@ -55,7 +55,7 @@ public class VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClick
 	private LinkedList<String> rightClickOptionsListInArticlesFolder1;
 	private String rightClickOptions;
 	private static Logger logger = LogManager.getLogger(
-			VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClickIsPerformedOnAnyElementOfThePagesStructureWithAdminUser.class);
+			VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser.class);
 
 
 	@BeforeMethod
@@ -498,7 +498,7 @@ public class VerifyTheApplicationDisplaysTheProperAvailableOptionsWhenRightClick
 	}
 
 	@Test(priority = 0)
-	public void verifyProperOptionDisplayedOnPagesStructureWithAdminUser() {
+	public void verifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser() {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);

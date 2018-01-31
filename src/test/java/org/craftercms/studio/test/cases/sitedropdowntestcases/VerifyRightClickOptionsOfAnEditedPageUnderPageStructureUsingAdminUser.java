@@ -20,8 +20,8 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-// Test Case ID:102
-public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThePagesStructureIsEditedUsingAdminUser
+//Test Case Studio- Site Dropdown ID:14
+public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser
 		extends BaseTest {
 
 	private String userName;
@@ -60,7 +60,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
 	private static Logger logger = LogManager.getLogger(
-			VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThePagesStructureIsEditedUsingAdminUser.class);
+			VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -542,7 +542,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 	}
 
 	@Test(priority = 0)
-	public void verifyProperOptionDisplayedOnPagesStructureWithAdminUser() {
+	public void verifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser() {
 
 		logger.info("login to application");
 

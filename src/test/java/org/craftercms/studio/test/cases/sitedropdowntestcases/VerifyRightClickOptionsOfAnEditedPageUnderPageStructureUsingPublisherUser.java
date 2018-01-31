@@ -20,8 +20,8 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-// Test Case ID:104
-public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThePagesStructureIsEditedUsingAuthorUser
+//Test Case Studio- Site Dropdown ID:18
+public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser
 		extends BaseTest {
 
 	private String userName;
@@ -50,7 +50,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 	private String adminConsole;
 	private String siteconfigGroupsOption;
 	private String addTouserIframe;
-	private String editAuthorGroupOption;
+	private String editPublisherGroupOption;
 	private String groupsAddNewMembersCheckbox;
 	private String groupsAddNewMembersInput;
 	private String groupsAddNewMembersAutocompleteOption1;
@@ -63,13 +63,14 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 	private String rightclickViewOption;
 	private String rightclickNewContentOption;
 	private String rightclickNewFolderOption;
+	private String rightclickDeleteOption;
 	private String rightclickCutOption;
 	private String rightclickCopyOption;
-	private String rightclickRequestPublishOption;
+	private String rightclickDuplicateOption;
+	private String rightclickApproveAndPublishOption;
 	private String rightclickDependenciesOption;
 	private String rightclickHistoryOption;
 	private String styleLandingpage;
-	private String rightclickDuplicateOption;
 	private String articlesFolder;
 	private String articlesFolder2017;
 	private String articlesFolder1;
@@ -78,7 +79,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
 	private static Logger logger = LogManager.getLogger(
-			VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThePagesStructureIsEditedUsingAuthorUser.class);
+			VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -101,7 +102,6 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 		menStylesForWinterEditedPageName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.pagestree.articlesfolder.menstylesforwinter.page.edited");
 		
-
 		rightclickEditOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.edit.option");
 		rightclickViewOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -110,12 +110,14 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 				.getProperty("rightclick.new.Content.option");
 		rightclickNewFolderOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.new.folder.option");
+		rightclickDeleteOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("rightclick.delete.option");
 		rightclickCutOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.cut.option");
 		rightclickCopyOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.copy.option");
-		rightclickRequestPublishOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("rightclick.requestpublish.option");
+		rightclickApproveAndPublishOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("rightclick.approveandpublish.option");
 		rightclickDependenciesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.dependenciesoption");
 		rightclickHistoryOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -148,7 +150,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 		newUserPasswordVerificationId = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.passwordVerification");
 		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.authorusernamecreated");
+				.getProperty("general.users.publisherusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -159,8 +161,8 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 				.getProperty("home.createsitebutton");
 		addTouserIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.adduser.iframe");
-		editAuthorGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.edit_author_group_option");
+		editPublisherGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("groups.edit_publisher_group_option");
 		groupsAddNewMembersCheckbox = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.add_new_members_checkbox");
 		groupsAddNewMembersInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -238,6 +240,13 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 				"ERROR: Right click New Folder Option is not present on right click of " + section);
 	}
 
+	public void verifyDeleteOptionIsPresent(String section) {
+		WebElement rightclickDeleteOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickDeleteOption);
+		Assert.assertTrue(rightclickDeleteOptionElement.isDisplayed(),
+				"ERROR: Right click Delete Option is not present on right click of " + section);
+	}
+
 	public void verifyCutOptionIsPresent(String section) {
 		WebElement rightclickCutOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				rightclickCutOption);
@@ -252,12 +261,11 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 				"ERROR: Right click Copy Option is not present on right click of " + section);
 	}
 	
-	public void verifyRequestPublishOptionIsPresent(String section) {
-		WebElement rightclickRequestPublishOptionElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickRequestPublishOption);
-		Assert.assertTrue(rightclickRequestPublishOptionElement.isDisplayed(),
-				"ERROR: Right click Request Publish Option is not present on right click of " + section);
-
+	public void verifyApproveAndPublishOptionIsPresent(String section) {
+		WebElement rightclickApproveAndPublishOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickApproveAndPublishOption);
+		Assert.assertTrue(rightclickApproveAndPublishOptionElement.isDisplayed(),
+				"ERROR: Right click Approve and Publish Option is not present on right click of " + section);
 	}
 
 	public void verifyDependenciesOptionIsPresent(String section) {
@@ -294,7 +302,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 			rightClickOptionsListInHomePage.add(3, "New Folder");
 			rightClickOptionsListInHomePage.add(4, "Cut");
 			rightClickOptionsListInHomePage.add(5, "Copy");
-			rightClickOptionsListInHomePage.add(6, "Request Publish");
+			rightClickOptionsListInHomePage.add(6, "Approve & Publish");
 			rightClickOptionsListInHomePage.add(7, "Dependencies");
 			rightClickOptionsListInHomePage.add(8, "History");
 
@@ -318,7 +326,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 			verifyNewFolderOptionIsPresent(section);
 			verifyCutOptionIsPresent(section);
 			verifyCopyOptionIsPresent(section);
-			verifyRequestPublishOptionIsPresent(section);
+			verifyApproveAndPublishOptionIsPresent(section);
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
@@ -339,12 +347,13 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 			rightClickOptionsListInCategoryLandingPage.add(1, "View");
 			rightClickOptionsListInCategoryLandingPage.add(2, "New Content");
 			rightClickOptionsListInCategoryLandingPage.add(3, "New Folder");
-			rightClickOptionsListInCategoryLandingPage.add(4, "Cut");
-			rightClickOptionsListInCategoryLandingPage.add(5, "Copy");
-			rightClickOptionsListInCategoryLandingPage.add(6, "Duplicate");
-			rightClickOptionsListInCategoryLandingPage.add(7, "Request Publish");
-			rightClickOptionsListInCategoryLandingPage.add(8, "Dependencies");
-			rightClickOptionsListInCategoryLandingPage.add(9, "History");
+			rightClickOptionsListInCategoryLandingPage.add(4, "Delete");
+			rightClickOptionsListInCategoryLandingPage.add(5, "Cut");
+			rightClickOptionsListInCategoryLandingPage.add(6, "Copy");
+			rightClickOptionsListInCategoryLandingPage.add(7, "Duplicate");
+			rightClickOptionsListInCategoryLandingPage.add(8, "Approve & Publish");
+			rightClickOptionsListInCategoryLandingPage.add(9, "Dependencies");
+			rightClickOptionsListInCategoryLandingPage.add(10, "History");
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -365,10 +374,11 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 			verifyViewOptionIsPresent(section);
 			verifyNewContentOptionIsPresent(section);
 			verifyNewFolderOptionIsPresent(section);
+			verifyDeleteOptionIsPresent(section);
 			verifyCutOptionIsPresent(section);
 			verifyCopyOptionIsPresent(section);
 			verifyDuplicateOptionIsPresent(section);
-			verifyRequestPublishOptionIsPresent(section);
+			verifyApproveAndPublishOptionIsPresent(section);
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
@@ -401,12 +411,13 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 			rightClickOptionsListInMenStylesForWinterPage.add(1, "View");
 			rightClickOptionsListInMenStylesForWinterPage.add(2, "New Content");
 			rightClickOptionsListInMenStylesForWinterPage.add(3, "New Folder");
-			rightClickOptionsListInMenStylesForWinterPage.add(4, "Cut");
-			rightClickOptionsListInMenStylesForWinterPage.add(5, "Copy");
-			rightClickOptionsListInMenStylesForWinterPage.add(6, "Duplicate");
-			rightClickOptionsListInMenStylesForWinterPage.add(7, "Request Publish");
-			rightClickOptionsListInMenStylesForWinterPage.add(8, "Dependencies");
-			rightClickOptionsListInMenStylesForWinterPage.add(9, "History");
+			rightClickOptionsListInMenStylesForWinterPage.add(4, "Delete");
+			rightClickOptionsListInMenStylesForWinterPage.add(5, "Cut");
+			rightClickOptionsListInMenStylesForWinterPage.add(6, "Copy");
+			rightClickOptionsListInMenStylesForWinterPage.add(7, "Duplicate");
+			rightClickOptionsListInMenStylesForWinterPage.add(8, "Approve & Publish");
+			rightClickOptionsListInMenStylesForWinterPage.add(9, "Dependencies");
+			rightClickOptionsListInMenStylesForWinterPage.add(10, "History");
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -427,10 +438,11 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 			verifyViewOptionIsPresent(section);
 			verifyNewContentOptionIsPresent(section);
 			verifyNewFolderOptionIsPresent(section);
+			verifyDeleteOptionIsPresent(section);
 			verifyCutOptionIsPresent(section);
 			verifyCopyOptionIsPresent(section);
 			verifyDuplicateOptionIsPresent(section);
-			verifyRequestPublishOptionIsPresent(section);
+			verifyApproveAndPublishOptionIsPresent(section);
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
@@ -534,7 +546,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 		usersPage.clickOnNewUser();
 
 		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("author");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("publisher");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
 				.sendKeys("Last Name");
@@ -542,12 +554,12 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
 				.sendKeys("email@email.com");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("author");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("publisher");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("author");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("publisher");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
-				.sendKeys("author");
+				.sendKeys("publisher");
 
 		// Save Button
 		usersPage.clickOnSaveNewUser();
@@ -588,7 +600,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 					"Site creation process is taking too long time and the element was not found");
 	}
 	
-	public void addUserToAuthorGroup() {
+	public void addUserToPublisherGroup() {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
 
@@ -617,11 +629,11 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
-				editAuthorGroupOption);
+				editPublisherGroupOption);
 
 		this.driverManager
 
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editAuthorGroupOption)
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editPublisherGroupOption)
 
 				.click();
 
@@ -645,7 +657,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
 
-				.sendKeys("author");
+				.sendKeys("publisher");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 
@@ -692,7 +704,7 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 	}
 
 	@Test(priority = 0)
-	public void verifyProperOptionDisplayedOnPagesStructureWithAuthorUser() {
+	public void verifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser() {
 
 		this.login(userName, password);
 
@@ -710,17 +722,17 @@ public class VerifyAppDisplaysTheProperOptionsUsingRightClickWhenAnyElementOfThe
 
 		this.driverManager.waitUntilSidebarOpens();
 
-		logger.info("Add previous created user to Author Group");
+		logger.info("Add previous created user to Publisher Group");
 
-		this.addUserToAuthorGroup();
+		this.addUserToPublisherGroup();
 
 		// logout from Crafter
 		logger.info("logout from Crafter");
 		this.logoutFromCrafter();
 
-		// login to application with author user
-		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		// login to application with publisher user
+		logger.info("login to application with publisher user");
+		loginPage.loginToCrafter("publisher", "publisher");
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();

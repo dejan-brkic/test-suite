@@ -20,7 +20,7 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-// Test Case ID:92
+//Test Case Studio- Site Dropdown ID:4
 public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDeveloperUser extends BaseTest {
 
 	private String userName;

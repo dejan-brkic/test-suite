@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-//Test Case ID:155
+//Test Case Studio- Site Dropdown ID:67
 public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked extends BaseTest{
 
 	private String userName;
