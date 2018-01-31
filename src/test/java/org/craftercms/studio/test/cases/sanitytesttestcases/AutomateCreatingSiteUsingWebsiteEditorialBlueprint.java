@@ -61,7 +61,7 @@ public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends BaseTest
 	}
 
 	@Test(priority = 0)
-	public void createSiteWithWebSiteEditorialBluePrintTest() {
+	public void automateCreatingSiteUsingWebsiteEditorialBlueprint() {
 
 		// login to application
 		loginPage.loginToCrafter(

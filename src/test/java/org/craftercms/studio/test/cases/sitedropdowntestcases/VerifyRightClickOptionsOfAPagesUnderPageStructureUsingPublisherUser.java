@@ -641,6 +641,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingPublisherUser
 		logger.info("login to application with publisher user");
 		loginPage.loginToCrafter("publisher", "publisher");
 
+		driverManager.waitUntilLoginCloses();
+		
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 

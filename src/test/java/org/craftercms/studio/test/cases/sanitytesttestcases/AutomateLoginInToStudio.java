@@ -34,7 +34,7 @@ public class AutomateLoginInToStudio extends BaseTest{
 	}
 
 	@Test(priority = 0)
-	public void loginInToStudioTest() {
+	public void automateLoginInToStudio() {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);

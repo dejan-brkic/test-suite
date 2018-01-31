@@ -552,6 +552,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 		logger.info("login to application with reviewer user");
 		loginPage.loginToCrafter("reviewer", "reviewer");
 
+		driverManager.waitUntilLoginCloses();
+		
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
