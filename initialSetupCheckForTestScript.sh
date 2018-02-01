@@ -1,4 +1,8 @@
 #!/bin/bash
+
+WINDOWTITLE="PreTestScript Execution"
+echo -e '\033]2;'$WINDOWTITLE'\007'
+
 #results file for the executions
 FILELOCATION=$(pwd)
 LOGFILENAME="PreTestlog.log"
