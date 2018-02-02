@@ -83,6 +83,7 @@ public class DashboardPage {
 	private String componentsSubTree;
 	private String requestPublishOption;
 	private String requestPublishSubmitButton;
+	private String sitesOptionXpath;
 	private static Logger logger = LogManager.getLogger(DashboardPage.class);
 
 	/**
@@ -206,7 +207,8 @@ public class DashboardPage {
 				.getProperty("rightclick.requestpublish.option");
 		requestPublishSubmitButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.approveandpublishsubmitbutton");
-
+		sitesOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.preview.sitesoption");
 	}
 
 	public DashboardPage(WebDriver driver) {
@@ -1091,6 +1093,12 @@ public class DashboardPage {
 	public void seeThePageEdited() {
 		// See the page edited
 		this.displayPageEdited();
+	}
+	
+	public void clickOnSitesOption() {
+		WebElement siteOptionWebElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				sitesOptionXpath);
+		siteOptionWebElement.click();
 	}
 
 }

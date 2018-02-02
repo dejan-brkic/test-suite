@@ -19,6 +19,7 @@ public class AccountManagementPage {
 	private String newPassword;
 	private String confirmPassword;
 	private String submitButton;
+	private String accountManagementTitle;
 	
 	public AccountManagementPage(WebDriverManager driverManager,
 			UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -33,6 +34,8 @@ public class AccountManagementPage {
 				.getProperty("accountManagement.confirmPass");
 		submitButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("accountManagement.submitButton");
+		accountManagementTitle = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("accountManagement.pageTitle");
 	}
 
 	public AccountManagementPage(WebDriver driver) {
@@ -94,6 +97,10 @@ public class AccountManagementPage {
 
 	public void setDriver(WebDriver driver) {
 		this.driver = driver;
+	}
+	
+	public boolean isAccountManagementTitlePresent() {
+		return this.driverManager.isElementPresentByXpath(accountManagementTitle);
 	}
 
 }

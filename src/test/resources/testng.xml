@@ -340,6 +340,12 @@
 				name="org.craftercms.studio.test.cases.accountmanagementtestcases.ChangePasswordUserTest" />
 		</classes>
 	</test>
+	<test name="Verify that the application shows the account management page when user clicks on settings contextual navigation bar option">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.accountmanagementtestcases.ShowAccountManagementTest" />
+		</classes>
+	</test>
 	<test name="Add New Content Section Defaults Test">
 		<classes>
 			<class
@@ -356,6 +362,16 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
 				name="org.craftercms.studio.test.cases.userstestcases.ShowUsersPageTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test name="Verify that the application shows the sites page when user clicks on sites contextual navigation bar option">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.ShowSitesPageTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
