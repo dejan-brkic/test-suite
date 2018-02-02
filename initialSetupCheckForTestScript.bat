@@ -1,4 +1,5 @@
 @echo off
+title PreTestScript execution
 @rem results file for the executions
 SET FILELOCATION=%cd%
 
@@ -173,6 +174,8 @@ IF %ERRORLEVEL% equ 0 echo [WARN] the stop process failed Port 27020 (MongoDB) i
 @rem moving out of temporary folder
 echo [INFO] moving out from temporary folder > %TEMPLOGFILE% & type %TEMPLOGFILE% > CON & type %TEMPLOGFILE% >> %LOGFILE%
 cd ../..
+
+taskkill /IM cmd.exe /FI "WINDOWTITLE ne PreTestScript*"
 
 echo "Please close all terminal windows (but this one) to continue
 pause
