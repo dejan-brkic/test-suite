@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#setting up the terminal title
 WINDOWTITLE="PreTestScript Execution"
 echo -e '\033]2;'$WINDOWTITLE'\007'
 
