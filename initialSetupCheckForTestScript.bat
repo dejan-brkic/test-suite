@@ -1,4 +1,5 @@
 @echo off
+@rem setting up the command promp title 
 title PreTestScript execution
 @rem results file for the executions
 SET FILELOCATION=%cd%
@@ -175,10 +176,8 @@ IF %ERRORLEVEL% equ 0 echo [WARN] the stop process failed Port 27020 (MongoDB) i
 echo [INFO] moving out from temporary folder > %TEMPLOGFILE% & type %TEMPLOGFILE% > CON & type %TEMPLOGFILE% >> %LOGFILE%
 cd ../..
 
+echo [INFO] closing all the other terminal windows opened by previous processes
 taskkill /IM cmd.exe /FI "WINDOWTITLE ne PreTestScript*"
-
-echo "Please close all terminal windows (but this one) to continue
-pause
 
 @rem deleting temporary folder
 echo [INFO] deleting the temporary folder > %TEMPLOGFILE% & type %TEMPLOGFILE% > CON & type %TEMPLOGFILE% >> %LOGFILE%
