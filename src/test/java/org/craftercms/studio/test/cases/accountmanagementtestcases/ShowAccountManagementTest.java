@@ -14,7 +14,7 @@ public class ShowAccountManagementTest extends BaseTest {
 	private String password;
 	private APIConnectionManager apiConnectionManager;
 	private String accountManagementTitle;
-	final static Logger logger = LogManager.getLogger(ShowAccountManagementTest.class);
+	private static Logger logger = LogManager.getLogger(ShowAccountManagementTest.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -26,7 +26,7 @@ public class ShowAccountManagementTest extends BaseTest {
 	}
 
 	@Test(priority = 0)
-	public void VerifyThatApplicationShowsAccountManagementPageWhenUserClicksSettingsContextualNavigationOption() {
+	public void verifyThatApplicationShowsAccountManagementPageWhenUserClicksSettingsContextualNavigationOption() {
 
 		// login to application
 		logger.info("Login into Crafter");
