@@ -360,6 +360,16 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test name="Verify that the application shows the sites page when user clicks on sites contextual navigation bar option">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.ShowSitesPageTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 	<test name="Add Input Control to an existing Content Type">
 		<classes>
 			<class

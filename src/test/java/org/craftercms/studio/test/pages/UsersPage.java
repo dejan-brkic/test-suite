@@ -36,6 +36,8 @@ public class UsersPage {
 
 	private String deleteNonAdminUserIconXpath;
 
+	private String sitesOptionXpath;
+
 	public UsersPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
 		this.driver = this.driverManager.getDriver();
@@ -55,6 +57,8 @@ public class UsersPage {
 				.getProperty("general.users.deleteusersrows");
 		deleteNonAdminUserIconXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.deletenonadminrow");
+		sitesOptionXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.homesites");
 
 	}
 
@@ -177,5 +181,11 @@ public class UsersPage {
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitUntilElementIsRemoved(element);
 		}
+	}
+
+	public void clickOnSitesOption() {
+		WebElement siteOptionWebElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				sitesOptionXpath);
+		siteOptionWebElement.click();
 	}
 }

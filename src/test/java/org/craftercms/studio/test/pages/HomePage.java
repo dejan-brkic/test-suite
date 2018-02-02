@@ -29,6 +29,8 @@ public class HomePage {
 	private String signOutLink;
 	private String usersContextualNavigationOption;
 	private String deleteIconsListXpath;
+	private String sitesOptionXpath;
+	private String sitesPageTitleXpath;
 	private static Logger logger = LogManager.getLogger(HomePage.class);
 
 	public HomePage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -47,6 +49,10 @@ public class HomePage {
 				.getProperty("home.userscontextualnavigationoption");
 		deleteIconsListXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.deletesiteiconlist");
+		sitesOptionXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.homesites");
+		sitesPageTitleXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("sites.pagetitle");
 	}
 
 	// Click on preview link
@@ -186,4 +192,15 @@ public class HomePage {
 			this.driverManager.waitUntilElementIsRemoved(element);
 		}
 	}
+	
+	public void clickOnSitesOption() {
+		WebElement siteOptionWebElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				sitesOptionXpath);
+		siteOptionWebElement.click();
+	}
+
+	public boolean isSitePageTitlePresent() {
+		return this.driverManager.isElementPresentByXpath(sitesPageTitleXpath);
+	}
+
 }
