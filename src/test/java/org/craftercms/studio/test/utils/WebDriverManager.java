@@ -524,6 +524,19 @@ public class WebDriverManager {
 					ExpectedConditions.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "")));
 		}
 	}
+	
+	public void waitUntilAddUserModalCloses() {
+		logger.debug("Waiting for add user dialog to close");
+		this.waitForAnimation();
+		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
+				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
+			new WebDriverWait(this.driver, defaultTimeOut).until(ExpectedConditions
+					.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "iewarning")));
+		} else {
+			new WebDriverWait(this.driver, defaultTimeOut).until(
+					ExpectedConditions.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "")));
+		}
+	}
 
 	public void waitUntilFolderOpens(String selectorType, String selectorValue) {
 		logger.debug("Waiting for folder to open: {}, {}", selectorType, selectorValue);
