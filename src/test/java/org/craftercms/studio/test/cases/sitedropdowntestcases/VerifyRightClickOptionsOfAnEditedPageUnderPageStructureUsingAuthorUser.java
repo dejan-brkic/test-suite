@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -542,11 +541,9 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		this.driverManager.waitForAnimation();
 		homePage.goToPreviewPage();
 
-		if (this.driverManager.isElementPresentByXpath(siteDropdownElementXPath))
+		this.driverManager.waitForAnimation();
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed())
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
-		else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
 	}
 
 	public void addUserToAuthorGroup() {

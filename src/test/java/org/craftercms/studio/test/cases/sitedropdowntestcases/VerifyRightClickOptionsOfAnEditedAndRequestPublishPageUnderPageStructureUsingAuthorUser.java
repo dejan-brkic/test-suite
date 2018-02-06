@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -51,14 +50,12 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	private String navigationSitebarNameId;
 	private String userOptions;
 	private String userOptionsLogout;
-
 	private String rightclickEditOption;
 	private String rightclickViewOption;
 	private String rightclickNewContentOption;
 	private String rightclickNewFolderOption;
 	private String rightclickCutOption;
 	private String rightclickCopyOption;
-	private String rightclickRequestPublishOption;
 	private String rightclickDependenciesOption;
 	private String rightclickHistoryOption;
 	private String styleLandingpage;
@@ -105,8 +102,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("rightclick.cut.option");
 		rightclickCopyOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.copy.option");
-		rightclickRequestPublishOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("rightclick.requestpublish.option");
 		rightclickDependenciesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.dependenciesoption");
 		rightclickHistoryOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -232,13 +227,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				"ERROR: Right click Copy Option is not present on right click of " + section);
 	}
 
-	public void verifyRequestPublishOptionIsPresent(String section) {
-		WebElement rightclickRequestPublishOptionElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickRequestPublishOption);
-		Assert.assertTrue(rightclickRequestPublishOptionElement.isDisplayed(),
-				"ERROR: Right click Request Publish Option is not present on right click of " + section);
-	}
-
 	public void verifyDependenciesOptionIsPresent(String section) {
 		WebElement rightclickDependenciesOptionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickDependenciesOption);
@@ -274,9 +262,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 			rightClickOptionsListInHomePage.add(3, "New Folder");
 			rightClickOptionsListInHomePage.add(4, "Cut");
 			rightClickOptionsListInHomePage.add(5, "Copy");
-			rightClickOptionsListInHomePage.add(6, "Request Publish");
-			rightClickOptionsListInHomePage.add(7, "Dependencies");
-			rightClickOptionsListInHomePage.add(8, "History");
+			rightClickOptionsListInHomePage.add(6, "Dependencies");
+			rightClickOptionsListInHomePage.add(7, "History");
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -298,7 +285,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 			verifyNewFolderOptionIsPresent(section);
 			verifyCutOptionIsPresent(section);
 			verifyCopyOptionIsPresent(section);
-			verifyRequestPublishOptionIsPresent(section);
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
@@ -324,9 +310,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 			rightClickOptionsListInCategoryLandingPage.add(4, "Cut");
 			rightClickOptionsListInCategoryLandingPage.add(5, "Copy");
 			rightClickOptionsListInCategoryLandingPage.add(6, "Duplicate");
-			rightClickOptionsListInCategoryLandingPage.add(7, "Request Publish");
-			rightClickOptionsListInCategoryLandingPage.add(8, "Dependencies");
-			rightClickOptionsListInCategoryLandingPage.add(9, "History");
+			rightClickOptionsListInCategoryLandingPage.add(7, "Dependencies");
+			rightClickOptionsListInCategoryLandingPage.add(8, "History");
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -350,7 +335,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 			verifyCutOptionIsPresent(section);
 			verifyCopyOptionIsPresent(section);
 			verifyDuplicateOptionIsPresent(section);
-			verifyRequestPublishOptionIsPresent(section);
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
@@ -388,9 +372,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 			rightClickOptionsListInMenStylesForWinterPage.add(4, "Cut");
 			rightClickOptionsListInMenStylesForWinterPage.add(5, "Copy");
 			rightClickOptionsListInMenStylesForWinterPage.add(6, "Duplicate");
-			rightClickOptionsListInMenStylesForWinterPage.add(7, "Request Publish");
-			rightClickOptionsListInMenStylesForWinterPage.add(8, "Dependencies");
-			rightClickOptionsListInMenStylesForWinterPage.add(9, "History");
+			rightClickOptionsListInMenStylesForWinterPage.add(7, "Dependencies");
+			rightClickOptionsListInMenStylesForWinterPage.add(8, "History");
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -414,7 +397,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 			verifyCutOptionIsPresent(section);
 			verifyCopyOptionIsPresent(section);
 			verifyDuplicateOptionIsPresent(section);
-			verifyRequestPublishOptionIsPresent(section);
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
@@ -547,12 +529,11 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.waitForAnimation();
 		homePage.goToPreviewPage();
 
+
 		this.driverManager.waitForAnimation();
-		if (this.driverManager.isElementPresentByXpath(siteDropdownElementXPath))
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed())
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
-		else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
+	
 	}
 
 	public void addUserToAuthorGroup() {
