@@ -20,9 +20,8 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-//Test Case Studio- Site Dropdown ID:16
-public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorUser
-		extends BaseTest {
+// Test Case Studio- Site Dropdown ID:16
+public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorUser extends BaseTest {
 
 	private String userName;
 	private String password;
@@ -36,13 +35,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-	
-	private String newUserFirstNameId;
-	private String newUserLastNameId;
-	private String newUserEmailId;
-	private String newUserUserNameId;
-	private String newUserPasswordId;
-	private String newUserPasswordVerificationId;
 	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
@@ -77,8 +69,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 	private LinkedList<String> rightClickOptionsListInHomePage;
 	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
-	private static Logger logger = LogManager.getLogger(
-			VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorUser.class);
+	private static Logger logger = LogManager
+			.getLogger(VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorUser.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -100,7 +92,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 				.getProperty("dashboard.new_home_Content_Page_name_edited_expand");
 		menStylesForWinterEditedPageName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.pagestree.articlesfolder.menstylesforwinter.page.edited");
-		
 
 		rightclickEditOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.edit.option");
@@ -136,17 +127,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserFirstNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.firstname");
-		newUserLastNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.lastname");
-		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.users.email");
-		newUserUserNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.username");
-		newUserPasswordId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.password");
-		newUserPasswordVerificationId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.passwordVerification");
 		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.authorusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
@@ -251,7 +231,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		Assert.assertTrue(rightclickCopyOptionElement.isDisplayed(),
 				"ERROR: Right click Copy Option is not present on right click of " + section);
 	}
-	
+
 	public void verifyRequestPublishOptionIsPresent(String section) {
 		WebElement rightclickRequestPublishOptionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickRequestPublishOption);
@@ -331,7 +311,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 	public void step6() {
 		// Step 6 Right click on any Category Landing page and verify options
 		this.rightClickCategoryLandingPage();
-		
+
 		driverManager.usingContextMenu(() -> {
 			logger.info("Checking that only the expected options are listed");
 			rightClickOptionsListInCategoryLandingPage = new LinkedList<String>();
@@ -394,7 +374,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		this.rightClickArticlesFolderMenStylesForWinter();
 
 		driverManager.usingContextMenu(() -> {
-			
+
 			logger.info("Checking that only the expected options are listed");
 			rightClickOptionsListInMenStylesForWinterPage = new LinkedList<String>();
 			rightClickOptionsListInMenStylesForWinterPage.add(0, "Edit");
@@ -513,7 +493,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		}
 
 	}
-	
+
 	public void login(String user, String loginpassword) {
 
 		// login to application
@@ -522,7 +502,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		// Wait for login page to close
 		driverManager.waitUntilLoginCloses();
 	}
-	
+
 	public void addNewUser() {
 
 		// click On Users option
@@ -530,28 +510,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
-
-		usersPage.clickOnNewUser();
-
-		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
-				.sendKeys("Last Name");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
-				.sendKeys("email@email.com");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
-				.sendKeys("author");
-
-		// Save Button
-		usersPage.clickOnSaveNewUser();
-
+		usersPage.addNewUser("author");
+		
 		// Assert new users created is present
 		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				newUserUserNameCreatedXpath);
@@ -563,6 +523,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		driverManager.getDriver().navigate().refresh();
 
 		driverManager.getDriver().switchTo().defaultContent();
+		
+		this.driverManager.waitForAnimation();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
@@ -572,12 +534,11 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 
 				crafterLogo).click();
 	}
-	
+
 	private void goToSiteContentPagesStructure() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				createSiteButton);
-		
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createSiteButton);
+
 		this.driverManager.waitForAnimation();
 		homePage.goToPreviewPage();
 
@@ -587,7 +548,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 			throw new NoSuchElementException(
 					"Site creation process is taking too long time and the element was not found");
 	}
-	
+
 	public void addUserToAuthorGroup() {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
@@ -678,7 +639,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
 	}
-	
+
 	private void logoutFromCrafter() {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
@@ -723,7 +684,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		loginPage.loginToCrafter("author", "author");
 
 		driverManager.waitUntilLoginCloses();
-		
+
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
@@ -731,9 +692,9 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 
 		// Expand the site bar
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-		
+
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-		
+
 		// Step 2 Expand the site bar Step No needed
 		// Step 3 Click on Pages tree
 		WebElement pagesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",

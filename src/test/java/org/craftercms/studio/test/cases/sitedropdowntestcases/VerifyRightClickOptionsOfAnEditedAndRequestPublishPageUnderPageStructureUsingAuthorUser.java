@@ -36,13 +36,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-
-	private String newUserFirstNameId;
-	private String newUserLastNameId;
-	private String newUserEmailId;
-	private String newUserUserNameId;
-	private String newUserPasswordId;
-	private String newUserPasswordVerificationId;
 	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
@@ -100,7 +93,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("dashboard.new_home_Content_Page_name_edited_expand");
 		menStylesForWinterEditedPageName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.pagestree.articlesfolder.menstylesforwinter.page.edited");
-
 		rightclickEditOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.edit.option");
 		rightclickViewOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -135,17 +127,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserFirstNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.firstname");
-		newUserLastNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.lastname");
-		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.users.email");
-		newUserUserNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.username");
-		newUserPasswordId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.password");
-		newUserPasswordVerificationId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.passwordVerification");
 		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.authorusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
@@ -534,26 +515,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// click on new user button
 
-		usersPage.clickOnNewUser();
-
-		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
-				.sendKeys("Last Name");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
-				.sendKeys("email@email.com");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
-				.sendKeys("author");
-
-		// Save Button
-		usersPage.clickOnSaveNewUser();
+		usersPage.addNewUser("author");
 
 		// Assert new users created is present
 		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
@@ -567,6 +529,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		driverManager.getDriver().switchTo().defaultContent();
 
+		this.driverManager.waitForAnimation();
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				crafterLogo);
@@ -583,6 +547,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.waitForAnimation();
 		homePage.goToPreviewPage();
 
+		this.driverManager.waitForAnimation();
 		if (this.driverManager.isElementPresentByXpath(siteDropdownElementXPath))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 		else
