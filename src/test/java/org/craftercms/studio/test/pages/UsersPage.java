@@ -29,36 +29,50 @@ public class UsersPage {
 	private String editUserOption;
 	private String usersPageTitle;
 	private String crafterLogo;
-
 	private String deleteYesButtonXpath;
-
 	private String deleteUsersRowsXpath;
-
 	private String deleteNonAdminUserIconXpath;
-
 	private String sitesOptionXpath;
+	private String newUserFirstNameId;
+	private String newUserLastNameId;
+	private String newUserEmailId;
+	private String newUserUserNameId;
+	private String newUserPasswordId;
+	private String newUserPasswordVerificationId;
 
-	public UsersPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
+
+	public UsersPage(WebDriverManager driverManager, UIElementsPropertiesManager uiElementsPropertiesManager) {
 		this.driverManager = driverManager;
 		this.driver = this.driverManager.getDriver();
 
-		deleteUserOption = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.delete_option");
-		newUserOption = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.new_user");
-		saveNewUserOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		deleteUserOption = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.delete_option");
+		newUserOption = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.new_user");
+		saveNewUserOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("users.save_new_user");
-		deleteUserOptionNonAdmin = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		deleteUserOptionNonAdmin = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("users.delete_option_nonadminuser");
-		editUserOption = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.edit_option");
-		usersPageTitle = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.page_title");
-		crafterLogo = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
-		deleteYesButtonXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		editUserOption = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.edit_option");
+		usersPageTitle = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.page_title");
+		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
+		deleteYesButtonXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.deleteyesbutton");
-		deleteUsersRowsXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		deleteUsersRowsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.deleteusersrows");
-		deleteNonAdminUserIconXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		deleteNonAdminUserIconXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.deletenonadminrow");
-		sitesOptionXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		sitesOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.homesites");
+		newUserFirstNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.users.firstname");
+		newUserLastNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.users.lastname");
+		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.users.email");
+		newUserUserNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.users.username");
+		newUserPasswordId = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.users.password");
+		newUserPasswordVerificationId = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.users.passwordVerification");
 
 	}
 
@@ -187,5 +201,32 @@ public class UsersPage {
 		WebElement siteOptionWebElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				sitesOptionXpath);
 		siteOptionWebElement.click();
+	}
+	
+	public void addNewUser(String userName) {
+
+		// click on new user button
+		clickOnNewUser();
+
+		// Follow the form
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys(userName);
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
+				.sendKeys("LastName");
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
+				.sendKeys("email@email.com");
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys(userName);
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys(userName);
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
+				.sendKeys(userName);
+
+		// Save Button
+		clickOnSaveNewUser();
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilAddUserModalCloses();
 	}
 }

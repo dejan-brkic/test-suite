@@ -36,13 +36,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-	
-	private String newUserFirstNameId;
-	private String newUserLastNameId;
-	private String newUserEmailId;
-	private String newUserUserNameId;
-	private String newUserPasswordId;
-	private String newUserPasswordVerificationId;
 	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
@@ -138,17 +131,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserFirstNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.firstname");
-		newUserLastNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.lastname");
-		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.users.email");
-		newUserUserNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.username");
-		newUserPasswordId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.password");
-		newUserPasswordVerificationId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.passwordVerification");
 		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.publisherusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
@@ -542,27 +524,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
-
-		usersPage.clickOnNewUser();
-
-		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("publisher");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
-				.sendKeys("Last Name");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
-				.sendKeys("email@email.com");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("publisher");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("publisher");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
-				.sendKeys("publisher");
-
-		// Save Button
-		usersPage.clickOnSaveNewUser();
+		usersPage.addNewUser("publisher");
 
 		// Assert new users created is present
 		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
@@ -576,6 +538,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 
 		driverManager.getDriver().switchTo().defaultContent();
 
+		this.driverManager.waitForAnimation();
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				crafterLogo);
@@ -593,6 +557,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		this.driverManager.waitForAnimation();
 		homePage.goToPreviewPage();
 
+		this.driverManager.waitForAnimation();
 		if (this.driverManager.isElementPresentByXpath(siteDropdownElementXPath))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 		else
