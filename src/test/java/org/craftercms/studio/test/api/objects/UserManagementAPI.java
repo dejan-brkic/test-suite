@@ -432,13 +432,14 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername);
 		json.put("current", newpassword);
-		json.put("new", newusername + "#");
+		json.put("new", newpassword + "new");
 
 		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(200)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("OK")).debug();
-
+		
+		setNewpassword(newpassword + "new");
 	}
 
 	public void testChangePasswordInvalidParameters() {
@@ -461,16 +462,6 @@ public class UserManagementAPI extends BaseAPI {
 		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(401);
 				//.json("$.message", is("Unauthorized")).debug();
 
-	}
-
-	public void testChangePasswordUserNotFound() {
-		Map<String, Object> json = new HashMap<>();
-		json.put("username", newusername);
-		json.put("current", newpassword);
-		json.put("new", newpassword + "#");
-
-		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(404)
-				.json("$.message", is("User not found")).debug();
 	}
 
 	public void testResetPassword() {
