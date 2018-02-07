@@ -464,16 +464,6 @@ public class UserManagementAPI extends BaseAPI {
 
 	}
 
-	public void testChangePasswordUserNotFound() {
-		Map<String, Object> json = new HashMap<>();
-		json.put("username", newusername);
-		json.put("current", newpassword);
-		json.put("new", newpassword + "#");
-
-		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(404)
-				.json("$.message", is("User not found")).debug();
-	}
-
 	public void testResetPassword() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername);

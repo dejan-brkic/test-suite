@@ -30,20 +30,19 @@ public class ChangePasswordAPITest {
 		securityAPI.logInIntoStudioUsingAPICall();
 		userManagementAPI.testCreateUser();
 		securityAPI.logOutFromStudioUsingAPICall();
+		securityAPI.loginWithOtherUser(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
 	}
 
 	@Test(priority = 1)
+	public void testChangePasswordInvalidParameters() {
+		userManagementAPI.testChangePasswordInvalidParameters();
+	}
+	
+	@Test(priority = 2)
 	public void testChangePassword() {
-		securityAPI.loginWithOtherUser(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
 		userManagementAPI.testChangePassword();
 		securityAPI.logOutFromStudioUsingAPICall();
 		securityAPI.loginWithOtherUser(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
-	}
-
-	@Test(priority = 2)
-	public void testInvalidParameters() {
-		
-		userManagementAPI.testChangePasswordInvalidParameters();
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 
