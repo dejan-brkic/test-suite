@@ -179,11 +179,12 @@ public class JsonRequest {
 	protected HttpEntity buildMultipart() throws UnsupportedEncodingException, JsonProcessingException {
 		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 		if (!params.isEmpty()) {
-			FormBodyPartBuilder paramsBodyPartBuilder = FormBodyPartBuilder.create();
 			for (String s : params.keySet()) {
-				paramsBodyPartBuilder.addField(s, params.get(s));
+				FormBodyPartBuilder paramsBodyPartBuilder = FormBodyPartBuilder.create();
+				paramsBodyPartBuilder.setName(s);
+				paramsBodyPartBuilder.setBody(new StringBody(params.get(s), ContentType.TEXT_PLAIN));
+				builder.addPart(paramsBodyPartBuilder.build());
 			}
-			builder.addPart(paramsBodyPartBuilder.build());
 		}
 		if (jsonParam != null) {
 			FormBodyPartBuilder jsonBodyPartBuilder = FormBodyPartBuilder.create();
