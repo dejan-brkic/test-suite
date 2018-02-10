@@ -7,7 +7,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.userstestcases.TryToDeleteUserConnectedTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Login Test And Logout Test">
 		<classes>
 			<class
@@ -15,7 +15,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.loginlogouttestcases.LogOutTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Add New Content Entry Test">
 		<classes>
 			<class
@@ -25,7 +25,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Add New Folder Test">
 		<classes>
 			<class
@@ -35,13 +35,13 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Cancel Create Site Process Test">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CancelCreateSiteProcessTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Copy Paste Content Test">
 		<classes>
 			<class
@@ -51,7 +51,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Copy Paste Into Folder Test">
 		<classes>
 			<class
@@ -61,7 +61,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Create Site Using Empty Blueprint">
 		<classes>
 			<class
@@ -69,7 +69,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Content Type Drag and Drop">
 		<classes>
 			<class
@@ -79,7 +79,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Cut Paste Content">
 		<classes>
 			<class
@@ -89,7 +89,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Delete Content Test">
 		<classes>
 			<class
@@ -99,7 +99,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Delete Option Test">
 		<classes>
 			<class
@@ -109,7 +109,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Delete Site Test">
 		<classes>
 			<class
@@ -117,7 +117,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Design Of Create Site Page Test">
 		<classes>
 			<class
@@ -127,7 +127,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Design Of Preview Page Test">
 		<classes>
 			<class
@@ -137,7 +137,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Design Of Preview Tools Panel Test">
 		<classes>
 			<class
@@ -147,7 +147,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Design Of Workflow Section Test">
 		<classes>
 			<class
@@ -157,7 +157,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Duplicate Option Test">
 		<classes>
 			<class
@@ -167,7 +167,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Edit Content Form Test">
 		<classes>
 			<class
@@ -177,7 +177,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Edit Content Recently Created Test">
 		<classes>
 			<class
@@ -187,7 +187,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Edit Option Test">
 		<classes>
 			<class
@@ -197,7 +197,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Enable Disable Editing In Context Test">
 		<classes>
 			<class
@@ -207,7 +207,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Filter Show Recent Activity Test">
 		<classes>
 			<class
@@ -217,7 +217,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="History Option Test">
 		<classes>
 			<class
@@ -227,7 +227,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Publishing Site Test">
 		<classes>
 			<class
@@ -237,7 +237,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Show Hide Site Content Test">
 		<classes>
 			<class
@@ -247,7 +247,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Validations Of Create Site Fields Test">
 		<classes>
 			<class
@@ -257,7 +257,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Wrong Login Test">
 		<classes>
 			<class
@@ -267,7 +267,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Dependencies Option Test">
 		<classes>
 			<class
@@ -277,7 +277,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="New User Test and Delete User Test">
 		<classes>
 			<class
@@ -285,13 +285,12 @@
 			<class
 				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
 		</classes>
-	</test>  
+	</test>
 	<test name="Edit User Test">
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.EditUserTest" />
+			<class name="org.craftercms.studio.test.cases.userstestcases.EditUserTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Design of Users Page Test">
 		<classes>
 			<class
@@ -340,6 +339,13 @@
 				name="org.craftercms.studio.test.cases.accountmanagementtestcases.ChangePasswordUserTest" />
 		</classes>
 	</test>
+	<test
+		name="Verify that the application shows the account management page when user clicks on settings contextual navigation bar option">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.accountmanagementtestcases.ShowAccountManagementTest" />
+		</classes>
+	</test>
 	<test name="Add New Content Section Defaults Test">
 		<classes>
 			<class
@@ -356,6 +362,17 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
 				name="org.craftercms.studio.test.cases.userstestcases.ShowUsersPageTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that the application shows the sites page when user clicks on sites contextual navigation bar option">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.ShowSitesPageTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -561,13 +578,13 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
-		<test name="Verify that the application displays the proper set of dropdown (Sidebar) components/options on the Site Dropdown panel Test Case With Admin User">
+	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Admin User">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminUser" />
 		</classes>
 	</test>
-		<test name="Verify that the application displays the proper set of dropdown (Sidebar) components/options on the Site Dropdown panel Test Case With Author User">
+		<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Author User">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
@@ -579,7 +596,7 @@
 				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
 		</classes>
 	</test>
-		<test name="Verify that the application displays the proper set of dropdown (Sidebar) components/options on the Site Dropdown panel Test Case With Developer User">
+		<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Developer User">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
@@ -591,7 +608,7 @@
 				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
 		</classes>
 	</test>
-		<test name="Verify that the application displays the proper set of dropdown (Sidebar) components/options on the Site Dropdown panel Test Case With Publisher User">
+		<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Publisher User">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
@@ -603,7 +620,7 @@
 				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
 		</classes>
 	</test>
-		<test name="Verify that the application displays the proper set of dropdown (Sidebar) components/options on the Site Dropdown panel Test Case With Reviewer User">
+		<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Reviewer User">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
@@ -615,10 +632,178 @@
 				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
 		</classes>
 	</test>
-		<test name="Verify that the application redirects to the “Site Config” page when the “Site Config” option is clicked">
+		<test name="Verify that the application redirects to the Site Config page when the Site Config option is clicked">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked" />
+		</classes>
+	</test>
+		<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with admin user">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser" />
+		</classes>
+	</test>
+			<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with author user">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+				<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Developer user">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingDeveloperUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+				<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Publisher user">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingPublisherUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+				<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Reviewer user">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Admin User">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Author User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Developer User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingDeveloperUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Publisher User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Reviewer User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewerUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Admin User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingAdminUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Author User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingAuthorUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Developer User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingDeveloperUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Publisher User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingPublisherUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+			<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Reviewer User">
+				<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingReviewerUser" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
 		</classes>
 	</test>
 </suite> <!-- Suite -->

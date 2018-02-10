@@ -148,7 +148,7 @@ public class Crafter3LoadTest1Script extends BaseTest {
 
 		// go to preview page
 		homePage.goToPreviewPage();
-		if (this.driverManager.isElementPresentByXpath(siteDropdownElementXPath))
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).isDisplayed())
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 		else
 			throw new NoSuchElementException(
@@ -475,6 +475,7 @@ public class Crafter3LoadTest1Script extends BaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", mytestFolderLocator);
 		dashboardPage.expandParentFolder(mytestFolderLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				myTestBigTreeChildFolderLocator);
 		dashboardPage.rightClickCutAFolder(myTestBigTreeChildFolderLocator);

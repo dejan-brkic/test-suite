@@ -38,9 +38,7 @@ public class GetUserPerSiteAPITest {
 		userManagementAPI.testCreateUser();
 		siteManagementAPI.testCreateSite(siteId);
 		groupManagementAPI.testCreateStudioGroup01(siteManagementAPI.getSiteId());
-		groupManagementAPI.testCreateStudioGroup02(siteManagementAPI.getSiteId());
 		groupManagementAPI.testAddUserToGroup01(userManagementAPI.getNewusername(), siteManagementAPI.getSiteId());
-		groupManagementAPI.testAddUserToGroup02(userManagementAPI.getNewusername(), siteManagementAPI.getSiteId());
 	}
 	
 	@Test(priority=1,groups={"getUsersPerSite"})

@@ -4,8 +4,8 @@ import org.craftercms.studio.test.api.objects.SecurityAPI;
 import org.craftercms.studio.test.api.objects.UserManagementAPI;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 /**
@@ -25,40 +25,33 @@ public class ChangePasswordAPITest {
 		userManagementAPI = new UserManagementAPI(api,apiConnectionManager);
 	}
 
-	@BeforeMethod
+	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
 		userManagementAPI.testCreateUser();
-		
+		securityAPI.logOutFromStudioUsingAPICall();
+		securityAPI.loginWithOtherUser(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
 	}
 
 	@Test(priority = 1)
-	public void testChangePassword() {
-		securityAPI.logOutFromStudioUsingAPICall();
-		securityAPI.loginWithOtherUser(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
-		userManagementAPI.testChangePassword();
-		securityAPI.logOutFromStudioOtherUserUsingAPICall(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
-		securityAPI.logInIntoStudioUsingAPICall();
-	}
-
-	@Test(priority = 2)
-	public void testInvalidParameters() {
-		securityAPI.logOutFromStudioUsingAPICall();
-		securityAPI.loginWithOtherUser(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
+	public void testChangePasswordInvalidParameters() {
 		userManagementAPI.testChangePasswordInvalidParameters();
-		securityAPI.logOutFromStudioOtherUserUsingAPICall(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
-		securityAPI.logInIntoStudioUsingAPICall();
-		
+	}
+	
+	@Test(priority = 2)
+	public void testChangePassword() {
+		userManagementAPI.testChangePassword();
+		securityAPI.logOutFromStudioUsingAPICall();
+		securityAPI.loginWithOtherUser(userManagementAPI.getNewusername(), userManagementAPI.getNewpassword());
+		securityAPI.logOutFromStudioUsingAPICall();
 	}
 
 	@Test(priority = 3)
 	public void testUnauthorized() {
-		securityAPI.logOutFromStudioUsingAPICall();
 		userManagementAPI.testChangePasswordUnauthorized();
-		securityAPI.logInIntoStudioUsingAPICall();
 	}
 	
-	@AfterMethod
+	@AfterTest
 	public void afterTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
 		userManagementAPI.testDeleteUser();

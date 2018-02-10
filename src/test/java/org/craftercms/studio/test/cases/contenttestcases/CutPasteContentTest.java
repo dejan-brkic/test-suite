@@ -92,10 +92,13 @@ public class CutPasteContentTest extends BaseTest {
 
 		// select main content
 		logger.debug("Select Main content");
+		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath).click();
 
 		// Body not required
 		logger.debug("Disable RTE for the selected content");
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckCss)
 				.click();
 

@@ -29,7 +29,7 @@ public class AutomateCheckItemsInSiteConfig extends BaseTest{
 	private String siteConfigConfigurationOption;
 	private String siteConfigGroupsOption;
 	private String siteConfigAuditOption;
-	private String siteConfigBulkOperationsOption;
+	private String siteConfigPublishOperationsOption;
 	private String siteConfigWorkflowStatesoption;
 	private String siteConfigLoggingLevelsOption;
 	private String siteConfigLogConsoleOption;
@@ -57,8 +57,8 @@ public class AutomateCheckItemsInSiteConfig extends BaseTest{
 				.getProperty("adminconsole.groups_option");
 		siteConfigAuditOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.audit_option");
-		siteConfigBulkOperationsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.bulk_operations_option");
+		siteConfigPublishOperationsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.publish_operations_option");
 		siteConfigWorkflowStatesoption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.workflowstates_option");
 		siteConfigLoggingLevelsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -92,7 +92,7 @@ public class AutomateCheckItemsInSiteConfig extends BaseTest{
 	}
 
 	@Test(priority = 0)
-	public void createSiteWithWebSiteEditorialBluePrintTest() {
+	public void automateCheckItemsInSiteConfig() {
 
 		// login to application
 		loginPage.loginToCrafter(
@@ -152,8 +152,8 @@ public class AutomateCheckItemsInSiteConfig extends BaseTest{
 		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigAuditOption),
 				"ERROR: Audit option is not present");
 		
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigBulkOperationsOption),
-				"ERROR: Bulk Operations option is not present");
+		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigPublishOperationsOption),
+				"ERROR: Publishing Operations option is not present");
 		
 		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigWorkflowStatesoption),
 				"ERROR: Workflow States option is not present");

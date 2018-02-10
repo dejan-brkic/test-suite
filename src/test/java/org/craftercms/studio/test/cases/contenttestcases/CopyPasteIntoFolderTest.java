@@ -30,8 +30,6 @@ public class CopyPasteIntoFolderTest extends BaseTest {
 
 	private String firstCopiedElementXPath;
 
-	private String myRecentActivityBodyXpath;
-
 	private String myRecentActivityItemsCounterXpath;
 
 	@BeforeMethod
@@ -48,8 +46,6 @@ public class CopyPasteIntoFolderTest extends BaseTest {
 				.getProperty("general.myrecentactivity.firstelementurl");
 		secondCopiedElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.secondelementurl");
-		myRecentActivityBodyXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.myrecentactivity.body");
 		myRecentActivityItemsCounterXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.itemscounter");
 
@@ -140,16 +136,18 @@ public class CopyPasteIntoFolderTest extends BaseTest {
 		dashboardPage.rightClickToPasteToNewFolder();
 		
 		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilAttributeContains("xpath", myRecentActivityBodyXpath, "style", "display: block;");
-		
-		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilPageLoad();
 		
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilTextIs("xpath", myRecentActivityItemsCounterXpath, "3");
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstCopiedElementXPath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", secondCopiedElementXPath);
 		
+		this.driverManager.waitForAnimation();
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstCopiedElementXPath).getText()
 				.contains("/foldertocopy/test1-"));
+		this.driverManager.waitForAnimation();
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", secondCopiedElementXPath).getText()
 				.equalsIgnoreCase("/foldertocopy/test1"));
 

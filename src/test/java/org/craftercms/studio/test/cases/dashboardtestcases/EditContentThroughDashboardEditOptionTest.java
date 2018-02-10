@@ -140,11 +140,13 @@ public class EditContentThroughDashboardEditOptionTest extends BaseTest {
 		driverManager.getDriver().switchTo().defaultContent();
 
 		// select main content
+		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath).click();
 
 		// Mark Body not required
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckCss)
-				.click();
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckCss).click();
 		// save
 		siteConfigPage.saveDragAndDropProcess();
 	}
@@ -261,11 +263,8 @@ public class EditContentThroughDashboardEditOptionTest extends BaseTest {
 	}
 
 	public void goToDashboard() {
-
 		// Go to dashboard page
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLogoId).click();
-
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", crafterLogoId).click();
 	}
 
 	@Test(priority = 0)
@@ -291,13 +290,16 @@ public class EditContentThroughDashboardEditOptionTest extends BaseTest {
 		dragAndDrop();
 
 		driverManager.getDriver().switchTo().defaultContent();
-
+		this.driverManager.getDriver().navigate().refresh();
+		this.driverManager.waitForAnimation();
+		
 		goToDashboard();
 
 		bodyNotRequiered();
 
 		driverManager.getDriver().switchTo().defaultContent();
-
+		this.driverManager.getDriver().navigate().refresh();
+		this.driverManager.waitForAnimation();
 		// go to dashboard
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLogoId).click();
 

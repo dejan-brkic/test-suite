@@ -46,10 +46,7 @@ public class SecurityAPI extends BaseAPI{
 	}
 
 	public void logOutFromStudioUsingAPICall() {
-		Map<String, Object> json = new HashMap<>();
-		json.put("username", userName);
-		json.put("password", password);
-		api.post("/studio/api/1/services/api/1/security/logout.json").json(json).execute().status(200);
+		api.post("/studio/api/1/services/api/1/security/logout.json").execute().status(200);
 	}
 	
 	public void loginWithOtherUser(String username, String password) {
@@ -57,13 +54,6 @@ public class SecurityAPI extends BaseAPI{
 		json.put("username", username);
 		json.put("password", password);
 		api.post("/studio/api/1/services/api/1/security/login.json").json(json).execute().status(200);
-	}
-	
-	public void logOutFromStudioOtherUserUsingAPICall(String username, String password) {
-		Map<String, Object> json = new HashMap<>();
-		json.put("username", username);
-		json.put("password", password);
-		api.post("/studio/api/1/services/api/1/security/logout.json").json(json).execute().status(200);
 	}
 
 	public void testValidateSession() {

@@ -148,6 +148,7 @@ public class PublishingSiteTest extends BaseTest {
 		// expand home content
 		this.driverManager.waitUntilPageLoad();
 		this.driverManager.waitUntilSidebarOpens();
+	
 
 		dashboardPage.expandHomeTree();
 

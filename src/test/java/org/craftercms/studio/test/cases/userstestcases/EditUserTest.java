@@ -1,11 +1,9 @@
 package org.craftercms.studio.test.cases.userstestcases;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import java.util.List;
 import org.craftercms.studio.test.cases.BaseTest;
 
 /**
@@ -136,16 +134,17 @@ public class EditUserTest extends BaseTest {
 		// Click on delete user
 		usersPage.deleteAllUsersExceptAdmin();
 
-		// Assert new users created is deleted
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().navigate().refresh();
-		// Assert new users created is deleted
+	
+		// Assert new users created are deleted
 		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(usersRowsXpath));
 
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().navigate().refresh();
-		List<WebElement> usersList = this.driverManager.getDriver().findElements(By.xpath(usersRowsXpath));
-		Assert.assertTrue(usersList.size() == 1);
+		
+		this.driverManager.waitForAnimation();
+		Assert.assertTrue((this.driverManager.getDriver().findElements(By.xpath(usersRowsXpath))).size() == 1);
 
 	}
 }

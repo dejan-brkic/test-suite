@@ -1,10 +1,11 @@
 package org.craftercms.studio.test.pages;
 
-import static org.testng.Assert.assertTrue;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.utils.UIElementsPropertiesManager;
 import org.craftercms.studio.test.utils.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -38,7 +39,7 @@ public class PreviewPage {
 	private String previewDependecies;
 	private String dependenciesSelector;
 	private String dependenciesCloseButton;
-	private String siteconfigBulkOperationsoption;
+	private String siteconfigPublishingOperationsoption;
 	private String bulkOperationsPathToPublishInput;
 	private String bulkoperationsPublishButton;
 	private String bulkoperationsAcceptWarning;
@@ -49,14 +50,20 @@ public class PreviewPage {
 	private String siteDropdownElementXPath;
 	private String adminConsoleXpath;
 	private String entryContentTypeBodyXpath;
-	private String entryContentTypeBodyCheckCss;
+	private String entryContentTypeBodyCheckXpath;
 	private String createFormFrameElementCss;
 	private String articleContentCreatedName;
 	private String generalDeleteOption;
 	private String generalEditOption;
 	private String siteStatusIcon;
 	private String siteContentXpath;
-	
+	private String articlesContentTypeRepeatingGroup;
+	private String gearItemXpath;
+	private String bulkPublishTab;
+	private String publishingFrame;
+
+	private static Logger logger = LogManager.getLogger(PreviewPage.class);
+
 	/**
 	 * 
 	 */
@@ -101,10 +108,12 @@ public class PreviewPage {
 				.getProperty("dependencies.content_selector");
 		dependenciesCloseButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dependencies.close_button");
-		siteconfigBulkOperationsoption = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.bulk_operations_option");
+		siteconfigPublishingOperationsoption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.publish_operations_option");
 		bulkOperationsPathToPublishInput = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("bulkoperations.path_to_publish_input");
+		bulkPublishTab = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("bulkoperations.bulkpublishtab");
 		bulkoperationsPublishButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("bulkoperations.publish_button");
 		bulkoperationsAcceptWarning = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -118,7 +127,7 @@ public class PreviewPage {
 				.getProperty("general.adminconsole");
 		entryContentTypeBodyXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.entrycontenttype.body");
-		entryContentTypeBodyCheckCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		entryContentTypeBodyCheckXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.entrycontenttype.bodyrequiredcheck");
 		createFormFrameElementCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
@@ -132,7 +141,13 @@ public class PreviewPage {
 				.getProperty("general.statustopbaricon");
 		siteContentXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.site_content");
-	
+		articlesContentTypeRepeatingGroup = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.edit.articles.content.type.sections.repeating.group");
+		gearItemXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.gearlocator");
+		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("bulkoperations.frame");
+
 	}
 
 	// Click on admin console link
@@ -443,14 +458,14 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 
 		// select main content
+		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath).click();
 
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckCss)
-				.click();
-		
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
+
 		// save
 		this.driverManager.waitForAnimation();
 		siteConfigPage.saveDragAndDropProcess();
@@ -467,8 +482,7 @@ public class PreviewPage {
 	public void changeBodyOfArticlePageToNotRequired() {
 
 		// Show site content panel
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath)
-				.click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
 
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
@@ -493,11 +507,13 @@ public class PreviewPage {
 		this.driverManager.scrollDown();
 
 		// select main content
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", "//*[@id='yui-gen19']/span[1]").click();
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articlesContentTypeRepeatingGroup)
+				.click();
 
 		// Mark Body not required
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
-				"div.property-wrapper:nth-child(21) > div:nth-child(2) > input").click();
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
 
 		// save
 		siteConfigPage.saveDragAndDropProcess();
@@ -505,7 +521,7 @@ public class PreviewPage {
 		this.driverManager.getDriver().switchTo().defaultContent();
 
 		// go to dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", "#cstudio-logo").click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
 
 	}
 
@@ -522,8 +538,7 @@ public class PreviewPage {
 
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
-		
-		
+
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Fill the New Article page Fields
 			dashboardPage.setPageURL1(url);
@@ -556,7 +571,7 @@ public class PreviewPage {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();		
+		this.driverManager.waitUntilSidebarOpens();
 
 	}
 
@@ -573,9 +588,9 @@ public class PreviewPage {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		categoriesDropDown.selectByValue("depends-on-me");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", "(//TD[text()='1-gear.png'])[1]");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", gearItemXpath);
 
-		assertTrue(this.getDriverManager().isElementPresentByXpath("(//TD[text()='1-gear.png'])[1]"));
+		Assert.assertTrue(this.getDriverManager().isElementPresentByXpath(gearItemXpath));
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
@@ -589,11 +604,22 @@ public class PreviewPage {
 		siteConfigButton.click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteconfigBulkOperationsoption);
+				siteconfigPublishingOperationsoption);
+
+		this.driverManager.waitForAnimation();
 
 		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigBulkOperationsoption)
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigPublishingOperationsoption)
 				.click();
+
+		this.driverManager.getDriver().switchTo()
+				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingFrame));
+
+		this.driverManager.isElementPresentAndClickableByXpath(publishingFrame);
+
+		this.driverManager.getDriver().switchTo().activeElement();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkPublishTab).click();
 
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
@@ -618,7 +644,10 @@ public class PreviewPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsAcceptWarning)
 				.click();
 
-		assertTrue(this.driverManager.isElementPresentByXpath(bulkoperationsMessage));
+		this.driverManager.getDriver().switchTo().activeElement();
+		
+		this.driverManager.waitForAnimation();
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",bulkoperationsMessage).isDisplayed());
 
 		// Switch back to the dashboard page
 		driverManager.getDriver().switchTo().defaultContent();
@@ -634,33 +663,32 @@ public class PreviewPage {
 
 	public void verifyPageArticleIsPublished() {
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				articleContentCreatedName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				articleContentCreatedName).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName)
+				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				generalDeleteOption);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalDeleteOption);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				generalEditOption);
-
-		String isLifeContent = this.driverManager.getDriver()
-				.findElement(By.xpath(siteStatusIcon))
-				.getAttribute("class").toString();
-		int maxNumberofTries = 8;
-		while ((!(isLifeContent.contains("undefined live")) && (maxNumberofTries != 0))) {
-			isLifeContent = this.driverManager.getDriver()
-					.findElement(By.xpath(siteStatusIcon))
-					.getAttribute("class").toString();
-			driverManager.getDriver().navigate().refresh();
-			this.dashboardPage.expandHomeTree();
-			maxNumberofTries--;
+		for (int i = 0; i < 3; i++) {
+			try {
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteStatusIcon)
+						.click();
+				this.driverManager.waitUntilAttributeContains("xpath", siteStatusIcon, "class", "undefined live");
+				break;
+			} catch (TimeoutException e) {
+				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
+				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
+				driverManager.getDriver().navigate().refresh();
+				this.driverManager.waitForAnimation();
+				this.driverManager
+						.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName)
+						.click();
+			}
 		}
 
-		Assert.assertTrue(this.driverManager.getDriver()
-				.findElement(By.xpath(siteStatusIcon))
-				.getAttribute("class").contains("undefined live"));
+		Assert.assertTrue(this.driverManager.getDriver().findElement(By.xpath(siteStatusIcon)).getAttribute("class")
+				.contains("undefined live"));
 
 	}
 }

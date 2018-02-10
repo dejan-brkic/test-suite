@@ -3,7 +3,10 @@ package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.BaseTest;
+import org.openqa.selenium.TimeoutException;
 
 
 /**
@@ -20,8 +23,10 @@ public class HistoryOptionTest extends BaseTest{
 	private String homeXpath;
 	private String historyDialogTitle;
 	private String studioLogo;
+	private String actionsHeaderXpath;
 
-
+	private static Logger logger = LogManager.getLogger(HistoryOptionTest.class);
+	
 	@BeforeMethod
 	public void beforeTest() {
 
@@ -35,6 +40,8 @@ public class HistoryOptionTest extends BaseTest{
 				.getProperty("general.historydialogtitle");
 		studioLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.studiologo");
+		actionsHeaderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.historydialogactionsheader");
 		
 	}
 
@@ -69,9 +76,17 @@ public class HistoryOptionTest extends BaseTest{
 
 		// Assert
 		this.driverManager.waitForAnimation();
+		try {
+			this.driverManager.waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
+		} catch (TimeoutException e) {
+			this.driverManager.takeScreenshot("HistoryDialogNotCompletedRendered");
+			logger.warn("History dialog is not completely rendered");
+		}
+		
+		this.driverManager.waitForAnimation();
 		String historyPage = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", historyDialogTitle).getText();
-		
+		this.driverManager.waitForAnimation();
 		Assert.assertEquals(historyPage, "Version History");
 
 	}

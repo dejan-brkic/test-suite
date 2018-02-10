@@ -91,14 +91,6 @@ public class SiteManagementAPI extends BaseAPI {
 		api.get("/studio/api/1/services/api/1/site/get-available-blueprints.json").execute().status(200);
 	}
 	
-	public void testGetCannedMessage(String siteId) {
-		api.get("/studio/api/1/services/api/1/site/get-canned-message.json")
-		.urlParam("site", siteId)
-		.urlParam("locale", "en")
-		.urlParam("type", "NotApproved")
-		.execute().status(200);
-	}
-	
 	public void testGetConfigurationOfSite() {
 		api.get("/studio/api/1/services/api/1/site/get-configuration.json")
 		.urlParam("site", this.siteId)
@@ -157,6 +149,20 @@ public class SiteManagementAPI extends BaseAPI {
 		.status(401)
 		.header("Location", is(headerLocationBase+"/studio/api/1/services/api/1/site/get-per-user.json?username="+ userName+"&start=0&number=25"));
    	}
+	
+	public void testCreateSiteGitRepo(String siteId) throws Exception {
+		
+		//temp git repo creation 
+		Map<String, Object> json = new HashMap<>();
+		json.put("site_id", siteId);
+		json.put("description", description);
+		json.put("blueprint", blueprint);
+		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(201)
+				.header("Location",
+						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
+				.json("$.message", is("OK")).debug();
+		this.setSiteId(siteId);
+	}
 	
 	public String getSiteId() {
 		return siteId;

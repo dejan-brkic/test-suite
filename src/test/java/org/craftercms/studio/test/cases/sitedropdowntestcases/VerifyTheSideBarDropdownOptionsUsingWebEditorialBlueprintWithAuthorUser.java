@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -20,7 +19,7 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-// Test Case ID:91
+// Test Case Studio- Site Dropdown ID:3
 public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthorUser extends BaseTest {
 
 	private String userName;
@@ -39,12 +38,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 	private String createSiteButton;
 	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
-	private String newUserFirstNameId;
-	private String newUserLastNameId;
-	private String newUserEmailId;
-	private String newUserUserNameId;
-	private String newUserPasswordId;
-	private String newUserPasswordVerificationId;
 	private String expandPagesTree;
 	private String adminConsole;
 	private String siteconfigGroupsOption;
@@ -89,17 +82,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.authorusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
-		newUserFirstNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.firstname");
-		newUserLastNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.lastname");
-		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.users.email");
-		newUserUserNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.username");
-		newUserPasswordId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.password");
-		newUserPasswordVerificationId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.passwordVerification");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
 		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.adminconsole");
@@ -154,22 +136,14 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 	private void goToSiteContentPagesStructure() {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
 				createSiteButton);
-		
+
 		this.driverManager.waitForAnimation();
-		
 		homePage.goToPreviewPage();
 
-		if (this.driverManager.isElementPresentByXpath(siteDropdownElementXPath))
-
+		this.driverManager.waitForAnimation();
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed())
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
-
-		else
-
-			throw new NoSuchElementException(
-
-					"Site creation process is taking too long time and the element was not found");
 
 	}
 
@@ -191,28 +165,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 
 		createSitePage.clickOnUsersOption();
 
-		// click on new user button
-
-		usersPage.clickOnNewUser();
-
-		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("Name");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
-				.sendKeys("Last Name");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
-				.sendKeys("email@email.com");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
-				.sendKeys("author");
-
-		// Save Button
-		usersPage.clickOnSaveNewUser();
+		usersPage.addNewUser("author");
 
 		// Assert new users created is present
 		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
@@ -226,6 +179,8 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 
 		driverManager.getDriver().switchTo().defaultContent();
 
+		this.driverManager.waitForAnimation();
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				crafterLogo);
@@ -326,7 +281,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
 
 	}
-	
+
 	private void logoutFromCrafter() {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
@@ -370,6 +325,8 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 		logger.info("login to application with author user");
 		loginPage.loginToCrafter("author", "author");
 
+		driverManager.waitUntilLoginCloses();
+
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
@@ -377,9 +334,9 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 
 		// Expand the site bar
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-		
+
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-		
+
 		// Check all the section are present;
 		WebElement dashboardLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				dashboardLink);
