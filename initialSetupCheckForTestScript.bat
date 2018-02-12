@@ -176,12 +176,29 @@ IF %ERRORLEVEL% equ 0 echo [WARN] the stop process failed Port 27020 (MongoDB) i
 echo [INFO] moving out from temporary folder >> %LOGFILE%
 cd ../..
 
-echo [INFO] closing all the other terminal windows opened by previous processes
-taskkill /IM cmd.exe /FI "WINDOWTITLE ne PreTestScript*"
+echo [INFO] closing all the other terminal windows opened by previous processes >> %LOGFILE%
+echo [INFO] trying to kill mysqld, if exists >> %LOGFILE%
+for /f tokens^=3^ delims^=^" %%a in ('tasklist /nh /v /fi "Imagename eq mysqld.exe"') do (
+taskkill /F /pid %%a
+)
+
+echo [INFO] trying to kill java tomcat, if exists >> %LOGFILE%
+for /f tokens^=3^ delims^=^" %%a in ('tasklist /nh /v /fi "Imagename eq java.exe" /fi "WindowTitle eq Tomcat" /fi "STATUS eq running" /fo csv') do (
+taskkill /F /pid %%a
+)
+
+echo [INFO] trying to kill all other terminal windows related to authoring, if exists >> %LOGFILE%
+@rem trying to delete the other terminal windows
+for /f tokens^=3^ delims^=^" %%a in ('tasklist /nh /v /fi "Imagename eq java.exe" /fi "WindowTitle eq Crafter Deployer*" /fi "STATUS eq running"') do (
+taskkill /F /pid %%a
+)
+
+echo [INFO] trying to kill all other cmd terminal windows, if exists >> %LOGFILE%
+@rem trying to delete the other terminal windows
+for /f tokens^=3^ delims^=^" %%a in ('tasklist /nh /v /fi "Imagename eq cmd.exe" /fi "STATUS eq running" /fo csv ^| findstr /v /c:"gradlew.bat  selftest"') do (
+taskkill /F /pid %%a
+)
 
 @rem deleting temporary folder
 echo [INFO] deleting the temporary folder >> %LOGFILE%
 rd /s /q crafter_cms_temp
-
-@rem deleting temporary log file
-del %TEMPLOGFILE%
