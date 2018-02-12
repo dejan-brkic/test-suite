@@ -210,12 +210,12 @@ public class ContentAssetAPI extends BaseAPI{
 		File test = new File("src/test/resources/index.xml");
 		
 		api.post("/studio/api/1/services/api/1/content/write-content.json")
-		.urlParam("site", siteId)
-		.urlParam("path", "site/website/")
-		.urlParam("phase", "onSave")
-		.urlParam("fileName", fileName)
-		.urlParam("contentType", contentType)
-		.urlParam("unlock", "true")
+		.param("site", siteId)
+		.param("path", "site/website/")
+		.param("phase", "onSave")
+		.param("fileName", fileName)
+		.param("contentType", contentType)
+		.param("unlock", "true")
 		.file("file", test)
 		.execute().status(200).debug();
 	}
@@ -225,12 +225,12 @@ public class ContentAssetAPI extends BaseAPI{
 		File test = new File("src/test/resources/index.xml");
 		
 		api.post("/studio/api/1/services/api/1/content/write-content.json")
-		.urlParam("site", siteId)
-		.urlParam("path", newPath)
-		.urlParam("phase", "onSave")
-		.urlParam("fileName", fileName)
-		.urlParam("contentType", contentType)
-		.urlParam("unlock", "true")
+		.param("site", siteId)
+		.param("path", newPath)
+		.param("phase", "onSave")
+		.param("fileName", fileName)
+		.param("contentType", contentType)
+		.param("unlock", "true")
 		.file("file", test)
 		.execute().status(200).debug();
 	}
@@ -240,12 +240,12 @@ public class ContentAssetAPI extends BaseAPI{
 		File test = new File("src/test/resources/logo.png");
 		
 		api.post("/studio/api/1/services/api/1/content/write-content.json")
-		.urlParam("site", siteId)
-		.urlParam("path", "static-assets/images/")
-		.urlParam("phase", "onSave")
-		.urlParam("fileName", "logo.png")
-		.urlParam("isImage", "true")
-		.urlParam("unlock", "true")
+		.param("site", siteId)
+		.param("path", "static-assets/images/")
+		.param("phase", "onSave")
+		.param("fileName", "logo.png")
+		.param("isImage", "true")
+		.param("unlock", "true")
 		.file("file", test)
 		.execute().debug();
 	}
