@@ -2,7 +2,7 @@ package org.craftercms.studio.test.cases.userstestcases;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
  *
  */
 
-public class TryToDeleteUserConnectedTest extends BaseTest {
+public class TryToDeleteUserConnectedTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(TryToDeleteUserConnectedTest.class);
 

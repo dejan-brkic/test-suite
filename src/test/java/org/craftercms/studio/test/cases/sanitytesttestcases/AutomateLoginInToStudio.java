@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
  * 
@@ -12,7 +12,7 @@ import org.craftercms.studio.test.cases.BaseTest;
  */
 
 //Test to cover ticket https://github.com/craftercms/craftercms/issues/1435
-public class AutomateLoginInToStudio extends BaseTest{
+public class AutomateLoginInToStudio extends StudioBaseTest{
 
 	private String userName;
 	private String password;

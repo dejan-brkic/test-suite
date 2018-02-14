@@ -3,7 +3,7 @@
  */
 package org.craftercms.studio.test.cases.generaltestcases;
 
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.craftercms.studio.test.pages.SiteConfigPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,7 +18,7 @@ import org.openqa.selenium.TimeoutException;
  * @author luishernandez
  *
  */
-public class Crafter3LoadTest1Script extends BaseTest {
+public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -283,7 +283,9 @@ public class Crafter3LoadTest1Script extends BaseTest {
 		dashboardPage.clickCompareButton();
 
 		// switching to the compare frame
+		this.driverManager.waitForAnimation();
 		driverManager.usingCrafterDialog("cssSelector", differencesDialogId, () -> {
+			this.driverManager.waitForAnimation();
 			// checkin if is present the removed-red-highlight text
 			Assert.assertTrue(driverManager.isElementPresentByXpath(differencesDialogRemovedMarkXpath));
 

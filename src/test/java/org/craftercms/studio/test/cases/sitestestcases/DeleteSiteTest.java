@@ -1,6 +1,6 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
  *
  */
 
-public class DeleteSiteTest extends BaseTest {
+public class DeleteSiteTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;

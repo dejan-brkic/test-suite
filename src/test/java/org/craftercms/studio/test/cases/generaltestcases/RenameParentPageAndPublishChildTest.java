@@ -6,7 +6,7 @@ package org.craftercms.studio.test.cases.generaltestcases;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.Assert;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
@@ -14,7 +14,7 @@ import org.openqa.selenium.WebElement;
  * @author luishernandez
  *
  */
-public class RenameParentPageAndPublishChildTest extends BaseTest{
+public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 
 	private String userName;
 	private String password;

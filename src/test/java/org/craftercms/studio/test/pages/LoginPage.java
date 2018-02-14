@@ -22,7 +22,6 @@ public class LoginPage {
 	private String loginXpath;
 	private static Logger logger = LogManager.getLogger(LoginPage.class);
 
-	
 	public LoginPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
 		this.driverManager.openConnection();
@@ -73,7 +72,6 @@ public class LoginPage {
 		
 		//Wait for login page to close
 		this.driverManager.waitUntilLoginCloses();
-
 	}
 
 	public void loginToCrafterWithWrongCredentials(String strUserName, String strPasword) {

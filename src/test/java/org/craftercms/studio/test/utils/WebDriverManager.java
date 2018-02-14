@@ -100,6 +100,67 @@ public class WebDriverManager {
 
 	}
 
+	@SuppressWarnings("deprecation")
+	public void openConnectionAndGotoDelivery(String siteId) {
+
+		final Properties runtimeProperties = new Properties();
+		try {
+			runtimeProperties.load(WebDriverManager.class.getResourceAsStream("/runtime.properties"));
+			String enviromentPropertiesPath = runtimeProperties.getProperty("crafter.test.location");
+			final Properties envProperties = new Properties();
+			try {
+				envProperties.load(new FileInputStream(enviromentPropertiesPath));
+				webBrowserProperty = envProperties.getProperty("webBrowser");
+				DesiredCapabilities capabilities;
+				switch (webBrowserProperty.toLowerCase()) {
+				case "phantomjs":
+					capabilities = DesiredCapabilities.phantomjs();
+					System.setProperty("phantomjs.binary.path", envProperties.getProperty("phantomjs.binary.path"));
+					driver = new PhantomJSDriver(capabilities);
+					break;
+				case "firefox":
+					FirefoxOptions firefoxOptions = new FirefoxOptions();
+					System.setProperty("webdriver.gecko.driver", envProperties.getProperty("firefox.driver.path"));
+					driver = new FirefoxDriver(firefoxOptions);
+					break;
+				case "edge":
+					System.setProperty("webdriver.edge.driver", envProperties.getProperty("edge.driver.path"));
+					EdgeOptions options = new EdgeOptions();
+					options.setPageLoadStrategy("eager");
+					driver = new EdgeDriver(options);
+					break;
+				case "ie":
+					InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
+					System.setProperty("webdriver.ie.driver", envProperties.getProperty("ie.driver.path"));
+					driver = new InternetExplorerDriver(internetExplorerOptions);
+					break;
+				case "chrome":
+					ChromeOptions chromeOptions = new ChromeOptions();
+					System.setProperty("webdriver.chrome.driver", envProperties.getProperty("chrome.driver.path"));
+					driver = new ChromeDriver(chromeOptions);
+					break;
+				default:
+					throw new IllegalArgumentException(
+							"webBrowser property is needed, valid values are:" + "chrome,edge,ie,firefox,phantomjs");
+				}
+
+				driver.get((envProperties.getProperty("deliverybaseUrl"))+"?crafterSite="+siteId);
+				this.defaultTimeOut = Integer.parseInt(
+						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
+
+				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
+					this.maximizeWindow();
+				}
+
+			} catch (IOException ex) {
+				throw new FileNotFoundException("Unable to read runtime properties file");
+			}
+		} catch (IOException ex) {
+			throw new TestException("Required Files are not found.");
+		}
+
+	}
+
 	public void closeConnection() {
 		// this.driver.close();
 		this.driver.quit();
