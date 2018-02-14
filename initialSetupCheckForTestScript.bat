@@ -112,7 +112,7 @@ echo Start Crafter CMS  ...  PASSED >> %RESULTSFILE%
 
 @rem waiting for 5 minutes until the studio is totally up
 echo [INFO] waiting until studio is totally up. The Waitime is 5 minutes >> %LOGFILE%
-timeout 300
+call PING -n 300 0.0.0.0>nul
 
 echo [INFO] verifying that the port 8080 (Tomcat) is listened >> %LOGFILE%
 netstat -o -n -a | findstr "0.0.0.0:8080"
@@ -147,7 +147,7 @@ echo Stop Crafter CMS  ...  PASSED >> %RESULTSFILE%
 
 @rem waiting for 5 minutes until the studio is totally down
 echo [INFO] waiting until studio is totally down. The Waitime is 5 minutes >> %LOGFILE%
-timeout 300
+call PING -n 300 0.0.0.0>nul
 
 echo [INFO] verifying that the port 8080 (Tomcat) is not listened >> %LOGFILE%
 netstat -o -n -a | findstr "0.0.0.0:8080"
@@ -169,6 +169,10 @@ echo [INFO] verifying that the port 27020 (MongoDB) is not listened >> %LOGFILE%
 netstat -o -n -a | findstr "0.0.0.0:27020"
 IF %ERRORLEVEL% equ 0 echo [WARN] the stop process failed Port 27020 (MongoDB) is not down after 5 minutes >> %LOGFILE%
 
+@rem moving out of temporary folder
+echo [INFO] moving out from temporary folder >> %LOGFILE%
+cd ../..
+
 echo [INFO] closing all the other terminal windows opened by previous processes >> %LOGFILE%
 echo [INFO] trying to kill mysqld, if exists >> %LOGFILE%
 for /f tokens^=3^ delims^=^" %%a in ('tasklist /nh /v /fi "Imagename eq mysqld.exe" /fo csv') do (
@@ -186,7 +190,7 @@ for /f tokens^=3^ delims^=^" %%a in ('tasklist /nh /v /fi "Imagename eq java.exe
 taskkill /F /pid %%a
 )
 
-echo [INFO] trying to kill all other terminal windows related to delivery, if exists >> %LOGFILE%
+echo [INFO] trying to kill all other terminal windows related to authoring, if exists >> %LOGFILE%
 @rem trying to delete the other terminal windows
 for /f tokens^=3^ delims^=^" %%a in ('tasklist /nh /v /fi "Imagename eq java.exe" /fi "WindowTitle eq Crafter Deployer delivery" /fi "STATUS eq running" /fo csv') do (
 taskkill /F /pid %%a
@@ -197,10 +201,6 @@ echo [INFO] trying to kill all other cmd terminal windows, if exists >> %LOGFILE
 for /f tokens^=3^ delims^=^" %%a in ('tasklist /nh /v /fi "Imagename eq cmd.exe" /fi "STATUS eq running" /fo csv ^| findstr /v /c:"gradlew.bat  selftest"') do (
 taskkill /F /pid %%a
 )
-
-@rem moving out of temporary folder
-echo [INFO] moving out from temporary folder >> %LOGFILE%
-cd ../..
 
 @rem deleting temporary folder
 echo [INFO] deleting the temporary folder >> %LOGFILE%
