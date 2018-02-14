@@ -10,15 +10,13 @@ import org.testng.annotations.Test;
  * @author Luis Hernandez
  *
  */
-//Related to ticket: https://github.com/craftercms/craftercms/issues/1869
+// Related to ticket: https://github.com/craftercms/craftercms/issues/1869
 public class VerifyThatPageIsNotOnLive extends DeliveryBaseTest {
-
-	private String pageURL;
 	private String pageTitleXpath;
 
 	@BeforeMethod
 	public void beforeTest() {
-		pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
+		String pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pageurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");

@@ -12,13 +12,11 @@ import org.testng.annotations.Test;
  */
 //Related to ticket: https://github.com/craftercms/craftercms/issues/1869
 public class VerifyThatPageIsOnLive extends DeliveryBaseTest {
-
-	private String pageURL;
 	private String pageTitleXpath;
 
 	@BeforeMethod
 	public void beforeTest() {
-		pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
+		String pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pageurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");

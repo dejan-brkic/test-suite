@@ -2,7 +2,6 @@ package org.craftercms.studio.test.pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.craftercms.studio.test.utils.UIElementsPropertiesManager;
 import org.craftercms.studio.test.utils.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 
@@ -18,7 +17,7 @@ public class DeliveryHomePage {
 	private WebDriver driver;
 	private static Logger logger = LogManager.getLogger(DeliveryHomePage.class);
 
-	public DeliveryHomePage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager,String siteId) {
+	public DeliveryHomePage(WebDriverManager driverManager,String siteId) {
 		this.driverManager = driverManager;
 		logger.info("Go to delivery site");
 		this.driverManager.openConnectionAndGotoDelivery(siteId);
