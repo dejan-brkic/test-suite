@@ -1,6 +1,6 @@
 package org.craftercms.studio.test.cases.contenttypepagetestcases;
 
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
  *
  */
 
-public class ContentTypesAddDataSourceChildContentTest extends BaseTest {
+public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;

@@ -3,7 +3,7 @@ package org.craftercms.studio.test.cases.userstestcases;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
  * 
@@ -11,7 +11,7 @@ import org.craftercms.studio.test.cases.BaseTest;
  *
  */
 
-public class PaginationOfListOfUsersTest extends BaseTest{
+public class PaginationOfListOfUsersTest extends StudioBaseTest{
 
 	private String userName;
 	private String password;

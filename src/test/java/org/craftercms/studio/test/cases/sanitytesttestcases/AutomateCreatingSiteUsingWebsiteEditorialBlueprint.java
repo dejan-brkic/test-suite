@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -14,7 +14,7 @@ import org.openqa.selenium.WebElement;
  *
  */
 //Test Case created to cover ticket https://github.com/craftercms/craftercms/issues/1445
-public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends BaseTest{
+public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends StudioBaseTest{
 
 	private String userName;
 	private String password;

@@ -735,6 +735,22 @@ public class DashboardPage {
 		this.deleteContent();
 	}
 
+	public void rightClickToDeleteContent(String elementLocator) {
+		// Press right click and select new content
+		this.deleteContent(elementLocator);
+	}
+
+	public void deleteContent(String elementLocator) {
+		WebElement showMenu = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				elementLocator);
+		this.getDriverManager().contextClick(this.getDriverManager().getDriver(), showMenu, false);
+		driverManager.usingContextMenu(() -> {
+			WebElement delContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					deleteContent);
+			delContent.click();
+		});
+	}
+	
 	// Ok delete content option
 	public void deleteContentOK() {
 		WebElement confirmDelete = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",

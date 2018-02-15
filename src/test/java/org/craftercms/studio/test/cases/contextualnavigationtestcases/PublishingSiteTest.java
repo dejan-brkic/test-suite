@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 
 import org.apache.logging.log4j.Logger;
 
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -25,7 +25,7 @@ import org.openqa.selenium.TimeoutException;
  * 
  */
 
-public class PublishingSiteTest extends BaseTest {
+public class PublishingSiteTest extends StudioBaseTest {
 	private String userName;
 	private String password;
 	private String createFormFrameElementCss;

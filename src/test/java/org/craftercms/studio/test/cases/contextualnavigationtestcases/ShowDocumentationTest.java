@@ -3,7 +3,7 @@ package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 
 /**
@@ -12,7 +12,7 @@ import org.craftercms.studio.test.cases.BaseTest;
  *
  */
 
-public class ShowDocumentationTest extends BaseTest{
+public class ShowDocumentationTest extends StudioBaseTest{
 	
 	private String userName;
 	private String password;

@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.util.List;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 
 /**
@@ -15,7 +15,7 @@ import org.craftercms.studio.test.cases.BaseTest;
  *
  */
 
-public class SearchUserTest extends BaseTest {
+public class SearchUserTest extends StudioBaseTest {
 
 
 	private String userName;

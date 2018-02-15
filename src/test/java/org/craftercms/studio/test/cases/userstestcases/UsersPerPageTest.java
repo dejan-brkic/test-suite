@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 
 /**
@@ -18,7 +18,7 @@ import org.craftercms.studio.test.cases.BaseTest;
  *
  */
 
-public class UsersPerPageTest extends BaseTest{
+public class UsersPerPageTest extends StudioBaseTest{
 
 	private String userName;
 	private String password;

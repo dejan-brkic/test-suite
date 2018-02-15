@@ -5,10 +5,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 
-public class ShowAccountManagementTest extends BaseTest {
+public class ShowAccountManagementTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
