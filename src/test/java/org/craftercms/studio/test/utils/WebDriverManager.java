@@ -38,6 +38,7 @@ public class WebDriverManager {
 	private ConstantsPropertiesManager constantsPropertiesManager;
 	private int defaultTimeOut;
 	private String webBrowserProperty;
+	private String executionEnvironment;
 
 	@SuppressWarnings("deprecation")
 	public void openConnection() {
@@ -50,6 +51,7 @@ public class WebDriverManager {
 			try {
 				envProperties.load(new FileInputStream(enviromentPropertiesPath));
 				webBrowserProperty = envProperties.getProperty("webBrowser");
+				executionEnvironment = envProperties.getProperty("executionenvironment");
 				DesiredCapabilities capabilities;
 				switch (webBrowserProperty.toLowerCase()) {
 				case "phantomjs":
@@ -111,6 +113,7 @@ public class WebDriverManager {
 			try {
 				envProperties.load(new FileInputStream(enviromentPropertiesPath));
 				webBrowserProperty = envProperties.getProperty("webBrowser");
+				executionEnvironment = envProperties.getProperty("executionenvironment");
 				DesiredCapabilities capabilities;
 				switch (webBrowserProperty.toLowerCase()) {
 				case "phantomjs":
@@ -143,8 +146,8 @@ public class WebDriverManager {
 					throw new IllegalArgumentException(
 							"webBrowser property is needed, valid values are:" + "chrome,edge,ie,firefox,phantomjs");
 				}
-
-				driver.get((envProperties.getProperty("deliverybaseUrl"))+"?crafterSite="+siteId);
+				this.waitForDeliveryRefresh();
+				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
 				this.defaultTimeOut = Integer.parseInt(
 						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
 
@@ -290,13 +293,11 @@ public class WebDriverManager {
 		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.refreshed(ExpectedConditions
 				.attributeContains(getSelector(selectorType, selectorValue), attributeName, attributeValue)));
 	}
-	
-	public void waitUntilTextIs(String selectorType, String selectorValue,
-			String textValue) {
-		logger.debug("Waiting for element {}, {} to have the text {}", selectorType, selectorValue,
-				textValue);
-		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.refreshed(ExpectedConditions
-				.textToBe(getSelector(selectorType, selectorValue),textValue)));
+
+	public void waitUntilTextIs(String selectorType, String selectorValue, String textValue) {
+		logger.debug("Waiting for element {}, {} to have the text {}", selectorType, selectorValue, textValue);
+		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions
+				.refreshed(ExpectedConditions.textToBe(getSelector(selectorType, selectorValue), textValue)));
 	}
 
 	public void waitUntilElementIsRemoved(WebElement element) {
@@ -485,9 +486,9 @@ public class WebDriverManager {
 	public void scrollDown() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,2000)");
 	}
-	
+
 	public void scrollDownPx(int px) {
-		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,"+px+")");
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0," + px + ")");
 	}
 
 	public ConstantsPropertiesManager getConstantsPropertiesManager() {
@@ -565,14 +566,14 @@ public class WebDriverManager {
 		this.waitForAnimation();
 		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
 				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
-			new WebDriverWait(this.driver, defaultTimeOut).until(ExpectedConditions
-					.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "yui-skin-cstudioTheme iewarning")));
+			new WebDriverWait(this.driver, defaultTimeOut).until(ExpectedConditions.refreshed(
+					ExpectedConditions.attributeToBe(By.tagName("body"), "class", "yui-skin-cstudioTheme iewarning")));
 		} else {
-			new WebDriverWait(this.driver, defaultTimeOut).until(
-					ExpectedConditions.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "yui-skin-cstudioTheme")));
+			new WebDriverWait(this.driver, defaultTimeOut).until(ExpectedConditions
+					.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "yui-skin-cstudioTheme")));
 		}
 	}
-	
+
 	public void waitUntilDeleteSiteModalCloses() {
 		logger.debug("Waiting for delete site dialog to close");
 		this.waitForAnimation();
@@ -585,7 +586,7 @@ public class WebDriverManager {
 					ExpectedConditions.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "")));
 		}
 	}
-	
+
 	public void waitUntilAddUserModalCloses() {
 		logger.debug("Waiting for add user dialog to close");
 		this.waitForAnimation();
@@ -767,6 +768,15 @@ public class WebDriverManager {
 		}
 	}
 
+	public void waitForDeliveryRefresh() {
+		try {
+			// wait for a minute for delivery refresh
+			Thread.sleep(60000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void takeScreenshot(String screenShotName) {
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
@@ -784,6 +794,35 @@ public class WebDriverManager {
 		} catch (TimeoutException e) {
 			this.takeScreenshot("PageNotPublished");
 			logger.warn("Content page is not published yet, it does not have published icon on pages structure");
+		}
+	}
+
+	public int goToFolderAndExecuteInitSiteScriptThroughCommandLine(String folder, String siteId) {
+		String script;
+		String shell;
+		if (executionEnvironment.equalsIgnoreCase("unix")) {
+			shell = "/bin/bash";
+			script = "init-site.sh";
+		} else {
+			shell = "cmd.exe";
+			script = "init-site.bat";
+		}
+
+		try {
+			String[] command = { shell, script, siteId };
+
+			ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+			processBuilder.directory(new File(folder));
+
+			Process process = processBuilder.start();
+
+			process.waitFor();
+
+			return process.exitValue();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return -1;
 		}
 	}
 }

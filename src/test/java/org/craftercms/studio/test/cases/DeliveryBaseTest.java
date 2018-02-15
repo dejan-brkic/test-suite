@@ -25,7 +25,7 @@ public class DeliveryBaseTest {
         uiElementsPropertiesManager = new UIElementsPropertiesManager(FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
         constantsPropertiesManager = new ConstantsPropertiesManager(FilesLocations.CONSTANTSPROPERTIESFILEPATH);
         driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
-        deliveryHome = new DeliveryHomePage(driverManager, uiElementsPropertiesManager, "testsitefordelivery");
+        deliveryHome = new DeliveryHomePage(driverManager, "testsitefordeliverytest");
     }
 
     @AfterClass
