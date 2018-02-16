@@ -50,6 +50,10 @@ public class UpdateGroupAPITest {
 		groupManagementAPI.testUpdateGroupGroupNotFound(siteManagementAPI.getSiteId());
 	}
 	
+	@Test(priority = 4,groups={"updateGroup"})
+	public void testSiteNotFound() {
+		groupManagementAPI.testUpdateGroupSiteNotFound(siteManagementAPI.getSiteId());
+	}
 	
 	@AfterGroups(groups={"updateGroup"})
 	public void afterTest() {
