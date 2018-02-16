@@ -50,6 +50,11 @@ public class GetGroupAPITest {
 	public void testGroupNotFound() {
 		groupManagementAPI.testGetGroupGroupNotFound(siteManagementAPI.getSiteId());
 	}
+	
+	@Test(priority = 4,groups={"getGroup"})
+	public void testSiteNotFound() {
+		groupManagementAPI.testGetGroupSiteNotFound(siteManagementAPI.getSiteId());
+	}
 
 	@AfterGroups(groups={"getGroup"})
 	public void afterTest() {
