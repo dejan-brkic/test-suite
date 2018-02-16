@@ -1,10 +1,11 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
+import java.nio.file.Paths;
+
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-
 
 /**
  * 
@@ -19,7 +20,6 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 	private String password;
 	private String siteDropdownElementXPath;
 
-
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
@@ -33,7 +33,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
-		
+
 		driverManager.waitUntilLoginCloses();
 
 		// Click on the create site button
@@ -41,7 +41,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 
 		// Filling the name of site
 
-		createSitePage.fillSiteName("testsitefordelivery");
+		createSitePage.fillSiteName("testsitefordeliverytest");
 
 		// Filling the description of the site
 
@@ -59,6 +59,12 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
 
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-	}
 
+		// go to delivery folder and init site for test	
+		int exitCode = this.driverManager.goToFolderAndExecuteInitSiteScriptThroughCommandLine(
+				Paths.get("..","..","crafter-delivery","bin").toString(),
+				"testsitefordeliverytest");
+		
+		Assert.assertTrue(exitCode == 0,"Init site process failed");
+	}
 }
