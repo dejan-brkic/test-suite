@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.craftercms.studio.test.cases.BaseTest;
  *
  */
 
-public class DesignOfPreviewPageTest extends BaseTest {
+public class DesignOfPreviewPageTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;

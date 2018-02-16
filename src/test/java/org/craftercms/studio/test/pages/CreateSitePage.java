@@ -74,9 +74,17 @@ public class CreateSitePage {
 		// Set site name
 		this.setSiteName();
 	}
-
 	// Set site ID
 
+	public void setSiteName(String siteName) {
+		driverManager.sendText("xpath", this.siteName, siteName);
+	}
+
+	public void fillSiteName(String siteName) {
+		// Set site name
+		this.setSiteName(siteName);
+	}
+	
 	public void setSiteId(String strSiteID) {
 		WebElement idSite = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteID);
 		idSite.sendKeys(strSiteID);

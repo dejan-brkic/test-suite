@@ -3,7 +3,7 @@ package org.craftercms.studio.test.cases.sanitytesttestcases;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
  * 
@@ -11,7 +11,7 @@ import org.craftercms.studio.test.cases.BaseTest;
  */
 
 // Test to cover ticket https://github.com/craftercms/craftercms/issues/1434
-public class AutomateOpeningStudioInActualBrowser extends BaseTest {
+public class AutomateOpeningStudioInActualBrowser extends StudioBaseTest {
 
 	private String crafterLoginImage;
 	private String userNameXpath;

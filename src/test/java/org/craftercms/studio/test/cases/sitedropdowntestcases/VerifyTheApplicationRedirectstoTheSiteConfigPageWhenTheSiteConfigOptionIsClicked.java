@@ -6,7 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
  *
  */
 //Test Case Studio- Site Dropdown ID:67
-public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked extends BaseTest{
+public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked extends StudioBaseTest{
 
 	private String userName;
 	private String password;

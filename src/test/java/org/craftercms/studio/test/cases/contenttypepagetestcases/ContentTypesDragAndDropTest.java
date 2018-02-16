@@ -6,7 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.craftercms.studio.test.cases.BaseTest;
  *
  */
 
-public class ContentTypesDragAndDropTest extends BaseTest{
+public class ContentTypesDragAndDropTest extends StudioBaseTest{
 
 	private String userName;
 	private String password;

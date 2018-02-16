@@ -4,7 +4,7 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
 
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
  *
  */
 
-public class ShowSitesPageTest extends BaseTest {
+public class ShowSitesPageTest extends StudioBaseTest {
 	
 
 	private APIConnectionManager apiConnectionManager;

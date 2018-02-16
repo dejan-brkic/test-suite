@@ -2,7 +2,7 @@ package org.craftercms.studio.test.cases.dashboardtestcases;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
  *
  */
 
-public class RecentActivityFilterShowTest extends BaseTest {
+public class RecentActivityFilterShowTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(RecentActivityFilterShowTest.class);
 	

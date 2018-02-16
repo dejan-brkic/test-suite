@@ -1,7 +1,7 @@
 package org.craftercms.studio.test.cases.contenttypepagetestcases;
 
 
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
  * @author luishernandez
  *
  */
-public class ContentTypesAddCheckBoxTest extends BaseTest{
+public class ContentTypesAddCheckBoxTest extends StudioBaseTest{
 	
 	private String userName;
 	private String password;
