@@ -254,7 +254,7 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		json.put("description", description + "updated");
 
-		api.post("/studio/api/1/services/api/1/group/update.json").execute().status(404)
+		api.post("/studio/api/1/services/api/1/group/update.json").json(json).execute().status(404)
 				.json("$.message", is("Group not found")).debug();
 	}
 	
@@ -264,7 +264,7 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("site_id", siteId + "nonvalid");
 		json.put("description", description + "updated");
 
-		api.post("/studio/api/1/services/api/1/group/update.json").execute().status(404)
+		api.post("/studio/api/1/services/api/1/group/update.json").json(json).execute().status(404)
 				.json("$.message", is("Site not found")).debug();
 	}
 
