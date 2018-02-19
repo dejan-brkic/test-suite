@@ -1,7 +1,5 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
-import java.nio.file.Paths;
-
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.annotations.Test;
 import org.testng.Assert;
@@ -62,7 +60,6 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 
 		// go to delivery folder and init site for test	
 		int exitCode = this.driverManager.goToFolderAndExecuteInitSiteScriptThroughCommandLine(
-				Paths.get("..","..","crafter-delivery","bin").toString(),
 				"testsitefordeliverytest");
 		
 		Assert.assertTrue(exitCode == 0,"Init site process failed");

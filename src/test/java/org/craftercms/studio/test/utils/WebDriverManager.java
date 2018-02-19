@@ -797,32 +797,52 @@ public class WebDriverManager {
 		}
 	}
 
-	public int goToFolderAndExecuteInitSiteScriptThroughCommandLine(String folder, String siteId) {
+	public int goToFolderAndExecuteInitSiteScriptThroughCommandLine(String siteId) {
 		String script;
 		String shell;
+		String folder;
 		if (executionEnvironment.equalsIgnoreCase("unix")) {
 			shell = "/bin/bash";
 			script = "init-site.sh";
+			folder = "../../crafter-delivery/bin";
+			try {
+				String[] command = { shell, script, siteId };
+
+				ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+				processBuilder.directory(new File(folder));
+
+				Process process = processBuilder.inheritIO().start();
+
+				process.waitFor();
+
+				return process.exitValue();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+				return -1;
+			}
 		} else {
-			shell = "cmd.exe";
-			script = "init-site.bat";
+			script = "dir";
+			
+			folder = System.getProperty("user.dir")+"\\..\\..\\crafter-delivery\\bin";
+			
+			try {
+				String[] command = {script};
+
+				ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+				processBuilder.directory(new File(folder));
+
+				Process process = processBuilder.inheritIO().start();
+
+				process.waitFor();
+
+				return process.exitValue();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+				return -1;
+			}
 		}
 
-		try {
-			String[] command = { shell, script, siteId };
-
-			ProcessBuilder processBuilder = new ProcessBuilder(command);
-
-			processBuilder.directory(new File(folder));
-
-			Process process = processBuilder.start();
-
-			process.waitFor();
-
-			return process.exitValue();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-			return -1;
-		}
 	}
 }
