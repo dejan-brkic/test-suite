@@ -822,12 +822,14 @@ public class WebDriverManager {
 				return -1;
 			}
 		} else {
-			script = "dir";
-			
-			folder = System.getProperty("user.dir")+"\\..\\..\\crafter-delivery\\bin";
-			
+			String[] command = new String[3];
+			command[0] = "cmd";
+			command[1] = "/C";
+			command[2] = "init-site.bat " + siteId;
+
+			folder = System.getProperty("user.dir") + "\\..\\..\\crafter-delivery\\bin";
+
 			try {
-				String[] command = {script};
 
 				ProcessBuilder processBuilder = new ProcessBuilder(command);
 
