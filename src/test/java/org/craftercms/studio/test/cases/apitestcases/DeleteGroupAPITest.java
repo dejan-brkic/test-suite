@@ -50,6 +50,11 @@ public class DeleteGroupAPITest {
 	public void testDeleteGroupGroupNotFound() {
 		groupManagementAPI.testDeleteGroupGroupNotFound(siteManagementAPI.getSiteId());
 	}
+	
+	@Test(priority = 4,groups={"deleteGroup"})
+	public void testDeleteGroupSiteNotFound() {
+		groupManagementAPI.testDeleteGroupSiteNotFound(siteManagementAPI.getSiteId());
+	}
 
 	@AfterGroups(groups={"deleteGroup"})
 	public void afterTest() {

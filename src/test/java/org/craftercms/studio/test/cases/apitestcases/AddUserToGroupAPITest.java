@@ -60,8 +60,13 @@ public class AddUserToGroupAPITest {
 	public void testGroupNotFound() {
 		groupManagementAPI.testAddUserToGroupGroupNotFound(userManagementAPI.getNewusername(), siteManagementAPI.getSiteId());
 	}
-
+	
 	@Test(priority = 5,groups={"addUserToGroup"})
+	public void testSiteNotFound() {
+		groupManagementAPI.testAddUserToGroupSiteNotFound(userManagementAPI.getNewusername(), siteManagementAPI.getSiteId());
+	}
+
+	@Test(priority = 6,groups={"addUserToGroup"})
 	public void testUserAlreadyInGroup() {
 		groupManagementAPI.testAddUserToGroupAlreadyInGroup(userManagementAPI.getNewusername(), siteManagementAPI.getSiteId());
 	}
