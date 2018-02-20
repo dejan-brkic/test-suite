@@ -1,6 +1,7 @@
 package org.craftercms.studio.test.utils;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
@@ -21,12 +22,15 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.TestException;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Properties;
 
@@ -801,6 +805,7 @@ public class WebDriverManager {
 		String script;
 		String shell;
 		String folder;
+
 		if (executionEnvironment.equalsIgnoreCase("unix")) {
 			shell = "/bin/bash";
 			script = "init-site.sh";
@@ -812,9 +817,23 @@ public class WebDriverManager {
 
 				processBuilder.directory(new File(folder));
 
-				Process process = processBuilder.inheritIO().start();
+				Process process = processBuilder.start();
 
 				process.waitFor();
+
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+				//Read the output from the command
+				String output = "";
+				String lineString = null;
+				while ((lineString = bufferedReader.readLine()) != null) {
+					output=output+lineString;
+				}
+				
+				int occurencesOfOk = StringUtils.countMatches(output, "{\"message\":\"OK\"}");
+				Assert.assertTrue(occurencesOfOk == 2);
+				int occurencesOfDone = StringUtils.countMatches(output, "Done");
+				Assert.assertTrue(occurencesOfDone == 1);
 
 				return process.exitValue();
 			} catch (Exception exception) {
@@ -835,10 +854,26 @@ public class WebDriverManager {
 
 				processBuilder.directory(new File(folder));
 
-				Process process = processBuilder.inheritIO().start();
+				Process process = processBuilder.start();
 
 				process.waitFor();
 
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+				//Read the output from the command
+				String output = "";
+				String lineString = null;
+				while ((lineString = bufferedReader.readLine()) != null) {
+					output=output+lineString;
+				}
+				
+				int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "\"Creating Solr Core\"");
+				Assert.assertTrue(occurencesOfCreatingSolrCore == 1);
+				int occurencesOfCreatingTarget = StringUtils.countMatches(output, "\"Creating Deployer Target\"");
+				Assert.assertTrue(occurencesOfCreatingTarget == 1);
+				int occurencesOfDone = StringUtils.countMatches(output, "Done");
+				Assert.assertTrue(occurencesOfDone == 1);
+				
 				return process.exitValue();
 			} catch (Exception exception) {
 				exception.printStackTrace();

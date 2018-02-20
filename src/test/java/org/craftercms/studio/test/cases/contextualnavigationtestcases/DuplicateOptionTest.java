@@ -91,8 +91,9 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		dashboardPage.clickOnDuplicateOption();
 
 		// click on duplicate in the popup
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", duplicateButtonXpath).click();
-		
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", duplicateButtonXpath)
+				.click();
+
 		this.driverManager.waitForAnimation();
 
 		// Switch to the iframe
@@ -137,7 +138,7 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		// expand home content
 		this.driverManager.waitUntilPageLoad();
 		this.driverManager.waitUntilSidebarOpens();
-
+		this.driverManager.waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// create a new content
