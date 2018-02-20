@@ -38,6 +38,7 @@ public class WebDriverManager {
 	private ConstantsPropertiesManager constantsPropertiesManager;
 	private int defaultTimeOut;
 	private String webBrowserProperty;
+	private String executionEnvironment;
 
 	@SuppressWarnings("deprecation")
 	public void openConnection() {
@@ -50,6 +51,7 @@ public class WebDriverManager {
 			try {
 				envProperties.load(new FileInputStream(enviromentPropertiesPath));
 				webBrowserProperty = envProperties.getProperty("webBrowser");
+				executionEnvironment = envProperties.getProperty("executionenvironment");
 				DesiredCapabilities capabilities;
 				switch (webBrowserProperty.toLowerCase()) {
 				case "phantomjs":
@@ -84,6 +86,68 @@ public class WebDriverManager {
 				}
 
 				driver.get(envProperties.getProperty("baseUrl"));
+				this.defaultTimeOut = Integer.parseInt(
+						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
+
+				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
+					this.maximizeWindow();
+				}
+
+			} catch (IOException ex) {
+				throw new FileNotFoundException("Unable to read runtime properties file");
+			}
+		} catch (IOException ex) {
+			throw new TestException("Required Files are not found.");
+		}
+
+	}
+
+	@SuppressWarnings("deprecation")
+	public void openConnectionAndGotoDelivery(String siteId) {
+
+		final Properties runtimeProperties = new Properties();
+		try {
+			runtimeProperties.load(WebDriverManager.class.getResourceAsStream("/runtime.properties"));
+			String enviromentPropertiesPath = runtimeProperties.getProperty("crafter.test.location");
+			final Properties envProperties = new Properties();
+			try {
+				envProperties.load(new FileInputStream(enviromentPropertiesPath));
+				webBrowserProperty = envProperties.getProperty("webBrowser");
+				executionEnvironment = envProperties.getProperty("executionenvironment");
+				DesiredCapabilities capabilities;
+				switch (webBrowserProperty.toLowerCase()) {
+				case "phantomjs":
+					capabilities = DesiredCapabilities.phantomjs();
+					System.setProperty("phantomjs.binary.path", envProperties.getProperty("phantomjs.binary.path"));
+					driver = new PhantomJSDriver(capabilities);
+					break;
+				case "firefox":
+					FirefoxOptions firefoxOptions = new FirefoxOptions();
+					System.setProperty("webdriver.gecko.driver", envProperties.getProperty("firefox.driver.path"));
+					driver = new FirefoxDriver(firefoxOptions);
+					break;
+				case "edge":
+					System.setProperty("webdriver.edge.driver", envProperties.getProperty("edge.driver.path"));
+					EdgeOptions options = new EdgeOptions();
+					options.setPageLoadStrategy("eager");
+					driver = new EdgeDriver(options);
+					break;
+				case "ie":
+					InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
+					System.setProperty("webdriver.ie.driver", envProperties.getProperty("ie.driver.path"));
+					driver = new InternetExplorerDriver(internetExplorerOptions);
+					break;
+				case "chrome":
+					ChromeOptions chromeOptions = new ChromeOptions();
+					System.setProperty("webdriver.chrome.driver", envProperties.getProperty("chrome.driver.path"));
+					driver = new ChromeDriver(chromeOptions);
+					break;
+				default:
+					throw new IllegalArgumentException(
+							"webBrowser property is needed, valid values are:" + "chrome,edge,ie,firefox,phantomjs");
+				}
+				this.waitForDeliveryRefresh();
+				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
 				this.defaultTimeOut = Integer.parseInt(
 						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
 
@@ -229,13 +293,11 @@ public class WebDriverManager {
 		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.refreshed(ExpectedConditions
 				.attributeContains(getSelector(selectorType, selectorValue), attributeName, attributeValue)));
 	}
-	
-	public void waitUntilTextIs(String selectorType, String selectorValue,
-			String textValue) {
-		logger.debug("Waiting for element {}, {} to have the text {}", selectorType, selectorValue,
-				textValue);
-		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.refreshed(ExpectedConditions
-				.textToBe(getSelector(selectorType, selectorValue),textValue)));
+
+	public void waitUntilTextIs(String selectorType, String selectorValue, String textValue) {
+		logger.debug("Waiting for element {}, {} to have the text {}", selectorType, selectorValue, textValue);
+		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions
+				.refreshed(ExpectedConditions.textToBe(getSelector(selectorType, selectorValue), textValue)));
 	}
 
 	public void waitUntilElementIsRemoved(WebElement element) {
@@ -424,9 +486,9 @@ public class WebDriverManager {
 	public void scrollDown() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,2000)");
 	}
-	
+
 	public void scrollDownPx(int px) {
-		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,"+px+")");
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0," + px + ")");
 	}
 
 	public ConstantsPropertiesManager getConstantsPropertiesManager() {
@@ -504,14 +566,14 @@ public class WebDriverManager {
 		this.waitForAnimation();
 		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
 				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
-			new WebDriverWait(this.driver, defaultTimeOut).until(ExpectedConditions
-					.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "yui-skin-cstudioTheme iewarning")));
+			new WebDriverWait(this.driver, defaultTimeOut).until(ExpectedConditions.refreshed(
+					ExpectedConditions.attributeToBe(By.tagName("body"), "class", "yui-skin-cstudioTheme iewarning")));
 		} else {
-			new WebDriverWait(this.driver, defaultTimeOut).until(
-					ExpectedConditions.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "yui-skin-cstudioTheme")));
+			new WebDriverWait(this.driver, defaultTimeOut).until(ExpectedConditions
+					.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "yui-skin-cstudioTheme")));
 		}
 	}
-	
+
 	public void waitUntilDeleteSiteModalCloses() {
 		logger.debug("Waiting for delete site dialog to close");
 		this.waitForAnimation();
@@ -524,7 +586,7 @@ public class WebDriverManager {
 					ExpectedConditions.refreshed(ExpectedConditions.attributeToBe(By.tagName("body"), "class", "")));
 		}
 	}
-	
+
 	public void waitUntilAddUserModalCloses() {
 		logger.debug("Waiting for add user dialog to close");
 		this.waitForAnimation();
@@ -706,6 +768,15 @@ public class WebDriverManager {
 		}
 	}
 
+	public void waitForDeliveryRefresh() {
+		try {
+			// wait for a minute for delivery refresh
+			Thread.sleep(60000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void takeScreenshot(String screenShotName) {
 		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
@@ -724,5 +795,56 @@ public class WebDriverManager {
 			this.takeScreenshot("PageNotPublished");
 			logger.warn("Content page is not published yet, it does not have published icon on pages structure");
 		}
+	}
+
+	public int goToFolderAndExecuteInitSiteScriptThroughCommandLine(String siteId) {
+		String script;
+		String shell;
+		String folder;
+		if (executionEnvironment.equalsIgnoreCase("unix")) {
+			shell = "/bin/bash";
+			script = "init-site.sh";
+			folder = "../../crafter-delivery/bin";
+			try {
+				String[] command = { shell, script, siteId };
+
+				ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+				processBuilder.directory(new File(folder));
+
+				Process process = processBuilder.inheritIO().start();
+
+				process.waitFor();
+
+				return process.exitValue();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+				return -1;
+			}
+		} else {
+			String[] command = new String[3];
+			command[0] = "cmd";
+			command[1] = "/C";
+			command[2] = "init-site.bat " + siteId;
+
+			folder = System.getProperty("user.dir") + "\\..\\..\\crafter-delivery\\bin";
+
+			try {
+
+				ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+				processBuilder.directory(new File(folder));
+
+				Process process = processBuilder.inheritIO().start();
+
+				process.waitFor();
+
+				return process.exitValue();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+				return -1;
+			}
+		}
+
 	}
 }

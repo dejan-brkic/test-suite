@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -19,7 +19,7 @@ import org.openqa.selenium.WebElement;
  *
  */
 //Test Case Studio- Site Dropdown ID:1
-public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminUser extends BaseTest{
+public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminUser extends StudioBaseTest{
 
 	private String userName;
 	private String password;

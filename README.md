@@ -17,4 +17,6 @@ ie.driver.path=PATH-TO-BIN
 edge.driver.path=PATH-TO-BIN
 chrome.driver.path=PATH-TO-BIN
 baseUrl = http://localhost:8080/studio/#/login
+deliverybaseUrl=http://localhost:9080/
+executionenvironment=unix|windows
 ```

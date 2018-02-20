@@ -3,7 +3,7 @@ package org.craftercms.studio.test.cases.dashboardtestcases;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
  *
  */
 
-public class ShowHideSiteContentTest extends BaseTest {
+public class ShowHideSiteContentTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;

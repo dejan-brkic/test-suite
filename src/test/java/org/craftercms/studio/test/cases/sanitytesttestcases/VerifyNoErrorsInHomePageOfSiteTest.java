@@ -3,7 +3,7 @@
  */
 package org.craftercms.studio.test.cases.sanitytesttestcases;
 
-import org.craftercms.studio.test.cases.BaseTest;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
  * @author luishernandez
  *
  */
-public class VerifyNoErrorsInHomePageOfSiteTest extends BaseTest{
+public class VerifyNoErrorsInHomePageOfSiteTest extends StudioBaseTest{
 
 //	private String userName;
 //	private String password;

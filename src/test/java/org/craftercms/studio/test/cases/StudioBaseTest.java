@@ -20,7 +20,7 @@ import org.testng.annotations.BeforeClass;
 /**
  * All Test Cases should extend this class
  */
-public class BaseTest {
+public class StudioBaseTest {
 
     protected WebDriverManager driverManager;
     protected UIElementsPropertiesManager uiElementsPropertiesManager;
