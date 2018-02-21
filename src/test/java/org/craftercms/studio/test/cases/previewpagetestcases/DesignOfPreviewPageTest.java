@@ -76,9 +76,6 @@ public class DesignOfPreviewPageTest extends StudioBaseTest {
 		// go to preview page
 		homePage.goToPreviewPage();
 
-		// reload page
-		driverManager.getDriver().navigate().refresh();
-
 		// Assert crafter studio logo is present.
 		WebElement logoCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLogoId);
 		Assert.assertTrue(logoCrafter.isDisplayed(), "ERROR: Crafter logo is not displayed");

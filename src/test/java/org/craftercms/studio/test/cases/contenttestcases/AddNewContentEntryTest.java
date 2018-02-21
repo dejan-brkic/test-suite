@@ -86,9 +86,6 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 		// go to preview page
 		homePage.goToPreviewPage();
 
-		// reload page
-		driverManager.getDriver().navigate().refresh();
-
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
 

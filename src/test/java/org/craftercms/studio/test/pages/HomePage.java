@@ -60,6 +60,7 @@ public class HomePage {
 		WebElement previewLink = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				previewSite);
 		previewLink.click();
+		this.driverManager.waitForAnimation();
 	}
 
 	public void goToPreviewPage() {

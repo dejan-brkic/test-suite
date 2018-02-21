@@ -126,9 +126,6 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		// goto preview page
 		goToPreviewPage();
 
-		// reload page
-		driverManager.getDriver().navigate().refresh();
-
 		// select the content type to the test
 		changeBodyToNotRequiredOnEntryContent();
 
