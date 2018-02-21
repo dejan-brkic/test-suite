@@ -487,7 +487,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
-		driverManager.getDriver().navigate().refresh();
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilFolderOpens("xpath", expandPagesTree);
 

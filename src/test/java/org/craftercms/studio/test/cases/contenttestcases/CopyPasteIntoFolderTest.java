@@ -94,8 +94,6 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		// go to preview page
 		homePage.goToPreviewPage();
 
-		driverManager.getDriver().navigate().refresh();
-
 		this.changeBodyToNotRequiredOnEntryContent();
 
 		// expand pages folder

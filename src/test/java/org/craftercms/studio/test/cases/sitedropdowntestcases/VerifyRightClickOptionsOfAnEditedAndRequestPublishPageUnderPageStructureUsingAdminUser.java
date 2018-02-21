@@ -51,7 +51,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	private String navigationSitebarNameId;
 	private String userOptions;
 	private String userOptionsLogout;
-
 	private String rightclickEditOption;
 	private String rightclickViewOption;
 	private String rightclickNewContentOption;
