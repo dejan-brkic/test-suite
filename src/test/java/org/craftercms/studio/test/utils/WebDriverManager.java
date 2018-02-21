@@ -823,17 +823,17 @@ public class WebDriverManager {
 
 				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-				//Read the output from the command
+				// Read the output from the command
 				String output = "";
 				String lineString = null;
 				while ((lineString = bufferedReader.readLine()) != null) {
-					output=output+lineString;
+					output = output + lineString;
 				}
-				
+
 				int occurencesOfOk = StringUtils.countMatches(output, "{\"message\":\"OK\"}");
-				Assert.assertTrue(occurencesOfOk == 2);
+				Assert.assertTrue((occurencesOfOk == 2), "The init-site result was: " + output);
 				int occurencesOfDone = StringUtils.countMatches(output, "Done");
-				Assert.assertTrue(occurencesOfDone == 1);
+				Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
 
 				return process.exitValue();
 			} catch (Exception exception) {
@@ -860,20 +860,20 @@ public class WebDriverManager {
 
 				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-				//Read the output from the command
+				// Read the output from the command
 				String output = "";
 				String lineString = null;
 				while ((lineString = bufferedReader.readLine()) != null) {
-					output=output+lineString;
+					output = output + lineString;
 				}
-				
+
 				int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "\"Creating Solr Core\"");
-				Assert.assertTrue(occurencesOfCreatingSolrCore == 1);
+				Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
 				int occurencesOfCreatingTarget = StringUtils.countMatches(output, "\"Creating Deployer Target\"");
-				Assert.assertTrue(occurencesOfCreatingTarget == 1);
+				Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
 				int occurencesOfDone = StringUtils.countMatches(output, "Done");
-				Assert.assertTrue(occurencesOfDone == 1);
-				
+				Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+
 				return process.exitValue();
 			} catch (Exception exception) {
 				exception.printStackTrace();
