@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class RecentActivityFilterShowTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(RecentActivityFilterShowTest.class);
-	
+
 	private String userName;
 	private String password;
 
@@ -29,7 +29,7 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 	private String myRecentActivityShowInputXPath;
 	private String myRecentActivityFirstItemURLXPath;
 	private String myRecentActivitySecondItemURLXPath;
-	
+
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
@@ -38,19 +38,18 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.createformframe");
 		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.saveandclosebutton");
-		createFormExpandAll= uiElementsPropertiesManager.getSharedUIElementsLocators()
+		createFormExpandAll = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformexpandall");
 		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.createformMainTitle");
-		homeElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.home");
+		homeElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.home");
 		myRecentActivityShowInputXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.showinput");
 		myRecentActivityFirstItemURLXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.firstelementurl");
 		myRecentActivitySecondItemURLXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.secondelementurl");
-	
+
 	}
 
 	public void changeBodyToNotRequiredOnEntryContent() {
@@ -83,13 +82,11 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 
 			// click necessary to validate all fields required
 			this.driverManager.scrollUp();
-			this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormExpandAll)
-				.click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormExpandAll).click();
 
 			// save and close
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormSaveAndCloseElement)
-				.click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+					.click();
 		});
 	}
 
@@ -118,50 +115,46 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 
 			// click necessary to validate all fields required
 			this.driverManager.scrollUp();
-			this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormExpandAll)
-				.click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormExpandAll).click();
 
 			// save and close
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormSaveAndCloseElement)
-				.click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+					.click();
 		});
 	}
 
 	public void filtersAndAsserts() {
 
 		// clean filter
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				myRecentActivityShowInputXPath).clear();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityShowInputXPath).clear();
 
 		// Show only 1 item edited
 		driverManager.sendText("xpath", myRecentActivityShowInputXPath, "1");
-		driverManager.waitUntilElementIsDisplayed( "xpath", myRecentActivityShowInputXPath)
-			.sendKeys(Keys.ENTER);
-
+		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityShowInputXPath).sendKeys(Keys.ENTER);
+		this.driverManager.waitForAnimation();
 		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityFirstItemURLXPath);
-		
+
 		// Assert filter 1
-		String edit1 = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				myRecentActivityFirstItemURLXPath).getText();
+		this.driverManager.waitForAnimation();
+		String edit1 = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityFirstItemURLXPath).getText();
 
 		Assert.assertEquals(edit1, "/aboutus1");
 
 		// clean filter
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				myRecentActivityShowInputXPath).clear();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityShowInputXPath).clear();
 
 		// Show only 1 item edited
 		driverManager.sendText("xpath", myRecentActivityShowInputXPath, "2");
-		driverManager.waitUntilElementIsDisplayed( "xpath", myRecentActivityShowInputXPath)
-			.sendKeys(Keys.ENTER);
-
+		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityShowInputXPath).sendKeys(Keys.ENTER);
+		this.driverManager.waitForAnimation();
 		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivitySecondItemURLXPath);
-		
+
 		// Assert filter 1
-		String edit2 = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				myRecentActivitySecondItemURLXPath).getText();
+		this.driverManager.waitForAnimation();
+		String edit2 = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivitySecondItemURLXPath).getText();
 		Assert.assertEquals(edit2, "/aboutus");
 	}
 
@@ -171,8 +164,8 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
-		
-		//Wait for login page to close
+
+		// Wait for login page to close
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page

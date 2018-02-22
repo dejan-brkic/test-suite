@@ -23,6 +23,7 @@ public class ContentTypesAddRepeatingGroupTest extends StudioBaseTest{
 	private String contentTypeContainerRepeatingGroupTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -43,6 +44,8 @@ public class ContentTypesAddRepeatingGroupTest extends StudioBaseTest{
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void dragAndDrop() {
@@ -87,6 +90,8 @@ public class ContentTypesAddRepeatingGroupTest extends StudioBaseTest{
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				siteDropdownXpath).click();
 
@@ -114,6 +119,7 @@ public class ContentTypesAddRepeatingGroupTest extends StudioBaseTest{
 				.getText();
 
 		Assert.assertTrue(titleText.contains("TestTitle"));
+		siteConfigPage.saveDragAndDropProcess();
 
 	}
 }

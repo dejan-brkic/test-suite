@@ -23,6 +23,7 @@ public class ContentTypesAddTextAreaTest extends StudioBaseTest{
 	private String contentTypeContainerTextAreaTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -44,6 +45,8 @@ public class ContentTypesAddTextAreaTest extends StudioBaseTest{
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void dragAndDrop() {
@@ -89,6 +92,8 @@ public class ContentTypesAddTextAreaTest extends StudioBaseTest{
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
@@ -117,6 +122,7 @@ public class ContentTypesAddTextAreaTest extends StudioBaseTest{
 				.getText();
 
 		Assert.assertTrue(titleText.contains("TestTitle"));
+		siteConfigPage.saveDragAndDropProcess();
 
 	}
 }

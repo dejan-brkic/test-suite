@@ -169,7 +169,6 @@ public class WebDriverManager {
 	}
 
 	public void closeConnection() {
-		// this.driver.close();
 		this.driver.quit();
 	}
 
@@ -881,5 +880,23 @@ public class WebDriverManager {
 			}
 		}
 
+	}
+
+	public void focusAndScrollDownToBottomInASection(String cssContainer,String cssSelectorValue) {
+		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
+				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
+			((JavascriptExecutor) driver).executeScript(
+					"$('"+cssContainer+"').scrollTop($('"+cssSelectorValue+"').last().offset().top);");
+
+		}
+	}
+	
+	public void focusAndScrollDownToMiddleInASection(String cssContainer, String cssSelectorValue) {
+		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
+				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
+			((JavascriptExecutor) driver).executeScript(
+					"$('"+cssContainer+"').scrollTop($('"+cssSelectorValue+":first-child').height()*7);");
+
+		}
 	}
 }

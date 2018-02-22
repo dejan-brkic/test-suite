@@ -59,13 +59,16 @@ public class ShowUsersPageTest extends StudioBaseTest {
 		// select the about us option
 		homePage.goToDashboardPage();
 
+		this.driverManager.waitForAnimation();
 		dashboardPage.clickUsersContextualNavigationOption();
 
 		// Checking if the UsersPage was Loaded
+		this.driverManager.waitForAnimation();
 		Assert.assertTrue(usersPage.getDriverManager().getDriver().getCurrentUrl()
 				.equals(apiConnectionManager.getHeaderLocationBase()+"/studio/#/users"));
 
 		// Checking if the Users title is displayed on the current page
+		this.driverManager.waitForAnimation();
 		Assert.assertTrue(usersPage.isUsersPageTitlePresent());
 
 		// go back to Sites Page

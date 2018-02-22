@@ -24,6 +24,8 @@ public class ContentTypesAddItemSelectorTest extends StudioBaseTest{
 	private String contentTypeContainerItemSelectorTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
+	private String siteDropdownListElementXPath;
+	private String lastControlElementCssSelector;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -44,6 +46,10 @@ public class ContentTypesAddItemSelectorTest extends StudioBaseTest{
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
+		lastControlElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
 
@@ -59,7 +65,9 @@ public class ContentTypesAddItemSelectorTest extends StudioBaseTest{
 				contentTypeContainerLocator);
 
 		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
-
+		
+		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector);
 		WebElement FromItemSelector = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				controlsSectionItemSelectorLocator);
 
@@ -90,6 +98,8 @@ public class ContentTypesAddItemSelectorTest extends StudioBaseTest{
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
@@ -116,6 +126,7 @@ public class ContentTypesAddItemSelectorTest extends StudioBaseTest{
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerItemSelectorTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
+		siteConfigPage.saveDragAndDropProcess();
 
 	}
 }

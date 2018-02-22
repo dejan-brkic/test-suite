@@ -325,14 +325,10 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		homePage.goToPreviewPage();
 
-		if (this.driverManager.isElementPresentByXpath(siteDropdownElementXPath))
-
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath).isDisplayed())
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
-
 		else
-
 			throw new NoSuchElementException(
-
 					"Site creation process is taking too long time and the element was not found");
 
 	}

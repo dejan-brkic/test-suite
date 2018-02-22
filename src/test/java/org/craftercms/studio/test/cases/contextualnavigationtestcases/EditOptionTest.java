@@ -31,6 +31,10 @@ public class EditOptionTest extends StudioBaseTest {
 	private String siteDropDownXpath;
 	private String crafterLogoId;
 	private String testingItemEditedXpath;
+
+	private String siteDropdownListElementXPath;
+
+	private String lastPropertiesElementCssSelector;
 	
 	
 	@BeforeMethod
@@ -62,6 +66,10 @@ public class EditOptionTest extends StudioBaseTest {
 				.getProperty("general.studiologo");
 		testingItemEditedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitemedited.sitecontent");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
+		lastPropertiesElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.propertiesdivlastelement");
 	}
 
 	public void bodyNotRequiered() {
@@ -81,10 +89,13 @@ public class EditOptionTest extends StudioBaseTest {
 		siteConfigPage.confirmContentTypeSelected();
 
 		// select main content
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", entryContentTypeBodyXpath).click();
 		
 
 		// Body not required
+		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				entryContentTypeBodyCheckCss).click();
 
@@ -156,6 +167,8 @@ public class EditOptionTest extends StudioBaseTest {
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropDownXpath)
 				.click();
 		

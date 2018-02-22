@@ -21,6 +21,7 @@ public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends St
 	private String contentTypeContainerImageUploadedFromRepositoryTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -38,6 +39,8 @@ public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends St
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void dragAndDrop() {
@@ -75,6 +78,8 @@ public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends St
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
@@ -104,7 +109,7 @@ public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends St
 		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerImageUploadedFromRepositoryTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-
+		siteConfigPage.saveDragAndDropProcess();
 	}
 
 }
