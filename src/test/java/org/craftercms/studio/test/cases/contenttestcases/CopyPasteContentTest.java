@@ -116,6 +116,7 @@ public class CopyPasteContentTest extends StudioBaseTest {
 			dashboardPage.editInternalName("COPY");	
 		});
 		
+		this.driverManager.waitForAnimation();
 		Assert.assertNotNull(driverManager.waitUntilElementIsDisplayed("xpath", copyTestItemXpath)
 				,"Content page is not displayed on the Site Content panel");
 

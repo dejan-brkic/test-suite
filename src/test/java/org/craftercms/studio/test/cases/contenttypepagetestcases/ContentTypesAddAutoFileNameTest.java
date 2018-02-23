@@ -24,6 +24,8 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 	private String contentTypeContainerAutoFileNameTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
+	private String siteDropdownListElementXPath;
+	private String lastControlElementCssSelector;
 	
 	@BeforeMethod
 	public void beforeTest() {
@@ -44,6 +46,10 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
+		lastControlElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
 
@@ -60,6 +66,8 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 	
 		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#widgets-container",lastControlElementCssSelector);
 		WebElement FromAutoFileName = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				controlsSectionAutoFileNameLocator);
 
@@ -91,6 +99,8 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 		
@@ -114,6 +124,6 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 		// Asserts that fields are not empty.
 		String titleText =this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerAutoFileNameTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-
+		siteConfigPage.saveDragAndDropProcess();
 	}
 }

@@ -31,6 +31,7 @@ public class DesignOfPreviewPageTest extends StudioBaseTest {
 	private String adminConsoleXpath;
 	private String topNavUsersOption;
 	private String topNavSitesOption;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -60,6 +61,8 @@ public class DesignOfPreviewPageTest extends StudioBaseTest {
 				.getProperty("general.userstopnavoption");
 		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitestopnavoption");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 
 	}
 
@@ -121,6 +124,8 @@ public class DesignOfPreviewPageTest extends StudioBaseTest {
 		Assert.assertTrue(dependencies.isDisplayed(), "ERROR: Dependencies option is not displayed");
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				siteDropDownXpath).click();
 

@@ -18,6 +18,7 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 	private String userName;
 	private String password;
 	private String adminConsoleXpath;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -25,6 +26,8 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 
 	}
 
@@ -42,6 +45,8 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 
 		homePage.goToDashboardPage();
 
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open"))) 
 		dashboardPage.clickOnSiteContentOption();
 
 		// Assert that the site content is expanded

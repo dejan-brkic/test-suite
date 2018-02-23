@@ -135,7 +135,6 @@ public class EditUserTest extends StudioBaseTest {
 		usersPage.deleteAllUsersExceptAdmin();
 
 		this.driverManager.waitForAnimation();
-		driverManager.getDriver().navigate().refresh();
 	
 		// Assert new users created are deleted
 		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(usersRowsXpath));

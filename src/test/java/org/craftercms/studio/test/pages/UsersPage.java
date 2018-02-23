@@ -174,6 +174,7 @@ public class UsersPage {
 	}
 
 	public void deleteAllUsersExceptAdmin() {
+		this.driverManager.waitForAnimation();
 		List<WebElement> usersListitem = this.driverManager.getDriver()
 				.findElements(By.xpath(deleteUsersRowsXpath));
 

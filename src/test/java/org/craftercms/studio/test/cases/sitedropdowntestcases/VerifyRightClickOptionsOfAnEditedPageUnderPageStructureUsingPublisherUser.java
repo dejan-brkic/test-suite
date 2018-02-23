@@ -450,6 +450,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		});
 
 		this.driverManager.waitUntilSidebarOpens();
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("Xpath", homePageEditedName);
 
 	}
@@ -577,7 +578,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
 				.click();
-
+		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.getDriver().switchTo()
@@ -672,8 +673,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		logger.info("Adding New User");
 
 		this.addNewUser();
-
-		this.driverManager.getDriver().navigate().refresh();
 
 		logger.info("Go to Site Preview");
 

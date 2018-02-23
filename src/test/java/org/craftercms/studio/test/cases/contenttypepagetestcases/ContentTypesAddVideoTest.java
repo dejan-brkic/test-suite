@@ -23,6 +23,8 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 	private String contentTypeContainerVideoTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
+	private String lastControlElementCssSelector;
+	private String siteDropdownListElementXPath;
 
 
 	@BeforeMethod
@@ -44,6 +46,10 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
+		lastControlElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
 
@@ -60,6 +66,8 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 
 		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector);
 		WebElement FromVideo = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionVideoLocator);
 
@@ -90,6 +98,8 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		 this.driverManager
 			.driverWaitUntilElementIsPresentAndDisplayed( "xpath", siteDropdownXpath).click();
 
@@ -117,6 +127,7 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 		String titleText = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerVideoTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
+		siteConfigPage.saveDragAndDropProcess();
 
 	}
 }

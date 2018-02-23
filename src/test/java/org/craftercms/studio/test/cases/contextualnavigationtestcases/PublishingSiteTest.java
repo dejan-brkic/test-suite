@@ -137,7 +137,7 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 		// Switch to the form
 
-		driverManager.getDriver().navigate().refresh();
+		//driverManager.getDriver().navigate().refresh();
 
 		driverManager.getDriver().switchTo().defaultContent();
 
@@ -157,8 +157,9 @@ public class PublishingSiteTest extends StudioBaseTest {
 		createNewContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		//driverManager.getDriver().navigate().refresh();
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentItem).click();
 
 		// approve and publish

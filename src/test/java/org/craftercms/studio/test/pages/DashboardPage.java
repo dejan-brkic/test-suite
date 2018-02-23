@@ -462,6 +462,7 @@ public class DashboardPage {
 		// Fill page URL
 		this.setPageURL1(strPageURL);
 		// Fill internal name
+		this.driverManager.waitForAnimation();
 		this.setInternalName1(strInternalName);
 	}
 
@@ -705,6 +706,7 @@ public class DashboardPage {
 
 	// click on Site Content
 	public void clickSiteContent() {
+	
 		WebElement siteContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				clickOnSiteContent);
 		siteContent.click();

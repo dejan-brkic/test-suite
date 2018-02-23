@@ -460,7 +460,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 
 	public void editHomePage() {
 		// Step 3 Edit the Home Page and Save
-
+this.driverManager.waitForAnimation();
 		dashboardPage.rightClickEditOnAPresentPage(homeContent);
 
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
