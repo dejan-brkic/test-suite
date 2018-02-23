@@ -24,6 +24,7 @@ public class HistoryOptionTest extends StudioBaseTest{
 	private String historyDialogTitle;
 	private String studioLogo;
 	private String actionsHeaderXpath;
+	private String siteDropdownListElementXPath;
 
 	private static Logger logger = LogManager.getLogger(HistoryOptionTest.class);
 	
@@ -42,7 +43,8 @@ public class HistoryOptionTest extends StudioBaseTest{
 				.getProperty("general.studiologo");
 		actionsHeaderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.historydialogactionsheader");
-		
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	@Test(priority = 0)
@@ -58,6 +60,8 @@ public class HistoryOptionTest extends StudioBaseTest{
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteDropdownXpath).click();
 		

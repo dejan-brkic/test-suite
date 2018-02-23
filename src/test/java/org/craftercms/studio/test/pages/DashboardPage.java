@@ -705,6 +705,7 @@ public class DashboardPage {
 
 	// click on Site Content
 	public void clickSiteContent() {
+	
 		WebElement siteContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				clickOnSiteContent);
 		siteContent.click();

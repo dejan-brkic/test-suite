@@ -18,6 +18,7 @@ public class AddNewFolderTest extends StudioBaseTest {
 	private String siteDropdownElementXPath;
 	private String newFolderXpath;
 	private String homeTree;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -29,6 +30,8 @@ public class AddNewFolderTest extends StudioBaseTest {
 				.getProperty("general.sitecontent.newfolder");
 		homeTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.home_Content_Page");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	@Test(priority = 0)
@@ -45,6 +48,8 @@ public class AddNewFolderTest extends StudioBaseTest {
 		homePage.goToDashboardPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 
 		// expand pages folder

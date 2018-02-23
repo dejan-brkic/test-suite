@@ -22,6 +22,7 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 	private String createFormSaveAndCloseElement;
 	private String siteDropDownXpath;
 	private String sectionDefaultsXpath;
+	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager.getLogger(AddNewContentSectionDefaultsTest.class);
 	
 
@@ -38,6 +39,8 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 				.getProperty("general.sitedropdown");
 		sectionDefaultsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.sectiondefaults");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void createLevelDescriptorContent() {
@@ -85,6 +88,8 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", siteDropDownXpath)
 				.click();
 
@@ -105,7 +110,7 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", sectionDefaultsXpath).getText();
 
 		logger.info("Verify Level Descriptor was created");
-		Assert.assertEquals(levelDescriptor, "Section Defaults",
+		Assert.assertTrue(levelDescriptor.contains("Section Defaults"),
 				"Level descriptors are not the same, check if the level descriptor was succesfully created");
 
 	}

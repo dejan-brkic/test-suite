@@ -61,6 +61,8 @@ public class PreviewPage {
 	private String gearItemXpath;
 	private String bulkPublishTab;
 	private String publishingFrame;
+	private String siteDropdownListElementXPath;
+	private String lastPropertiesElementCssSelector;
 
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
@@ -123,10 +125,14 @@ public class PreviewPage {
 		studioLogo = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.studiologo");
 		siteDropdownElementXPath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
+		siteDropdownListElementXPath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 		adminConsoleXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
 		entryContentTypeBodyXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.entrycontenttype.body");
+		lastPropertiesElementCssSelector = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.propertiesdivlastelement");
 		entryContentTypeBodyCheckXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.entrycontenttype.bodyrequiredcheck");
 		createFormFrameElementCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -145,8 +151,7 @@ public class PreviewPage {
 				.getProperty("complexscenarios.edit.articles.content.type.sections.repeating.group");
 		gearItemXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearlocator");
-		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("bulkoperations.frame");
+		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("bulkoperations.frame");
 
 	}
 
@@ -438,8 +443,10 @@ public class PreviewPage {
 	public void changeBodyOfEntryContentPageToNotRequired() {
 
 		// Show site content panel
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.click();
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
 
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
@@ -464,6 +471,7 @@ public class PreviewPage {
 
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
 
 		// save
@@ -482,6 +490,8 @@ public class PreviewPage {
 	public void changeBodyOfArticlePageToNotRequired() {
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
 
 		// go to admin console page
@@ -513,6 +523,7 @@ public class PreviewPage {
 
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
 
 		// save
@@ -645,9 +656,10 @@ public class PreviewPage {
 				.click();
 
 		this.driverManager.getDriver().switchTo().activeElement();
-		
+
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",bulkoperationsMessage).isDisplayed());
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
+				.isDisplayed());
 
 		// Switch back to the dashboard page
 		driverManager.getDriver().switchTo().defaultContent();

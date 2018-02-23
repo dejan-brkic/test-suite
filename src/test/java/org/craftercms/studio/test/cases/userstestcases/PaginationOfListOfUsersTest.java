@@ -105,11 +105,11 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest{
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath).sendKeys("10");
 
+		this.driverManager.waitForAnimation();
 	}
 
 	public void deleteUsers() {
 		// Click on delete user
-		driverManager.getDriver().navigate().refresh();
 		usersPage.deleteAllUsersExceptAdmin();
 	}
 
@@ -130,6 +130,7 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest{
 		navigationOfPage();
 
 		// Delete users
+		this.driverManager.waitForAnimation();
 		deleteUsers();
 
 	}

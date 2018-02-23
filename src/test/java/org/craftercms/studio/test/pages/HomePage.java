@@ -75,6 +75,7 @@ public class HomePage {
 		WebElement dashboardLink = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				dashboardSite);
 		dashboardLink.click();
+		this.driverManager.waitForAnimation();
 	}
 
 	public void goToDashboardPage() {

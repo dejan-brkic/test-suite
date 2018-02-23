@@ -102,11 +102,11 @@ public class UsersPerPageTest extends StudioBaseTest{
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",usersPerPageInputXpath);
 		driverManager.sendText("xpath",usersPerPageInputXpath,"10");
+		this.driverManager.waitForAnimation();
 	}
 
 	public void deleteUsers() {
 		// Click on delete user
-		driverManager.getDriver().navigate().refresh();
 		usersPage.deleteAllUsersExceptAdmin();
 	}
 
@@ -129,7 +129,9 @@ public class UsersPerPageTest extends StudioBaseTest{
 		driverManager.getDriver().navigate().refresh();
 		
 		// filters
-		filters();
+		filters();	
+		
+		this.driverManager.waitForAnimation();
 		// Delete all users
 		deleteUsers();
 	}

@@ -20,6 +20,7 @@ public class DependenciesOptionTest extends StudioBaseTest {
 	private String siteDropdownXpath;
 	private String homeXpath;
 	private String dependeciesDialogTitle;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -32,6 +33,8 @@ public class DependenciesOptionTest extends StudioBaseTest {
 				.getProperty("general.home");
 		dependeciesDialogTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.dependeciesdialogtitle");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	@Test(priority = 0)
@@ -47,7 +50,8 @@ public class DependenciesOptionTest extends StudioBaseTest {
 		homePage.goToPreviewPage();
 
 		// Show site content panel
-
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
