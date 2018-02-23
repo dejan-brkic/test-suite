@@ -624,7 +624,6 @@ public class WebDriverManager {
 		input.clear();
 		input.sendKeys(text);
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
-		input.sendKeys(Keys.TAB);
 	}
 
 	public void usingContextMenu(Runnable actions) {

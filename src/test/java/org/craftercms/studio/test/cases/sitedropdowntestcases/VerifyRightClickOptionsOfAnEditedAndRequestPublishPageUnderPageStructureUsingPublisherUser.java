@@ -439,6 +439,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	public void editHomePage() {
 		// Step 3 Edit the Home Page and Save
 		logger.info("Edit the Home Page and Save");
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickEditOnAPresentPage(homeContent);
 
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
@@ -573,7 +574,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
 				.click();
-
+		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.getDriver().switchTo()
@@ -680,12 +681,10 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		
 		logger.info("Add New User Author");
 		this.addNewUser("author");
-		this.driverManager.getDriver().navigate().refresh();
 		
 		logger.info("Add New User Publisher");
 		this.addNewUser("publisher");
-		this.driverManager.getDriver().navigate().refresh();
-
+		
 		logger.info("Go to Site Preview");
 
 		this.goToSiteContentPagesStructure();

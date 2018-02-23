@@ -395,6 +395,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 
 				.click();
 
+		this.driverManager.waitForAnimation();
+		
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.getDriver().switchTo()
@@ -489,8 +491,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 		logger.info("Adding New User");
 
 		this.addNewUser();
-
-		this.driverManager.getDriver().navigate().refresh();
 
 		logger.info("Go to Site Preview");
 

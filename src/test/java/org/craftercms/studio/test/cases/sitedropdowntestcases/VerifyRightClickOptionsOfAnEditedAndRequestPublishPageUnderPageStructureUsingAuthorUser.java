@@ -552,7 +552,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
 				.click();
-
+		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.getDriver().switchTo()
@@ -659,8 +659,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		logger.info("Adding New User");
 
 		this.addNewUser();
-		this.driverManager.getDriver().navigate().refresh();
-
+		
 		logger.info("Go to Site Preview");
 
 		this.goToSiteContentPagesStructure();
