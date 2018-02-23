@@ -462,6 +462,7 @@ public class DashboardPage {
 		// Fill page URL
 		this.setPageURL1(strPageURL);
 		// Fill internal name
+		this.driverManager.waitForAnimation();
 		this.setInternalName1(strInternalName);
 	}
 
