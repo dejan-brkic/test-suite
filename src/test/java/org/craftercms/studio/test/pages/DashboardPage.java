@@ -364,7 +364,7 @@ public class DashboardPage {
 	// Press right click select new folder
 	public void rightClickNewFolderOnAPresentFolder(String parentWebElementLocator) {
 		this.driverManager.waitForAnimation();
-		this.getDriverManager().contextClick("xpath", parentWebElementLocator, false);
+		this.getDriverManager().contextClick("xpath", parentWebElementLocator, true);
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addNewFolderOption).click();
 		});
@@ -854,7 +854,9 @@ public class DashboardPage {
 
 	public void updateFieldsOfPageArticleContent(String strInternalName, String strArticlesTitle) {
 		// Fill internal name
+		this.driverManager.waitForAnimation();
 		this.setInternalName1(strInternalName);
+		this.driverManager.waitForAnimation();
 		// Fill the Subject field
 		this.setArticlesTitle(strArticlesTitle);
 
@@ -988,11 +990,11 @@ public class DashboardPage {
 	}
 
 	public void rightClickPasteOnAFolder(String parentWebElementLocator) {
-		this.driverManager.contextClick("xpath", parentWebElementLocator, false);
-		WebElement pasteOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				pasteOptionLocator);
-		pasteOption.click();
-
+		this.driverManager.contextClick("xpath", parentWebElementLocator, true);
+		driverManager.usingContextMenu(() -> {
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					pasteOptionLocator).click();
+		});
 	}
 
 	public void rightClickCutAFolder(String parentWebElementLocator) {
@@ -1041,11 +1043,10 @@ public class DashboardPage {
 	}
 
 	public void rightClickCopyContentPage(String parentWebElementLocator) {
-		this.getDriverManager().contextClick("xpath", parentWebElementLocator, false);
+		this.getDriverManager().contextClick("xpath", parentWebElementLocator, true);
 		driverManager.usingContextMenu(() -> {
-			WebElement copyOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-					copyOptionLocatorForContentPage);
-			copyOption.click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					copyOptionLocatorForContentPage).click();
 		});
 	}
 

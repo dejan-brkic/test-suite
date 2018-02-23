@@ -453,12 +453,12 @@ public class WebDriverManager {
 							new Object[] { waitUntilElementIsClickable(selectorType, selectorValue) });
 					break;
 				} else {
+					this.waitForAnimation();
 					(new Actions(driver)).moveToElement(waitUntilElementIsClickable(selectorType, selectorValue))
 							.build().perform();
 
 					this.waitUntilContentTooltipIsHidden();
 					this.waitForAnimation();
-
 					(new Actions(driver)).contextClick(waitUntilElementIsClickable(selectorType, selectorValue)).build()
 							.perform();
 					break;
@@ -486,6 +486,11 @@ public class WebDriverManager {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 	}
 
+	public void scrollMiddle() {
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,500)");
+	}
+	
 	public void scrollDown() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,2000)");
 	}
@@ -665,6 +670,7 @@ public class WebDriverManager {
 		driver.switchTo().defaultContent();
 
 		// Wait until animation completes
+		waitForAnimation();
 		WebElement frame = waitUntilElementIsDisplayed(selectorType, selectorValue);
 
 		// Switch to iframe

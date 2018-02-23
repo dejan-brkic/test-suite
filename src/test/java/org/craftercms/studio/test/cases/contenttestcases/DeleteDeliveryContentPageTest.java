@@ -19,6 +19,7 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 	private String password;
 	private String siteDropdownElementXPath;
 	private String createdContentXPath;
+	private String siteDropdownListElementXPath;
 	
 	@BeforeMethod
 	public void beforeTest() {
@@ -28,6 +29,8 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdown");
 		createdContentXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.studio.deliverypagecontenttodelete");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	@Test(priority = 0)
@@ -68,6 +71,8 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 		homePage.goToDashboardPage();
 		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 				.isDisplayed())
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 		else
 			throw new NoSuchElementException(
