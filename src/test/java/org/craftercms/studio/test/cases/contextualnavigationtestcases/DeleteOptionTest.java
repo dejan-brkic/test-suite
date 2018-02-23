@@ -68,6 +68,7 @@ public class DeleteOptionTest extends StudioBaseTest {
 
 		this.createContent();
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
 
 		// wait for element is clickeable
@@ -114,13 +115,16 @@ public class DeleteOptionTest extends StudioBaseTest {
 		// Switch to the iframe
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Set basics fields of the new content created
+			this.driverManager.waitForAnimation();
 			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
 
 			// Set the title of main content
+			this.driverManager.waitForAnimation();
 			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
-
+			this.driverManager.waitForAnimation();
+			this.driverManager.waitForAnimation();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 
