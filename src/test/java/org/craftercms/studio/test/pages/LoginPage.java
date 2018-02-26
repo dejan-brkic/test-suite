@@ -56,7 +56,7 @@ public class LoginPage {
 
 	// Click on login button
 	public void clickLogin() {
-		WebElement loginButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", loginXpath);
+		WebElement loginButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable( "xpath", loginXpath);
 		loginButton.click();
 	}
 
@@ -68,6 +68,7 @@ public class LoginPage {
 		// Fill password
 		this.setPassword(strPasword);
 		// Click Login button
+		this.driverManager.waitForAnimation();
 		this.clickLogin();
 		
 		//Wait for login page to close

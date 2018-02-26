@@ -72,6 +72,7 @@ public class DeleteOptionTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
 
 		// wait for element is clickeable
+		this.driverManager.waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// Select the content to delete.

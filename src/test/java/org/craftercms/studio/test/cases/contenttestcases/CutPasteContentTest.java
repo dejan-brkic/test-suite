@@ -168,6 +168,7 @@ public class CutPasteContentTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newFolderCreated);
 
 		// Right click and cut content.
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickToCutOption();
 
 		// Right click and paste content.

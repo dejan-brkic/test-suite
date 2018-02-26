@@ -53,11 +53,11 @@
 			<class
 				name="org.craftercms.studio.test.cases.contenttestcases.AddNewContentAndPublishContentTest" />
 			<class
-				name="org.craftercms.studio.delivery.test.cases.verification.VerifyThatPageIsOnLive" />
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatPageIsOnLive" />
 			<class
 				name="org.craftercms.studio.test.cases.contenttestcases.DeleteDeliveryContentPageTest" />
 			<class
-				name="org.craftercms.studio.delivery.test.cases.verification.VerifyThatPageIsNotOnLive" />
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatPageIsNotOnLive" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>

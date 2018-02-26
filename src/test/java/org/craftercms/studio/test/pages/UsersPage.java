@@ -195,6 +195,7 @@ public class UsersPage {
 			this.driverManager.waitUntilDeleteSiteModalCloses();
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitUntilElementIsRemoved(element);
+			this.driverManager.waitForAnimation();
 		}
 	}
 
