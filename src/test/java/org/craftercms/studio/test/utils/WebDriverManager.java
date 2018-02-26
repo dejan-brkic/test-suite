@@ -541,7 +541,7 @@ public class WebDriverManager {
 
 	public void waitUntilSidebarOpens() {
 		logger.debug("Waiting for sidebar to open");
-		waitUntilElementIsDisplayed("cssSelector", "div.acn-resize.ui-resizable");
+		this.waitUntilAttributeContains("xpath", ".//li[@id='acn-dropdown-wrapper']", "class", "site-dropdown-open");
 	}
 
 	public void waitUntilSidebarCloses() {

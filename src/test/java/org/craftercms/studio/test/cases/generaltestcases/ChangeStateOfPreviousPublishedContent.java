@@ -230,9 +230,10 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articleTitle).sendKeys(pageName);
 
-			//this.driverManager.scrollUp();
+			// this.driverManager.scrollUp();
 
-			//this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandAllId).click();
+			// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+			// expandAllId).click();
 
 			// save and close
 			this.driverManager.waitForAnimation();
@@ -377,7 +378,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	}
 
 	private void requestPublish(String newPageArticleName) {
-
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				".//span[contains(text(),'" + newPageArticleName + "')]");
@@ -522,6 +523,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		// request publish
 		logger.info("Request Publish");
+		this.driverManager.waitForAnimation();
 		this.requestPublish(newPageArticleName);
 
 		// Open dependencies for the previous created element

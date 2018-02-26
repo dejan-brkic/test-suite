@@ -192,6 +192,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree1FolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
 		this.driverManager.waitForAnimation();
@@ -200,6 +201,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree1FolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
 		this.driverManager.waitForAnimation();
@@ -208,6 +210,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree1FolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
 		this.driverManager.waitForAnimation();
@@ -216,6 +219,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree1FolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
 	}
@@ -455,6 +459,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree2FolderLocator);
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree2FolderLocator);
 
 		bigTree2BigTree1ChildFolderLocator = bigTree2FolderLocator + uiElementsPropertiesManager
@@ -512,7 +517,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 	public void step7() {
 		// Step7 a)
-		driverManager.waitUntilSidebarOpens();
+		this.driverManager.waitForAnimation();
 
 		dashboardPage.clickHomeTree();
 
@@ -638,8 +643,6 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 		// Step1
 		this.step1();
-
-		driverManager.getDriver().navigate().refresh();
 
 		// Step2
 		this.step2();

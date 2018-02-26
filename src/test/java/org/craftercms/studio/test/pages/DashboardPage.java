@@ -981,6 +981,7 @@ public class DashboardPage {
 	}
 
 	public void rightClickCopyFolder(String parentWebElementLocator) {
+		this.driverManager.waitForAnimation();
 		this.getDriverManager().contextClick("xpath", parentWebElementLocator, false);
 		driverManager.usingContextMenu(() -> {
 			WebElement copyOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -990,6 +991,7 @@ public class DashboardPage {
 	}
 
 	public void rightClickPasteOnAFolder(String parentWebElementLocator) {
+		this.driverManager.waitForAnimation();
 		this.driverManager.contextClick("xpath", parentWebElementLocator, true);
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
