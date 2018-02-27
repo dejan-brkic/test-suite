@@ -16,6 +16,7 @@ public class GetWorkflowAffectedPathsAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private WorkflowAPI workflowAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId="getworkflowaffectedpathsapitest";
 	
 	public GetWorkflowAffectedPathsAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -30,18 +31,18 @@ public class GetWorkflowAffectedPathsAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testWorkflowAffectedPaths() {
-		workflowAPI.testGetWorkflowAffectedPaths(siteManagementAPI.getSiteId());
+		workflowAPI.testGetWorkflowAffectedPaths(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

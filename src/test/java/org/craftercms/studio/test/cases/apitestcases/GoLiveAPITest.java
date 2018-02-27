@@ -16,6 +16,7 @@ public class GoLiveAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private WorkflowAPI workflowAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId="goliveapitest";
 	
 	public GoLiveAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -30,19 +31,19 @@ public class GoLiveAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId(), "site/website/folder1");
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
+		contentAssetAPI.testWriteContent(siteId, "site/website/folder1");
 	}
 
 	@Test(priority = 1)
 	public void testGoLive() {
-		workflowAPI.testGoLive(siteManagementAPI.getSiteId());
+		workflowAPI.testGoLive(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

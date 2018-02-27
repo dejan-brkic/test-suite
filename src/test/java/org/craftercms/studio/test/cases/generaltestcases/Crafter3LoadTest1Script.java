@@ -507,7 +507,9 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 				myTestBigTreeChildFolderLocator);
 		dashboardPage.rightClickCutAFolder(myTestBigTreeChildFolderLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", anotherTestFolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(anotherTestFolderLocator);
 
 		anotherTestBigTreeChildFolderLocator = anotherTestFolderLocator + uiElementsPropertiesManager

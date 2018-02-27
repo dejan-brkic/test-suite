@@ -20,6 +20,7 @@ public class PasteItemAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private ClipboardAPI clipboardAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId="pasteitemapitest";
 	
 	public PasteItemAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -34,20 +35,20 @@ public class PasteItemAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testCreateFolder(siteManagementAPI.getSiteId(), "folder2");
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId(), "site/website/folder1");
-		clipboardAPI.testCopyItem(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testCreateFolder(siteId, "folder2");
+		contentAssetAPI.testWriteContent(siteId, "site/website/folder1");
+		clipboardAPI.testCopyItem(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testPasteItem() {
-		clipboardAPI.testPasteItem(siteManagementAPI.getSiteId());
+		clipboardAPI.testPasteItem(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

@@ -14,7 +14,7 @@ public class ChangeContentTypeAPITest {
     private ContentAssetAPI contentAssetAPI;
     private SecurityAPI securityAPI;
     private SiteManagementAPI siteManagementAPI;
-    
+    private String siteId="changecontenttypeapittest";
     public ChangeContentTypeAPITest(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -29,20 +29,20 @@ public class ChangeContentTypeAPITest {
     public void beforeTest(){
     	
     	securityAPI.logInIntoStudioUsingAPICall();
-    	siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-    	contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testCreateSite(siteId);
+    	contentAssetAPI.testWriteContent(siteId);
     }
     
     @Test(priority=1)
     public void testChangeContentType(){
     	
-    	contentAssetAPI.testChangeContentType(siteManagementAPI.getSiteId());
+    	contentAssetAPI.testChangeContentType(siteId);
     }
     
     @AfterTest
     public void afterTest(){
     	
-    	siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testDeleteSite(siteId);
     	securityAPI.logOutFromStudioUsingAPICall();
     }
     

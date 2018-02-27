@@ -14,6 +14,7 @@ public class RevertContentItemAPITest {
     private ContentAssetAPI contentAssetAPI;
     private SecurityAPI securityAPI;
     private SiteManagementAPI siteManagementAPI;
+    private String siteId="revertcontentitemapitest";
     
     public RevertContentItemAPITest(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -28,20 +29,20 @@ public class RevertContentItemAPITest {
     @BeforeTest
     public void beforeTest(){
     	securityAPI.logInIntoStudioUsingAPICall();
-    	siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-    	contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
-    	contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testCreateSite(siteId);
+    	contentAssetAPI.testWriteContent(siteId);
+    	contentAssetAPI.testWriteContent(siteId);
     }
     
     @Test(priority=1)
     public void testRevertContentItem(){
     	
-    	contentAssetAPI.testRevertContentItem(siteManagementAPI.getSiteId());
+    	contentAssetAPI.testRevertContentItem(siteId);
     }
     
     @AfterTest
     public void afterTest(){
-    	siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testDeleteSite(siteId);
     	securityAPI.logOutFromStudioUsingAPICall();
     }
     

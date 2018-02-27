@@ -16,6 +16,7 @@ public class GetDependenciesAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private DependencyAPI dependencyAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId="getdependenciesapitest";
 	
 	public GetDependenciesAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -31,18 +32,18 @@ public class GetDependenciesAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1,groups={"getDependencies"})
 	public void testGetDependencies() {
-		dependencyAPI.testGetDependencies(siteManagementAPI.getSiteId());
+		dependencyAPI.testGetDependencies(siteId);
 	}
 
 	@AfterGroups(groups={"getDependencies"})
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

@@ -14,6 +14,7 @@ public class SetItemStateAPITest {
     private ContentAssetAPI contentAssetAPI;
     private SecurityAPI securityAPI;
     private SiteManagementAPI siteManagementAPI;
+    private String siteId="setitemstateapitest";
     
     public SetItemStateAPITest(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -28,19 +29,19 @@ public class SetItemStateAPITest {
     @BeforeTest
     public void beforeTest(){
     	securityAPI.logInIntoStudioUsingAPICall();
-    	siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-    	contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testCreateSite(siteId);
+    	contentAssetAPI.testWriteContent(siteId);
     }
     
     @Test(priority=1)
     public void testSetItemState(){
     	
-    	contentAssetAPI.testSetItemState(siteManagementAPI.getSiteId());
+    	contentAssetAPI.testSetItemState(siteId);
     }
     
     @AfterTest
     public void afterTest(){
-    	siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testDeleteSite(siteId);
     	securityAPI.logOutFromStudioUsingAPICall();
     }
     
