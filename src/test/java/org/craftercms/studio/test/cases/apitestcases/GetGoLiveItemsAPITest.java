@@ -16,6 +16,7 @@ public class GetGoLiveItemsAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private WorkflowAPI workflowAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId="getgoliveitemsapitest";
 	
 	public GetGoLiveItemsAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -30,18 +31,18 @@ public class GetGoLiveItemsAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testGetGoLiveItems() {
-		workflowAPI.testGetGoLiveItems(siteManagementAPI.getSiteId());
+		workflowAPI.testGetGoLiveItems(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

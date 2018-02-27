@@ -14,7 +14,7 @@ public class WriteContentAPITest {
     private ContentAssetAPI contentAssetAPI;
     private SecurityAPI securityAPI;
     private SiteManagementAPI siteManagementAPI;
-    
+    private String siteId="writecontentapitest";
     public WriteContentAPITest(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -28,18 +28,18 @@ public class WriteContentAPITest {
     @BeforeTest
     public void beforeTest(){
     	securityAPI.logInIntoStudioUsingAPICall();
-    	siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testCreateSite(siteId);
     }
     
     @Test(priority=1)
     public void testWriteContent(){
     	
-    	contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+    	contentAssetAPI.testWriteContent(siteId);
     }
     
     @AfterTest
     public void afterTest(){
-    	siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testDeleteSite(siteId);
     	securityAPI.logOutFromStudioUsingAPICall();
     }
     

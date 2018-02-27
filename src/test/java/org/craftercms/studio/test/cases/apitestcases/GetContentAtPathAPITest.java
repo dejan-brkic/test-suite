@@ -14,7 +14,7 @@ public class GetContentAtPathAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private SecurityAPI securityAPI;
 	private ContentAssetAPI contentAssetAPI;
-
+	private String siteId="getcontentatpathapitest";
 	public GetContentAtPathAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -27,18 +27,18 @@ public class GetContentAtPathAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testGetContentAtPath() {
-		contentAssetAPI.testGetContentAtPath(siteManagementAPI.getSiteId());
+		contentAssetAPI.testGetContentAtPath(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest(){
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

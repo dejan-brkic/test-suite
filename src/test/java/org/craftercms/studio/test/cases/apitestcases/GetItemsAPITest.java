@@ -21,6 +21,7 @@ public class GetItemsAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private ClipboardAPI clipboardAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId="getitemsapitest";
 	
 	public GetItemsAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -35,19 +36,19 @@ public class GetItemsAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId(), "site/website/folder1");
-		clipboardAPI.testCopyItem(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId, "site/website/folder1");
+		clipboardAPI.testCopyItem(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testGetItem() {
-		clipboardAPI.testGetItem(siteManagementAPI.getSiteId());
+		clipboardAPI.testGetItem(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

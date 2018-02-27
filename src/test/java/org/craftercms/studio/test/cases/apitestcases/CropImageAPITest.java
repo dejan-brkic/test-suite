@@ -14,7 +14,7 @@ public class CropImageAPITest {
     private ContentAssetAPI contentAssetAPI;
     private SecurityAPI securityAPI;
     private SiteManagementAPI siteManagementAPI;
-    
+    private String siteId="cropimageapitest";
     public CropImageAPITest(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -28,19 +28,19 @@ public class CropImageAPITest {
     @BeforeTest
     public void beforeTest(){
     	securityAPI.logInIntoStudioUsingAPICall();
-    	siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-    	contentAssetAPI.writeImageContent(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testCreateSite(siteId);
+    	contentAssetAPI.writeImageContent(siteId);
     }
     
     @Test(priority=1)
     public void testCropImage(){
     	
-    	contentAssetAPI.testCropImage(siteManagementAPI.getSiteId());
+    	contentAssetAPI.testCropImage(siteId);
     }
     
     @AfterTest
     public void afterTest(){
-    	siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testDeleteSite(siteId);
     	securityAPI.logOutFromStudioUsingAPICall();
     }
     

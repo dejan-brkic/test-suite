@@ -14,7 +14,7 @@ public class CreateFolderAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private SecurityAPI securityAPI;
 	private ContentAssetAPI contentAssetAPI;
-
+	private String siteId="createfolderapitest";
 	public CreateFolderAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -27,17 +27,17 @@ public class CreateFolderAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testCreateFolder() {
-		contentAssetAPI.testCreateFolder(siteManagementAPI.getSiteId());
+		contentAssetAPI.testCreateFolder(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest(){
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }
