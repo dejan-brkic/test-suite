@@ -15,12 +15,11 @@ import org.openqa.selenium.WebElement;
  */
 
 public class ChangePasswordUserTest extends StudioBaseTest {
-	
+
 	private String userName;
 	private String password;
 	private String createSiteButtonXpath;
 	final static Logger logger = LogManager.getLogger(ChangePasswordUserTest.class);
-
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -28,19 +27,19 @@ public class ChangePasswordUserTest extends StudioBaseTest {
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createSiteButtonXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsitebutton");
-		
+
 	}
-	
+
 	@Test(priority = 0)
 	public void changePasswordUser() {
-		
+
 		// login to application
 		logger.info("Login into Crafter");
 		loginPage.loginToCrafter(userName, password);
 
 		// wait for login page to close
 		driverManager.waitUntilLoginCloses();
-		
+
 		// wait for element is clickable
 		createSitePage.clickAdmin();
 
@@ -54,10 +53,10 @@ public class ChangePasswordUserTest extends StudioBaseTest {
 		// login to application
 		logger.info("Login into Crafter with the new password");
 		loginPage.loginToCrafter(userName, "123456");
-		
+
 		// wait for login page to close
 		driverManager.waitUntilLoginCloses();
-		
+
 		// click On admin option
 		createSitePage.clickAdmin();
 
@@ -71,15 +70,15 @@ public class ChangePasswordUserTest extends StudioBaseTest {
 		// login to application
 		logger.info("Login into Crafter");
 		loginPage.loginToCrafter(userName, password);
-		
+
 		// wait for login page to close
 		driverManager.waitUntilLoginCloses();
-
+		this.driverManager.waitForAnimation();
 		// Assert create button is present.
 		logger.info("Verify login is correct and Create Site page is displayed");
-		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
-				"xpath", createSiteButtonXpath);
-		Assert.assertTrue(createButton.isDisplayed(),"Create Site Button is not displayed");
+		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				createSiteButtonXpath);
+		Assert.assertTrue(createButton.isDisplayed(), "Create Site Button is not displayed");
 
 	}
 }

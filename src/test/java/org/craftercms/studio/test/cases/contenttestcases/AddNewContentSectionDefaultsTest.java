@@ -99,6 +99,7 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		
 		// Expand Home Tree
 		logger.info("Expanding Home Tree");
+		this.driverManager.waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// Create level descriptor content

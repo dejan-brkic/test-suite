@@ -2,18 +2,18 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="craftercms - Studio UI -SanityTestCases TestSuite"
 	preserve-order="true" verbose="3">
-	<test name="Login Test">
+	<test name="SanityTest Test">
 		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateOpeningStudioInActualBrowser" />
 			<class
 				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateLoginInToStudio" />
 			<class
 				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCreatingSiteUsingWebsiteEditorialBlueprint" />
 			<class
-				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateOpeningStudioInActualBrowser" />
-			<class
 				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCheckItemsInSiteConfig" />
 			<class
-				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCheckingNoErrorsDisplayedInTheDashboard" />	
+				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCheckingNoErrorsDisplayedInTheDashboard" />
 			<class
 				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage" />
 		</classes>

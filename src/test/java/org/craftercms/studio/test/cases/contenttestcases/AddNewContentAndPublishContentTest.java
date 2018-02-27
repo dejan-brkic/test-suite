@@ -11,20 +11,18 @@ import org.testng.annotations.Test;
  *
  */
 
-//Related to ticket: https://github.com/craftercms/craftercms/issues/1869
+// Related to ticket: https://github.com/craftercms/craftercms/issues/1869
 public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
 	private String createFormFrameElementCss;
 	private String createFormSaveAndCloseElement;
-	private String createFormMainTitleElementXPath;
-	private String randomURL;
-	private String randomInternalName;
 	private String siteDropdownElementXPath;
 	private String createFormArticleMainTitleElementXPath;
 	private String homeContent;
 	private String createdContentXPath;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -35,8 +33,6 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.createformframe");
 		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.saveandclosebutton");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformTitle");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		createFormArticleMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -45,37 +41,8 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 				.getProperty("dashboard.home_Content_Page");
 		createdContentXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.studio.deliverypagecontenttodelete");
-	}
-
-	public void createContent() {
-		// right click to see the the menu
-		driverManager.waitUntilPageLoad();
-		driverManager.waitUntilSidebarOpens();
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-		dashboardPage.clickOKButton();
-
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			// creating random values for URL field and InternalName field
-
-			// Set basics fields of the new content created
-			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
-
-			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// save and close
-
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
-					.click();
-		});
-
-		this.driverManager.waitUntilSidebarOpens();
-
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	@Test(priority = 0)
@@ -95,15 +62,15 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent);
 		// Step 1
 		this.createPageCategoryLandingPage(homeContent);
-		
+
 		driverManager.getDriver().navigate().refresh();
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilSidebarOpens();
-		
+
 		dashboardPage.expandHomeTree();
-		
+
 		this.publishElement(createdContentXPath);
-		this.driverManager.waitUntilElementHasPublishedIcon(createdContentXPath);	
+		this.driverManager.waitUntilElementHasPublishedIcon(createdContentXPath);
 	}
 
 	public void publishElement(String elementLocator) {
@@ -117,7 +84,7 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		this.confirmPublishAction();
 		this.driverManager.waitUntilSidebarOpens();
 	}
-	
+
 	public void confirmPublishAction() {
 		// Switch to the form
 		driverManager.getDriver().switchTo().activeElement();
@@ -127,7 +94,6 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		driverManager.getDriver().switchTo().defaultContent();
 	}
 
-	
 	public void createPageCategoryLandingPage(String folderWebElementLocator) {
 		// right clicking and clikc on create New Content option
 		dashboardPage.rightClickCreatePageOnAPresentFolder(folderWebElementLocator);
@@ -151,10 +117,11 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 			dashboardPage.setBasicFieldsOfNewPageArticleContent(randomURL, randomInternalName, "testingPage");
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormArticleMainTitleElementXPath,"testingPage");
+			this.driverManager.scrollDown();
+			driverManager.sendText("xpath", createFormArticleMainTitleElementXPath, "testingPage");
 
 			// save and close
-
+			this.driverManager.waitForAnimation();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
@@ -174,6 +141,8 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		homePage.goToPreviewPage();
 		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 				.isDisplayed())
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 		else
 			throw new NoSuchElementException(

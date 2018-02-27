@@ -453,12 +453,12 @@ public class WebDriverManager {
 							new Object[] { waitUntilElementIsClickable(selectorType, selectorValue) });
 					break;
 				} else {
+					this.waitForAnimation();
 					(new Actions(driver)).moveToElement(waitUntilElementIsClickable(selectorType, selectorValue))
 							.build().perform();
 
 					this.waitUntilContentTooltipIsHidden();
 					this.waitForAnimation();
-
 					(new Actions(driver)).contextClick(waitUntilElementIsClickable(selectorType, selectorValue)).build()
 							.perform();
 					break;
@@ -486,6 +486,11 @@ public class WebDriverManager {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 	}
 
+	public void scrollMiddle() {
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,500)");
+	}
+	
 	public void scrollDown() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,2000)");
 	}
@@ -536,7 +541,7 @@ public class WebDriverManager {
 
 	public void waitUntilSidebarOpens() {
 		logger.debug("Waiting for sidebar to open");
-		waitUntilElementIsDisplayed("cssSelector", "div.acn-resize.ui-resizable");
+		this.waitUntilAttributeContains("xpath", ".//li[@id='acn-dropdown-wrapper']", "class", "site-dropdown-open");
 	}
 
 	public void waitUntilSidebarCloses() {
@@ -620,7 +625,6 @@ public class WebDriverManager {
 	public void sendText(String selectorType, String selectorValue, String text) {
 		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
 		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
-		input.click();
 		input.clear();
 		input.sendKeys(text);
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
@@ -665,6 +669,7 @@ public class WebDriverManager {
 		driver.switchTo().defaultContent();
 
 		// Wait until animation completes
+		waitForAnimation();
 		WebElement frame = waitUntilElementIsDisplayed(selectorType, selectorValue);
 
 		// Switch to iframe

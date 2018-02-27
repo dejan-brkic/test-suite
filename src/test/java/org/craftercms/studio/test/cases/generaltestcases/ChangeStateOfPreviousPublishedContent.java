@@ -54,7 +54,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String editedPageArticleName;
 	private String adminConsole;
 	private String articleTitle;
-	private String expandAllId;
 	private String addTouserIframe;
 	private String createSiteButton;
 	private String siteDropdownElementXPath;
@@ -67,6 +66,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String newUserUserNameCreatedXpath;
 	private String articleContentCreatedName;
 	private String gearImageXpath;
+	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager.getLogger(ChangeStateOfPreviousPublishedContent.class);
 
 	@BeforeMethod
@@ -133,8 +133,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.adminconsole");
 		articleTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.cssarticletitle");
-		expandAllId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.createformexpandall");
 		addTouserIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.adduser.iframe");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -158,6 +156,8 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("general.testingcontentitem");
 		gearImageXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearimagexpath");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void addNewUser() {
@@ -230,12 +230,13 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articleTitle).sendKeys(pageName);
 
-			this.driverManager.scrollUp();
+			// this.driverManager.scrollUp();
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandAllId).click();
+			// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+			// expandAllId).click();
 
 			// save and close
-
+			this.driverManager.waitForAnimation();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
 
 		});
@@ -267,6 +268,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 				.click();
 
+		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.getDriver().switchTo()
@@ -325,11 +327,15 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		homePage.goToPreviewPage();
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath).isDisplayed())
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
-		else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				.isDisplayed())
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+						.click();
+			else
+				throw new NoSuchElementException(
+						"Site creation process is taking too long time and the element was not found");
 
 	}
 
@@ -372,7 +378,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	}
 
 	private void requestPublish(String newPageArticleName) {
-
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				".//span[contains(text(),'" + newPageArticleName + "')]");
@@ -406,8 +412,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		this.addNewUser();
 
-		this.driverManager.getDriver().navigate().refresh();
-
 		logger.info("Go to Site Preview");
 
 		this.goToSiteContentPagesStructure();
@@ -440,7 +444,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		this.driverManager.getDriver().navigate().refresh();
 
 		logger.info("Create Article Content");
-
+		this.driverManager.waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", articlesFolder, selectAllCategoriesCheckBox,
 
 				selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor", "ArticleSummary");
@@ -519,6 +523,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		// request publish
 		logger.info("Request Publish");
+		this.driverManager.waitForAnimation();
 		this.requestPublish(newPageArticleName);
 
 		// Open dependencies for the previous created element
@@ -576,7 +581,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.click();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 2; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pageStatus).click();
 				this.driverManager.waitUntilAttributeContains("xpath", pageStatus, "class", "undefined live");

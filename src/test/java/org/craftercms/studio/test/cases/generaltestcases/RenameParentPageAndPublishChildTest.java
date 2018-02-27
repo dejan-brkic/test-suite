@@ -34,6 +34,7 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 	private String createFormSaveAndCloseElement;
 	private String homeExpansorXpath;
 	private String createFormArticleMainTitleElementXPath;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -69,6 +70,8 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 				.getProperty("complexscenarios.general.saveandclosebutton");
 		homeExpansorXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.homeexpansor");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void loginAndGoToSiteContentPagesStructure() {
@@ -81,7 +84,9 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 		// go to preview page
 		homePage.goToPreviewPage();
 
-		if (this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath))
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath).isDisplayed())
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 		else
 			throw new NoSuchElementException(
@@ -132,9 +137,11 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 			dashboardPage.setBasicFieldsOfNewPageArticleContent(pageName, pageName, pageName);
 
 			// Set the title of main content
+			this.driverManager.scrollDown();
 			driverManager.sendText("xpath", createFormArticleMainTitleElementXPath, pageName);
 
 			// save and close
+			this.driverManager.waitForAnimation();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});

@@ -24,7 +24,7 @@ public class VerifyThatPageIsNotOnLive extends DeliveryBaseTest {
 	}
 
 	@Test(priority = 0)
-	public void verifyThatPageIsOnLive() {
+	public void verifyThatPageIsNotOnLive() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
 		this.driverManager.waitForAnimation();
