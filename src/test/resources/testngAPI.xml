@@ -395,7 +395,7 @@
 	<test name="Rename Folder" preserve-order="true">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.apitestcases.CreateFolderAPITest" />
+				name="org.craftercms.studio.test.cases.apitestcases.RenameFolderAPITest" />
 		</classes>
 	</test>
 	<test name="Get Content" preserve-order="true">

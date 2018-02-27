@@ -18,7 +18,8 @@ public class StopPublisherAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private SecurityAPI securityAPI;
 	private PublishAPI publishAPI;
-
+	private String siteId = "stoppublishersite";
+	
 	public StopPublisherAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -31,33 +32,33 @@ public class StopPublisherAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
 	}
 
 	@Test(priority = 1,groups={"stopPublisher"})
 	public void testStopPublisher() {
-		publishAPI.testStopPublisher(siteManagementAPI.getSiteId());
+		publishAPI.testStopPublisher(siteId);
 	}
 
 	@Test(priority = 2,groups={"stopPublisher"})
 	public void testStopPublisherInvalidParameters() {
-		publishAPI.testStopPublisherInvalidParameters(siteManagementAPI.getSiteId());
+		publishAPI.testStopPublisherInvalidParameters(siteId);
 	}
 
 	@Test(priority = 3,groups={"stopPublisher"})
 	public void testStopPublisherSiteNotFound() {
-		publishAPI.testStopPublisherSiteNotFound(siteManagementAPI.getSiteId());
+		publishAPI.testStopPublisherSiteNotFound(siteId);
 	}
 	
 	@AfterGroups(groups={"stopPublisher"})
 	public void afterTest(){
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 	
 	@Test(dependsOnGroups={"stopPublisher"})
 	public void testStopPublisherUnauthorized(){
-		publishAPI.testStopPublisherUnauthorized(siteManagementAPI.getSiteId());
+		publishAPI.testStopPublisherUnauthorized(siteId);
 	}
 
 }

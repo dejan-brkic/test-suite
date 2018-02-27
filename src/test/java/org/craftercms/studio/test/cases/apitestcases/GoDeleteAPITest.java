@@ -11,12 +11,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class GoDeleteAPITest {
-	
+
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
 	private WorkflowAPI workflowAPI;
 	private ContentAssetAPI contentAssetAPI;
-	
+	private String siteId = "godeleteapitest";
+
 	public GoDeleteAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -26,23 +27,23 @@ public class GoDeleteAPITest {
 		workflowAPI = new WorkflowAPI(api, apiConnectionManager);
 		contentAssetAPI = new ContentAssetAPI(api, apiConnectionManager);
 	}
-	
+
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId(), "site/website/folder1");
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
+		contentAssetAPI.testWriteContent(siteId, "site/website/folder1");
 	}
 
 	@Test(priority = 1)
 	public void testGoDelete() {
-		workflowAPI.testGoDelete(siteManagementAPI.getSiteId());
+		workflowAPI.testGoDelete(siteId);
 	}
-	
+
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

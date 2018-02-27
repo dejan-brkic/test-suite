@@ -16,7 +16,7 @@ public class GetDeploymentHistoryAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private DeploymentAPI deploymentAPI;
 	private ContentAssetAPI contentAssetAPI;
-	
+	private String siteId="getdeploymenthistoryapitest";
 	public GetDeploymentHistoryAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -30,18 +30,18 @@ public class GetDeploymentHistoryAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testGetDeploymentHistory() {
-		deploymentAPI.testGetDeploymentHistory(siteManagementAPI.getSiteId());
+		deploymentAPI.testGetDeploymentHistory(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

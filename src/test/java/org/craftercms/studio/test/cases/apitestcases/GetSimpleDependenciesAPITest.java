@@ -14,7 +14,7 @@ public class GetSimpleDependenciesAPITest {
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
 	private DependencyAPI dependencyAPI;
-	
+	private String siteId="getsimpledependenciesapitest";
 	public GetSimpleDependenciesAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -27,17 +27,17 @@ public class GetSimpleDependenciesAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
 	}
 
 	@Test(priority = 1,groups={"getSimpleDependencies"})
 	public void testGetSimpleDependencies() {
-		dependencyAPI.testGetSimpleDependencies(siteManagementAPI.getSiteId());
+		dependencyAPI.testGetSimpleDependencies(siteId);
 	}
 
 	@AfterGroups(groups={"getSimpleDependencies"})
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

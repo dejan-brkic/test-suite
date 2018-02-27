@@ -16,7 +16,7 @@ public class GetScheduledItemsAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private DeploymentAPI deploymentAPI;
 	private ContentAssetAPI contentAssetAPI;
-	
+	private String siteId="getscheduleditemsapitest";
 	public GetScheduledItemsAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -30,13 +30,13 @@ public class GetScheduledItemsAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testGetDeploymentHistory() {
-		deploymentAPI.testGetScheduledItems(siteManagementAPI.getSiteId());
+		deploymentAPI.testGetScheduledItems(siteId);
 	}
 	
 	@AfterTest

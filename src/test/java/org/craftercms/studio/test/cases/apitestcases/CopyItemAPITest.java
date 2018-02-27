@@ -20,6 +20,7 @@ public class CopyItemAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private ClipboardAPI clipboardAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId = "copyitemapitest";
 	
 	public CopyItemAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -34,18 +35,18 @@ public class CopyItemAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId(), "site/website/folder1");
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId, "site/website/folder1");
 	}
 
 	@Test(priority = 1)
 	public void testCopyItem() {
-		clipboardAPI.testCopyItem(siteManagementAPI.getSiteId());
+		clipboardAPI.testCopyItem(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

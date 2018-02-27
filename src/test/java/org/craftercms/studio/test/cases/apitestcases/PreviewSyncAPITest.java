@@ -18,7 +18,7 @@ public class PreviewSyncAPITest {
     private PreviewAPI previewAPI;
     private SiteManagementAPI siteManagementAPI;
     private SecurityAPI securityAPI;
-    private String siteId = "previewSyncSiteTest";
+    private String siteId = "previewsyncsitetest";
     
     public PreviewSyncAPITest(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();

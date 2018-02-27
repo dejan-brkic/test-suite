@@ -14,6 +14,7 @@ public class SearchAPITest {
     private ContentAssetAPI contentAssetAPI;
     private SecurityAPI securityAPI;
     private SiteManagementAPI siteManagementAPI;
+    private String siteId="searchapitest";
     
     public SearchAPITest(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -28,19 +29,19 @@ public class SearchAPITest {
     @BeforeTest
     public void beforeTest(){
     	securityAPI.logInIntoStudioUsingAPICall();
-    	siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-    	contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testCreateSite(siteId);
+    	contentAssetAPI.testWriteContent(siteId);
     }
     
     @Test(priority=1)
     public void testSearch(){
     	
-    	contentAssetAPI.testSearch(siteManagementAPI.getSiteId());
+    	contentAssetAPI.testSearch(siteId);
     }
     
     @AfterTest
     public void afterTest(){
-    	siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+    	siteManagementAPI.testDeleteSite(siteId);
     	securityAPI.logOutFromStudioUsingAPICall();
     }
     
