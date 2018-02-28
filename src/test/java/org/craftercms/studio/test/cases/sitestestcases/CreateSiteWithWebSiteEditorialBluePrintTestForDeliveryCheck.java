@@ -27,7 +27,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 	}
 
 	@Test(priority = 0)
-	public void createSiteWithWebSiteEditorialBluePrintTest() {
+	public void createSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck() {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
