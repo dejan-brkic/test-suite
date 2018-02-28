@@ -25,6 +25,10 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	private String siteDropdownListElementXPath;
 	private String pasteOptionLocator;
 	private String siteStatusIcon;
+	private String firstChildLocator;
+	private String firstDestinationLocator;
+	private String childFolder;
+	private String tenthDestinationLocator;
 	private static Logger logger = LogManager.getLogger(CopyPasteLargeTreesTest.class);
 
 	@BeforeMethod
@@ -42,6 +46,10 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 				.getProperty("rightclick.paste.option");
 		siteStatusIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.statustopbaricon");
+		firstChildLocator = ".//span[text()='articles']/../../../../..//span[text()='2017']";
+		firstDestinationLocator = ".//span[text()='articles']/../../../../..//span[text()='2016']";
+		childFolder = "/../../../../../div[@class='ygtvchildren']//span[text()='2017']";
+		tenthDestinationLocator = "";
 	}
 
 	public void copyAndPasteLongTreeIntoExistentFolder(String childLocator, String destinationFolderLocator) {
@@ -77,9 +85,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 		});
 	}
 
-	@Test(priority = 0)
-	public void verifyThatStudioAllowsToCopyPasteLargeTreesTest() {
-
+	public void loginAndGoToPreview() {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
@@ -96,7 +102,9 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 			else
 				throw new NoSuchElementException(
 						"Site creation process is taking too long time and the element was not found");
+	}
 
+	public void step1() {
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
@@ -107,16 +115,14 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
-		String firstChildLocator = ".//span[text()='articles']/../../../../..//span[text()='2017']";
-		String firstDestinationLocator = ".//span[text()='articles']/../../../../..//span[text()='2016']";
-		String childFolder = "/../../../../../div[@class='ygtvchildren']//span[text()='2017']";
-
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, firstDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", firstDestinationLocator + childFolder);
 		Assert.assertTrue(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstDestinationLocator + childFolder)
 				.isDisplayed());
+	}
 
+	public void step2() {
 		this.driverManager.waitForAnimation();
 		String secondDestinationLocator = firstDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(secondDestinationLocator);
@@ -182,7 +188,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 				.isDisplayed());
 
 		this.driverManager.waitForAnimation();
-		String tenthDestinationLocator = ninthDestinationLocator + childFolder;
+		tenthDestinationLocator = ninthDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(tenthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", tenthDestinationLocator + childFolder);
 		Assert.assertTrue(this.driverManager
@@ -198,7 +204,9 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 		dashboardPage.expandParentFolder(tenthDestinationLocator + childFolder);
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
+	}
 
+	public void step3() {
 		logger.info("Executing bulk publish");
 		previewPage.bulkPublish("/site/website/articles");
 
@@ -228,12 +236,23 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", tenthDestinationLocator
 					+ childFolder + "/../../../../../div[@class='ygtvchildren']//span[text()='1']").click();
 		}
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath).click();
 		this.driverManager.waitForAnimation();
 
 		Assert.assertTrue(this.driverManager.getDriver().findElement(By.xpath(siteStatusIcon)).getAttribute("class")
 				.contains("undefined live"));
+	}
+
+	@Test(priority = 0)
+	public void verifyThatStudioAllowsToCopyPasteLargeTreesTest() {
+		loginAndGoToPreview();
+
+		step1();
+
+		step2();
+
+		step3();
 	}
 }
