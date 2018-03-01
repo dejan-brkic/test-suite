@@ -776,7 +776,7 @@ public class WebDriverManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void waitForFullExpansionOfTree() {
 		try {
 			Thread.sleep(1600);
@@ -784,7 +784,7 @@ public class WebDriverManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void waitForDeliveryRefresh() {
 		try {
 			// wait for a minute for delivery refresh
@@ -843,8 +843,7 @@ public class WebDriverManager {
 					output = output + lineString;
 				}
 
-				if (!(output.contains(
-						"{\"message\":\"Error from server at http://localhost:8695/solr: "
+				if (!(output.contains("{\"message\":\"Error from server at http://localhost:8695/solr: "
 						+ "Core with name 'testsitefordeliverytest' already exists.\"}"))) {
 					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
 					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
@@ -885,8 +884,7 @@ public class WebDriverManager {
 				while ((lineString = bufferedReader.readLine()) != null) {
 					output = output + lineString;
 				}
-				if (!(output.contains(
-						"java.io.IOException: Server returned HTTP response code: 500"
+				if (!(output.contains("java.io.IOException: Server returned HTTP response code: 500"
 						+ " for URL: http://localhost:9080/crafter-search/api/2/admin/index/create"))) {
 					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
 					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
@@ -922,16 +920,20 @@ public class WebDriverManager {
 
 		}
 	}
-	
+
 	public void scrollDownIntoSideBar() {
-		WebElement siteConfigButton = this.driverWaitUntilElementIsPresentAndDisplayed("id",
-				"admin-console");
+		WebElement siteConfigButton = this.driverWaitUntilElementIsPresentAndDisplayed("id", "admin-console");
 		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", siteConfigButton);
 	}
+
 	public void scrollRightIntoSideBar(String element) {
-		WebElement webelement = this.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				element);
+		WebElement webelement = this.driverWaitUntilElementIsPresentAndDisplayed("xpath", element);
 		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", webelement);
 	}
-	
+
+	public void clickIfFolderIsNotExpanded(String selectorValue) {
+		if (!(this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).getAttribute("class").contains("open")))
+			this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).click();
+	}
+
 }

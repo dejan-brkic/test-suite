@@ -673,7 +673,7 @@ public class PreviewPage {
 		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
 				.isDisplayed());
 

@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -54,6 +55,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
 	private LinkedList<String> rightClickOptionsListInArticlesFolder1;
 	private String rightClickOptions;
+	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager.getLogger(
 			VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser.class);
 
@@ -109,6 +111,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 				.getProperty("dashboard.articles.folder.2017.1.menstylesforwinter");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void deleteSite() {
@@ -508,9 +512,16 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 		// Expand the site bar Step 2
 		logger.info("Step 2 Expand the site bar ");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-		WebElement sidebar = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				siteDropdownElementXPath);
-		sidebar.click();
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				.isDisplayed()) {
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+						.click();
+		}else
+				throw new NoSuchElementException(
+						"Site creation process is taking too long time and the element was not found");
+		
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 
 		// Step 3 Click on Pages tree
@@ -551,5 +562,4 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 
 		// Step 11 Right click on any of the article (Men Styles For Winter)
 		this.step11();
-	}
-}
+	}}
