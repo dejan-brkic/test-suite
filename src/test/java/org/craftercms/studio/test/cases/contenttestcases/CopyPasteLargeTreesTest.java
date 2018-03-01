@@ -46,9 +46,12 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 				.getProperty("rightclick.paste.option");
 		siteStatusIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.statustopbaricon");
-		firstChildLocator = ".//span[text()='articles']/../../../../..//span[text()='2017']";
-		firstDestinationLocator = ".//span[text()='articles']/../../../../..//span[text()='2016']";
-		childFolder = "/../../../../../div[@class='ygtvchildren']//span[text()='2017']";
+		firstChildLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.articles.2017folder");
+		firstDestinationLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.articles.2016folder");
+		childFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.articles.childfolder2017");
 		tenthDestinationLocator = "";
 	}
 
@@ -78,7 +81,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", destinationFolderLocator);
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForAnimation();
-		this.driverManager.contextClick("xpath", destinationFolderLocator, false);
+		this.driverManager.contextClick("xpath", destinationFolderLocator, true);
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
@@ -208,6 +211,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 
 	public void step3() {
 		logger.info("Executing bulk publish");
+		this.driverManager.waitForAnimation();
 		previewPage.bulkPublish("/site/website/articles");
 
 		this.driverManager.waitForAnimation();

@@ -671,9 +671,10 @@ public class DashboardPage {
 	// Press right click and press paste option to the new folder
 	public void rightClickPaste() {
 		this.driverManager.isElementPresentAndClickableByXpath(folderCreated);
+		this.driverManager.waitForAnimation();
 		WebElement pasteAllContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				folderCreated);
-		this.getDriverManager().contextClick(this.getDriverManager().getDriver(), pasteAllContent, false);
+		this.getDriverManager().contextClick(this.getDriverManager().getDriver(), pasteAllContent, true);
 		driverManager.usingContextMenu(() -> {
 			WebElement pasteContentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					pasteContent);
@@ -1064,6 +1065,7 @@ public class DashboardPage {
 	}
 
 	public void rightClickEditOnAPresentPage(String webElementLocator) {
+		this.driverManager.waitForAnimation();
 		this.getDriverManager().contextClick("xpath", webElementLocator, false);
 		driverManager.usingContextMenu(() -> {
 			WebElement editContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",

@@ -669,11 +669,13 @@ public class PreviewPage {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsAcceptWarning)
 				.click();
-
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
+		
 		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
 				.isDisplayed());
 
