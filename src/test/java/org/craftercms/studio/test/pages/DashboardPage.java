@@ -699,7 +699,8 @@ public class DashboardPage {
 	}
 
 	public void clickCopyButtonOnTreeSelector() {
-		WebElement buttonCopy = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitForAnimation();
+		WebElement buttonCopy = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				copyButonOnTreeSelector);
 		buttonCopy.click();
 	}
@@ -1028,7 +1029,8 @@ public class DashboardPage {
 	}
 
 	public void expandParentFolder(String parentElementLocator) {
-		WebElement parentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitForAnimation();
+		WebElement parentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				parentElementLocator);
 		if (!parentElement.getAttribute("class").contains("open")) {
 			this.driverManager.waitUntilContentTooltipIsHidden();

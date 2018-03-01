@@ -490,7 +490,7 @@ public class WebDriverManager {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,500)");
 	}
-	
+
 	public void scrollDown() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,2000)");
 	}
@@ -776,7 +776,15 @@ public class WebDriverManager {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void waitForFullExpansionOfTree() {
+		try {
+			Thread.sleep(1600);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void waitForDeliveryRefresh() {
 		try {
 			// wait for a minute for delivery refresh
@@ -835,10 +843,15 @@ public class WebDriverManager {
 					output = output + lineString;
 				}
 
-				int occurencesOfOk = StringUtils.countMatches(output, "{\"message\":\"OK\"}");
-				Assert.assertTrue((occurencesOfOk == 2), "The init-site result was: " + output);
-				int occurencesOfDone = StringUtils.countMatches(output, "Done");
-				Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+				if (!(output.contains(
+						"{\"message\":\"Error from server at http://localhost:8695/solr: Core with name 'testsitefordeliverytest' already exists.\"}"))) {
+					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
+					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
+					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
+					Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
+					int occurencesOfDone = StringUtils.countMatches(output, "Done");
+					Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+				}
 
 				return process.exitValue();
 			} catch (Exception exception) {
@@ -871,13 +884,15 @@ public class WebDriverManager {
 				while ((lineString = bufferedReader.readLine()) != null) {
 					output = output + lineString;
 				}
-
-				int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "\"Creating Solr Core\"");
-				Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
-				int occurencesOfCreatingTarget = StringUtils.countMatches(output, "\"Creating Deployer Target\"");
-				Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
-				int occurencesOfDone = StringUtils.countMatches(output, "Done");
-				Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+				if (!(output.contains(
+						"{\"message\":\"Error from server at http://localhost:8695/solr: Core with name 'testsitefordeliverytest' already exists.\"}"))) {
+					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
+					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
+					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
+					Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
+					int occurencesOfDone = StringUtils.countMatches(output, "Done");
+					Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+				}
 
 				return process.exitValue();
 			} catch (Exception exception) {
@@ -888,21 +903,33 @@ public class WebDriverManager {
 
 	}
 
-	public void focusAndScrollDownToBottomInASection(String cssContainer,String cssSelectorValue) {
+	public void focusAndScrollDownToBottomInASection(String cssContainer, String cssSelectorValue) {
 		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
 				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
 			((JavascriptExecutor) driver).executeScript(
-					"$('"+cssContainer+"').scrollTop($('"+cssSelectorValue+"').last().offset().top);");
+					"$('" + cssContainer + "').scrollTop($('" + cssSelectorValue + "').last().offset().top);");
 
 		}
 	}
-	
+
 	public void focusAndScrollDownToMiddleInASection(String cssContainer, String cssSelectorValue) {
 		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
 				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
 			((JavascriptExecutor) driver).executeScript(
-					"$('"+cssContainer+"').scrollTop($('"+cssSelectorValue+":first-child').height()*7);");
+					"$('" + cssContainer + "').scrollTop($('" + cssSelectorValue + ":first-child').height()*7);");
 
 		}
 	}
+	
+	public void scrollDownIntoSideBar() {
+		WebElement siteConfigButton = this.driverWaitUntilElementIsPresentAndDisplayed("id",
+				"admin-console");
+		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", siteConfigButton);
+	}
+	public void scrollRightIntoSideBar(String element) {
+		WebElement webelement = this.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				element);
+		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", webelement);
+	}
+	
 }

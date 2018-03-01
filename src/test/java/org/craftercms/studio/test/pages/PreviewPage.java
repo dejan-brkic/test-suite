@@ -622,7 +622,7 @@ public class PreviewPage {
 
 	}
 
-	public void bulkPublish() {
+	public void bulkPublish(String path) {
 
 		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id",
 				"admin-console");
@@ -657,7 +657,7 @@ public class PreviewPage {
 
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
-				.sendKeys("/");
+				.sendKeys(path);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsPublishButton)
 				.click();
@@ -686,7 +686,7 @@ public class PreviewPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "navbar-site-name").click();
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", "#admin-console");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("cssSelector", "#admin-console");
 
 	}
 
