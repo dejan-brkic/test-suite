@@ -844,7 +844,8 @@ public class WebDriverManager {
 				}
 
 				if (!(output.contains(
-						"{\"message\":\"Error from server at http://localhost:8695/solr: Core with name 'testsitefordeliverytest' already exists.\"}"))) {
+						"{\"message\":\"Error from server at http://localhost:8695/solr: "
+						+ "Core with name 'testsitefordeliverytest' already exists.\"}"))) {
 					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
 					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
 					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
@@ -885,7 +886,8 @@ public class WebDriverManager {
 					output = output + lineString;
 				}
 				if (!(output.contains(
-						"{\"message\":\"Error from server at http://localhost:8695/solr: Core with name 'testsitefordeliverytest' already exists.\"}"))) {
+						"java.io.IOException: Server returned HTTP response code: 500"
+						+ " for URL: http://localhost:9080/crafter-search/api/2/admin/index/create"))) {
 					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
 					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
 					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
