@@ -839,4 +839,16 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test name="Verify The Application allows to cut and paste of large trees">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.CutPasteLargeTreesTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatCutAndPastedLongTreeArticleIsOnLive" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
