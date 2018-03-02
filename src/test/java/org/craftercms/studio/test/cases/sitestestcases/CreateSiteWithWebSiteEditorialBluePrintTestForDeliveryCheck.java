@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
  *
  */
 
+//related to ticket on windows: https://github.com/craftercms/craftercms/issues/1905
 public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends StudioBaseTest {
 
 	private String userName;
@@ -54,9 +55,9 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 
 		createSitePage.clickOnCreateSiteButton();
 
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
 
 		// go to delivery folder and init site for test	
 		int exitCode = this.driverManager.goToFolderAndExecuteInitSiteScriptThroughCommandLine(

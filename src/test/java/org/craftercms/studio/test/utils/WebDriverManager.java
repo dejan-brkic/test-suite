@@ -785,6 +785,13 @@ public class WebDriverManager {
 		}
 	}
 
+	public void waitForPasteTreeProcess() {
+		try {
+			Thread.sleep(35000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	public void waitForDeliveryRefresh() {
 		try {
 			// wait for a minute for delivery refresh
@@ -924,6 +931,11 @@ public class WebDriverManager {
 	public void scrollDownIntoSideBar() {
 		WebElement siteConfigButton = this.driverWaitUntilElementIsPresentAndDisplayed("id", "admin-console");
 		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", siteConfigButton);
+	}
+
+	public void scrollUpIntoSideBar(String selectorValue) {
+		WebElement element = this.driverWaitUntilElementIsPresentAndDisplayed("xpath", selectorValue);
+		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 
 	public void scrollRightIntoSideBar(String element) {

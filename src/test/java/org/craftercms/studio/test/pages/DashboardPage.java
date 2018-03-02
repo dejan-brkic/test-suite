@@ -1042,6 +1042,16 @@ public class DashboardPage {
 		}
 	}
 
+	public void collapseParentFolder(String parentElementLocator) {
+		this.driverManager.waitForAnimation();
+		WebElement parentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				parentElementLocator);
+		if (parentElement.getAttribute("class").contains("open")) {
+			this.driverManager.waitUntilContentTooltipIsHidden();
+			parentElement.click();
+		}
+	}
+
 	public void switchToAFormByCssSelector(String cSSSelector) {
 		// Switch to the iframe
 		driverManager.getDriver().switchTo().defaultContent();
