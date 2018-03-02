@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 
 /**
  * 
@@ -24,11 +25,11 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	private String siteDropdownElementXPath;
 	private String siteDropdownListElementXPath;
 	private String pasteOptionLocator;
-	private String siteStatusIcon;
 	private String firstChildLocator;
 	private String firstDestinationLocator;
 	private String childFolder;
 	private String tenthDestinationLocator;
+	private String topNavStatusIcon;
 	private static Logger logger = LogManager.getLogger(CopyPasteLargeTreesTest.class);
 
 	@BeforeMethod
@@ -44,8 +45,6 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		pasteOptionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.paste.option");
-		siteStatusIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.statustopbaricon");
 		firstChildLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.2017folder");
 		firstDestinationLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -53,6 +52,8 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 		childFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.childfolder2017");
 		tenthDestinationLocator = "";
+		topNavStatusIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.statustopbaricon");
 	}
 
 	public void copyAndPasteLongTreeIntoExistentFolder(String childLocator, String destinationFolderLocator) {
@@ -221,32 +222,53 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 				+ "/../../../../../div[@class='ygtvchildren']/div//span[contains(text(),'Men Styles For Winter')]";
 
 		logger.info("Verify Article is published");
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.scrollRightIntoSideBar(
-				tenthDestinationLocator + childFolder + "/../../../../../div[@class='ygtvchildren']//span[text()='1']");
-		if (!(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-						tenthDestinationLocator + childFolder
-								+ "/../../../../../div[@class='ygtvchildren']//span[text()='1']")
-				.getAttribute("class").contains("open"))) {
-			this.driverManager.waitUntilContentTooltipIsHidden();
+
+		for (int i = 0; i < 2; i++) {
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitForFullExpansionOfTree();
-			this.driverManager.waitForAnimation();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", tenthDestinationLocator
-					+ childFolder + "/../../../../../div[@class='ygtvchildren']//span[text()='1']").click();
+			this.driverManager.scrollDownIntoSideBar();
+			this.driverManager.waitForFullExpansionOfTree();
+			this.driverManager.waitUntilSidebarOpens();
+			this.driverManager.scrollRightIntoSideBar(tenthDestinationLocator + childFolder
+					+ "/../../../../../div[@class='ygtvchildren']//span[text()='1']");
+
+			// if the folder is not expanded do a click on it
+			if (!(this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+							tenthDestinationLocator + childFolder
+									+ "/../../../../../div[@class='ygtvchildren']//span[text()='1']")
+					.getAttribute("class").contains("open"))) {
+				this.driverManager.waitUntilContentTooltipIsHidden();
+				this.driverManager.waitForAnimation();
+				this.driverManager.waitForFullExpansionOfTree();
+				this.driverManager.waitForAnimation();
+				this.driverManager
+						.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", tenthDestinationLocator
+								+ childFolder + "/../../../../../div[@class='ygtvchildren']//span[text()='1']")
+						.click();
+			}
+
+			try {
+				
+				// Wait for the article and click it.
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath);
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath)
+						.click();
+				this.driverManager.waitForAnimation();
+				this.driverManager.waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
+				break;
+				
+			} catch (TimeoutException e) {
+				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
+				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
+				driverManager.getDriver().navigate().refresh();
+			}
 		}
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath).click();
-		this.driverManager.waitForAnimation();
+		String elementClassValue = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
+				.getAttribute("class");
+		Assert.assertTrue(elementClassValue.contains("undefined live"));
 
-		Assert.assertTrue(this.driverManager.getDriver().findElement(By.xpath(siteStatusIcon)).getAttribute("class")
-				.contains("undefined live"));
 	}
 
 	@Test(priority = 0)

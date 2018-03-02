@@ -635,6 +635,7 @@ public class DashboardPage {
 
 	// Press right click and copy the component to new folder created.
 	public void rightClickCopyComponent() {
+		this.driverManager.waitForAnimation();
 		WebElement copyComponent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				newContentCreated);
 		this.getDriverManager().contextClick(this.getDriverManager().getDriver(), copyComponent, false);
@@ -643,6 +644,7 @@ public class DashboardPage {
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", copyContent);
 			copyComponentToNewFolder.click();
 		});
+		this.driverManager.waitForAnimation();
 	}
 
 	public void rightClickToCopyComponentToNewFolder() {
@@ -680,6 +682,7 @@ public class DashboardPage {
 					pasteContent);
 			pasteContentElement.click();
 		});
+		this.driverManager.waitForAnimation();
 	}
 
 	public void rightClickToPasteToNewFolder() {

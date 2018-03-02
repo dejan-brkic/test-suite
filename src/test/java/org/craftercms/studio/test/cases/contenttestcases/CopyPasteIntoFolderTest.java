@@ -115,18 +115,17 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		dashboardPage.setFolderName("foldertocopy");
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		driverManager.getDriver().navigate().refresh(); 
 
 		// Expand Home Tree
 		dashboardPage.rightClickToCopyComponentToNewFolder();
 
 		// paste the crafter component in the new folder created
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickToPasteToNewFolder();
 
-		// reload page
-		driverManager.getDriver().navigate().refresh();
-
 		// Copy the new content to the new folder created
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickToCopyNewContentToNewFolder();
 
 		// paste the content in the new folder created
