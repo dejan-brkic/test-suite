@@ -932,7 +932,8 @@ public class WebDriverManager {
 	}
 
 	public void clickIfFolderIsNotExpanded(String selectorValue) {
-		if (!(this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).getAttribute("class").contains("open")))
+		if (!(this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).getAttribute("class")
+				.contains("open")))
 			this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).click();
 	}
 
