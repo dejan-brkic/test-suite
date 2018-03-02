@@ -52,9 +52,9 @@ public class CreateSiteEmptyTest extends StudioBaseTest {
 		// Click on Create button
 		createSitePage.clickOnCreateSiteButton();
 
-		this.driverManager.waitUntilElementIsClickable("xpath", siteDropdownElementXPath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
 	}
 
 }
