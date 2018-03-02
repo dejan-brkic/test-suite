@@ -469,8 +469,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		previewPage.bulkPublish("/");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder).click();
+		this.driverManager.clickIfFolderIsNotExpanded(articlesFolder);
 
 		// Verify Article is published
 		logger.info("Verify Article is published");
