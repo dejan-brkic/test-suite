@@ -785,6 +785,13 @@ public class WebDriverManager {
 		}
 	}
 
+	public void waitForPasteTreeProcess() {
+		try {
+			Thread.sleep(35000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	public void waitForDeliveryRefresh() {
 		try {
 			// wait for a minute for delivery refresh
@@ -926,13 +933,19 @@ public class WebDriverManager {
 		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", siteConfigButton);
 	}
 
+	public void scrollUpIntoSideBar(String selectorValue) {
+		WebElement element = this.driverWaitUntilElementIsPresentAndDisplayed("xpath", selectorValue);
+		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+
 	public void scrollRightIntoSideBar(String element) {
 		WebElement webelement = this.driverWaitUntilElementIsPresentAndDisplayed("xpath", element);
 		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", webelement);
 	}
 
 	public void clickIfFolderIsNotExpanded(String selectorValue) {
-		if (!(this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).getAttribute("class").contains("open")))
+		if (!(this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).getAttribute("class")
+				.contains("open")))
 			this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).click();
 	}
 

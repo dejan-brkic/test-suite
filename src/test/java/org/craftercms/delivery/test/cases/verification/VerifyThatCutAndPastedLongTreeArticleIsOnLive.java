@@ -10,8 +10,9 @@ import org.testng.annotations.Test;
  * @author Luis Hernandez
  *
  */
-//Test Case Studio- Site Content ID:1
-public class VerifyThatCopiedAndPastedLongTreeArticleIsOnLive extends DeliveryBaseTest {
+
+//Test Case Studio- Site Content ID:2
+public class VerifyThatCutAndPastedLongTreeArticleIsOnLive extends DeliveryBaseTest {
 	private String pageTitleXpath;
 
 	@BeforeMethod

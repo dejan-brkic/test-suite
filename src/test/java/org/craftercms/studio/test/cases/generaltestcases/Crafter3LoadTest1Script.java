@@ -361,7 +361,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		driverManager.elementHasChildsByXPath(folderLocator + "/../../../../../div/div/table/tbody/tr/td/span");
 
 		// Switch to the form
-		// driverManager.getDriver().navigate().refresh();
+		
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
 
