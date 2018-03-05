@@ -284,10 +284,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	public void expandTheArticles2017folder() {
 		// Step 8 Click on the + of folder 2017
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017);
-
 		this.driverManager.waitUntilContentTooltipIsHidden();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017).click();
+		this.driverManager.clickIfFolderIsNotExpanded(articlesFolder2017);
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder2017);
 	}
 
@@ -643,10 +641,9 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		logger.info("Click on the + of Articles tree to expand the tree");
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
-
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder).click();
+		this.driverManager.clickIfFolderIsNotExpanded(articlesFolder);
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder);
 
 		logger.info("Click on the + of folder 2017");

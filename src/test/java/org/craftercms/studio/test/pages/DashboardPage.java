@@ -1044,6 +1044,7 @@ public class DashboardPage {
 
 	public void collapseParentFolder(String parentElementLocator) {
 		this.driverManager.waitForAnimation();
+		
 		WebElement parentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				parentElementLocator);
 		if (parentElement.getAttribute("class").contains("open")) {
