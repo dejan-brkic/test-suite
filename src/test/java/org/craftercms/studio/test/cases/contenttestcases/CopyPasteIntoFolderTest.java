@@ -125,11 +125,13 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		dashboardPage.rightClickToPasteToNewFolder();
 
 		// Copy the new content to the new folder created
+		driverManager.getDriver().navigate().refresh();
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		dashboardPage.rightClickToCopyNewContentToNewFolder();
 
 		// paste the content in the new folder created
-
+		this.driverManager.waitForFullExpansionOfTree();
 		dashboardPage.rightClickToPasteToNewFolder();
 		
 		this.driverManager.waitForAnimation();

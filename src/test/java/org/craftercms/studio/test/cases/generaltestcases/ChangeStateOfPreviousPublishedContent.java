@@ -468,6 +468,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		logger.info("Executing bulk publish");
 		previewPage.bulkPublish("/");
 
+		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		this.driverManager.clickIfFolderIsNotExpanded(articlesFolder);
 

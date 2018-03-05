@@ -205,16 +205,27 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.scrollDownIntoSideBar();
 	this.driverManager.waitForAnimation();
 	this.driverManager.waitForFullExpansionOfTree();
-
+	this.driverManager.scrollDownIntoSideBar();
+	
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(tenthDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(ninthDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(eighthDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(seventhDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(sixthDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(fifthDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(fourthDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(thirdDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(secondDestinationLocator);
+	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(firstDestinationLocator);
 
 	this.driverManager.waitForAnimation();
