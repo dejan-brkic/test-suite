@@ -94,8 +94,6 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		// go to preview page
 		homePage.goToPreviewPage();
 
-		driverManager.getDriver().navigate().refresh();
-
 		this.changeBodyToNotRequiredOnEntryContent();
 
 		// expand pages folder
@@ -117,22 +115,23 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		dashboardPage.setFolderName("foldertocopy");
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		driverManager.getDriver().navigate().refresh(); 
 
 		// Expand Home Tree
 		dashboardPage.rightClickToCopyComponentToNewFolder();
 
 		// paste the crafter component in the new folder created
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickToPasteToNewFolder();
 
-		// reload page
-		driverManager.getDriver().navigate().refresh();
-
 		// Copy the new content to the new folder created
+		driverManager.getDriver().navigate().refresh();
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		dashboardPage.rightClickToCopyNewContentToNewFolder();
 
 		// paste the content in the new folder created
-
+		this.driverManager.waitForFullExpansionOfTree();
 		dashboardPage.rightClickToPasteToNewFolder();
 		
 		this.driverManager.waitForAnimation();

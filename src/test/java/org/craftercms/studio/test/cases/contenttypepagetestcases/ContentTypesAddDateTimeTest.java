@@ -17,7 +17,6 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 	
 	private String userName;
 	private String password;
-
 	private String controlsSectionFormSectionLocator;
 	private String contentTypeContainerLocator;
 	private String controlsSectionDateTimeLocator;
@@ -25,6 +24,8 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 	private String contentTypeContainerDateTimeTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
+	private String siteDropdownListElementXPath;
+	private String lastControlElementCssSelector;
 	
 
 	@BeforeMethod
@@ -47,6 +48,10 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
+		lastControlElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
 	public void dragAndDrop() {
@@ -62,6 +67,9 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 
 		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector);
+		
 		WebElement FromDateTime = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				controlsSectionDateTimeLocator);
 	
@@ -92,6 +100,8 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 		
@@ -122,6 +132,7 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 				contentTypeContainerDateTimeTitleLocator).getText();
 
 		Assert.assertTrue(titleText.contains("TestTitle"));
+		siteConfigPage.saveDragAndDropProcess();
 
 	}
 }

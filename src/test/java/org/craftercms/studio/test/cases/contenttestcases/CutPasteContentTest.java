@@ -28,6 +28,8 @@ public class CutPasteContentTest extends StudioBaseTest {
 	private String newFolderCreated;
 	private String newFolderSpanXpath;
 	private String testingItemURLXpath;
+	private String siteDropdownListElementXPath;
+	private String lastPropertiesElementCssSelector;
 	private static Logger logger = LogManager.getLogger(CutPasteContentTest.class);
 
 	@BeforeMethod
@@ -56,6 +58,10 @@ public class CutPasteContentTest extends StudioBaseTest {
 				.getProperty("dashboard.add_new_folder");
 		newFolderSpanXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.newfolder");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
+		lastPropertiesElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.propertiesdivlastelement");
 
 	}
 
@@ -71,10 +77,10 @@ public class CutPasteContentTest extends StudioBaseTest {
 		// go to dashboard page
 		homePage.goToDashboardPage();
 
-		driverManager.getDriver().navigate().refresh();
-
 		// Show site content panel
 		logger.debug("Click on Site Dropdown");
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 
 		// go to admin console page
@@ -99,6 +105,7 @@ public class CutPasteContentTest extends StudioBaseTest {
 		// Body not required
 		logger.debug("Disable RTE for the selected content");
 		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckCss)
 				.click();
 
@@ -161,6 +168,7 @@ public class CutPasteContentTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newFolderCreated);
 
 		// Right click and cut content.
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickToCutOption();
 
 		// Right click and paste content.
@@ -176,7 +184,7 @@ public class CutPasteContentTest extends StudioBaseTest {
 		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(testingItemURLXpath);
 		String contentCopied = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
-		Assert.assertEquals(contentCopied, "Testing1", "NNew folder does not contain the cu/paste content");
+		Assert.assertTrue(contentCopied.contains("Testing1"), "New folder does not contain the cut/paste content");
 
 	}
 

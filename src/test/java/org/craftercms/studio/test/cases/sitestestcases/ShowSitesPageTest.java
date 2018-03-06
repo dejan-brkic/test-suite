@@ -58,14 +58,16 @@ public class ShowSitesPageTest extends StudioBaseTest {
 				
 		// select the about us option
 		homePage.goToDashboardPage();
-
+		this.driverManager.waitForAnimation();
 		dashboardPage.clickOnSitesOption();
 
 		// Checking if the Sites page was Loaded
+		this.driverManager.waitForAnimation();
 		Assert.assertTrue(dashboardPage.getDriverManager().getDriver().getCurrentUrl()
 				.equals(apiConnectionManager.getHeaderLocationBase()+"/studio/#/sites"));
 
 		// Checking if the Users title is displayed on the current page
+		this.driverManager.waitForAnimation();
 		Assert.assertTrue(homePage.isSitePageTitlePresent());
 
 	}

@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -25,6 +26,7 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 	private String siteConfigLink;
 	private String contentTypeOption;
 	private String siteconfigGroupsOption;
+	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager
 			.getLogger(VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked.class);
 	
@@ -42,7 +44,8 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 				.getProperty("adminconsole.content_type_option");
 		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.groups_option");
-			
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 	
 	public void deleteSite() {
@@ -103,8 +106,17 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 		//Expand the site bar
 		logger.info("Opening the site bar");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath);
-		WebElement sidebar = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath);
-		sidebar.click();
+		
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				.isDisplayed()) {
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+						.click();
+		}else
+				throw new NoSuchElementException(
+						"Site creation process is taking too long time and the element was not found");
+		
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 		
 		logger.info("Click on the Site ConFig Page");

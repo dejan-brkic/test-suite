@@ -14,6 +14,7 @@ public class GetAvailablePublishingChannelsAPITest {
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
 	private DeploymentAPI deploymentAPI;
+	private String siteId="getavailablepublishingchannelsapitest";
 	
 	public GetAvailablePublishingChannelsAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -27,17 +28,17 @@ public class GetAvailablePublishingChannelsAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testGetAvailablePublishingChannels() {
-		deploymentAPI.testGetAvailablePublishingChannels(siteManagementAPI.getSiteId());
+		deploymentAPI.testGetAvailablePublishingChannels(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

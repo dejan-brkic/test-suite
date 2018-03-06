@@ -174,6 +174,7 @@ public class UsersPage {
 	}
 
 	public void deleteAllUsersExceptAdmin() {
+		this.driverManager.waitForAnimation();
 		List<WebElement> usersListitem = this.driverManager.getDriver()
 				.findElements(By.xpath(deleteUsersRowsXpath));
 
@@ -190,10 +191,11 @@ public class UsersPage {
 
 			// confirm and wait
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", deleteYesButtonXpath).click();
-			
+			this.driverManager.waitForAnimation();
 			this.driverManager.waitUntilDeleteSiteModalCloses();
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitUntilElementIsRemoved(element);
+			this.driverManager.waitForAnimation();
 		}
 	}
 

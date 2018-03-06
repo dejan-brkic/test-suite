@@ -61,6 +61,8 @@ public class PreviewPage {
 	private String gearItemXpath;
 	private String bulkPublishTab;
 	private String publishingFrame;
+	private String siteDropdownListElementXPath;
+	private String lastPropertiesElementCssSelector;
 
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
@@ -123,10 +125,14 @@ public class PreviewPage {
 		studioLogo = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.studiologo");
 		siteDropdownElementXPath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
+		siteDropdownListElementXPath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 		adminConsoleXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
 		entryContentTypeBodyXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.entrycontenttype.body");
+		lastPropertiesElementCssSelector = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.propertiesdivlastelement");
 		entryContentTypeBodyCheckXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.entrycontenttype.bodyrequiredcheck");
 		createFormFrameElementCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -145,8 +151,7 @@ public class PreviewPage {
 				.getProperty("complexscenarios.edit.articles.content.type.sections.repeating.group");
 		gearItemXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearlocator");
-		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("bulkoperations.frame");
+		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("bulkoperations.frame");
 
 	}
 
@@ -438,8 +443,10 @@ public class PreviewPage {
 	public void changeBodyOfEntryContentPageToNotRequired() {
 
 		// Show site content panel
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.click();
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
+				.contains("site-dropdown-open")))
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
 
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
@@ -464,6 +471,8 @@ public class PreviewPage {
 
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
+				lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
 
 		// save
@@ -482,7 +491,9 @@ public class PreviewPage {
 	public void changeBodyOfArticlePageToNotRequired() {
 
 		// Show site content panel
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
+				.contains("site-dropdown-open")))
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
 
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
@@ -513,6 +524,8 @@ public class PreviewPage {
 
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
+				lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
 
 		// save
@@ -539,26 +552,37 @@ public class PreviewPage {
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForAnimation();
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Fill the New Article page Fields
+			this.driverManager.waitForAnimation();
 			dashboardPage.setPageURL1(url);
+			this.driverManager.waitForAnimation();
 			dashboardPage.setInternalName1(name);
+			this.driverManager.waitForAnimation();
 			dashboardPage.setArticlesTitle(title);
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectedCategories);
+			this.driverManager.waitForAnimation();
 
 			// Fill the New Article Content Section
+			this.driverManager.scrollDown();
+			this.driverManager.waitForAnimation();
 			dashboardPage.setNewArticleContentSection(subject, author, summary);
 
 			// Select the catergory of the Article Page
+			this.driverManager.scrollMiddle();
+			this.driverManager.waitForAnimation();
 			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
 
 			// Select the segment of the Article Page
+			this.driverManager.waitForAnimation();
 			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
 
 			this.driverManager.scrollDown();
 
 			// Add an Image
+			this.driverManager.waitForAnimation();
 			dashboardPage.addAnImageToAnArticle();
 
 			// Switch to the iframe
@@ -568,6 +592,7 @@ public class PreviewPage {
 			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
 
 			// save and close
+			this.driverManager.waitForAnimation();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
 		});
 
@@ -597,7 +622,7 @@ public class PreviewPage {
 
 	}
 
-	public void bulkPublish() {
+	public void bulkPublish(String path) {
 
 		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id",
 				"admin-console");
@@ -611,7 +636,8 @@ public class PreviewPage {
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigPublishingOperationsoption)
 				.click();
-
+		
+		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo()
 				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingFrame));
 
@@ -631,7 +657,7 @@ public class PreviewPage {
 
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
-				.sendKeys("/");
+				.sendKeys(path);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsPublishButton)
 				.click();
@@ -643,21 +669,27 @@ public class PreviewPage {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsAcceptWarning)
 				.click();
-
-		this.driverManager.getDriver().switchTo().activeElement();
-		
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",bulkoperationsMessage).isDisplayed());
+		this.driverManager.waitForFullExpansionOfTree();
+		
+		this.driverManager.getDriver().switchTo().activeElement();
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
+		this.driverManager.waitForPasteTreeProcess();
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
+				.isDisplayed());
 
 		// Switch back to the dashboard page
 		driverManager.getDriver().switchTo().defaultContent();
 		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "navbar-site-name");
-
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "navbar-site-name").click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", "#admin-console");
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("cssSelector", "#admin-console");
 
 	}
 
@@ -670,7 +702,7 @@ public class PreviewPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalDeleteOption);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 2; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteStatusIcon)
 						.click();

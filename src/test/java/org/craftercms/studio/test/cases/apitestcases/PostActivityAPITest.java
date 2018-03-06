@@ -21,7 +21,7 @@ public class PostActivityAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private ActivityAPI activityAPI;
 	private ContentAssetAPI contentAssetAPI;
-	
+	private String siteId ="postactivityapitest";
 	public PostActivityAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -35,18 +35,18 @@ public class PostActivityAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testPostActivity() {
-		activityAPI.testPostActivity(siteManagementAPI.getSiteId());
+		activityAPI.testPostActivity(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

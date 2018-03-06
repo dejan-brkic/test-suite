@@ -58,9 +58,6 @@ public class DeleteOptionTest extends StudioBaseTest {
 		// go to preview page
 		homePage.goToPreviewPage();
 
-		// reload page
-		driverManager.getDriver().navigate().refresh();
-
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
 
@@ -71,9 +68,11 @@ public class DeleteOptionTest extends StudioBaseTest {
 
 		this.createContent();
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
 
 		// wait for element is clickeable
+		this.driverManager.waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// Select the content to delete.
@@ -117,13 +116,16 @@ public class DeleteOptionTest extends StudioBaseTest {
 		// Switch to the iframe
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Set basics fields of the new content created
+			this.driverManager.waitForAnimation();
 			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
 
 			// Set the title of main content
+			this.driverManager.waitForAnimation();
 			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
-
+			this.driverManager.waitForAnimation();
+			this.driverManager.waitForAnimation();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 

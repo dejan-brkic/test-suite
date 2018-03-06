@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -19,9 +20,8 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-//Test Case Studio- Site Dropdown ID:18
-public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser
-		extends StudioBaseTest {
+// Test Case Studio- Site Dropdown ID:18
+public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -70,8 +70,9 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 	private LinkedList<String> rightClickOptionsListInHomePage;
 	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
-	private static Logger logger = LogManager.getLogger(
-			VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser.class);
+	private String siteDropdownListElementXPath;
+	private static Logger logger = LogManager
+			.getLogger(VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -93,7 +94,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 				.getProperty("dashboard.new_home_Content_Page_name_edited_expand");
 		menStylesForWinterEditedPageName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.pagestree.articlesfolder.menstylesforwinter.page.edited");
-		
+
 		rightclickEditOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.edit.option");
 		rightclickViewOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -157,7 +158,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options_logout");
-
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void rightClickHomePage() {
@@ -241,7 +243,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		Assert.assertTrue(rightclickCopyOptionElement.isDisplayed(),
 				"ERROR: Right click Copy Option is not present on right click of " + section);
 	}
-	
+
 	public void verifyApproveAndPublishOptionIsPresent(String section) {
 		WebElement rightclickApproveAndPublishOptionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickApproveAndPublishOption);
@@ -320,7 +322,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 	public void step6() {
 		// Step 6 Right click on any Category Landing page and verify options
 		this.rightClickCategoryLandingPage();
-		
+
 		driverManager.usingContextMenu(() -> {
 			logger.info("Checking that only the expected options are listed");
 			rightClickOptionsListInCategoryLandingPage = new LinkedList<String>();
@@ -385,7 +387,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		this.rightClickArticlesFolderMenStylesForWinter();
 
 		driverManager.usingContextMenu(() -> {
-			
+
 			logger.info("Checking that only the expected options are listed");
 			rightClickOptionsListInMenStylesForWinterPage = new LinkedList<String>();
 			rightClickOptionsListInMenStylesForWinterPage.add(0, "Edit");
@@ -450,6 +452,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		});
 
 		this.driverManager.waitUntilSidebarOpens();
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("Xpath", homePageEditedName);
 
 	}
@@ -506,7 +509,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		}
 
 	}
-	
+
 	public void login(String user, String loginpassword) {
 
 		// login to application
@@ -515,7 +518,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		// Wait for login page to close
 		driverManager.waitUntilLoginCloses();
 	}
-	
+
 	public void addNewUser() {
 
 		// click On Users option
@@ -538,7 +541,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.waitForAnimation();
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				crafterLogo);
@@ -547,20 +550,26 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 
 				crafterLogo).click();
 	}
-	
+
 	private void goToSiteContentPagesStructure() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				createSiteButton);
-		
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createSiteButton);
+
 		this.driverManager.waitForAnimation();
 		homePage.goToPreviewPage();
 
 		this.driverManager.waitForAnimation();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed())
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				.isDisplayed()) {
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+						.click();
+		} else
+			throw new NoSuchElementException(
+					"Site creation process is taking too long time and the element was not found");
 	}
-	
+
 	public void addUserToPublisherGroup() {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
@@ -577,7 +586,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
 				.click();
-
+		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.getDriver().switchTo()
@@ -651,7 +660,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
 	}
-	
+
 	private void logoutFromCrafter() {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
@@ -664,6 +673,18 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 
 	}
 
+	public void expandPagesTree() {
+		// Expand the site bar
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
+
+		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+
+		// Click on Pages tree
+		this.driverManager.clickIfFolderIsNotExpanded(pagesTreeLink);
+
+		this.driverManager.waitUntilFolderOpens("xpath", pagesTreeLink);
+	}
+
 	@Test(priority = 0)
 	public void verifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser() {
 
@@ -672,8 +693,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		logger.info("Adding New User");
 
 		this.addNewUser();
-
-		this.driverManager.getDriver().navigate().refresh();
 
 		logger.info("Go to Site Preview");
 
@@ -696,7 +715,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		loginPage.loginToCrafter("publisher", "publisher");
 
 		driverManager.waitUntilLoginCloses();
-		
+
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
@@ -704,16 +723,15 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 
 		// Expand the site bar
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-		
+
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-		
+
 		// Step 2 Expand the site bar Step No needed
 		// Step 3 Click on Pages tree
-		WebElement pagesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				pagesTreeLink);
-		pagesTreeLinkElement.click();
-		this.driverManager.waitUntilFolderOpens("xpath", pagesTreeLink);
+		logger.info("Expand pages tree");
+		this.expandPagesTree();
 
+		logger.info("Edit the home page");
 		this.editHomePage();
 
 		logger.info("Step 4 Right Right click on Home and verify options");

@@ -1,6 +1,7 @@
 package org.craftercms.studio.test.utils;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
@@ -21,12 +22,15 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.TestException;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Properties;
 
@@ -165,7 +169,6 @@ public class WebDriverManager {
 	}
 
 	public void closeConnection() {
-		// this.driver.close();
 		this.driver.quit();
 	}
 
@@ -450,12 +453,12 @@ public class WebDriverManager {
 							new Object[] { waitUntilElementIsClickable(selectorType, selectorValue) });
 					break;
 				} else {
+					this.waitForAnimation();
 					(new Actions(driver)).moveToElement(waitUntilElementIsClickable(selectorType, selectorValue))
 							.build().perform();
 
 					this.waitUntilContentTooltipIsHidden();
 					this.waitForAnimation();
-
 					(new Actions(driver)).contextClick(waitUntilElementIsClickable(selectorType, selectorValue)).build()
 							.perform();
 					break;
@@ -481,6 +484,11 @@ public class WebDriverManager {
 
 	public void scrollUp() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
+	}
+
+	public void scrollMiddle() {
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,500)");
 	}
 
 	public void scrollDown() {
@@ -533,7 +541,7 @@ public class WebDriverManager {
 
 	public void waitUntilSidebarOpens() {
 		logger.debug("Waiting for sidebar to open");
-		waitUntilElementIsDisplayed("cssSelector", "div.acn-resize.ui-resizable");
+		this.waitUntilAttributeContains("xpath", ".//li[@id='acn-dropdown-wrapper']", "class", "site-dropdown-open");
 	}
 
 	public void waitUntilSidebarCloses() {
@@ -661,6 +669,7 @@ public class WebDriverManager {
 		driver.switchTo().defaultContent();
 
 		// Wait until animation completes
+		waitForAnimation();
 		WebElement frame = waitUntilElementIsDisplayed(selectorType, selectorValue);
 
 		// Switch to iframe
@@ -768,6 +777,21 @@ public class WebDriverManager {
 		}
 	}
 
+	public void waitForFullExpansionOfTree() {
+		try {
+			Thread.sleep(1600);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void waitForPasteTreeProcess() {
+		try {
+			Thread.sleep(35000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	public void waitForDeliveryRefresh() {
 		try {
 			// wait for a minute for delivery refresh
@@ -801,6 +825,7 @@ public class WebDriverManager {
 		String script;
 		String shell;
 		String folder;
+
 		if (executionEnvironment.equalsIgnoreCase("unix")) {
 			shell = "/bin/bash";
 			script = "init-site.sh";
@@ -812,9 +837,28 @@ public class WebDriverManager {
 
 				processBuilder.directory(new File(folder));
 
-				Process process = processBuilder.inheritIO().start();
+				Process process = processBuilder.start();
 
 				process.waitFor();
+
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+				// Read the output from the command
+				String output = "";
+				String lineString = null;
+				while ((lineString = bufferedReader.readLine()) != null) {
+					output = output + lineString;
+				}
+
+				if (!(output.contains("{\"message\":\"Error from server at http://localhost:8695/solr: "
+						+ "Core with name 'testsitefordeliverytest' already exists.\"}"))) {
+					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
+					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
+					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
+					Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
+					int occurencesOfDone = StringUtils.countMatches(output, "Done");
+					Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+				}
 
 				return process.exitValue();
 			} catch (Exception exception) {
@@ -835,9 +879,27 @@ public class WebDriverManager {
 
 				processBuilder.directory(new File(folder));
 
-				Process process = processBuilder.inheritIO().start();
+				Process process = processBuilder.start();
 
 				process.waitFor();
+
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+				// Read the output from the command
+				String output = "";
+				String lineString = null;
+				while ((lineString = bufferedReader.readLine()) != null) {
+					output = output + lineString;
+				}
+				if (!(output.contains("java.io.IOException: Server returned HTTP response code: 500"
+						+ " for URL: http://localhost:9080/crafter-search/api/2/admin/index/create"))) {
+					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
+					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
+					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
+					Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
+					int occurencesOfDone = StringUtils.countMatches(output, "Done");
+					Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+				}
 
 				return process.exitValue();
 			} catch (Exception exception) {
@@ -847,4 +909,44 @@ public class WebDriverManager {
 		}
 
 	}
+
+	public void focusAndScrollDownToBottomInASection(String cssContainer, String cssSelectorValue) {
+		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
+				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
+			((JavascriptExecutor) driver).executeScript(
+					"$('" + cssContainer + "').scrollTop($('" + cssSelectorValue + "').last().offset().top);");
+
+		}
+	}
+
+	public void focusAndScrollDownToMiddleInASection(String cssContainer, String cssSelectorValue) {
+		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
+				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
+			((JavascriptExecutor) driver).executeScript(
+					"$('" + cssContainer + "').scrollTop($('" + cssSelectorValue + ":first-child').height()*7);");
+
+		}
+	}
+
+	public void scrollDownIntoSideBar() {
+		WebElement siteConfigButton = this.driverWaitUntilElementIsPresentAndDisplayed("id", "admin-console");
+		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", siteConfigButton);
+	}
+
+	public void scrollUpIntoSideBar(String selectorValue) {
+		WebElement element = this.driverWaitUntilElementIsPresentAndDisplayed("xpath", selectorValue);
+		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+
+	public void scrollRightIntoSideBar(String element) {
+		WebElement webelement = this.driverWaitUntilElementIsPresentAndDisplayed("xpath", element);
+		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", webelement);
+	}
+
+	public void clickIfFolderIsNotExpanded(String selectorValue) {
+		if (!(this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).getAttribute("class")
+				.contains("open")))
+			this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).click();
+	}
+
 }

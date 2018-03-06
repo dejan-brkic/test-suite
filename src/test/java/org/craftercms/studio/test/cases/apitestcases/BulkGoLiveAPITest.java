@@ -16,7 +16,7 @@ public class BulkGoLiveAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private DeploymentAPI deploymentAPI;
 	private ContentAssetAPI contentAssetAPI;
-	
+	private String siteId="bulkgoliveapitest";
 	public BulkGoLiveAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -30,19 +30,19 @@ public class BulkGoLiveAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId(), "site/website/folder1");
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
+		contentAssetAPI.testWriteContent(siteId, "site/website/folder1");
 	}
 
 	@Test(priority = 1)
 	public void testBulkGoLive() {
-		deploymentAPI.testBulkGoLive(siteManagementAPI.getSiteId());
+		deploymentAPI.testBulkGoLive(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

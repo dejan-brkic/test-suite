@@ -31,6 +31,8 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 	private String siteDropDownXpath;
 	private String crafterLogoId;
 	private String createFormMainTitleElementXPath;
+	private String lastPropertiesElementCssSelector;
+	private String siteDropdownListElementXPath;
 
 	private static Logger logger = LogManager.getLogger(EditContentThroughDashboardEditOptionTest.class);
 
@@ -64,6 +66,10 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 		crafterLogoId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.studiologo");
 		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.createformTitle");
+		lastPropertiesElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.propertiesdivlastelement");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void dragAndDrop() {
@@ -146,6 +152,7 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckCss).click();
 		// save
 		siteConfigPage.saveDragAndDropProcess();
@@ -242,7 +249,6 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 			// Expand default section
 			myRecentActivityFramePage1.expandDefaultSection();
 			// Assert validation
-			this.driverManager.scrollDown();
 
 			String textTitle = this.driverManager
 
@@ -250,7 +256,7 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 
 					.getAttribute("value");
 
-			Assert.assertEquals(textTitle, "TestQA", "Content is not eddited properly");
+			Assert.assertEquals(textTitle, "TestQA", "Content is not edited properly");
 
 			// save and close
 			logger.info("Click on Save and close button");
@@ -281,7 +287,8 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 		homePage.goToPreviewPage();
 
 		// Show site content panel
-
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropDownXpath).click();
 
 		this.driverManager.waitUntilSidebarOpens();

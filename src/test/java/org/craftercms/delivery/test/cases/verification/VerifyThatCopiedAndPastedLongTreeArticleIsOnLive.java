@@ -1,4 +1,4 @@
-package org.craftercms.studio.delivery.test.cases.verification;
+package org.craftercms.delivery.test.cases.verification;
 
 import org.craftercms.studio.test.cases.DeliveryBaseTest;
 import org.testng.Assert;
@@ -10,25 +10,25 @@ import org.testng.annotations.Test;
  * @author Luis Hernandez
  *
  */
-//Related to ticket: https://github.com/craftercms/craftercms/issues/1869
-public class VerifyThatPageIsOnLive extends DeliveryBaseTest {
+//Test Case Studio- Site Content ID:1
+public class VerifyThatCopiedAndPastedLongTreeArticleIsOnLive extends DeliveryBaseTest {
 	private String pageTitleXpath;
 
 	@BeforeMethod
 	public void beforeTest() {
 		String pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("delivery.verification.pageurl");
+				.getProperty("delivery.verification.longtreearticlepageurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
 		this.driverManager.getDriver().get(pageURL);
 	}
 
 	@Test(priority = 0)
-	public void verifyThatPageIsOnLive() {
+	public void verifyThatCopiedAndPastedLongTreeArticleIsOnLive() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
-				.getText().equalsIgnoreCase("testingpage"));
+				.getText().equalsIgnoreCase("Men Styles For Winter"));
 	}
 
 }

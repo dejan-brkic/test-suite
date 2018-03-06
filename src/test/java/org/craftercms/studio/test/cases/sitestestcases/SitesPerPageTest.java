@@ -143,13 +143,14 @@ public class SitesPerPageTest extends StudioBaseTest{
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("10");
 		
-		driverManager.getDriver().navigate().refresh();
+		this.driverManager.waitForAnimation();
 	}
 
 	public void deleteSites() {
 
 		//delete all the sites present
 		this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
+		this.driverManager.waitForAnimation();
 		homePage.deleteAllSites();
 	}
 

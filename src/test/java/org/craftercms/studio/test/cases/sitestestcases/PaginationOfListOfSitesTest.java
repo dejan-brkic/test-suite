@@ -71,6 +71,7 @@ public class PaginationOfListOfSitesTest extends StudioBaseTest{
 	@AfterMethod
 	public void afterTest() {
 		// Delete All the sites
+		this.driverManager.waitForAnimation();
 		deleteSites();
 	}
 
@@ -127,12 +128,11 @@ public class PaginationOfListOfSitesTest extends StudioBaseTest{
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
 		
-		driverManager.getDriver().navigate().refresh();
+		this.driverManager.waitForAnimation();
 		
 	}
 
 	public void deleteSites() {
-
 		//delete all the sites present
 		this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
 		homePage.deleteAllSites();

@@ -82,9 +82,6 @@ public class CopyPasteContentTest extends StudioBaseTest {
 		// go to preview page
 		homePage.goToPreviewPage();
 
-		// reload page
-		driverManager.getDriver().navigate().refresh();
-
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
 
@@ -119,6 +116,7 @@ public class CopyPasteContentTest extends StudioBaseTest {
 			dashboardPage.editInternalName("COPY");	
 		});
 		
+		this.driverManager.waitForAnimation();
 		Assert.assertNotNull(driverManager.waitUntilElementIsDisplayed("xpath", copyTestItemXpath)
 				,"Content page is not displayed on the Site Content panel");
 

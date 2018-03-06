@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -59,6 +60,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
 	private String rightClickOptions;
+	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager
 			.getLogger(VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser.class);
 
@@ -124,7 +126,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 				.getProperty("dashboard.user_options_logout");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void rightClickHome() {
@@ -374,8 +377,15 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 		homePage.goToPreviewPage();
 
 		this.driverManager.waitForAnimation();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed())
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				.isDisplayed()) {
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+						.click();
+		}else
+				throw new NoSuchElementException(
+						"Site creation process is taking too long time and the element was not found");
 	}
 	
 	public void addUserToAuthorGroup() {
@@ -395,6 +405,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 
 				.click();
 
+		this.driverManager.waitForAnimation();
+		
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.getDriver().switchTo()
@@ -481,6 +493,18 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 
 	}
 
+	public void expandPagesTree() {
+		// Expand the site bar
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
+
+		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+
+		// Click on Pages tree
+		this.driverManager.clickIfFolderIsNotExpanded(pagesTreeLink);
+
+		this.driverManager.waitUntilFolderOpens("xpath", pagesTreeLink);
+	}
+
 	@Test(priority = 0)
 	public void verifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser() {
 		
@@ -489,8 +513,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 		logger.info("Adding New User");
 
 		this.addNewUser();
-
-		this.driverManager.getDriver().navigate().refresh();
 
 		logger.info("Go to Site Preview");
 
@@ -526,10 +548,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 		
 		// Step 2 Expand the site bar Step No needed
 		// Step 3 Click on Pages tree
-		WebElement pagesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				pagesTreeLink);
-		pagesTreeLinkElement.click();
-		this.driverManager.waitUntilFolderOpens("xpath", pagesTreeLink);
+		this.expandPagesTree();
 
 		// Step 4 Right Right click on "Home" and verify options
 		this.step4();

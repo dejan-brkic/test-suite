@@ -58,6 +58,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	private String createFormFrameElementCss;
 	private String createFormTitleElementXPath;
 	private String actionsHeaderXpath;
+	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager.getLogger(SiteConfigPage.class);
 
 	@BeforeMethod
@@ -122,6 +123,8 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		studioLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.studiologo");
 		actionsHeaderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.historydialogactionsheader");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 
 	}
 
@@ -145,14 +148,18 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 		// Wait for login page to close
 		driverManager.waitUntilLoginCloses();
-
+		this.driverManager.waitForAnimation();
 		// go to preview page
 		homePage.goToPreviewPage();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).isDisplayed())
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
-		else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				.isDisplayed())
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+						.click();
+			else
+				throw new NoSuchElementException(
+						"Site creation process is taking too long time and the element was not found");
 	}
 
 	public void prepareTestArea() {
@@ -179,28 +186,40 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// creating a new folder on a given parentFolder
 		this.createFolderOnAPresentFolder(bigTree2FolderName, harnessFolderLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLocator);
 		dashboardPage.rightClickCopyContentPage(styleLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree1FolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", entertainmentLocator);
 		dashboardPage.rightClickCopyContentPage(entertainmentLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree1FolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", healthLocator);
 		dashboardPage.rightClickCopyContentPage(healthLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree1FolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", technologyLocator);
 		dashboardPage.rightClickCopyContentPage(technologyLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree1FolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
 	}
@@ -216,6 +235,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 			dashboardPage.setBasicFieldsOfNewPageArticleContent(randomURL, randomInternalName, "newPageArticlesTitle");
 
 			// Set the title of main content
+			this.driverManager.scrollDown();
 			driverManager.sendText("xpath", createFormArticleMainTitleElementXPath, "MainTitle");
 
 			// save and close
@@ -341,7 +361,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		driverManager.elementHasChildsByXPath(folderLocator + "/../../../../../div/div/table/tbody/tr/td/span");
 
 		// Switch to the form
-		//driverManager.getDriver().navigate().refresh();
+		
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
 
@@ -436,7 +456,10 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		dashboardPage.clickCopyButtonOnTreeSelector();
 
 		// Step2 c)
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bigTree2FolderLocator);
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree2FolderLocator);
 
 		bigTree2BigTree1ChildFolderLocator = bigTree2FolderLocator + uiElementsPropertiesManager
@@ -458,7 +481,9 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		dashboardPage.selectAllTreeOnSelector(bigTree1FolderDivOnSelectorXPath);
 		dashboardPage.clickCopyButtonOnTreeSelector();
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", mytestFolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(mytestFolderLocator);
 
 		myTestBigTreeChildFolderLocator = mytestFolderLocator + uiElementsPropertiesManager
@@ -482,7 +507,9 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 				myTestBigTreeChildFolderLocator);
 		dashboardPage.rightClickCutAFolder(myTestBigTreeChildFolderLocator);
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", anotherTestFolderLocator);
+		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(anotherTestFolderLocator);
 
 		anotherTestBigTreeChildFolderLocator = anotherTestFolderLocator + uiElementsPropertiesManager
@@ -492,7 +519,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 	public void step7() {
 		// Step7 a)
-		driverManager.waitUntilSidebarOpens();
+		this.driverManager.waitForAnimation();
 
 		dashboardPage.clickHomeTree();
 
@@ -618,8 +645,6 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 		// Step1
 		this.step1();
-
-		driverManager.getDriver().navigate().refresh();
 
 		// Step2
 		this.step2();

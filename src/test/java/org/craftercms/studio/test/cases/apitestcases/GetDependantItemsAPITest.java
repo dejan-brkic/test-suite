@@ -14,7 +14,7 @@ public class GetDependantItemsAPITest {
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
 	private DependencyAPI dependencyAPI;
-	
+	private String siteId="getdependantitemsapitest";
 	public GetDependantItemsAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -27,17 +27,17 @@ public class GetDependantItemsAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
 	}
 
 	@Test(priority = 1,groups={"getDependantItems"})
 	public void testGetDependantItems() {
-		dependencyAPI.testGetDependantItems(siteManagementAPI.getSiteId());
+		dependencyAPI.testGetDependantItems(siteId);
 	}
 
 	@AfterGroups(groups={"getDependantItems"})
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

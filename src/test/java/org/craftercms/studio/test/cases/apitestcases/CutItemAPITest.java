@@ -20,7 +20,7 @@ public class CutItemAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private ClipboardAPI clipboardAPI;
 	private ContentAssetAPI contentAssetAPI;
-	
+	private String siteId="cutitemapitest";
 	public CutItemAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
@@ -34,18 +34,18 @@ public class CutItemAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId(), "site/website/folder1");
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId, "site/website/folder1");
 	}
 
 	@Test(priority = 1)
 	public void testCutItem() {
-		clipboardAPI.testCutItem(siteManagementAPI.getSiteId());
+		clipboardAPI.testCutItem(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest() {
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

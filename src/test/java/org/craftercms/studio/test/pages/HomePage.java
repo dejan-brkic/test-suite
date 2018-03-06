@@ -57,9 +57,11 @@ public class HomePage {
 
 	// Click on preview link
 	public void clickPreviewOption() {
+		this.driverManager.waitForAnimation();
 		WebElement previewLink = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				previewSite);
 		previewLink.click();
+		this.driverManager.waitForAnimation();
 	}
 
 	public void goToPreviewPage() {
@@ -74,6 +76,7 @@ public class HomePage {
 		WebElement dashboardLink = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				dashboardSite);
 		dashboardLink.click();
+		this.driverManager.waitForAnimation();
 	}
 
 	public void goToDashboardPage() {

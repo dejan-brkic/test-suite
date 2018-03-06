@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 
-
 /**
  * 
  * 
@@ -18,7 +17,6 @@ public class CreateSiteWithWebSiteEditorialBluePrintTest extends StudioBaseTest 
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -33,7 +31,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTest extends StudioBaseTest 
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
-		
+
 		driverManager.waitUntilLoginCloses();
 
 		// Click on the create site button
@@ -56,9 +54,10 @@ public class CreateSiteWithWebSiteEditorialBluePrintTest extends StudioBaseTest 
 
 		createSitePage.clickOnCreateSiteButton();
 
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.isDisplayed());
 	}
-
 }

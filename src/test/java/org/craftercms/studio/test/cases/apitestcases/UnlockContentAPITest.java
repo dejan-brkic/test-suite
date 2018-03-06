@@ -14,6 +14,7 @@ public class UnlockContentAPITest {
 	private SiteManagementAPI siteManagementAPI;
 	private SecurityAPI securityAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId="unlockcontentapitest";
 
 	public UnlockContentAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -27,18 +28,18 @@ public class UnlockContentAPITest {
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testUnlockContent() {
-		contentAssetAPI.testUnlockContent(siteManagementAPI.getSiteId());
+		contentAssetAPI.testUnlockContent(siteId);
 	}
 	
 	@AfterTest
 	public void afterTest(){
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }

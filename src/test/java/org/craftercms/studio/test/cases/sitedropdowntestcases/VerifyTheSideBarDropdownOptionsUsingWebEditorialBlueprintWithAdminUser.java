@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -35,6 +36,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 	private String siteConfigLink;
 	private LinkedList<String> siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
+	private String siteDropdownListElementXPath;
 	
 	@BeforeMethod
 	public void beforeTest() {
@@ -62,7 +64,8 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 		.getProperty("general.adminconsole");
 		siteDropdownItemsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.sitebar.dropdown.items");
-		
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 		siteDropdownItemsInExpectedOrder = new LinkedList<String>();
 		siteDropdownItemsInExpectedOrder.add(0,"Dashboard");
 		siteDropdownItemsInExpectedOrder.add(1,"Pages");
@@ -130,8 +133,17 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 	
 		//Expand the site bar
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath);
-		WebElement sidebar = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath);
-		sidebar.click();
+		
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				.isDisplayed()) {
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+						.click();
+		}else
+				throw new NoSuchElementException(
+						"Site creation process is taking too long time and the element was not found");
+		
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 		
 		//Check all the section are present;

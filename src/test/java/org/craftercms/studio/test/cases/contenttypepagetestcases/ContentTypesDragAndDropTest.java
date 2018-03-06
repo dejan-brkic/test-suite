@@ -22,6 +22,7 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 	private String controlsSectionFromSection;
 	private String contentFormName;
 	private String contentFormContentSection;
+	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -37,6 +38,8 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 				.getProperty("adminconsole.contenttype.entry.contentformname");
 		contentFormContentSection = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contentformcontentsection");
+		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	@Test(priority = 0)
@@ -53,6 +56,8 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 		homePage.goToPreviewPage();
 
 		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager
 		.driverWaitUntilElementIsPresentAndDisplayed( "xpath", siteDropdownXpath).click();
 
@@ -95,6 +100,7 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 		// validate the control added
 
 		Assert.assertTrue(driverManager.isElementPresentByXpath(contentFormContentSection));
+		siteConfigPage.saveDragAndDropProcess();
 		
 	}
 

@@ -10,35 +10,36 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class GetItemsTreeAPITest {
-	
+
 	private SiteManagementAPI siteManagementAPI;
 	private SecurityAPI securityAPI;
 	private ContentAssetAPI contentAssetAPI;
+	private String siteId = "getitemstreeapitest";
 
 	public GetItemsTreeAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
-    	securityAPI = new SecurityAPI(api, apiConnectionManager);
-    	contentAssetAPI = new ContentAssetAPI(api, apiConnectionManager);
-    	siteManagementAPI = new SiteManagementAPI(api, apiConnectionManager);
+		securityAPI = new SecurityAPI(api, apiConnectionManager);
+		contentAssetAPI = new ContentAssetAPI(api, apiConnectionManager);
+		siteManagementAPI = new SiteManagementAPI(api, apiConnectionManager);
 	}
-	
+
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		siteManagementAPI.testCreateSite(siteManagementAPI.getSiteId());
-		contentAssetAPI.testWriteContent(siteManagementAPI.getSiteId());
+		siteManagementAPI.testCreateSite(siteId);
+		contentAssetAPI.testWriteContent(siteId);
 	}
 
 	@Test(priority = 1)
 	public void testGetItemsTree() {
-		contentAssetAPI.testGetItemsTree(siteManagementAPI.getSiteId());
+		contentAssetAPI.testGetItemsTree(siteId);
 	}
-	
+
 	@AfterTest
-	public void afterTest(){
-		siteManagementAPI.testDeleteSite(siteManagementAPI.getSiteId());
+	public void afterTest() {
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 }
