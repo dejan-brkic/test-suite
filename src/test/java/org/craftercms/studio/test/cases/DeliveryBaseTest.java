@@ -18,6 +18,7 @@ public class DeliveryBaseTest {
     protected UIElementsPropertiesManager uiElementsPropertiesManager;
     protected ConstantsPropertiesManager constantsPropertiesManager;
     protected DeliveryHomePage deliveryHome;
+    private String currentSiteId;
     
     @BeforeClass
     public void setUp() {
@@ -25,7 +26,9 @@ public class DeliveryBaseTest {
         uiElementsPropertiesManager = new UIElementsPropertiesManager(FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
         constantsPropertiesManager = new ConstantsPropertiesManager(FilesLocations.CONSTANTSPROPERTIESFILEPATH);
         driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
-        deliveryHome = new DeliveryHomePage(driverManager, "testsitefordeliverytest");
+        currentSiteId=constantsPropertiesManager.getSharedExecutionConstants()
+		.getProperty("general.currentsiteid");
+        deliveryHome = new DeliveryHomePage(driverManager, currentSiteId);
     }
 
     @AfterClass
