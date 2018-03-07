@@ -64,6 +64,7 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", childLocator);
 		this.driverManager.waitForAnimation();
 		dashboardPage.rightClickCopyFolder(childLocator);
+		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
 		dashboardPage.clickCopyButtonOnTreeSelector();
 
