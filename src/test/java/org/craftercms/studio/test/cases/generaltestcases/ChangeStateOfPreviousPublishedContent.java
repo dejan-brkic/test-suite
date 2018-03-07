@@ -378,13 +378,10 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	}
 
 	private void requestPublish(String newPageArticleName) {
-		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
 				".//span[contains(text(),'" + newPageArticleName + "')]");
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
 				".//span[contains(text(),'" + newPageArticleName + "')]").click();
 
 		this.driverManager.getDriver().navigate().refresh();

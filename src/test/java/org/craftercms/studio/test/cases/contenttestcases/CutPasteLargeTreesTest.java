@@ -338,6 +338,7 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 			}
 		}
 
+		this.driverManager.waitForFullExpansionOfTree();
 		String elementClassValue = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
 				.getAttribute("class");
 		Assert.assertTrue(elementClassValue.contains("undefined live"));
