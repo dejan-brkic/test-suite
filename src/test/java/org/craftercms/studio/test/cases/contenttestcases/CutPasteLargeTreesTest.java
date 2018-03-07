@@ -285,6 +285,7 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 		driverManager.getDriver().navigate().refresh();
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
+		firstChildLocator=firstChildLocator.replace("/div[3]", "");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator);
 		this.driverManager.waitForAnimation();
 		dashboardPage.expandParentFolder(firstChildLocator);
