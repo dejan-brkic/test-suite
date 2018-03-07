@@ -703,7 +703,7 @@ public class DashboardPage {
 	}
 
 	public void clickCopyButtonOnTreeSelector() {
-		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		WebElement buttonCopy = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				copyButonOnTreeSelector);
 		buttonCopy.click();
@@ -1062,6 +1062,7 @@ public class DashboardPage {
 	}
 
 	public void rightClickCopyContentPage(String parentWebElementLocator) {
+		this.driverManager.waitForAnimation();
 		this.getDriverManager().contextClick("xpath", parentWebElementLocator, true);
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -1070,6 +1071,7 @@ public class DashboardPage {
 	}
 
 	public void rightClickCreatePageOnAPresentPage(String webElementLocator) {
+		this.driverManager.waitForAnimation();
 		this.getDriverManager().contextClick("xpath", webElementLocator, false);
 		driverManager.usingContextMenu(() -> {
 			WebElement addContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",

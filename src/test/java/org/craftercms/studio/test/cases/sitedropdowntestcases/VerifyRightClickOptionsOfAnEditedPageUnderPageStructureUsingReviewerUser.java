@@ -420,7 +420,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 	public void addNewUser() {
 
 		// click On Users option
-
+		this.driverManager.waitForAnimation();
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
@@ -588,8 +588,9 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 
 		this.login(userName, password);
 
+		this.driverManager.waitUntilLoginCloses();
+		
 		logger.info("Adding New User");
-
 		this.addNewUser();
 
 		logger.info("Go to Site Preview");
