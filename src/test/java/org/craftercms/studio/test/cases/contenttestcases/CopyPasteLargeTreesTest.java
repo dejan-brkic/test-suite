@@ -122,7 +122,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, firstDestinationLocator);
-		logger.info("Checking if the element {} was pasted with success", firstDestinationLocator + childFolder);
+		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017");
 		Assert.assertTrue(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstDestinationLocator + childFolder)
 				.isDisplayed());
@@ -132,7 +132,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.waitForAnimation();
 	String secondDestinationLocator = firstDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(secondDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", secondDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017");
 	Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 			secondDestinationLocator + childFolder).isDisplayed());
 
@@ -140,7 +140,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.waitForAnimation();
 	String thirdDestinationLocator = secondDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(thirdDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", thirdDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017");
 	Assert.assertTrue(this.driverManager
 			.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", thirdDestinationLocator + childFolder)
 			.isDisplayed());
@@ -148,7 +148,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.waitForAnimation();
 	String fourthDestinationLocator = thirdDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(fourthDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", fourthDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017");
 	Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 			fourthDestinationLocator + childFolder).isDisplayed());
 
@@ -156,7 +156,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.waitForAnimation();
 	String fifthDestinationLocator = fourthDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(fifthDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", fifthDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017");
 	Assert.assertTrue(this.driverManager
 			.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fifthDestinationLocator + childFolder)
 			.isDisplayed());
@@ -164,7 +164,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.waitForAnimation();
 	String sixthDestinationLocator = fifthDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(sixthDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", sixthDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017/2017");
 	Assert.assertTrue(this.driverManager
 			.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sixthDestinationLocator + childFolder)
 			.isDisplayed());
@@ -173,14 +173,14 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.waitForAnimation();
 	String seventhDestinationLocator = sixthDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(seventhDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", seventhDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017/2017/2017");
 	Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 			seventhDestinationLocator + childFolder).isDisplayed());
 
 	this.driverManager.waitForAnimation();
 	String eighthDestinationLocator = seventhDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(eighthDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", eighthDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017");
 	Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 			eighthDestinationLocator + childFolder).isDisplayed());
 
@@ -188,7 +188,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.waitForAnimation();
 	String ninthDestinationLocator = eighthDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(ninthDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", ninthDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017/2017");
 	Assert.assertTrue(this.driverManager
 			.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ninthDestinationLocator + childFolder)
 			.isDisplayed());
@@ -196,7 +196,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.waitForAnimation();
 	String tenthDestinationLocator = ninthDestinationLocator + childFolder;
 	continuePastingLongTreeIntoExistentFolder(tenthDestinationLocator);
-	logger.info("Checking if the element {} was pasted with success", tenthDestinationLocator + childFolder);
+	logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017/2017/2017");
 	Assert.assertTrue(this.driverManager
 			.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", tenthDestinationLocator + childFolder)
 			.isDisplayed());
@@ -206,9 +206,10 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	this.driverManager.scrollDownIntoSideBar();
 	this.driverManager.waitForAnimation();
 	this.driverManager.waitForFullExpansionOfTree();
-	this.driverManager.scrollDownIntoSideBar();
 	
-	this.driverManager.waitForAnimation();
+	this.driverManager.scrollDownIntoSideBar();
+	this.driverManager.waitForFullExpansionOfTree();
+	this.driverManager.scrollDownIntoSideBar();
 	dashboardPage.collapseParentFolder(tenthDestinationLocator);
 	this.driverManager.waitForAnimation();
 	dashboardPage.collapseParentFolder(ninthDestinationLocator);
