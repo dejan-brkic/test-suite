@@ -696,6 +696,8 @@ public class PreviewPage {
 	public void verifyPageArticleIsPublished() {
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName);
+		this.driverManager.waitForFullExpansionOfTree();
+		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName)
 				.click();
 
@@ -718,7 +720,7 @@ public class PreviewPage {
 						.click();
 			}
 		}
-
+		this.driverManager.waitForFullExpansionOfTree();
 		Assert.assertTrue(this.driverManager.getDriver().findElement(By.xpath(siteStatusIcon)).getAttribute("class")
 				.contains("undefined live"));
 

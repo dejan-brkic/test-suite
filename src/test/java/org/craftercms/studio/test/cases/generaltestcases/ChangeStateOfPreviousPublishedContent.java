@@ -465,12 +465,15 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		logger.info("Executing bulk publish");
 		previewPage.bulkPublish("/");
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		this.driverManager.clickIfFolderIsNotExpanded(articlesFolder);
 
 		// Verify Article is published
 		logger.info("Verify Article is published");
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		previewPage.verifyPageArticleIsPublished();
 
 		// logout from Crafter
@@ -486,8 +489,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilFolderOpens("xpath", expandPagesTree);
-
-		// this.dashboardPage.expandHomeTree();
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", generalEditOption);
