@@ -787,7 +787,7 @@ public class WebDriverManager {
 
 	public void waitForPasteTreeProcess() {
 		try {
-			Thread.sleep(30000);
+			Thread.sleep(35000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
