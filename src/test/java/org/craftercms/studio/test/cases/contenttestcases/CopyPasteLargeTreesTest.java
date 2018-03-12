@@ -232,6 +232,12 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 
 	this.driverManager.waitForAnimation();
 	copyAndPasteLongTreeIntoExistentFolder(firstDestinationLocator, firstChildLocator);
+	
+	this.driverManager.waitForPasteTreeProcess();
+	String elementClassValue = "";
+	while (!(elementClassValue.contains("open"))) {
+		elementClassValue=this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator).getAttribute("class");
+	}		
 }
 
 public void expandAllCutTrees() {
