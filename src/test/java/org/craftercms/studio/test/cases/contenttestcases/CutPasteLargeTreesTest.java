@@ -17,7 +17,6 @@ import org.openqa.selenium.TimeoutException;
  */
 
 // Test Case Studio- Site Content ID:2
-// related to the next ticket on windows: https://github.com/craftercms/craftercms/issues/1915
 public class CutPasteLargeTreesTest extends StudioBaseTest {
 
 	private String userName;
@@ -251,16 +250,24 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 
 		this.driverManager.waitForFullExpansionOfTree();
 		cutAndPasteLongTreeIntoExistentFolder(firstDestinationLocator, firstChildLocator);
+		
+		this.driverManager.waitForPasteTreeProcess();
+		String elementClassValue = "";
+		while (!(elementClassValue.contains("open"))) {
+			elementClassValue=this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator).getAttribute("class");
+		}		
 	}
 
 	public void expandAllCutTrees() {
-		
+
 		// expand 2017 parent
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator+"/../../../../../div[@class='ygtvchildren']//span[text()='2016']");
-		dashboardPage.expandParentFolder(firstChildLocator+"/../../../../../div[@class='ygtvchildren']//span[text()='2016']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				firstChildLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='2016']");
+		dashboardPage.expandParentFolder(
+				firstChildLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='2016']");
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
-		
+
 		// expand the all folder tree
 		for (int i = 0; i < 10; i++) {
 			// append the last opened 2017 folder
@@ -287,12 +294,12 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 		driverManager.getDriver().navigate().refresh();
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
-		firstChildLocator=firstChildLocator.replace("/div[3]", "");
+		firstChildLocator = firstChildLocator.replace("/div[3]", "");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator);
 		this.driverManager.waitForAnimation();
 		dashboardPage.expandParentFolder(firstChildLocator);
 		this.expandAllCutTrees();
-		
+
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
