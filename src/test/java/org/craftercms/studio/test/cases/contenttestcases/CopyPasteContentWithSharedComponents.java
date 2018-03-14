@@ -320,7 +320,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator)
 					.getAttribute("class");
 		}
-		
+
 		// Collapse Home tree
 		logger.info("Collapse Home tree");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
@@ -332,24 +332,29 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton).click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsChildFolder);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsChildFolder).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsChildFolder)
+				.click();
 
 		logger.info("Click the Static Assets/Page Tree");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsPageChildFolder);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsPageChildFolder).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				staticAssetsPageChildFolder);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsPageChildFolder)
+				.click();
 
 		logger.info("Click the Static Assets/page/images Tree");
 		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsPageImagesChildFolder);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsPageImagesChildFolder)
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				staticAssetsPageImagesChildFolder);
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsPageImagesChildFolder)
 				.click();
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
-		
+
 		List<WebElement> testimagesitems = this.driverManager.getDriver()
 				.findElements(By.xpath(staticAssetsPageImagesTestImagesChilds));
 
@@ -385,14 +390,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 
 	public void step3() {
 		logger.info("Executing bulk publish");
-		
-		String elementClassValue = "";
-		while (!(elementClassValue.contains("open"))) {
-			elementClassValue = this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator)
-					.getAttribute("class");
-		}
-		
+		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
 		previewPage.bulkPublish("/site/website/articles", 50000);
@@ -400,6 +398,25 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 		driverManager.getDriver().navigate().refresh();
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
+
+		logger.info("Collapse the Static Assets Tree");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton).click();
+
+		logger.info("Expand Home tree");
+		this.dashboardPage.expandPagesTree();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
+		this.driverManager.waitUntilFolderOpens("xpath", expandPagesTree);
+		this.dashboardPage.expandHomeTree();
+
+		// expand Articles folder
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		dashboardPage.expandParentFolder(articlesFolder);
+
+		this.driverManager.scrollDownIntoSideBar();
+		this.driverManager.waitForAnimation();
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator);
 		this.driverManager.waitForAnimation();
 		dashboardPage.expandParentFolder(firstChildLocator);
