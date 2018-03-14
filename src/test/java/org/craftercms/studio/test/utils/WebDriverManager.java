@@ -783,15 +783,7 @@ public class WebDriverManager {
 			e.printStackTrace();
 		}
 	}
-
-	public void waitForPasteTreeProcess() {
-		try {
-			Thread.sleep(35000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	public void waitForDeliveryRefresh() {
 		try {
 			// wait for a minute for delivery refresh

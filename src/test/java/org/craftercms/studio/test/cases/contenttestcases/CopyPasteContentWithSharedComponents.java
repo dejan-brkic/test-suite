@@ -314,7 +314,6 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 		this.driverManager.waitForAnimation();
 		copyAndPasteLongTreeIntoExistentFolder(firstDestinationLocator, firstChildLocator);
 
-		this.driverManager.waitForPasteTreeProcess();
 		String elementClassValue = "";
 		while (!(elementClassValue.contains("open"))) {
 			elementClassValue = this.driverManager
@@ -386,7 +385,14 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 
 	public void step3() {
 		logger.info("Executing bulk publish");
-		this.driverManager.waitForPasteTreeProcess();
+		
+		String elementClassValue = "";
+		while (!(elementClassValue.contains("open"))) {
+			elementClassValue = this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator)
+					.getAttribute("class");
+		}
+		
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
 		previewPage.bulkPublish("/site/website/articles", 50000);
@@ -445,9 +451,9 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 			}
 		}
 
-		String elementClassValue = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
+		String elementClassValueTopNav = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
 				.getAttribute("class");
-		Assert.assertTrue(elementClassValue.contains("undefined live"));
+		Assert.assertTrue(elementClassValueTopNav.contains("undefined live"));
 
 	}
 
