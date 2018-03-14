@@ -1,7 +1,9 @@
 package org.craftercms.studio.test.pages;
 
+import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.craftercms.studio.test.utils.FilesLocations;
 import org.craftercms.studio.test.utils.UIElementsPropertiesManager;
 import org.craftercms.studio.test.utils.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -84,6 +86,9 @@ public class DashboardPage {
 	private String requestPublishOption;
 	private String requestPublishSubmitButton;
 	private String sitesOptionXpath;
+	private String uploadImagesButton;
+	private String chooseFileButtom;
+	private String uploadButtom;
 	private static Logger logger = LogManager.getLogger(DashboardPage.class);
 
 	/**
@@ -193,6 +198,8 @@ public class DashboardPage {
 				.getProperty("frame2.article_add_image_button");
 		existingImagesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame2.article_existing_images_button");
+		uploadImagesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.article_upload_images_button");
 		addCloseGearImageButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame2.article_addclose_gear_image");
 		editRecentActivity = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -209,6 +216,10 @@ public class DashboardPage {
 				.getProperty("dashboard.approveandpublishsubmitbutton");
 		sitesOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.preview.sitesoption");
+		chooseFileButtom = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.article.choosefilebutton");
+		uploadButtom = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.article.uploadbutton");
 	}
 
 	public DashboardPage(WebDriver driver) {
@@ -1107,6 +1118,28 @@ public class DashboardPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", addCloseGearImageButton)
 				.click();
 
+	}
+	
+	public void addAnImageToAnArticleUsingUploadOption() {
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleAddImageButton)
+				.click();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", uploadImagesButton)
+				.click();
+		
+		// Switch to the form
+		this.driverManager.waitForAnimation();
+		driverManager.getDriver().switchTo().activeElement();
+		
+		File file = new File(FilesLocations.TESTINGIMAGEFILEPATH);
+		this.driverManager.fileUploadUsingSendKeys(chooseFileButtom,file.getAbsolutePath());
+		
+		this.driverManager.waitForAnimation();
+		driverManager.getDriver().switchTo().activeElement();
+		
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", uploadButtom)
+		.click();
+		this.driverManager.waitForAnimation();
 	}
 
 	public void clickEditOptionOfRecentActivitySection() {

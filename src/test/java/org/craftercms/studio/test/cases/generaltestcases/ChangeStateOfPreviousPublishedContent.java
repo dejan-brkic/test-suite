@@ -463,7 +463,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		// Bulk Publish
 		logger.info("Executing bulk publish");
-		previewPage.bulkPublish("/");
+		previewPage.bulkPublish("/", 30000);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();

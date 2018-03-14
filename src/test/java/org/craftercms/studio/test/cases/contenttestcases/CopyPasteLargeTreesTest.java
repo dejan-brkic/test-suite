@@ -237,7 +237,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 	String elementClassValue = "";
 	while (!(elementClassValue.contains("open"))) {
 		elementClassValue=this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator).getAttribute("class");
-	}		
+	}	
 }
 
 public void expandAllCutTrees() {
@@ -268,7 +268,7 @@ public void step3() {
 	this.driverManager.waitForPasteTreeProcess();
 	this.driverManager.scrollDownIntoSideBar();
 	this.driverManager.waitForAnimation();
-	previewPage.bulkPublish("/site/website/articles");
+	previewPage.bulkPublish("/site/website/articles", 40000);
 
 	driverManager.getDriver().navigate().refresh();
 	this.driverManager.scrollDownIntoSideBar();
