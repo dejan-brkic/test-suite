@@ -19,7 +19,7 @@ import org.openqa.selenium.WebElement;
  */
 
 // Test Case Studio- Site Content ID:3
-public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
+public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -41,7 +41,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 	private String staticAssetsPageChildFolder;
 	private String staticAssetsPageImagesChildFolder;
 	private String staticAssetsPageImagesTestImagesChilds;
-	private static Logger logger = LogManager.getLogger(CopyPasteContentWithSharedComponents.class);
+	private static Logger logger = LogManager.getLogger(CopyPasteContentWithSharedComponentsTest.class);
 
 	@BeforeMethod
 	public void beforeTest() {
