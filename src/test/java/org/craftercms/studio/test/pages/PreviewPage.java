@@ -538,6 +538,68 @@ public class PreviewPage {
 
 	}
 
+	public void createPageArticleContentUsingUploadedImage(String url, String name, String title, String folderLocation,
+			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
+
+		// right click to see the the menu
+		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
+
+		// Select Entry Content Type
+		dashboardPage.clickEntryCT();
+
+		// Confirm the Content Type selected
+		dashboardPage.clickOKButton();
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForAnimation();
+		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+			// Fill the New Article page Fields
+			this.driverManager.waitForAnimation();
+			dashboardPage.setPageURL1(url);
+			this.driverManager.waitForAnimation();
+			dashboardPage.setInternalName1(name);
+			this.driverManager.waitForAnimation();
+			dashboardPage.setArticlesTitle(title);
+
+			this.driverManager.waitForAnimation();
+
+			// Fill the New Article Content Section
+			this.driverManager.scrollDown();
+			this.driverManager.waitForAnimation();
+			dashboardPage.setNewArticleContentSection(subject, author, summary);
+
+			// Select the catergory of the Article Page
+			this.driverManager.scrollMiddle();
+			this.driverManager.waitForAnimation();
+			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
+
+			// Select the segment of the Article Page
+			this.driverManager.waitForAnimation();
+			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
+
+			this.driverManager.scrollDown();
+
+			// Add an Image
+			this.driverManager.waitForAnimation();
+			dashboardPage.addAnImageToAnArticleUsingUploadOption();
+
+			// Switch to the iframe
+			driverManager.getDriver().switchTo().defaultContent();
+			driverManager.getDriver().switchTo().frame(this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", ".studio-ice-dialog > .bd iframe"));
+			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
+
+			// save and close
+			this.driverManager.waitForAnimation();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
+		});
+
+		this.driverManager.waitUntilSidebarOpens();
+
+	}
+	
 	public void createPageArticleContent(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
 
@@ -622,7 +684,7 @@ public class PreviewPage {
 
 	}
 
-	public void bulkPublish(String path) {
+	public void bulkPublish(String path, int waitTimeForPublish) {
 
 		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id",
 				"admin-console");
@@ -674,9 +736,8 @@ public class PreviewPage {
 		
 		this.driverManager.getDriver().switchTo().activeElement();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.waitForPasteTreeProcess();
+		//wait for bulk publish notification according with length of tree to be published
+		this.driverManager.waitForBulkPublish(waitTimeForPublish);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
 				.isDisplayed());
 
