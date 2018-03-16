@@ -1,5 +1,7 @@
 package org.craftercms.studio.test.pages;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.utils.UIElementsPropertiesManager;
@@ -599,7 +601,7 @@ public class PreviewPage {
 		this.driverManager.waitUntilSidebarOpens();
 
 	}
-	
+
 	public void createPageArticleContent(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
 
@@ -684,6 +686,74 @@ public class PreviewPage {
 
 	}
 
+	public void checkNoDependenciesForRefersToAPage() {
+		this.driverManager.waitForAnimation();
+		// Switch to the frame
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo().activeElement();
+
+		driverManager.waitUntilPageLoad();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
+
+		Select categoriesDropDown = new Select(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		categoriesDropDown.selectByValue("depends-on");
+
+		this.driverManager.waitForFullExpansionOfTree();
+		List<WebElement> dependeciesItems = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
+				.findElements(By.tagName("tr"));
+
+		Assert.assertTrue(dependeciesItems.size() == 0);
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+				.click();
+
+	}
+
+	public void checkDependenciesForRefersToAComponent(String componentName) {
+		this.driverManager.waitForAnimation();
+		// Switch to the frame
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo().activeElement();
+
+		driverManager.waitUntilPageLoad();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
+
+		Select categoriesDropDown = new Select(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		categoriesDropDown.selectByValue("depends-on");
+
+		this.driverManager.waitForFullExpansionOfTree();
+		List<WebElement> dependeciesItems = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
+				.findElements(By.tagName("tr"));
+
+		this.checkNumberOfDependentItems(componentName,dependeciesItems);
+		
+		for (WebElement webElement : dependeciesItems) {
+			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
+			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
+
+			if (componentName.equalsIgnoreCase("Latest Articles Widget")) {
+				Assert.assertTrue(dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"));
+				Assert.assertTrue(dependentItemLocation.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"));
+			}
+
+		}
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+				.click();
+	}
+
+	public void checkNumberOfDependentItems(String componentName, List<WebElement> dependeciesItems) {
+		if (componentName.equalsIgnoreCase("Latest Articles Widget")) {
+			Assert.assertTrue(dependeciesItems.size()==1);
+		}
+	}
+
 	public void bulkPublish(String path, int waitTimeForPublish) {
 
 		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id",
@@ -698,7 +768,7 @@ public class PreviewPage {
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigPublishingOperationsoption)
 				.click();
-		
+
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo()
 				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingFrame));
@@ -733,10 +803,11 @@ public class PreviewPage {
 				.click();
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
-		
+
 		this.driverManager.getDriver().switchTo().activeElement();
 
-		//wait for bulk publish notification according with length of tree to be published
+		// wait for bulk publish notification according with length of tree to be
+		// published
 		this.driverManager.waitForBulkPublish(waitTimeForPublish);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
 				.isDisplayed());
