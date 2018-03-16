@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
  *
  */
 
-// Test Case Studio- Site Content ID:3
+// Test Case Studio- Site Content ID:4
 public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 	private String userName;
@@ -199,7 +199,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkNoDependenciesForRefersToAPage();
-		
+
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.collapseParentFolder(articlesFolder);
@@ -211,7 +211,8 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				".//span[text()='Search Results']");
 		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='Search Results']").click();
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='Search Results']")
+				.click();
 
 		logger.info("Open dependencies for the previous created element");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
@@ -231,39 +232,341 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				".//a[@id='components-tree']");
 		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[@id='components-tree']").click();
-		
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[@id='components-tree']")
+				.click();
+
 		this.driverManager.waitForAnimation();
 		dashboardPage.expandParentFolder(".//span[text()='components']");
 
 		this.driverManager.waitForAnimation();
-		dashboardPage
-				.expandParentFolder(".//span[text()='articles-widget']");
+		dashboardPage.expandParentFolder(".//span[text()='articles-widget']");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(
-				".//span[text()='Latest Articles Widget']");
-		
+		this.rightClickAndClickOnDependencies(".//span[text()='Latest Articles Widget']");
+
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAComponent("Latest Articles Widget");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='articles-widget']");
+		dashboardPage.collapseParentFolder(".//span[text()='articles-widget']");
+	}
+
+	public void step7() {
+
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='headers']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='Header']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToAComponent("Header");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='headers']");
+		dashboardPage.collapseParentFolder(".//span[text()='headers']");
+	}
+
+	public void step8() {
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='features']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='Four']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkNoDependenciesForRefersToAPage();
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='features']");
+		dashboardPage.collapseParentFolder(".//span[text()='features']");
+	}
+
+	public void step9() {
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='left-rails']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='Left Rail with Latest Articles']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToAComponent("Left Rail with Latest Articles");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='left-rails']");
+		dashboardPage.collapseParentFolder(".//span[text()='left-rails']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='components']");
+		dashboardPage.collapseParentFolder(".//span[text()='components']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//a[@id='components-tree']");
+		dashboardPage.collapseParentFolder(".//a[@id='components-tree']");
+	}
+
+	public void step10() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//a[text()='Static Assets']");
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[text()='Static Assets']")
+				.click();
+
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='static-assets']");
+
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='images']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='book-woman-pic.jpg']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToAStaticAsset("Book Woman Pic");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='images']");
+		dashboardPage.collapseParentFolder(".//span[text()='images']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='static-assets']");
+		dashboardPage.collapseParentFolder(".//span[text()='static-assets']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//a[text()='Static Assets']");
+		dashboardPage.collapseParentFolder(".//a[text()='Static Assets']");
+
+	}
+
+	public void step11() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//a[text()='Templates']");
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[text()='Templates']")
+				.click();
+
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='templates']");
+
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='web']");
+		
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='pages']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='article.ftl']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToATemplate("Articles");
+
+	}
+	
+	public void step12() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='category-landing.ftl']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToATemplate("Category Landing");
+
+	}
+	
+	public void step13() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='home.ftl']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToATemplate("Home");
+	}
+
+	public void step14() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='search-results.ftl']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToATemplate("Search Results");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='pages'");
+		dashboardPage.collapseParentFolder(".//span[text()='pages']");
+		
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='web'");
+		dashboardPage.collapseParentFolder(".//span[text()='web']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='static-assets']");
+		dashboardPage.collapseParentFolder(".//span[text()='static-assets']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//a[text()='Static Assets']");
+		dashboardPage.collapseParentFolder(".//a[text()='Static Assets']");
+	}
+	
+	public void step15() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//a[text()='Scripts']");
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[text()='Scripts']")
+				.click();
+
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='scripts']");
+		
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='pages']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='category-landing.groovy']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToAScript("Category Landing Script");
+	}
+	
+	public void step16() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='home.groovy']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToAScript("Home Script");
+	}
+	
+	public void step17() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='search-results.groovy']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToAScript("Search Results Script");
+	}
+	
+	public void step18() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='site-map.groovy']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkNoDependenciesForRefersToAPage();
+		
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='pages'");
+		dashboardPage.collapseParentFolder(".//span[text()='pages']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='scripts']");
+		dashboardPage.collapseParentFolder(".//span[text()='scripts']");
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//a[text()='Scripts']");
+		dashboardPage.collapseParentFolder(".//a[text()='Scripts']");
+	}
+	
+	public void step19() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//a[text()='Static Assets']");
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[text()='Static Assets']")
+				.click();
+
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='static-assets']");
+
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='css']");
+		
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='font-awesome.min.css']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkNoDependenciesForRefersToAPage();
+	}
+	
+	public void step20() {
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='ie8.css']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToAStaticAsset("ie8 css");
+		
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//span[text()='css']");
+		dashboardPage.collapseParentFolder(".//span[text()='css']");
+	}
+	
+	public void step21() {
+		this.driverManager.waitForAnimation();
+		dashboardPage.expandParentFolder(".//span[text()='js']");
+		
+		this.driverManager.waitForAnimation();
+		this.driverManager.scrollDownIntoSideBar();
+		this.rightClickAndClickOnDependencies(".//span[text()='jquery.min.js']");
+
+		// check dependencies are listed
+		logger.info("Check Listed Dependencies");
+		previewPage.checkDependenciesForRefersToAStaticAsset("jquery js");		
 	}
 	
 	public void rightClickAndClickOnDependencies(String itemLocator) {
 		this.driverManager.waitForAnimation();
-		WebElement element = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				itemLocator);
-		this.driverManager.contextClick(this.driverManager.getDriver(), element, false);
+		WebElement element = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemLocator);
 		
+		this.driverManager.contextClick(this.driverManager.getDriver(), element, true);
 		driverManager.usingContextMenu(() -> {
-			WebElement copyComponentToNewFolder = this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependeciesOption);
-			copyComponentToNewFolder.click();
-		});		
+			this.driverManager.waitUntilContentTooltipIsHidden();
+			WebElement dependenciesOption = this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependeciesOption);
+			dependenciesOption.click();
+		});
+		
 		this.driverManager.waitForAnimation();
 	}
-	
+
 	public void changeBodyToNotRequiredOnPageArticleContent() {
 		previewPage.changeBodyOfArticlePageToNotRequired();
 	}
@@ -279,7 +582,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	}
 
 	@Test(priority = 0)
-	public void verifyThatStudioAllowsToCopyPasteContentWithSharedComponents() {
+	public void verifyDependencyCalculationForWhatRefersToAnItem() {
 		loginAndGoToPreview();
 
 		logger.info("Change Article Page body content to not required");
@@ -323,7 +626,37 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 		step4();
 
 		step5();
-		
+
 		step6();
+
+		step7();
+
+		step8();
+
+		step9();
+
+		step10();
+
+		step11();
+		
+		step12();
+		
+		step13();
+		
+		step14();
+		
+		step15();
+		
+		step16();
+		
+		step17();
+		
+		step18();
+
+		step19();
+		
+		step20();
+		
+		step21();
 	}
 }

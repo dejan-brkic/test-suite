@@ -1140,6 +1140,9 @@ public class DashboardPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", uploadButtom)
 		.click();
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
+		this.driverManager.waitForAnimation();
+		
 	}
 
 	public void clickEditOptionOfRecentActivitySection() {

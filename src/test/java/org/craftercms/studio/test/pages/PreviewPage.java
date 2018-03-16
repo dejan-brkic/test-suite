@@ -555,6 +555,7 @@ public class PreviewPage {
 		dashboardPage.clickOKButton();
 
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.waitForAnimation();
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Fill the New Article page Fields
@@ -712,6 +713,283 @@ public class PreviewPage {
 
 	}
 
+	public void checkDependenciesForRefersToAStaticAsset(String staticAssetName) {
+		this.driverManager.waitForAnimation();
+		// Switch to the frame
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo().activeElement();
+
+		driverManager.waitUntilPageLoad();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
+
+		Select categoriesDropDown = new Select(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		categoriesDropDown.selectByValue("depends-on");
+
+		this.driverManager.waitForFullExpansionOfTree();
+		List<WebElement> dependeciesItems = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
+				.findElements(By.tagName("tr"));
+
+		this.checkNumberOfDependentItems(staticAssetName, dependeciesItems);
+
+		for (WebElement webElement : dependeciesItems) {
+			boolean firstCheckPass = false;
+			boolean secondCheckPass = false;
+
+			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
+			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
+
+			if (staticAssetName.equalsIgnoreCase("Book Woman Pic")) {
+				Assert.assertTrue(dependentItemName.equalsIgnoreCase("Top Books For Young Women"));
+				Assert.assertTrue(dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"));
+			}
+
+			if (staticAssetName.equalsIgnoreCase("ie8 css")) {
+				if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("article.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("home.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
+					firstCheckPass = true;
+				}
+
+				if ((dependentItemLocation.equalsIgnoreCase("/templates/web/errors/404.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/errors/500.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+
+			if (staticAssetName.equalsIgnoreCase("jquery js")) {
+				if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("article.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("home.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
+					firstCheckPass = true;
+				}
+
+				if ((dependentItemLocation.equalsIgnoreCase("/templates/web/errors/404.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/errors/500.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+
+		}
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+				.click();
+	}
+
+	public void checkDependenciesForRefersToAScript(String scriptName) {
+		this.driverManager.waitForAnimation();
+		// Switch to the frame
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo().activeElement();
+
+		driverManager.waitUntilPageLoad();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
+
+		Select categoriesDropDown = new Select(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		categoriesDropDown.selectByValue("depends-on");
+
+		this.driverManager.waitForFullExpansionOfTree();
+		List<WebElement> dependeciesItems = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
+				.findElements(By.tagName("tr"));
+
+		this.checkNumberOfDependentItems(scriptName, dependeciesItems);
+
+		for (WebElement webElement : dependeciesItems) {
+			boolean firstCheckPass = false;
+			boolean secondCheckPass = false;
+
+			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
+			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
+
+			if (scriptName.equalsIgnoreCase("Category Landing Script")) {
+				if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
+						|| (dependentItemName.equalsIgnoreCase("Technology"))
+						|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
+					firstCheckPass = true;
+				}
+
+				if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
+						|| (dependentItemLocation
+								.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+
+			if (scriptName.equalsIgnoreCase("Home Script")) {
+				if ((dependentItemName.equalsIgnoreCase("Home"))) {
+					firstCheckPass = true;
+				}
+
+				if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+
+			if (scriptName.equalsIgnoreCase("Search Results Script")) {
+				if ((dependentItemName.equalsIgnoreCase("Search Results"))) {
+					firstCheckPass = true;
+				}
+
+				if ((dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+
+		}
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+				.click();
+	}
+
+	public void checkDependenciesForRefersToATemplate(String templateName) {
+		this.driverManager.waitForAnimation();
+		// Switch to the frame
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo().activeElement();
+
+		driverManager.waitUntilPageLoad();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
+
+		Select categoriesDropDown = new Select(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		categoriesDropDown.selectByValue("depends-on");
+
+		this.driverManager.waitForFullExpansionOfTree();
+		List<WebElement> dependeciesItems = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
+				.findElements(By.tagName("tr"));
+
+		this.checkNumberOfDependentItems(templateName, dependeciesItems);
+
+		for (WebElement webElement : dependeciesItems) {
+			boolean firstCheckPass = false;
+			boolean secondCheckPass = false;
+
+			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
+			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
+
+			if (templateName.equalsIgnoreCase("Article")) {
+				if ((dependentItemName.equalsIgnoreCase("Top Clubs In Virginia"))
+						|| (dependentItemName.equalsIgnoreCase("Men Styles For Winter"))
+						|| (dependentItemName.equalsIgnoreCase("New ACME Phone Released Today"))
+						|| (dependentItemName.equalsIgnoreCase("Top Romantic Valentine Movies"))
+						|| (dependentItemName.equalsIgnoreCase("Top Books For Young Women"))
+						|| (dependentItemName.equalsIgnoreCase("Coffee is Good for Your Health"))
+						|| (dependentItemName.equalsIgnoreCase("Women Styles for Winter"))
+						|| (dependentItemName.equalsIgnoreCase("5 Popular Diets for Women"))
+						|| (dependentItemName.equalsIgnoreCase("10 Tips to Get a Six Pack"))) {
+					firstCheckPass = true;
+				}
+
+				if ((dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
+						|| (dependentItemLocation
+								.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase(
+								"/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase(
+								"/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
+						|| (dependentItemLocation
+								.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase(
+								"/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
+						|| (dependentItemLocation
+								.equalsIgnoreCase("/site/website/articles/2017/1/women-styles-for-winter/index.xml"))
+						|| (dependentItemLocation
+								.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase(
+								"/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+			if (templateName.equalsIgnoreCase("Category Landing")) {
+				if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
+						|| (dependentItemName.equalsIgnoreCase("Technology"))
+						|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
+					firstCheckPass = true;
+				}
+
+				if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+			if (templateName.equalsIgnoreCase("Home")) {
+				if (dependentItemName.equalsIgnoreCase("Home")) {
+					firstCheckPass = true;
+				}
+
+				if (dependentItemLocation.equalsIgnoreCase("/site/website/index.xml")) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+			if (templateName.equalsIgnoreCase("Search Results")) {
+				if (dependentItemName.equalsIgnoreCase("Search Results")) {
+					firstCheckPass = true;
+				}
+
+				if (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml")) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+			}
+
+		}
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+				.click();
+	}
+
 	public void checkDependenciesForRefersToAComponent(String componentName) {
 		this.driverManager.waitForAnimation();
 		// Switch to the frame
@@ -731,15 +1009,41 @@ public class PreviewPage {
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
 
-		this.checkNumberOfDependentItems(componentName,dependeciesItems);
-		
+		this.checkNumberOfDependentItems(componentName, dependeciesItems);
+
 		for (WebElement webElement : dependeciesItems) {
+			boolean firstCheckPass = false;
+			boolean secondCheckPass = false;
+
 			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
 			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
 
 			if (componentName.equalsIgnoreCase("Latest Articles Widget")) {
 				Assert.assertTrue(dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"));
-				Assert.assertTrue(dependentItemLocation.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"));
+				Assert.assertTrue(dependentItemLocation
+						.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"));
+			}
+
+			if (componentName.equalsIgnoreCase("Header")) {
+				Assert.assertTrue(dependentItemName.equalsIgnoreCase(""));
+				Assert.assertTrue(
+						dependentItemLocation.equalsIgnoreCase("/site/website/crafter-level-descriptor.level.xml"));
+			}
+
+			if (componentName.equalsIgnoreCase("Left Rail with Latest Articles")) {
+
+				if ((dependentItemName.equalsIgnoreCase("Home"))
+						|| (dependentItemName.equalsIgnoreCase("Search Results"))) {
+					firstCheckPass = true;
+				}
+
+				if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
+					secondCheckPass = true;
+				}
+
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
 			}
 
 		}
@@ -750,8 +1054,45 @@ public class PreviewPage {
 
 	public void checkNumberOfDependentItems(String componentName, List<WebElement> dependeciesItems) {
 		if (componentName.equalsIgnoreCase("Latest Articles Widget")) {
-			Assert.assertTrue(dependeciesItems.size()==1);
+			Assert.assertTrue(dependeciesItems.size() == 1);
 		}
+		if (componentName.equalsIgnoreCase("Header")) {
+			Assert.assertTrue(dependeciesItems.size() == 1);
+		}
+		if (componentName.equalsIgnoreCase("Left Rail with Latest Articles")) {
+			Assert.assertTrue(dependeciesItems.size() == 2);
+		}
+		if (componentName.equalsIgnoreCase("Book Woman Pic")) {
+			Assert.assertTrue(dependeciesItems.size() == 1);
+		}
+		if (componentName.equalsIgnoreCase("Article")) {
+			Assert.assertTrue(dependeciesItems.size() == 9);
+		}
+		if (componentName.equalsIgnoreCase("Category Landing")) {
+			Assert.assertTrue(dependeciesItems.size() == 4);
+		}
+		if (componentName.equalsIgnoreCase("Home")) {
+			Assert.assertTrue(dependeciesItems.size() == 1);
+		}
+		if (componentName.equalsIgnoreCase("Search Results")) {
+			Assert.assertTrue(dependeciesItems.size() == 1);
+		}
+		if (componentName.equalsIgnoreCase("Category Landing Script")) {
+			Assert.assertTrue(dependeciesItems.size() == 4);
+		}
+		if (componentName.equalsIgnoreCase("Home Script")) {
+			Assert.assertTrue(dependeciesItems.size() == 1);
+		}
+		if (componentName.equalsIgnoreCase("Search Results Script")) {
+			Assert.assertTrue(dependeciesItems.size() == 1);
+		}
+		if (componentName.equalsIgnoreCase("ie8 css")) {
+			Assert.assertTrue(dependeciesItems.size() == 6);
+		}
+		if (componentName.equalsIgnoreCase("jquery js")) {
+			Assert.assertTrue(dependeciesItems.size() == 6);
+		}
+
 	}
 
 	public void bulkPublish(String path, int waitTimeForPublish) {
