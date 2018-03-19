@@ -238,7 +238,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			this.driverManager.waitUntilSidebarOpens();
 			this.driverManager.waitForAnimation();
 
-		});
+		},"Pages");
 	}
 
 	public void step6() {
@@ -277,7 +277,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitUntilSidebarOpens();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 	}
 
 	public void step8() {
@@ -327,7 +327,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			verifyDependenciesOptionIsPresent(section);
 
 			this.driverManager.getDriver().navigate().refresh();
-		});
+		},"Pages");
 
 	}
 

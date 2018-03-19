@@ -300,6 +300,7 @@ public class DashboardPage {
 
 	// Expand home content
 	public void clickHomeContent() {
+		this.driverManager.waitForAnimation();
 		WebElement home = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeContent);
 		home.click();
 	}
@@ -324,7 +325,7 @@ public class DashboardPage {
 			WebElement addContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					addNewContent);
 			addContent.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToSeeMenu() {
@@ -350,7 +351,7 @@ public class DashboardPage {
 			WebElement addContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					addNewContent);
 			addContent.click();
-		});
+		},"Pages");
 	}
 
 	// Press right click select new folder
@@ -369,7 +370,7 @@ public class DashboardPage {
 			WebElement addFolder = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					addNewFolder);
 			addFolder.click();
-		});
+		},"Pages");
 	}
 
 	// Press right click select new folder
@@ -378,7 +379,7 @@ public class DashboardPage {
 		this.getDriverManager().contextClick("xpath", parentWebElementLocator, true);
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addNewFolderOption).click();
-		});
+		},"Pages");
 	}
 
 	// Press right click to see the menu
@@ -388,7 +389,7 @@ public class DashboardPage {
 			WebElement addContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					addNewContentOption);
 			addContent.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToFolderOnHome() {
@@ -530,7 +531,7 @@ public class DashboardPage {
 			WebElement copyContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					this.copyContent);
 			copyContent.click();
-		});
+		},"Pages");
 
 	}
 
@@ -540,7 +541,7 @@ public class DashboardPage {
 			WebElement requestPublishOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					this.requestPublishOption);
 			requestPublishOption.click();
-		});
+		},"Pages");
 
 		this.driverManager.getDriver().switchTo().activeElement();
 
@@ -565,7 +566,7 @@ public class DashboardPage {
 			WebElement copyContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					this.copyContent);
 			copyContent.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToCopyOptionService() {
@@ -587,7 +588,7 @@ public class DashboardPage {
 			WebElement pasteContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					this.pasteContent);
 			pasteContent.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToPasteOption() {
@@ -605,7 +606,7 @@ public class DashboardPage {
 			WebElement pasteContentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					pasteContent);
 			pasteContentElement.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToPasteIntoFolder() {
@@ -635,7 +636,7 @@ public class DashboardPage {
 			WebElement cutContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					this.cutContent);
 			cutContent.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToCutOption() {
@@ -654,7 +655,7 @@ public class DashboardPage {
 			WebElement copyComponentToNewFolder = this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", copyContent);
 			copyComponentToNewFolder.click();
-		});
+		},"Pages");
 		this.driverManager.waitForAnimation();
 	}
 
@@ -673,7 +674,7 @@ public class DashboardPage {
 			WebElement copyNewContentToNewFolder = this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", this.copyContent);
 			copyNewContentToNewFolder.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToCopyNewContentToNewFolder() {
@@ -692,7 +693,7 @@ public class DashboardPage {
 			WebElement pasteContentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					pasteContent);
 			pasteContentElement.click();
-		});
+		},"Pages");
 		this.driverManager.waitForAnimation();
 	}
 
@@ -743,7 +744,7 @@ public class DashboardPage {
 			WebElement delContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					deleteContent);
 			delContent.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToDeleteContent() {
@@ -764,7 +765,7 @@ public class DashboardPage {
 			WebElement delContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					deleteContent);
 			delContent.click();
-		});
+		},"Pages");
 	}
 
 	// Ok delete content option
@@ -805,7 +806,7 @@ public class DashboardPage {
 			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickToSelectEditOption() {
@@ -1003,7 +1004,7 @@ public class DashboardPage {
 			WebElement copyOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					copyOptionLocator);
 			copyOption.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickPasteOnAFolder(String parentWebElementLocator) {
@@ -1012,7 +1013,7 @@ public class DashboardPage {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					pasteOptionLocator).click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickCutAFolder(String parentWebElementLocator) {
@@ -1022,7 +1023,7 @@ public class DashboardPage {
 			WebElement cutOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					cutOptionLocator);
 			cutOption.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickDeleteAFolder(String parentWebElementLocator) {
@@ -1031,7 +1032,7 @@ public class DashboardPage {
 			WebElement deleteOption = this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", deleteOptionLocator);
 			deleteOption.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickDeleteAPage(WebElement parentWebElement) {
@@ -1040,7 +1041,7 @@ public class DashboardPage {
 			WebElement deleteOption = this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", deleteContent);
 			deleteOption.click();
-		});
+		},"Pages");
 	}
 
 	public void expandParentFolder(String parentElementLocator) {
@@ -1078,7 +1079,7 @@ public class DashboardPage {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					copyOptionLocatorForContentPage).click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickCreatePageOnAPresentPage(String webElementLocator) {
@@ -1088,7 +1089,7 @@ public class DashboardPage {
 			WebElement addContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					addNewContent);
 			addContent.click();
-		});
+		},"Pages");
 	}
 
 	public void rightClickEditOnAPresentPage(String webElementLocator) {
@@ -1098,7 +1099,7 @@ public class DashboardPage {
 			WebElement editContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					editParentOption);
 			editContent.click();
-		});
+		},"Pages");
 	}
 
 	public void addAnImageToAnArticle() {

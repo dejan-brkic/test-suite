@@ -596,6 +596,7 @@ public class PreviewPage {
 
 			// save and close
 			this.driverManager.waitForAnimation();
+			this.driverManager.waitForFullExpansionOfTree();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
 		});
 
@@ -658,6 +659,7 @@ public class PreviewPage {
 
 			// save and close
 			this.driverManager.waitForAnimation();
+			this.driverManager.waitForFullExpansionOfTree();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
 		});
 

@@ -23,7 +23,6 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	private String password;
 	private String siteDropdownElementXPath;
 	private String siteDropdownListElementXPath;
-	private String pasteOptionLocator;
 	private String generalEditOption;
 	private String dependenciesMenuOption;
 	private String styleLocator;
@@ -33,6 +32,44 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	private String selectAllCategoriesCheckBox;
 	private String folder2017Locator;
 	private String dependeciesOption;
+	private String searchResultsPageXpath;
+	private String testpageXpath;
+	private String componentsTreeXpath;
+	private String componentSubTreeXpath;
+	private String articlesWidgetFolder;
+	private String latestArticlesWidget;
+	private String headerFolderXpath;
+	private String headerXpath;
+	private String featuresFolderXpath;
+	private String fourXpath;
+	private String leftrailsfolder;
+	private String wommenStylesArticlePage;
+	private String leftrailwithlastestarticles;
+	private String staticAssetsTreeXpath;
+	private String staticAssetsSubTreeXpath;
+	private String staticAssetsimagesFolder;
+	private String bookWomanImage;
+	private String templatesTreeXpath;
+	private String templatesSubTreeXpath;
+	private String templatesWebFolder;
+	private String templatesPagesFolder;
+	private String articleFTLXpath;
+	private String categoryLandingFTLXpath;
+	private String homeFTLXpath;
+	private String searchResultsFTLXpath;
+	private String scriptsTreeXpath;
+	private String scriptsSubTreeXpath;
+	private String scriptsPagesFolderXpath;
+	private String categoryLandingGroovy;
+	private String homeGroovy;
+	private String searchResultsGroovy;
+	private String siteMapGroovy;
+	private String dashboardLink;
+	private String staticAssetsCssFolder;
+	private String staticAssetsJSFolder;
+	private String fontAwesomeMinCss;
+	private String ie8Css;
+	private String jqueryjs;
 	private static Logger logger = LogManager.getLogger(DependenciesCalculationRefersToAnItemTest.class);
 
 	@BeforeMethod
@@ -44,8 +81,6 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdown");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
-		pasteOptionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("rightclick.paste.option");
 		generalEditOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.edittopnavoption");
 		dependenciesMenuOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -64,28 +99,80 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 				.getProperty("general.articles.2017folder");
 		dependeciesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.dependenciesoption");
-	}
-
-	public void copyAndPasteLongTreeIntoExistentFolder(String childLocator, String destinationFolderLocator) {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", childLocator);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", childLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.rightClickCopyFolder(childLocator);
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		dashboardPage.clickCopyButtonOnTreeSelector();
-
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", destinationFolderLocator);
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.contextClick("xpath", destinationFolderLocator, false);
-		driverManager.usingContextMenu(() -> {
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
-					.click();
-		});
-
+		searchResultsPageXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.page.searchresults");
+		testpageXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.page.testpage");
+		componentsTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.componentstree");
+		componentSubTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.componentssubtree");
+		articlesWidgetFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.articleswidgetfolder");
+		latestArticlesWidget = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.latestarticleswidget");
+		headerFolderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.headersfolder");
+		headerXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.header");
+		featuresFolderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.featuresfolder");
+		fourXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.components.four");
+		leftrailsfolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.leftrailsfolder");
+		wommenStylesArticlePage = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.articles.wommenstyles");
+		leftrailwithlastestarticles = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.components.leftrailwithlatestarticles");
+		staticAssetsTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.staticassetstree");
+		staticAssetsSubTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.staticassetssubtree");
+		staticAssetsimagesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.imagesfolder");
+		bookWomanImage = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.bookwomanimage");
+		templatesTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.templates.templatestree");
+		templatesSubTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.templates.templatessubtree");
+		templatesWebFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.templates.webfolder");
+		templatesPagesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.templates.pagesfolder");
+		articleFTLXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.templates.articleftl");
+		categoryLandingFTLXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.templates.categorylandingftl");
+		homeFTLXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.templates.homeftl");
+		searchResultsFTLXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.templates.searchresultsftl");
+		scriptsTreeXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scripts.scriptstree");
+		scriptsSubTreeXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scripts.scriptssubtree");
+		scriptsPagesFolderXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scripts.pagesfolder");
+		categoryLandingGroovy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scripts.categorylandinggroovy");
+		homeGroovy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scripts.homegroovy");
+		searchResultsGroovy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scripts.searchresultsgroovy");
+		siteMapGroovy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scripts.sitemapgroovy");
+		dashboardLink=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.dashboard.dashboardlink");
+		staticAssetsCssFolder=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.cssfolder");
+		staticAssetsJSFolder=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.jsfolder");
+		fontAwesomeMinCss=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.fontawesomemincss");
+		ie8Css=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.ie8css");
+		jqueryjs=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.staticassets.jqueryjs");
 	}
 
 	public void loginAndGoToPreview() {
@@ -112,7 +199,6 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 		dashboardPage.clickHomeTree();
 
 		logger.info("Open dependencies for the previous created element");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
 		this.driverManager.waitForAnimation();
@@ -156,10 +242,9 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 				.expandParentFolder(folder2017Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='1']");
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='Women Styles for Winter']");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='Women Styles for Winter']").click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage)
+				.click();
 
 		logger.info("Open dependencies for the previous created element");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
@@ -183,10 +268,8 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 				.expandParentFolder(folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='6']");
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='Testing1']");
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='Testing1']").click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testpageXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testpageXpath).click();
 
 		logger.info("Open dependencies for the previous created element");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
@@ -208,10 +291,8 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	public void step5() {
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='Search Results']");
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='Search Results']")
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", searchResultsPageXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", searchResultsPageXpath)
 				.click();
 
 		logger.info("Open dependencies for the previous created element");
@@ -229,177 +310,162 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 	public void step6() {
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[@id='components-tree']");
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[@id='components-tree']")
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath)
 				.click();
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='components']");
+		dashboardPage.expandParentFolder(componentSubTreeXpath);
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='articles-widget']");
+		dashboardPage.expandParentFolder(articlesWidgetFolder);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='Latest Articles Widget']");
+		this.rightClickAndClickOnDependencies(latestArticlesWidget, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAComponent("Latest Articles Widget");
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='articles-widget']");
-		dashboardPage.collapseParentFolder(".//span[text()='articles-widget']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesWidgetFolder);
+		dashboardPage.collapseParentFolder(articlesWidgetFolder);
 	}
 
 	public void step7() {
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='headers']");
+		dashboardPage.expandParentFolder(headerFolderXpath);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='Header']");
+		this.rightClickAndClickOnDependencies(headerXpath, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAComponent("Header");
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='headers']");
-		dashboardPage.collapseParentFolder(".//span[text()='headers']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", headerFolderXpath);
+		dashboardPage.collapseParentFolder(headerFolderXpath);
 	}
 
 	public void step8() {
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='features']");
+		dashboardPage.expandParentFolder(featuresFolderXpath);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='Four']");
+		this.rightClickAndClickOnDependencies(fourXpath, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkNoDependenciesForRefersToAPage();
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='features']");
-		dashboardPage.collapseParentFolder(".//span[text()='features']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", featuresFolderXpath);
+		dashboardPage.collapseParentFolder(featuresFolderXpath);
 	}
 
 	public void step9() {
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='left-rails']");
+		dashboardPage.expandParentFolder(leftrailsfolder);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='Left Rail with Latest Articles']");
+		this.rightClickAndClickOnDependencies(leftrailwithlastestarticles, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAComponent("Left Rail with Latest Articles");
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='left-rails']");
-		dashboardPage.collapseParentFolder(".//span[text()='left-rails']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", leftrailsfolder);
+		dashboardPage.collapseParentFolder(leftrailsfolder);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='components']");
-		dashboardPage.collapseParentFolder(".//span[text()='components']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentSubTreeXpath);
+		dashboardPage.collapseParentFolder(componentSubTreeXpath);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[@id='components-tree']");
-		dashboardPage.collapseParentFolder(".//a[@id='components-tree']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath);
+		dashboardPage.collapseParentFolder(componentsTreeXpath);
 	}
 
 	public void step10() {
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[text()='Static Assets']");
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[text()='Static Assets']")
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
 				.click();
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='static-assets']");
+		dashboardPage.expandParentFolder(staticAssetsSubTreeXpath);
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='images']");
+		dashboardPage.expandParentFolder(staticAssetsimagesFolder);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='book-woman-pic.jpg']");
+		this.rightClickAndClickOnDependencies(bookWomanImage, "Static Assets");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAStaticAsset("Book Woman Pic");
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='images']");
-		dashboardPage.collapseParentFolder(".//span[text()='images']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsimagesFolder);
+		dashboardPage.collapseParentFolder(staticAssetsimagesFolder);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='static-assets']");
-		dashboardPage.collapseParentFolder(".//span[text()='static-assets']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsSubTreeXpath);
+		dashboardPage.collapseParentFolder(staticAssetsSubTreeXpath);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[text()='Static Assets']");
-		dashboardPage.collapseParentFolder(".//a[text()='Static Assets']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
+		dashboardPage.collapseParentFolder(staticAssetsTreeXpath);
 
 	}
 
 	public void step11() {
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[text()='Templates']");
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[text()='Templates']")
-				.click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath).click();
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='templates']");
+		dashboardPage.expandParentFolder(templatesSubTreeXpath);
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='web']");
-		
+		dashboardPage.expandParentFolder(templatesWebFolder);
+
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='pages']");
+		dashboardPage.expandParentFolder(templatesPagesFolder);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='article.ftl']");
+		this.rightClickAndClickOnDependencies(articleFTLXpath, "Templates");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToATemplate("Articles");
 
 	}
-	
+
 	public void step12() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='category-landing.ftl']");
+		this.rightClickAndClickOnDependencies(categoryLandingFTLXpath, "Templates");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToATemplate("Category Landing");
 
 	}
-	
+
 	public void step13() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='home.ftl']");
+		this.rightClickAndClickOnDependencies(homeFTLXpath, "Templates");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
@@ -409,161 +475,164 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	public void step14() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='search-results.ftl']");
+		this.rightClickAndClickOnDependencies(searchResultsFTLXpath, "Templates");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToATemplate("Search Results");
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='pages'");
-		dashboardPage.collapseParentFolder(".//span[text()='pages']");
-		
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='web'");
-		dashboardPage.collapseParentFolder(".//span[text()='web']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesPagesFolder);
+		dashboardPage.collapseParentFolder(templatesPagesFolder);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='static-assets']");
-		dashboardPage.collapseParentFolder(".//span[text()='static-assets']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesWebFolder);
+		dashboardPage.collapseParentFolder(templatesWebFolder);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[text()='Static Assets']");
-		dashboardPage.collapseParentFolder(".//a[text()='Static Assets']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesSubTreeXpath);
+		dashboardPage.collapseParentFolder(templatesSubTreeXpath);
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath);
+		dashboardPage.collapseParentFolder(templatesTreeXpath);
 	}
-	
+
 	public void step15() {
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[text()='Scripts']");
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[text()='Scripts']")
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",scriptsTreeXpath)
 				.click();
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='scripts']");
-		
+		dashboardPage.expandParentFolder(scriptsSubTreeXpath);
+
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='pages']");
+		dashboardPage.expandParentFolder(
+				scriptsPagesFolderXpath);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='category-landing.groovy']");
+		this.rightClickAndClickOnDependencies(categoryLandingGroovy, "Scripts");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAScript("Category Landing Script");
 	}
-	
+
 	public void step16() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='home.groovy']");
+		this.rightClickAndClickOnDependencies(homeGroovy, "Scripts");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAScript("Home Script");
 	}
-	
+
 	public void step17() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='search-results.groovy']");
+		this.rightClickAndClickOnDependencies(searchResultsGroovy, "Scripts");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAScript("Search Results Script");
 	}
-	
+
 	public void step18() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='site-map.groovy']");
+		this.rightClickAndClickOnDependencies(siteMapGroovy, "Scripts");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkNoDependenciesForRefersToAPage();
-		
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//span[text()='pages'");
-		dashboardPage.collapseParentFolder(".//span[text()='pages']");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='scripts']");
-		dashboardPage.collapseParentFolder(".//span[text()='scripts']");
+				scriptsPagesFolderXpath);
+		dashboardPage.collapseParentFolder(
+				scriptsPagesFolderXpath);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[text()='Scripts']");
-		dashboardPage.collapseParentFolder(".//a[text()='Scripts']");
+				scriptsSubTreeXpath);
+		dashboardPage.collapseParentFolder(scriptsSubTreeXpath);
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath);
+		dashboardPage.collapseParentFolder(scriptsTreeXpath);
 	}
-	
+
 	public void step19() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//a[text()='Static Assets']");
+				dashboardLink);
 		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ".//a[text()='Static Assets']")
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+
+		this.driverManager.waitForFullExpansionOfTree();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				staticAssetsTreeXpath);
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
 				.click();
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='static-assets']");
+		dashboardPage.expandParentFolder(staticAssetsSubTreeXpath);
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='css']");
-		
+		dashboardPage.expandParentFolder(staticAssetsCssFolder);
+
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='font-awesome.min.css']");
+		this.rightClickAndClickOnDependencies(fontAwesomeMinCss, "Static Assets");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkNoDependenciesForRefersToAPage();
 	}
-	
+
 	public void step20() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='ie8.css']");
+		this.rightClickAndClickOnDependencies(ie8Css, "Static Assets");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForRefersToAStaticAsset("ie8 css");
-		
+
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//span[text()='css']");
-		dashboardPage.collapseParentFolder(".//span[text()='css']");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsCssFolder);
+		dashboardPage.collapseParentFolder(staticAssetsCssFolder);
 	}
-	
+
 	public void step21() {
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(".//span[text()='js']");
-		
+		dashboardPage.expandParentFolder(staticAssetsJSFolder);
+
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(".//span[text()='jquery.min.js']");
+		this.rightClickAndClickOnDependencies(jqueryjs, "Static Assets");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToAStaticAsset("jquery js");		
+		previewPage.checkDependenciesForRefersToAStaticAsset("jquery js");
 	}
-	
-	public void rightClickAndClickOnDependencies(String itemLocator) {
+
+	public void rightClickAndClickOnDependencies(String itemLocator, String menuLocation) {
 		this.driverManager.waitForAnimation();
 		WebElement element = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemLocator);
-		
-		this.driverManager.contextClick(this.driverManager.getDriver(), element, true);
+
+		this.driverManager.contextClick(this.driverManager.getDriver(), element, false);
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.waitUntilContentTooltipIsHidden();
 			WebElement dependenciesOption = this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependeciesOption);
 			dependenciesOption.click();
-		});
-		
+		}, menuLocation);
+
 		this.driverManager.waitForAnimation();
 	}
 
@@ -638,25 +707,25 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 		step10();
 
 		step11();
-		
+
 		step12();
-		
+
 		step13();
-		
+
 		step14();
-		
+
 		step15();
-		
+
 		step16();
-		
+
 		step17();
-		
+
 		step18();
 
 		step19();
-		
+
 		step20();
-		
+
 		step21();
 	}
 }

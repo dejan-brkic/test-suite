@@ -629,8 +629,15 @@ public class WebDriverManager {
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
 	}
 
-	public void usingContextMenu(Runnable actions) {
-		String selector = "div.yui-module.yui-overlay.yuimenu.wcm-root-folder-context-menu.visible";
+	public void usingContextMenu(Runnable actions, String menuOption) {
+		String selector;
+		if ((menuOption.equalsIgnoreCase("Pages")) || (menuOption.equalsIgnoreCase("Components"))
+				|| (menuOption.equalsIgnoreCase("Taxonomy"))) {
+			selector = "div.yui-module.yui-overlay.yuimenu.wcm-root-folder-context-menu.visible";
+		} else {
+			selector = "div.yui-module.yui-overlay.yuimenu.visible";
+		}
+		
 		WebElement menu = waitUntilElementIsClickable("cssSelector", selector);
 		this.waitForAnimation();
 		actions.run();
@@ -783,7 +790,7 @@ public class WebDriverManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void waitForDeliveryRefresh() {
 		try {
 			// wait for a minute for delivery refresh
@@ -945,7 +952,7 @@ public class WebDriverManager {
 		By selector = getSelector("xpath", locator);
 		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.elementToBeClickable(selector));
 		WebElement element;
-		
+
 		try {
 			element = driver.findElement(selector);
 		} catch (NoSuchElementException e) {

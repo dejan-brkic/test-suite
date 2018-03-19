@@ -104,7 +104,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
-		});
+		},"Pages");
 
 	}
 
@@ -121,7 +121,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 					this.driverManager
 							.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 							.click();
-				});
+				},"Pages");
 				break;
 			} catch (TimeoutException e) {
 				logger.warn("Paste option is not present, trying again");
