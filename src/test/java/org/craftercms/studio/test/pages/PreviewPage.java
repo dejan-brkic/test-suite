@@ -744,8 +744,7 @@ public class PreviewPage {
 							.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
 					|| (dependentItemLocation
 							.equalsIgnoreCase("/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2016/6/test/index.xml"))) {
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/articles/2016/6/test/index.xml"))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
@@ -872,44 +871,48 @@ public class PreviewPage {
 	}
 
 	public void checkNumberOfDependentItems(String componentName, List<WebElement> dependeciesItems) {
-		if (componentName.equalsIgnoreCase("Latest Articles Widget")) {
+		switch (componentName) {
+		case "Latest Articles Widget":
 			Assert.assertTrue(dependeciesItems.size() == 1);
-		}
-		if (componentName.equalsIgnoreCase("Header")) {
+			break;
+		case "Header":
 			Assert.assertTrue(dependeciesItems.size() == 1);
-		}
-		if (componentName.equalsIgnoreCase("Left Rail with Latest Articles")) {
+			break;
+		case "Left Rail with Latest Articles":
 			Assert.assertTrue(dependeciesItems.size() == 2);
-		}
-		if (componentName.equalsIgnoreCase("Book Woman Pic")) {
+			break;
+		case "Book Woman Pic":
 			Assert.assertTrue(dependeciesItems.size() == 1);
-		}
-		if (componentName.equalsIgnoreCase("Article")) {
-			Assert.assertTrue(dependeciesItems.size() == 9);
-		}
-		if (componentName.equalsIgnoreCase("Category Landing")) {
+			break;
+		case "Articles":
+			Assert.assertTrue(dependeciesItems.size() == 10);
+			break;
+		case "Category Landing":
 			Assert.assertTrue(dependeciesItems.size() == 4);
-		}
-		if (componentName.equalsIgnoreCase("Home")) {
+			break;
+		case "Home":
 			Assert.assertTrue(dependeciesItems.size() == 1);
-		}
-		if (componentName.equalsIgnoreCase("Search Results")) {
+			break;
+		case "Search Results":
 			Assert.assertTrue(dependeciesItems.size() == 1);
-		}
-		if (componentName.equalsIgnoreCase("Category Landing Script")) {
+			break;
+		case "Category Landing Script":
 			Assert.assertTrue(dependeciesItems.size() == 4);
-		}
-		if (componentName.equalsIgnoreCase("Home Script")) {
+			break;
+		case "Home Script":
 			Assert.assertTrue(dependeciesItems.size() == 1);
-		}
-		if (componentName.equalsIgnoreCase("Search Results Script")) {
+			break;
+		case "Search Results Script":
 			Assert.assertTrue(dependeciesItems.size() == 1);
-		}
-		if (componentName.equalsIgnoreCase("ie8 css")) {
+			break;
+		case "ie8 css":
 			Assert.assertTrue(dependeciesItems.size() == 6);
-		}
-		if (componentName.equalsIgnoreCase("jquery js")) {
+			break;
+		case "jquery js":
 			Assert.assertTrue(dependeciesItems.size() == 6);
+			break;
+		default:
+			throw new IllegalArgumentException("No case for provided item name: " + componentName);
 		}
 	}
 
