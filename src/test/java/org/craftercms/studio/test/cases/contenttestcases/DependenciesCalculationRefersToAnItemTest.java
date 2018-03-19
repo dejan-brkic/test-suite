@@ -77,6 +77,12 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
+		initLocatorsFirstPart();
+		initLocatorsSecondPart();
+
+	}
+
+	public void initLocatorsFirstPart() {
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -123,6 +129,9 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 				.getProperty("general.articles.wommenstyles");
 		leftrailwithlastestarticles = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.components.leftrailwithlatestarticles");
+	}
+
+	public void initLocatorsSecondPart() {
 		staticAssetsTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.staticassets.staticassetstree");
 		staticAssetsSubTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -143,35 +152,34 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 				.getProperty("general.templates.articleftl");
 		categoryLandingFTLXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.templates.categorylandingftl");
-		homeFTLXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		homeFTLXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.templates.homeftl");
-		searchResultsFTLXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		searchResultsFTLXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.templates.searchresultsftl");
-		scriptsTreeXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		scriptsTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scripts.scriptstree");
-		scriptsSubTreeXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		scriptsSubTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scripts.scriptssubtree");
-		scriptsPagesFolderXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		scriptsPagesFolderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scripts.pagesfolder");
-		categoryLandingGroovy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		categoryLandingGroovy = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scripts.categorylandinggroovy");
-		homeGroovy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		homeGroovy = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scripts.homegroovy");
-		searchResultsGroovy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		searchResultsGroovy = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scripts.searchresultsgroovy");
-		siteMapGroovy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		siteMapGroovy = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scripts.sitemapgroovy");
-		dashboardLink=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		dashboardLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.dashboard.dashboardlink");
-		staticAssetsCssFolder=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		staticAssetsCssFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.staticassets.cssfolder");
-		staticAssetsJSFolder=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		staticAssetsJSFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.staticassets.jsfolder");
-		fontAwesomeMinCss=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		fontAwesomeMinCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.staticassets.fontawesomemincss");
-		ie8Css=uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.staticassets.ie8css");
-		jqueryjs=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		ie8Css = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.staticassets.ie8css");
+		jqueryjs = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.staticassets.jqueryjs");
 	}
 
@@ -501,15 +509,13 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	public void step15() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",scriptsTreeXpath)
-				.click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath).click();
 
 		this.driverManager.waitForAnimation();
 		dashboardPage.expandParentFolder(scriptsSubTreeXpath);
 
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandParentFolder(
-				scriptsPagesFolderXpath);
+		dashboardPage.expandParentFolder(scriptsPagesFolderXpath);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
@@ -550,14 +556,11 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 		previewPage.checkNoDependenciesForRefersToAPage();
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				scriptsPagesFolderXpath);
-		dashboardPage.collapseParentFolder(
-				scriptsPagesFolderXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsPagesFolderXpath);
+		dashboardPage.collapseParentFolder(scriptsPagesFolderXpath);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				scriptsSubTreeXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsSubTreeXpath);
 		dashboardPage.collapseParentFolder(scriptsSubTreeXpath);
 
 		this.driverManager.waitForAnimation();
@@ -567,16 +570,12 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 	public void step19() {
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				dashboardLink);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				staticAssetsTreeXpath);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
 				.click();
 
 		this.driverManager.waitForAnimation();

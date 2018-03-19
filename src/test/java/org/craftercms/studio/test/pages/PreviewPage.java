@@ -12,15 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-/**
- *
- * 
- * @author Gustavo Andrei Ortiz Alfaro
- *
- */
-
 public class PreviewPage {
-
 	private WebDriverManager driverManager;
 	private String adminConsole;
 	private String clickPreviewTools;
@@ -65,19 +57,13 @@ public class PreviewPage {
 	private String publishingFrame;
 	private String siteDropdownListElementXPath;
 	private String lastPropertiesElementCssSelector;
-
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
-	/**
-	 * 
-	 */
 	public PreviewPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
 		this.driverManager.getDriver();
-
 		this.siteConfigPage = new SiteConfigPage(driverManager, UIElementsPropertiesManager);
 		this.dashboardPage = new DashboardPage(driverManager, UIElementsPropertiesManager);
-
 		adminConsole = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.siteconfig");
 		clickPreviewTools = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -154,11 +140,9 @@ public class PreviewPage {
 		gearItemXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearlocator");
 		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("bulkoperations.frame");
-
 	}
 
 	// Click on admin console link
-
 	public void clickAdminConsoleOption() {
 		WebElement adminConsoleOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				adminConsole);
@@ -166,44 +150,32 @@ public class PreviewPage {
 	}
 
 	public void goToAdminConsolePage() {
-
 		// Click on admin console link
 		this.clickAdminConsoleOption();
-
 	}
 
 	// Click on preview tools icon
 	public void previewTools() {
 		WebElement toolsIcon = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				clickPreviewTools);
-
 		toolsIcon.click();
-
 	}
 
 	public void clickOnPreviewTools() {
-
 		// Click on preview tools icon
 		this.previewTools();
-
 	}
 
 	// Expand the In Context Menu
-
 	public void expandInContextEditing() {
 		WebElement expandInContextMenu = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				expandInContextEditing);
-
 		expandInContextMenu.click();
-
 	}
 
 	public void clickToExpandInContextEditing() {
-
 		// Expand the In Context Menu
-
 		this.expandInContextEditing();
-
 	}
 
 	// Enable/Diseble In-Context Editing
@@ -211,14 +183,11 @@ public class PreviewPage {
 		WebElement inContextEditingOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				clickInContextEdit);
 		inContextEditingOption.click();
-
 	}
 
 	public void clickToEnableDisableInContextEditing() {
-
 		// Enable/Diseble In-Context Editing
 		this.inContextEditing();
-
 	}
 
 	// Click on Approve&Publish option
@@ -229,47 +198,33 @@ public class PreviewPage {
 	}
 
 	public void clickOnApprovePublish() {
-
 		// Click on Approve&Publish option
-
 		this.approvePublish();
-
 	}
 
 	// Click on submit button of Approve&Publish
-
 	public void submitApprovePublish() {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", submitButtonApprovePublish);
 		WebElement toolsIcon = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				submitButtonApprovePublish);
 		toolsIcon.click();
-
 	}
 
 	public void clickOnSubmitButtonOfApprovePublish() {
-
 		// Click on submit button of Approve&Publish
-
 		this.submitApprovePublish();
-
 	}
 
 	// Click on duplicate button of the menu
-
 	public void duplicateButton() {
-
 		WebElement duplicateOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				previewDuplicate);
 		duplicateOption.click();
-
 	}
 
 	public void clickOnDuplicateOption() {
-
 		// Click on duplicate button of the menu
-
 		this.duplicateButton();
-
 	}
 
 	public WebDriverManager getDriverManager() {
@@ -277,7 +232,6 @@ public class PreviewPage {
 	}
 
 	// Click on delete button of the menu
-
 	public void deleteButton() {
 		WebElement deleteOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				previewDelete);
@@ -285,78 +239,50 @@ public class PreviewPage {
 	}
 
 	public void clickOnDeleteOption() {
-
 		// Click on delete button of the menu
-
 		this.deleteButton();
-
 	}
 
 	// Click on delete dependencies
-
 	public void deleteDependencies() {
-
 		WebElement deleteDepen = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				deleteDependencies);
-
 		deleteDepen.click();
-
 	}
 
 	public void clickOnDeleteDependencies() {
-
 		// Click on delete dependencies
-
 		this.deleteDependencies();
-
 	}
 
 	// Click on OK to delete dependencies
-
 	public void okDeleteDependencies() {
-
 		WebElement OKdeleteDepen = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				OKdeleteDependencies);
-
 		OKdeleteDepen.click();
-
 	}
 
 	public void clickOnOKDeleteDependencies() {
-
 		// Click on OK to delete dependencies
-
 		this.okDeleteDependencies();
-
 	}
 
 	// Click on edit button of the menu
-
 	public void EditButton() {
-
 		WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", previewEdit);
-
 		editOption.click();
-
 	}
 
 	public void clickOnEditOption() {
-
 		// Click on edit button of the menu
-
 		this.EditButton();
-
 	}
 
 	// Click on history button of the menu
-
 	public void historyButton() {
-
 		WebElement historyOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				previewHistory);
-
 		historyOption.click();
-
 	}
 
 	public void clickOnHistoryOption() {
@@ -369,7 +295,6 @@ public class PreviewPage {
 		WebElement historyOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				previewDependecies);
 		historyOption.click();
-
 	}
 
 	public void clickOnDependenciesOption() {
@@ -379,12 +304,9 @@ public class PreviewPage {
 
 	// Set the new name duplicated
 	public void duplicateName(String strDuplicateName) {
-
 		WebElement internalName = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				duplicateName);
-
 		internalName.sendKeys(strDuplicateName);
-
 	}
 
 	public void setDuplicateName(String strDuplicateName) {
@@ -400,160 +322,113 @@ public class PreviewPage {
 	}
 
 	public void expandPagesTree() {
-
 		// Expand pages tree
 		this.clickPagesTree();
-
 	}
 
 	// Expand global entry content
-
 	public void clickHomeContent() {
 		this.driverManager.isElementPresentAndClickableByXpath(expandHomeTree);
 		WebElement homeContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				expandHomeTree);
 		homeContent.click();
-
 	}
 
 	public void expandHomeTree() {
-
 		// Expand global entry content
-
 		this.clickHomeContent();
-
 	}
 
 	// Click save and close
 	public void saveAndCloseButton() {
-
 		WebElement saveClose = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				saveAndCloseiFrame);
-
 		saveClose.click();
-
 	}
 
 	public void clickOnSaveAndCloseButton() {
-
 		// Click save and close
-
 		this.saveAndCloseButton();
-
 	}
 
 	public void changeBodyOfEntryContentPageToNotRequired() {
-
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
 				.contains("site-dropdown-open")))
 			this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
-
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
-
 		// select content types
 		siteConfigPage.selectContentTypeOption();
-
 		// open content types
 		siteConfigPage.clickExistingTypeOption();
-
 		// Confirm the content type selected
-
 		siteConfigPage.confirmContentTypeSelected();
-
 		// wait for element is clickeable
 		driverManager.getDriver().switchTo().defaultContent();
-
 		// select main content
 		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath).click();
-
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
 		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
 				lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
-
 		// save
 		this.driverManager.waitForAnimation();
 		siteConfigPage.saveDragAndDropProcess();
-
 		driverManager.getDriver().switchTo().defaultContent();
-
 		// go to dashboard
 		this.driverManager.getDriver().navigate().refresh();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
-
 	}
 
 	public void changeBodyOfArticlePageToNotRequired() {
-
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
 				.contains("site-dropdown-open")))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
-
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
-
 		// Click on Content Types Option
 		siteConfigPage.clickContentTypeOption();
-
 		// open content types
-
 		siteConfigPage.clickExistingTypeOption();
-
 		// select content types
 		siteConfigPage.selectPageArticleContentType();
-
 		// Confirm the content type selected
 		siteConfigPage.confirmContentTypeSelected();
-
 		// wait for element is clickeable
 		driverManager.getDriver().switchTo().defaultContent();
-
 		// Scroll Down to select the item
 		this.driverManager.scrollDown();
-
 		// select main content
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articlesContentTypeRepeatingGroup)
 				.click();
-
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
 		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
 				lastPropertiesElementCssSelector);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
-
 		// save
 		siteConfigPage.saveDragAndDropProcess();
-
 		this.driverManager.getDriver().switchTo().defaultContent();
-
 		// go to dashboard
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
-
 	}
 
 	public void createPageArticleContentUsingUploadedImage(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
-
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
-
 		// Select Entry Content Type
 		dashboardPage.clickEntryCT();
-
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
-
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.waitForAnimation();
@@ -565,59 +440,45 @@ public class PreviewPage {
 			dashboardPage.setInternalName1(name);
 			this.driverManager.waitForAnimation();
 			dashboardPage.setArticlesTitle(title);
-
 			this.driverManager.waitForAnimation();
-
 			// Fill the New Article Content Section
 			this.driverManager.scrollDown();
 			this.driverManager.waitForAnimation();
 			dashboardPage.setNewArticleContentSection(subject, author, summary);
-
 			// Select the catergory of the Article Page
 			this.driverManager.scrollMiddle();
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
-
 			// Select the segment of the Article Page
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
-
 			this.driverManager.scrollDown();
-
 			// Add an Image
 			this.driverManager.waitForAnimation();
 			dashboardPage.addAnImageToAnArticleUsingUploadOption();
-
 			// Switch to the iframe
 			driverManager.getDriver().switchTo().defaultContent();
 			driverManager.getDriver().switchTo().frame(this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", ".studio-ice-dialog > .bd iframe"));
 			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
-
 			// save and close
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitForFullExpansionOfTree();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
 		});
-
 		this.driverManager.waitUntilSidebarOpens();
 
 	}
 
 	public void createPageArticleContent(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
-
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
-
 		// Select Entry Content Type
 		dashboardPage.clickEntryCT();
-
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
-
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForAnimation();
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
@@ -628,41 +489,32 @@ public class PreviewPage {
 			dashboardPage.setInternalName1(name);
 			this.driverManager.waitForAnimation();
 			dashboardPage.setArticlesTitle(title);
-
 			this.driverManager.waitForAnimation();
-
 			// Fill the New Article Content Section
 			this.driverManager.scrollDown();
 			this.driverManager.waitForAnimation();
 			dashboardPage.setNewArticleContentSection(subject, author, summary);
-
 			// Select the catergory of the Article Page
 			this.driverManager.scrollMiddle();
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
-
 			// Select the segment of the Article Page
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
-
 			this.driverManager.scrollDown();
-
 			// Add an Image
 			this.driverManager.waitForAnimation();
 			dashboardPage.addAnImageToAnArticle();
-
 			// Switch to the iframe
 			driverManager.getDriver().switchTo().defaultContent();
 			driverManager.getDriver().switchTo().frame(this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", ".studio-ice-dialog > .bd iframe"));
 			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
-
 			// save and close
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitForFullExpansionOfTree();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
 		});
-
 		this.driverManager.waitUntilSidebarOpens();
 
 	}
@@ -672,21 +524,15 @@ public class PreviewPage {
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
-
 		driverManager.waitUntilPageLoad();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		categoriesDropDown.selectByValue("depends-on-me");
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", gearItemXpath);
-
 		Assert.assertTrue(this.getDriverManager().isElementPresentByXpath(gearItemXpath));
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
-
 	}
 
 	public void checkNoDependenciesForRefersToAPage() {
@@ -694,25 +540,75 @@ public class PreviewPage {
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
-
 		driverManager.waitUntilPageLoad();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		categoriesDropDown.selectByValue("depends-on");
-
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
-
 		Assert.assertTrue(dependeciesItems.size() == 0);
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
+	}
 
+	public void checkDependentItemsForStaticAsset(String staticAssetName, WebElement element) {
+		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
+		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		switch (staticAssetName) {
+		case "Book Woman Pic":
+			Assert.assertTrue(dependentItemName.equalsIgnoreCase("Top Books For Young Women"));
+			Assert.assertTrue(dependentItemLocation
+					.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"));
+			break;
+		case "ie8 css":
+			if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("article.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("home.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/errors/404.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/errors/500.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "jquery js":
+			if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("article.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("home.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/errors/404.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/errors/500.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		default:
+			throw new IllegalArgumentException(
+					"No static asset case for provided static asset name: " + staticAssetName);
+		}
 	}
 
 	public void checkDependenciesForRefersToAStaticAsset(String staticAssetName) {
@@ -720,83 +616,71 @@ public class PreviewPage {
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
-
 		driverManager.waitUntilPageLoad();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		categoriesDropDown.selectByValue("depends-on");
-
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
-
 		this.checkNumberOfDependentItems(staticAssetName, dependeciesItems);
-
 		for (WebElement webElement : dependeciesItems) {
-			boolean firstCheckPass = false;
-			boolean secondCheckPass = false;
-
-			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
-			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
-
-			if (staticAssetName.equalsIgnoreCase("Book Woman Pic")) {
-				Assert.assertTrue(dependentItemName.equalsIgnoreCase("Top Books For Young Women"));
-				Assert.assertTrue(dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"));
-			}
-
-			if (staticAssetName.equalsIgnoreCase("ie8 css")) {
-				if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
-						|| (dependentItemName.equalsIgnoreCase("article.ftl"))
-						|| (dependentItemName.equalsIgnoreCase("home.ftl"))
-						|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
-						|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
-					firstCheckPass = true;
-				}
-
-				if ((dependentItemLocation.equalsIgnoreCase("/templates/web/errors/404.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/errors/500.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-
-			if (staticAssetName.equalsIgnoreCase("jquery js")) {
-				if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
-						|| (dependentItemName.equalsIgnoreCase("article.ftl"))
-						|| (dependentItemName.equalsIgnoreCase("home.ftl"))
-						|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
-						|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
-					firstCheckPass = true;
-				}
-
-				if ((dependentItemLocation.equalsIgnoreCase("/templates/web/errors/404.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/errors/500.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-
+			this.checkDependentItemsForStaticAsset(staticAssetName, webElement);
 		}
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
+	}
+
+	public void checkDependentItemsForScript(String scriptName, WebElement element) {
+		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
+		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		switch (scriptName) {
+		case "Category Landing Script":
+			if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
+					|| (dependentItemName.equalsIgnoreCase("Technology"))
+					|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Home Script":
+			if ((dependentItemName.equalsIgnoreCase("Home"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Search Results Script":
+			if ((dependentItemName.equalsIgnoreCase("Search Results"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		default:
+			throw new IllegalArgumentException("No scrit case for provided script name: " + scriptName);
+		}
 	}
 
 	public void checkDependenciesForRefersToAScript(String scriptName) {
@@ -804,79 +688,107 @@ public class PreviewPage {
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
-
 		driverManager.waitUntilPageLoad();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		categoriesDropDown.selectByValue("depends-on");
-
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
-
 		this.checkNumberOfDependentItems(scriptName, dependeciesItems);
-
 		for (WebElement webElement : dependeciesItems) {
-			boolean firstCheckPass = false;
-			boolean secondCheckPass = false;
-
-			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
-			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
-
-			if (scriptName.equalsIgnoreCase("Category Landing Script")) {
-				if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
-						|| (dependentItemName.equalsIgnoreCase("Technology"))
-						|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
-					firstCheckPass = true;
-				}
-
-				if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-
-			if (scriptName.equalsIgnoreCase("Home Script")) {
-				if ((dependentItemName.equalsIgnoreCase("Home"))) {
-					firstCheckPass = true;
-				}
-
-				if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-
-			if (scriptName.equalsIgnoreCase("Search Results Script")) {
-				if ((dependentItemName.equalsIgnoreCase("Search Results"))) {
-					firstCheckPass = true;
-				}
-
-				if ((dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-
+			checkDependentItemsForScript(scriptName, webElement);
 		}
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
+	}
+
+	public void checkDependentItemsForTemplate(String templateName, WebElement element) {
+		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
+		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		switch (templateName) {
+		case "Articles":
+			if ((dependentItemName.equalsIgnoreCase("Top Clubs In Virginia"))
+					|| (dependentItemName.equalsIgnoreCase("Men Styles For Winter"))
+					|| (dependentItemName.equalsIgnoreCase("New ACME Phone Released Today"))
+					|| (dependentItemName.equalsIgnoreCase("Top Romantic Valentine Movies"))
+					|| (dependentItemName.equalsIgnoreCase("Top Books For Young Women"))
+					|| (dependentItemName.equalsIgnoreCase("Coffee is Good for Your Health"))
+					|| (dependentItemName.equalsIgnoreCase("Women Styles for Winter"))
+					|| (dependentItemName.equalsIgnoreCase("5 Popular Diets for Women"))
+					|| (dependentItemName.equalsIgnoreCase("10 Tips to Get a Six Pack"))
+					|| (dependentItemName.equalsIgnoreCase("Testing1"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation
+					.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/1/women-styles-for-winter/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2016/6/test/index.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Category Landing":
+			if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
+					|| (dependentItemName.equalsIgnoreCase("Technology"))
+					|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Home":
+			if (dependentItemName.equalsIgnoreCase("Home")) {
+				firstCheckPass = true;
+			}
+			if (dependentItemLocation.equalsIgnoreCase("/site/website/index.xml")) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Search Results":
+			if (dependentItemName.equalsIgnoreCase("Search Results")) {
+				firstCheckPass = true;
+			}
+			if (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml")) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		default:
+			throw new IllegalArgumentException("No template case for provided template name: " + templateName);
+		}
 	}
 
 	public void checkDependenciesForRefersToATemplate(String templateName) {
@@ -884,112 +796,56 @@ public class PreviewPage {
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
-
 		driverManager.waitUntilPageLoad();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		categoriesDropDown.selectByValue("depends-on");
-
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
-
 		this.checkNumberOfDependentItems(templateName, dependeciesItems);
-
 		for (WebElement webElement : dependeciesItems) {
-			boolean firstCheckPass = false;
-			boolean secondCheckPass = false;
-
-			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
-			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
-
-			if (templateName.equalsIgnoreCase("Article")) {
-				if ((dependentItemName.equalsIgnoreCase("Top Clubs In Virginia"))
-						|| (dependentItemName.equalsIgnoreCase("Men Styles For Winter"))
-						|| (dependentItemName.equalsIgnoreCase("New ACME Phone Released Today"))
-						|| (dependentItemName.equalsIgnoreCase("Top Romantic Valentine Movies"))
-						|| (dependentItemName.equalsIgnoreCase("Top Books For Young Women"))
-						|| (dependentItemName.equalsIgnoreCase("Coffee is Good for Your Health"))
-						|| (dependentItemName.equalsIgnoreCase("Women Styles for Winter"))
-						|| (dependentItemName.equalsIgnoreCase("5 Popular Diets for Women"))
-						|| (dependentItemName.equalsIgnoreCase("10 Tips to Get a Six Pack"))) {
-					firstCheckPass = true;
-				}
-
-				if ((dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase(
-								"/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase(
-								"/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase(
-								"/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2017/1/women-styles-for-winter/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase(
-								"/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-			if (templateName.equalsIgnoreCase("Category Landing")) {
-				if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
-						|| (dependentItemName.equalsIgnoreCase("Technology"))
-						|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
-					firstCheckPass = true;
-				}
-
-				if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-			if (templateName.equalsIgnoreCase("Home")) {
-				if (dependentItemName.equalsIgnoreCase("Home")) {
-					firstCheckPass = true;
-				}
-
-				if (dependentItemLocation.equalsIgnoreCase("/site/website/index.xml")) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-			if (templateName.equalsIgnoreCase("Search Results")) {
-				if (dependentItemName.equalsIgnoreCase("Search Results")) {
-					firstCheckPass = true;
-				}
-
-				if (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml")) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-
+			checkDependentItemsForTemplate(templateName, webElement);
 		}
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
+	}
+
+	public void checkDependentItemsForComponent(String componentName, WebElement element) {
+		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
+		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
+		switch (componentName) {
+		case "Latest Articles Widget":
+			Assert.assertTrue(dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"));
+			Assert.assertTrue(dependentItemLocation
+					.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"));
+			break;
+		case "Header":
+			Assert.assertTrue(dependentItemName.equalsIgnoreCase(""));
+			Assert.assertTrue(
+					dependentItemLocation.equalsIgnoreCase("/site/website/crafter-level-descriptor.level.xml"));
+			break;
+		case "Left Rail with Latest Articles":
+			boolean firstCheckPass = false;
+			boolean secondCheckPass = false;
+			if ((dependentItemName.equalsIgnoreCase("Home"))
+					|| (dependentItemName.equalsIgnoreCase("Search Results"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+
+		default:
+			throw new IllegalArgumentException("No component case for provided component name: " + componentName);
+		}
 	}
 
 	public void checkDependenciesForRefersToAComponent(String componentName) {
@@ -997,59 +853,20 @@ public class PreviewPage {
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
-
 		driverManager.waitUntilPageLoad();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		categoriesDropDown.selectByValue("depends-on");
-
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
-
 		this.checkNumberOfDependentItems(componentName, dependeciesItems);
-
 		for (WebElement webElement : dependeciesItems) {
-			boolean firstCheckPass = false;
-			boolean secondCheckPass = false;
-
-			String dependentItemName = webElement.findElement(By.xpath("td[1]")).getText();
-			String dependentItemLocation = webElement.findElement(By.xpath("td[2]/div")).getText();
-
-			if (componentName.equalsIgnoreCase("Latest Articles Widget")) {
-				Assert.assertTrue(dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"));
-				Assert.assertTrue(dependentItemLocation
-						.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"));
-			}
-
-			if (componentName.equalsIgnoreCase("Header")) {
-				Assert.assertTrue(dependentItemName.equalsIgnoreCase(""));
-				Assert.assertTrue(
-						dependentItemLocation.equalsIgnoreCase("/site/website/crafter-level-descriptor.level.xml"));
-			}
-
-			if (componentName.equalsIgnoreCase("Left Rail with Latest Articles")) {
-
-				if ((dependentItemName.equalsIgnoreCase("Home"))
-						|| (dependentItemName.equalsIgnoreCase("Search Results"))) {
-					firstCheckPass = true;
-				}
-
-				if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
-					secondCheckPass = true;
-				}
-
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-			}
-
+			this.checkDependentItemsForComponent(componentName, webElement);
 		}
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 	}
@@ -1094,51 +911,36 @@ public class PreviewPage {
 		if (componentName.equalsIgnoreCase("jquery js")) {
 			Assert.assertTrue(dependeciesItems.size() == 6);
 		}
-
 	}
 
 	public void bulkPublish(String path, int waitTimeForPublish) {
-
 		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id",
 				"admin-console");
 		siteConfigButton.click();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteconfigPublishingOperationsoption);
-
 		this.driverManager.waitForAnimation();
-
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigPublishingOperationsoption)
 				.click();
-
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo()
 				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingFrame));
-
 		this.driverManager.isElementPresentAndClickableByXpath(publishingFrame);
-
 		this.driverManager.getDriver().switchTo().activeElement();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkPublishTab).click();
-
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
 				.click();
-
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
 				.clear();
-
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
 				.sendKeys(path);
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsPublishButton)
 				.click();
-
 		this.driverManager.getDriver().switchTo().activeElement();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bulkoperationsAcceptWarning);
 
@@ -1146,23 +948,18 @@ public class PreviewPage {
 				.click();
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
-
 		this.driverManager.getDriver().switchTo().activeElement();
-
 		// wait for bulk publish notification according with length of tree to be
 		// published
 		this.driverManager.waitForBulkPublish(waitTimeForPublish);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
 				.isDisplayed());
-
 		// Switch back to the dashboard page
 		driverManager.getDriver().switchTo().defaultContent();
 		this.driverManager.getDriver().switchTo().activeElement();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "navbar-site-name");
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "navbar-site-name").click();
-
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("cssSelector", "#admin-console");
 
@@ -1175,10 +972,8 @@ public class PreviewPage {
 		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName)
 				.click();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalDeleteOption);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
-
 		for (int i = 0; i < 2; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteStatusIcon)
