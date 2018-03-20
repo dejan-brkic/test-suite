@@ -19,7 +19,7 @@ import org.openqa.selenium.WebElement;
  */
 
 // Test Case Studio- Site Content ID:3
-public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
+public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -41,7 +41,16 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 	private String staticAssetsPageChildFolder;
 	private String staticAssetsPageImagesChildFolder;
 	private String staticAssetsPageImagesTestImagesChilds;
-	private static Logger logger = LogManager.getLogger(CopyPasteContentWithSharedComponents.class);
+	private String secondDestinationLocator;
+	private String thirdDestinationLocator;
+	private String fourthDestinationLocator;
+	private String fifthDestinationLocator;
+	private String seventhDestinationLocator;
+	private String sixthDestinationLocator;
+	private String eighthDestinationLocator;
+	private String ninthDestinationLocator;
+	private String tenthDestinationLocator;
+	private static Logger logger = LogManager.getLogger(CopyPasteContentWithSharedComponentsTest.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -104,7 +113,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
-		});
+		}, "Pages");
 
 	}
 
@@ -121,7 +130,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 					this.driverManager
 							.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 							.click();
-				});
+				}, "Pages");
 				break;
 			} catch (TimeoutException e) {
 				logger.warn("Paste option is not present, trying again");
@@ -206,7 +215,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 	public void step2() {
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.waitForFullExpansionOfTree();
-		String secondDestinationLocator = firstDestinationLocator + childFolder;
+		secondDestinationLocator = firstDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(secondDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017");
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -214,7 +223,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForFullExpansionOfTree();
-		String thirdDestinationLocator = secondDestinationLocator + childFolder;
+		thirdDestinationLocator = secondDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(thirdDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017");
 		Assert.assertTrue(this.driverManager
@@ -222,7 +231,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 				.isDisplayed());
 
 		this.driverManager.waitForFullExpansionOfTree();
-		String fourthDestinationLocator = thirdDestinationLocator + childFolder;
+		fourthDestinationLocator = thirdDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(fourthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -230,7 +239,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForFullExpansionOfTree();
-		String fifthDestinationLocator = fourthDestinationLocator + childFolder;
+		fifthDestinationLocator = fourthDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(fifthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager
@@ -238,7 +247,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 				.isDisplayed());
 
 		this.driverManager.waitForFullExpansionOfTree();
-		String sixthDestinationLocator = fifthDestinationLocator + childFolder;
+		sixthDestinationLocator = fifthDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(sixthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017");
@@ -248,7 +257,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForFullExpansionOfTree();
-		String seventhDestinationLocator = sixthDestinationLocator + childFolder;
+		seventhDestinationLocator = sixthDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(seventhDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017");
@@ -256,7 +265,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 				seventhDestinationLocator + childFolder).isDisplayed());
 
 		this.driverManager.waitForFullExpansionOfTree();
-		String eighthDestinationLocator = seventhDestinationLocator + childFolder;
+		eighthDestinationLocator = seventhDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(eighthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017");
@@ -265,7 +274,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForFullExpansionOfTree();
-		String ninthDestinationLocator = eighthDestinationLocator + childFolder;
+		ninthDestinationLocator = eighthDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(ninthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017/2017");
@@ -274,7 +283,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 				.isDisplayed());
 
 		this.driverManager.waitForFullExpansionOfTree();
-		String tenthDestinationLocator = ninthDestinationLocator + childFolder;
+		tenthDestinationLocator = ninthDestinationLocator + childFolder;
 		continuePastingLongTreeIntoExistentFolder(tenthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017/2017/2017");
@@ -282,34 +291,7 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", tenthDestinationLocator + childFolder)
 				.isDisplayed());
 
-		driverManager.getDriver().navigate().refresh();
-
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.scrollDownIntoSideBar();
-		dashboardPage.collapseParentFolder(tenthDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(ninthDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(eighthDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(seventhDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(sixthDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(fifthDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(fourthDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(thirdDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(secondDestinationLocator);
-		this.driverManager.waitForAnimation();
-		dashboardPage.collapseParentFolder(firstDestinationLocator);
+		this.collapseFolders();
 
 		this.driverManager.waitForAnimation();
 		copyAndPasteLongTreeIntoExistentFolder(firstDestinationLocator, firstChildLocator);
@@ -321,6 +303,10 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 					.getAttribute("class");
 		}
 
+		this.assertContentImagesOnStaticAssets();
+	}
+
+	public void assertContentImagesOnStaticAssets() {
 		// Collapse Home tree
 		logger.info("Collapse Home tree");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
@@ -361,6 +347,37 @@ public class CopyPasteContentWithSharedComponents extends StudioBaseTest {
 		logger.info("Checking the amount of static assets for pages that using testimage.jpg");
 		Assert.assertTrue((testimagesitems.size() == 21),
 				"There are not the correct amount of items for static asset/page/images/testimage, expected 21");
+	}
+
+	public void collapseFolders() {
+		driverManager.getDriver().navigate().refresh();
+
+		this.driverManager.scrollDownIntoSideBar();
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
+
+		this.driverManager.scrollDownIntoSideBar();
+		this.driverManager.waitForFullExpansionOfTree();
+		this.driverManager.scrollDownIntoSideBar();
+		dashboardPage.collapseParentFolder(tenthDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(ninthDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(eighthDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(seventhDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(sixthDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(fifthDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(fourthDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(thirdDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(secondDestinationLocator);
+		this.driverManager.waitForAnimation();
+		dashboardPage.collapseParentFolder(firstDestinationLocator);
 	}
 
 	public void expandAllCutTrees() {

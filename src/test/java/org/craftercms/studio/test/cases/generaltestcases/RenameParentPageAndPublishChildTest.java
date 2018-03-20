@@ -99,7 +99,7 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 		// selecting the Publish option
 		driverManager.usingContextMenu(() -> {
 			dashboardPage.clickOnPublishOption();
-		});
+		},"Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
 		this.selectOnlyOnePageToPublish(pageName);
 		this.confirmPublishAction();

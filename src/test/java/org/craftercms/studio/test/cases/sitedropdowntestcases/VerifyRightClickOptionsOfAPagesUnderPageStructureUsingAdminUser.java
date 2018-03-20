@@ -334,7 +334,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 	}
 
 	public void step6() {
@@ -387,7 +387,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 	}
 
 	public void step8() {
@@ -443,7 +443,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 	}
 	public void step11() {
 		// Step 11 Right click on any of the article (Men Styles For Winter)
@@ -497,7 +497,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 		
 	}
 
