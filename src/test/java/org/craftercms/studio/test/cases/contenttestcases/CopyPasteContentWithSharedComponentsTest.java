@@ -343,10 +343,23 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 		List<WebElement> testimagesitems = this.driverManager.getDriver()
 				.findElements(By.xpath(staticAssetsPageImagesTestImagesChilds));
-
+		int amountOfTestImageElements=0;
+		
 		logger.info("Checking the amount of static assets for pages that using testimage.jpg");
-		Assert.assertTrue((testimagesitems.size() == 21),
-				"There are not the correct amount of items for static asset/page/images/testimage, expected 21");
+		this.driverManager.waitForFullExpansionOfTree();
+		for (WebElement webElement : testimagesitems) {
+			this.driverManager.waitUntilContentTooltipIsHidden();
+			webElement.click();
+			this.driverManager.waitForFullExpansionOfTree();
+			WebElement childElement = webElement.findElement(By.xpath("div[@class='ygtvchildren']//span[1]"));
+			if(childElement.getText().equalsIgnoreCase("testimage.jpg")) {
+				amountOfTestImageElements++;
+			}
+			this.driverManager.scrollDownIntoSideBar();
+		}
+		
+		Assert.assertTrue((amountOfTestImageElements == 21),
+				"There are not the correct amount of items for static asset/page/images/testimage.jpg , expected 21");
 	}
 
 	public void collapseFolders() {
@@ -382,6 +395,8 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 	public void expandAllCutTrees() {
 		// expand 2016 parent
+		this.driverManager.waitForFullExpansionOfTree();
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				firstChildLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='2016']");
 		dashboardPage.expandParentFolder(
