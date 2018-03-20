@@ -75,7 +75,7 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
-		});
+		},"Pages");
 	}
 
 	public void cutAndPasteLongTreeIntoExistentFolder(String childLocator, String destinationFolderLocator) {
@@ -92,7 +92,7 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
-		});
+		},"Pages");
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
 	}
@@ -106,7 +106,7 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
-		});
+		},"Pages");
 	}
 
 	public void loginAndGoToPreview() {

@@ -856,9 +856,19 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteContentWithSharedComponents" />
+				name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteContentWithSharedComponentsTest" />
 			<class
 				name="org.craftercms.delivery.test.cases.verification.VerifyThatCopiedAndPastedLongTreeArticleIsOnLive" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test name="Verify The dependency calculation for what refers to an item">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.DependenciesCalculationRefersToAnItemTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>

@@ -75,7 +75,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
-		});
+		},"Pages");
 
 	}
 
@@ -88,7 +88,7 @@ public class CopyPasteLargeTreesTest extends StudioBaseTest {
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
-		});
+		},"Pages");
 	}
 
 	public void loginAndGoToPreview() {
