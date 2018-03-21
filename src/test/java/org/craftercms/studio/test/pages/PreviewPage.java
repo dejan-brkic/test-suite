@@ -544,7 +544,7 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		
+		//checking if the item name is the correct on the dependencies dialog 
 		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(itemText));
 		
@@ -624,7 +624,7 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		
+		//checking if the item name is the correct on the dependencies dialog 
 		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(staticAssetName));
 		
@@ -700,7 +700,7 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		
+		//checking if the item name is the correct on the dependencies dialog 
 		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(scriptName));
 		
@@ -811,7 +811,7 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		
+		//checking if the item name is the correct on the dependencies dialog 
 		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(templateName));
 		
@@ -872,7 +872,7 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		
+		//checking if the item name is the correct on the dependencies dialog 
 		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(componentName));
 		
