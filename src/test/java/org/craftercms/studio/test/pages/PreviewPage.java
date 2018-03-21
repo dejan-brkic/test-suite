@@ -869,224 +869,237 @@ public class PreviewPage {
 				.click();
 	}
 
-	public void checkDependentItemsForTemplate(String templateName, WebElement element, boolean dependsOn) {
+	public void checkDependsOn(String templateName, WebElement element) {
 		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
 		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
 		boolean firstCheckPass = false;
 		boolean secondCheckPass = false;
-
+		
+		switch (templateName) {
+		case "article.ftl":
+			if ((dependentItemName.equalsIgnoreCase("Top Clubs In Virginia"))
+					|| (dependentItemName.equalsIgnoreCase("Men Styles For Winter"))
+					|| (dependentItemName.equalsIgnoreCase("New ACME Phone Released Today"))
+					|| (dependentItemName.equalsIgnoreCase("Top Romantic Valentine Movies"))
+					|| (dependentItemName.equalsIgnoreCase("Top Books For Young Women"))
+					|| (dependentItemName.equalsIgnoreCase("Coffee is Good for Your Health"))
+					|| (dependentItemName.equalsIgnoreCase("Women Styles for Winter"))
+					|| (dependentItemName.equalsIgnoreCase("5 Popular Diets for Women"))
+					|| (dependentItemName.equalsIgnoreCase("10 Tips to Get a Six Pack"))
+					|| (dependentItemName.equalsIgnoreCase("Testing1"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation
+					.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase(
+							"/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase(
+							"/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase(
+							"/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/1/women-styles-for-winter/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/articles/2016/6/test/index.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "category-landing.ftl":
+			if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
+					|| (dependentItemName.equalsIgnoreCase("Technology"))
+					|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "home.ftl":
+			if (dependentItemName.equalsIgnoreCase("Home")) {
+				firstCheckPass = true;
+			}
+			if (dependentItemLocation.equalsIgnoreCase("/site/website/index.xml")) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "search-results.ftl":
+			if (dependentItemName.equalsIgnoreCase("Search Results")) {
+				firstCheckPass = true;
+			}
+			if (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml")) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		default:
+			throw new IllegalArgumentException("No template case for provided template name: " + templateName);
+		}
+	}
+	
+	public void checkDependsOnMe(String templateName, WebElement element) {
+		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
+		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+		
+		switch (templateName) {
+		case "article.ftl":
+			if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("util.js"))
+					|| (dependentItemName.equalsIgnoreCase("main.css"))
+					|| (dependentItemName.equalsIgnoreCase("main.js"))
+					|| (dependentItemName.equalsIgnoreCase("ie9.css"))
+					|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
+					|| (dependentItemName.equalsIgnoreCase("ie8.css"))
+					|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
+					|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "category-landing.ftl":
+			if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("util.js"))
+					|| (dependentItemName.equalsIgnoreCase("main.css"))
+					|| (dependentItemName.equalsIgnoreCase("main.js"))
+					|| (dependentItemName.equalsIgnoreCase("ie9.css"))
+					|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
+					|| (dependentItemName.equalsIgnoreCase("ie8.css"))
+					|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
+					|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "home.ftl":
+			if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("util.js"))
+					|| (dependentItemName.equalsIgnoreCase("main.css"))
+					|| (dependentItemName.equalsIgnoreCase("main.js"))
+					|| (dependentItemName.equalsIgnoreCase("ie9.css"))
+					|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
+					|| (dependentItemName.equalsIgnoreCase("ie8.css"))
+					|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
+					|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "search-results.ftl":
+			if ((dependentItemName.equalsIgnoreCase("util.js"))
+					|| (dependentItemName.equalsIgnoreCase("main.js"))
+					|| (dependentItemName.equalsIgnoreCase("ie9.css"))
+					|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
+					|| (dependentItemName.equalsIgnoreCase("respond.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
+					|| (dependentItemName.equalsIgnoreCase("main.css"))
+					|| (dependentItemName.equalsIgnoreCase("handlebars.min-latest.js"))
+					|| (dependentItemName.equalsIgnoreCase("ie8.css"))
+					|| (dependentItemName.equalsIgnoreCase("search.js"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/handlebars.min-latest.js"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/search.js"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		default:
+			throw new IllegalArgumentException("No template case for provided template name: " + templateName);
+		}
+	}
+	
+	public void checkDependentItemsForTemplate(String templateName, WebElement element, boolean dependsOn) {
 		if (dependsOn) {
-			switch (templateName) {
-			case "article.ftl":
-				if ((dependentItemName.equalsIgnoreCase("Top Clubs In Virginia"))
-						|| (dependentItemName.equalsIgnoreCase("Men Styles For Winter"))
-						|| (dependentItemName.equalsIgnoreCase("New ACME Phone Released Today"))
-						|| (dependentItemName.equalsIgnoreCase("Top Romantic Valentine Movies"))
-						|| (dependentItemName.equalsIgnoreCase("Top Books For Young Women"))
-						|| (dependentItemName.equalsIgnoreCase("Coffee is Good for Your Health"))
-						|| (dependentItemName.equalsIgnoreCase("Women Styles for Winter"))
-						|| (dependentItemName.equalsIgnoreCase("5 Popular Diets for Women"))
-						|| (dependentItemName.equalsIgnoreCase("10 Tips to Get a Six Pack"))
-						|| (dependentItemName.equalsIgnoreCase("Testing1"))) {
-					firstCheckPass = true;
-				}
-				if ((dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase(
-								"/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase(
-								"/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase(
-								"/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2017/1/women-styles-for-winter/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
-						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/articles/2016/6/test/index.xml"))) {
-					secondCheckPass = true;
-				}
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-				break;
-			case "category-landing.ftl":
-				if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
-						|| (dependentItemName.equalsIgnoreCase("Technology"))
-						|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
-					firstCheckPass = true;
-				}
-				if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
-					secondCheckPass = true;
-				}
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-				break;
-			case "home.ftl":
-				if (dependentItemName.equalsIgnoreCase("Home")) {
-					firstCheckPass = true;
-				}
-				if (dependentItemLocation.equalsIgnoreCase("/site/website/index.xml")) {
-					secondCheckPass = true;
-				}
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-				break;
-			case "search-results.ftl":
-				if (dependentItemName.equalsIgnoreCase("Search Results")) {
-					firstCheckPass = true;
-				}
-				if (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml")) {
-					secondCheckPass = true;
-				}
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-				break;
-			default:
-				throw new IllegalArgumentException("No template case for provided template name: " + templateName);
-			}
+			checkDependsOn(templateName, element);
 		} else {
-			switch (templateName) {
-			case "article.ftl":
-				if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("util.js"))
-						|| (dependentItemName.equalsIgnoreCase("main.css"))
-						|| (dependentItemName.equalsIgnoreCase("main.js"))
-						|| (dependentItemName.equalsIgnoreCase("ie9.css"))
-						|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
-						|| (dependentItemName.equalsIgnoreCase("ie8.css"))
-						|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
-						|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
-					firstCheckPass = true;
-				}
-				if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
-					secondCheckPass = true;
-				}
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-				break;
-			case "category-landing.ftl":
-				if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("util.js"))
-						|| (dependentItemName.equalsIgnoreCase("main.css"))
-						|| (dependentItemName.equalsIgnoreCase("main.js"))
-						|| (dependentItemName.equalsIgnoreCase("ie9.css"))
-						|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
-						|| (dependentItemName.equalsIgnoreCase("ie8.css"))
-						|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
-						|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
-					firstCheckPass = true;
-				}
-				if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
-					secondCheckPass = true;
-				}
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-				break;
-			case "home.ftl":
-				if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("util.js"))
-						|| (dependentItemName.equalsIgnoreCase("main.css"))
-						|| (dependentItemName.equalsIgnoreCase("main.js"))
-						|| (dependentItemName.equalsIgnoreCase("ie9.css"))
-						|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
-						|| (dependentItemName.equalsIgnoreCase("ie8.css"))
-						|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
-						|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
-					firstCheckPass = true;
-				}
-				if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
-					secondCheckPass = true;
-				}
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-				break;
-			case "search-results.ftl":
-				if ((dependentItemName.equalsIgnoreCase("util.js"))
-						|| (dependentItemName.equalsIgnoreCase("main.js"))
-						|| (dependentItemName.equalsIgnoreCase("ie9.css"))
-						|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
-						|| (dependentItemName.equalsIgnoreCase("respond.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
-						|| (dependentItemName.equalsIgnoreCase("main.css"))
-						|| (dependentItemName.equalsIgnoreCase("handlebars.min-latest.js"))
-						|| (dependentItemName.equalsIgnoreCase("ie8.css"))
-						|| (dependentItemName.equalsIgnoreCase("search.js"))) {
-					firstCheckPass = true;
-				}
-				if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/handlebars.min-latest.js"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
-						|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/search.js"))) {
-					secondCheckPass = true;
-				}
-				Assert.assertTrue(firstCheckPass);
-				Assert.assertTrue(secondCheckPass);
-				break;
-			default:
-				throw new IllegalArgumentException("No template case for provided template name: " + templateName);
-			}
+			checkDependsOnMe(templateName, element);
 		}
 	}
 
