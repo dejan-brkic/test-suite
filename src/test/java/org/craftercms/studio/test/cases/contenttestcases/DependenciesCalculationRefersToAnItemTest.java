@@ -71,7 +71,6 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	private String ie8Css;
 	private String jqueryjs;
 	private static Logger logger = LogManager.getLogger(DependenciesCalculationRefersToAnItemTest.class);
-
 	@BeforeMethod
 	public void beforeTest() {
 
@@ -215,7 +214,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForRefersToAPage();
+		previewPage.checkNoDependenciesForRefersToAPage("Home");
 	}
 
 	public void step2() {
@@ -234,7 +233,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForRefersToAPage();
+		previewPage.checkNoDependenciesForRefersToAPage("Style");
 	}
 
 	public void step3() {
@@ -264,7 +263,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForRefersToAPage();
+		previewPage.checkNoDependenciesForRefersToAPage("Women Styles for Winter");
 	}
 
 	public void step4() {
@@ -289,7 +288,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForRefersToAPage();
+		previewPage.checkNoDependenciesForRefersToAPage("Testing1");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
@@ -313,7 +312,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForRefersToAPage();
+		previewPage.checkNoDependenciesForRefersToAPage("Search Results");
 	}
 
 	public void step6() {
@@ -369,7 +368,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForRefersToAPage();
+		previewPage.checkNoDependenciesForRefersToAPage("Four");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", featuresFolderXpath);
@@ -419,7 +418,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToAStaticAsset("Book Woman Pic");
+		previewPage.checkDependenciesForRefersToAStaticAsset("book-woman-pic.jpg");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsimagesFolder);
@@ -455,7 +454,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToATemplate("Articles");
+		previewPage.checkDependenciesForRefersToATemplate("article.ftl");
 
 	}
 
@@ -466,7 +465,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToATemplate("Category Landing");
+		previewPage.checkDependenciesForRefersToATemplate("category-landing.ftl");
 
 	}
 
@@ -477,7 +476,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToATemplate("Home");
+		previewPage.checkDependenciesForRefersToATemplate("home.ftl");
 	}
 
 	public void step14() {
@@ -487,7 +486,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToATemplate("Search Results");
+		previewPage.checkDependenciesForRefersToATemplate("search-results.ftl");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesPagesFolder);
@@ -523,7 +522,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToAScript("Category Landing Script");
+		previewPage.checkDependenciesForRefersToAScript("category-landing.groovy");
 	}
 
 	public void step16() {
@@ -533,7 +532,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToAScript("Home Script");
+		previewPage.checkDependenciesForRefersToAScript("home.groovy");
 	}
 
 	public void step17() {
@@ -543,7 +542,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToAScript("Search Results Script");
+		previewPage.checkDependenciesForRefersToAScript("search-results.groovy");
 	}
 
 	public void step18() {
@@ -553,7 +552,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForRefersToAPage();
+		previewPage.checkNoDependenciesForRefersToAPage("site-map.groovy");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsPagesFolderXpath);
@@ -590,7 +589,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForRefersToAPage();
+		previewPage.checkNoDependenciesForRefersToAPage("font-awesome.min.css");
 	}
 
 	public void step20() {
@@ -600,7 +599,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToAStaticAsset("ie8 css");
+		previewPage.checkDependenciesForRefersToAStaticAsset("ie8.css");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsCssFolder);
@@ -617,7 +616,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForRefersToAStaticAsset("jquery js");
+		previewPage.checkDependenciesForRefersToAStaticAsset("jquery.min.js");
 	}
 
 	public void rightClickAndClickOnDependencies(String itemLocator, String menuLocation) {

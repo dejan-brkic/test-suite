@@ -57,6 +57,7 @@ public class PreviewPage {
 	private String publishingFrame;
 	private String siteDropdownListElementXPath;
 	private String lastPropertiesElementCssSelector;
+	private String dependenciesForXpath;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -140,6 +141,8 @@ public class PreviewPage {
 		gearItemXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearlocator");
 		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("bulkoperations.frame");
+		dependenciesForXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.dependencies.dependeciesforitem");
 	}
 
 	// Click on admin console link
@@ -535,12 +538,16 @@ public class PreviewPage {
 				.click();
 	}
 
-	public void checkNoDependenciesForRefersToAPage() {
+	public void checkNoDependenciesForRefersToAPage(String itemText) {
 		this.driverManager.waitForAnimation();
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
+		//checking if the item name is the correct on the dependencies dialog 
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
+		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(itemText));
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
@@ -562,12 +569,12 @@ public class PreviewPage {
 		boolean secondCheckPass = false;
 
 		switch (staticAssetName) {
-		case "Book Woman Pic":
+		case "book-woman-pic.jpg":
 			Assert.assertTrue(dependentItemName.equalsIgnoreCase("Top Books For Young Women"));
 			Assert.assertTrue(dependentItemLocation
 					.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"));
 			break;
-		case "ie8 css":
+		case "ie8.css":
 			if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("article.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("home.ftl"))
@@ -586,7 +593,7 @@ public class PreviewPage {
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
-		case "jquery js":
+		case "jquery.min.js":
 			if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("article.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("home.ftl"))
@@ -617,6 +624,10 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
+		//checking if the item name is the correct on the dependencies dialog 
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
+		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(staticAssetName));
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
@@ -641,7 +652,7 @@ public class PreviewPage {
 		boolean secondCheckPass = false;
 
 		switch (scriptName) {
-		case "Category Landing Script":
+		case "category-landing.groovy":
 			if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
 					|| (dependentItemName.equalsIgnoreCase("Technology"))
 					|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
@@ -658,7 +669,7 @@ public class PreviewPage {
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
-		case "Home Script":
+		case "home.groovy":
 			if ((dependentItemName.equalsIgnoreCase("Home"))) {
 				firstCheckPass = true;
 			}
@@ -668,7 +679,7 @@ public class PreviewPage {
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
-		case "Search Results Script":
+		case "search-results.groovy":
 			if ((dependentItemName.equalsIgnoreCase("Search Results"))) {
 				firstCheckPass = true;
 			}
@@ -689,6 +700,10 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
+		//checking if the item name is the correct on the dependencies dialog 
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
+		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(scriptName));
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
@@ -713,7 +728,7 @@ public class PreviewPage {
 		boolean secondCheckPass = false;
 
 		switch (templateName) {
-		case "Articles":
+		case "article.ftl":
 			if ((dependentItemName.equalsIgnoreCase("Top Clubs In Virginia"))
 					|| (dependentItemName.equalsIgnoreCase("Men Styles For Winter"))
 					|| (dependentItemName.equalsIgnoreCase("New ACME Phone Released Today"))
@@ -750,7 +765,7 @@ public class PreviewPage {
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
-		case "Category Landing":
+		case "category-landing.ftl":
 			if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
 					|| (dependentItemName.equalsIgnoreCase("Technology"))
 					|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
@@ -765,7 +780,7 @@ public class PreviewPage {
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
-		case "Home":
+		case "home.ftl":
 			if (dependentItemName.equalsIgnoreCase("Home")) {
 				firstCheckPass = true;
 			}
@@ -775,7 +790,7 @@ public class PreviewPage {
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
-		case "Search Results":
+		case "search-results.ftl":
 			if (dependentItemName.equalsIgnoreCase("Search Results")) {
 				firstCheckPass = true;
 			}
@@ -796,6 +811,10 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
+		//checking if the item name is the correct on the dependencies dialog 
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
+		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(templateName));
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
@@ -853,6 +872,10 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
+		//checking if the item name is the correct on the dependencies dialog 
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
+		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(componentName));
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
@@ -881,34 +904,34 @@ public class PreviewPage {
 		case "Left Rail with Latest Articles":
 			Assert.assertTrue(dependeciesItems.size() == 2);
 			break;
-		case "Book Woman Pic":
+		case "book-woman-pic.jpg":
 			Assert.assertTrue(dependeciesItems.size() == 1);
 			break;
-		case "Articles":
+		case "article.ftl":
 			Assert.assertTrue(dependeciesItems.size() == 10);
 			break;
-		case "Category Landing":
+		case "category-landing.ftl":
 			Assert.assertTrue(dependeciesItems.size() == 4);
 			break;
-		case "Home":
+		case "home.ftl":
 			Assert.assertTrue(dependeciesItems.size() == 1);
 			break;
-		case "Search Results":
+		case "search-results.ftl":
 			Assert.assertTrue(dependeciesItems.size() == 1);
 			break;
-		case "Category Landing Script":
+		case "category-landing.groovy":
 			Assert.assertTrue(dependeciesItems.size() == 4);
 			break;
-		case "Home Script":
+		case "home.groovy":
 			Assert.assertTrue(dependeciesItems.size() == 1);
 			break;
-		case "Search Results Script":
+		case "search-results.groovy":
 			Assert.assertTrue(dependeciesItems.size() == 1);
 			break;
-		case "ie8 css":
+		case "ie8.css":
 			Assert.assertTrue(dependeciesItems.size() == 6);
 			break;
-		case "jquery js":
+		case "jquery.min.js":
 			Assert.assertTrue(dependeciesItems.size() == 6);
 			break;
 		default:
