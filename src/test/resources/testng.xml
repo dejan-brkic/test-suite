@@ -873,4 +873,14 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test name="Verify The dependency calculation for what an item refers to">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.DependenciesCalculationItemRefersToTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
