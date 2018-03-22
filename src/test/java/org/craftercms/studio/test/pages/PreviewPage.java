@@ -538,20 +538,29 @@ public class PreviewPage {
 				.click();
 	}
 
-	public void checkNoDependenciesForRefersToAPage(String itemText) {
+	public void checkNoDependenciesForItem(String itemText, boolean dependsOn) {
 		this.driverManager.waitForAnimation();
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		//checking if the item name is the correct on the dependencies dialog 
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
+		// checking if the item name is the correct on the dependencies dialog
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(itemText));
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
-		categoriesDropDown.selectByValue("depends-on");
+
+		if (dependsOn) {
+			// depends on case
+			categoriesDropDown.selectByValue("depends-on");
+		} else {
+			// dependes on me case
+			categoriesDropDown.selectByValue("depends-on-me");
+		}
+
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
@@ -560,6 +569,126 @@ public class PreviewPage {
 		Assert.assertTrue(dependeciesItems.size() == 0);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
+	}
+
+	public void checkDependentItemsForPage(String pageName, WebElement element) {
+		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
+		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		switch (pageName) {
+		case "Home":
+			if ((dependentItemName.equalsIgnoreCase("home.ftl")) || (dependentItemName.equalsIgnoreCase("home.groovy"))
+					|| (dependentItemName.equalsIgnoreCase("strawberries.jpg"))
+					|| (dependentItemName.equalsIgnoreCase("Three")) || (dependentItemName.equalsIgnoreCase("Two"))
+					|| (dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/scripts/pages/home.groovy"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/strawberries.jpg"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/components/features/sapien-veroeros.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/site/components/features/quam-lorem-ipsum.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Style":
+			if ((dependentItemName.equalsIgnoreCase("category-landing.groovy"))
+					|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/scripts/pages/category-landing.groovy"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Women Styles for Winter":
+			if ((dependentItemName.equalsIgnoreCase("article.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("winter-woman-pic.jpg"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
+					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/winter-woman-pic.jpg"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Testing1":
+			if ((dependentItemName.equalsIgnoreCase("article.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("testimage.jpg"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
+					|| ((dependentItemLocation.contains("/static-assets/page/images/"))
+							&& (dependentItemLocation.contains("/testimage.jpg")))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "Search Results":
+			if ((dependentItemName.equalsIgnoreCase("search-results.groovy"))
+					|| (dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"))
+					|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))) {
+				firstCheckPass = true;
+			}
+			if ((dependentItemLocation.equalsIgnoreCase("/scripts/pages/search-results.groovy"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))) {
+				secondCheckPass = true;
+			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		default:
+			throw new IllegalArgumentException("No page case for provided page name: " + pageName);
+		}
+	}
+
+	public void checkDependenciesForPageItem(String staticAssetName, boolean dependsOn) {
+		this.driverManager.waitForAnimation();
+		// Switch to the frame
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo().activeElement();
+		driverManager.waitUntilPageLoad();
+		// checking if the item name is the correct on the dependencies dialog
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				dependenciesForXpath);
+		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(staticAssetName));
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
+		Select categoriesDropDown = new Select(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		if (dependsOn) {
+			// depends on case
+			categoriesDropDown.selectByValue("depends-on");
+		} else {
+			// depends on me case
+			categoriesDropDown.selectByValue("depends-on-me");
+		}
+
+		this.driverManager.waitForFullExpansionOfTree();
+		List<WebElement> dependeciesItems = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
+				.findElements(By.tagName("tr"));
+		this.checkNumberOfItemOnDependencies(staticAssetName, dependeciesItems, dependsOn);
+
+		for (WebElement webElement : dependeciesItems) {
+			this.checkDependentItemsForPage(staticAssetName, webElement);
+		}
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+				.click();
+
 	}
 
 	public void checkDependentItemsForStaticAsset(String staticAssetName, WebElement element) {
@@ -618,31 +747,41 @@ public class PreviewPage {
 		}
 	}
 
-	public void checkDependenciesForRefersToAStaticAsset(String staticAssetName) {
+	public void checkDependenciesForStaticAssetItem(String staticAssetName, boolean dependsOn) {
 		this.driverManager.waitForAnimation();
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		//checking if the item name is the correct on the dependencies dialog 
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
+		// checking if the item name is the correct on the dependencies dialog
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(staticAssetName));
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
-		categoriesDropDown.selectByValue("depends-on");
+		if (dependsOn) {
+			// depends on case
+			categoriesDropDown.selectByValue("depends-on");
+		} else {
+			// depends on me case
+			categoriesDropDown.selectByValue("depends-on-me");
+		}
+
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
-		this.checkNumberOfDependentItems(staticAssetName, dependeciesItems);
+		this.checkNumberOfItemOnDependencies(staticAssetName, dependeciesItems, dependsOn);
+
 		for (WebElement webElement : dependeciesItems) {
 			this.checkDependentItemsForStaticAsset(staticAssetName, webElement);
 		}
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
+
 	}
 
 	public void checkDependentItemsForScript(String scriptName, WebElement element) {
@@ -694,26 +833,35 @@ public class PreviewPage {
 		}
 	}
 
-	public void checkDependenciesForRefersToAScript(String scriptName) {
+	public void checkDependenciesFoScriptItem(String scriptName, boolean dependsOn) {
 		this.driverManager.waitForAnimation();
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		//checking if the item name is the correct on the dependencies dialog 
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
+		// checking if the item name is the correct on the dependencies dialog
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(scriptName));
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
-		categoriesDropDown.selectByValue("depends-on");
+		if (dependsOn) {
+			// depends on case
+			categoriesDropDown.selectByValue("depends-on");
+
+		} else {
+			// depends on me case
+			categoriesDropDown.selectByValue("depends-on-me");
+		}
+
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
-		this.checkNumberOfDependentItems(scriptName, dependeciesItems);
+		this.checkNumberOfItemOnDependencies(scriptName, dependeciesItems, dependsOn);
 		for (WebElement webElement : dependeciesItems) {
 			checkDependentItemsForScript(scriptName, webElement);
 		}
@@ -721,221 +869,526 @@ public class PreviewPage {
 				.click();
 	}
 
-	public void checkDependentItemsForTemplate(String templateName, WebElement element) {
-		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
-		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
+	public void checkDependsOnArticleFTL(String dependentItemName, String dependentItemLocation) {
 		boolean firstCheckPass = false;
 		boolean secondCheckPass = false;
+		if ((dependentItemName.equalsIgnoreCase("Top Clubs In Virginia"))
+				|| (dependentItemName.equalsIgnoreCase("Men Styles For Winter"))
+				|| (dependentItemName.equalsIgnoreCase("New ACME Phone Released Today"))
+				|| (dependentItemName.equalsIgnoreCase("Top Romantic Valentine Movies"))
+				|| (dependentItemName.equalsIgnoreCase("Top Books For Young Women"))
+				|| (dependentItemName.equalsIgnoreCase("Coffee is Good for Your Health"))
+				|| (dependentItemName.equalsIgnoreCase("Women Styles for Winter"))
+				|| (dependentItemName.equalsIgnoreCase("5 Popular Diets for Women"))
+				|| (dependentItemName.equalsIgnoreCase("10 Tips to Get a Six Pack"))
+				|| (dependentItemName.equalsIgnoreCase("Testing1"))) {
+			firstCheckPass = true;
+		}
+		if ((dependentItemLocation.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
+				|| (dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
+				|| (dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
+				|| (dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
+				|| (dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
+				|| (dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
+				|| (dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2017/1/women-styles-for-winter/index.xml"))
+				|| (dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
+				|| (dependentItemLocation
+						.equalsIgnoreCase("/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase("/site/website/articles/2016/6/test/index.xml"))) {
+			secondCheckPass = true;
+		}
+		Assert.assertTrue(firstCheckPass);
+		Assert.assertTrue(secondCheckPass);
+
+	}
+
+	public void checkDependsOnCategoryLandingFTL(String dependentItemName, String dependentItemLocation) {
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+		if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
+				|| (dependentItemName.equalsIgnoreCase("Technology"))
+				|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
+			firstCheckPass = true;
+		}
+		if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
+			secondCheckPass = true;
+		}
+		Assert.assertTrue(firstCheckPass);
+		Assert.assertTrue(secondCheckPass);
+	}
+
+	
+	public void checkDependsOnHomeFTL(String dependentItemName, String dependentItemLocation) {
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+		
+		if (dependentItemName.equalsIgnoreCase("Home")) {
+			firstCheckPass = true;
+		}
+		if (dependentItemLocation.equalsIgnoreCase("/site/website/index.xml")) {
+			secondCheckPass = true;
+		}
+		Assert.assertTrue(firstCheckPass);
+		Assert.assertTrue(secondCheckPass);
+	}
+	
+	public void checkDependsOnSearchResultsFTL(String dependentItemName, String dependentItemLocation) {
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+		
+		if (dependentItemName.equalsIgnoreCase("Search Results")) {
+			firstCheckPass = true;
+		}
+		if (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml")) {
+			secondCheckPass = true;
+		}
+		Assert.assertTrue(firstCheckPass);
+		Assert.assertTrue(secondCheckPass);
+	}
+	
+	public void checkDependsOn(String templateName, WebElement element) {
+		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
+		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
 
 		switch (templateName) {
 		case "article.ftl":
-			if ((dependentItemName.equalsIgnoreCase("Top Clubs In Virginia"))
-					|| (dependentItemName.equalsIgnoreCase("Men Styles For Winter"))
-					|| (dependentItemName.equalsIgnoreCase("New ACME Phone Released Today"))
-					|| (dependentItemName.equalsIgnoreCase("Top Romantic Valentine Movies"))
-					|| (dependentItemName.equalsIgnoreCase("Top Books For Young Women"))
-					|| (dependentItemName.equalsIgnoreCase("Coffee is Good for Your Health"))
-					|| (dependentItemName.equalsIgnoreCase("Women Styles for Winter"))
-					|| (dependentItemName.equalsIgnoreCase("5 Popular Diets for Women"))
-					|| (dependentItemName.equalsIgnoreCase("10 Tips to Get a Six Pack"))
-					|| (dependentItemName.equalsIgnoreCase("Testing1"))) {
-				firstCheckPass = true;
-			}
-			if ((dependentItemLocation
-					.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2017/1/women-styles-for-winter/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))
-					|| (dependentItemLocation.equalsIgnoreCase("/site/website/articles/2016/6/test/index.xml"))) {
-				secondCheckPass = true;
-			}
-			Assert.assertTrue(firstCheckPass);
-			Assert.assertTrue(secondCheckPass);
+			checkDependsOnArticleFTL(dependentItemName, dependentItemLocation);
 			break;
 		case "category-landing.ftl":
-			if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
-					|| (dependentItemName.equalsIgnoreCase("Technology"))
-					|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
-				firstCheckPass = true;
-			}
-			if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
-					|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
-					|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
-					|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
-				secondCheckPass = true;
-			}
-			Assert.assertTrue(firstCheckPass);
-			Assert.assertTrue(secondCheckPass);
+			checkDependsOnCategoryLandingFTL(dependentItemName, dependentItemLocation);
 			break;
 		case "home.ftl":
-			if (dependentItemName.equalsIgnoreCase("Home")) {
-				firstCheckPass = true;
-			}
-			if (dependentItemLocation.equalsIgnoreCase("/site/website/index.xml")) {
-				secondCheckPass = true;
-			}
-			Assert.assertTrue(firstCheckPass);
-			Assert.assertTrue(secondCheckPass);
+			checkDependsOnHomeFTL(dependentItemName, dependentItemLocation);
 			break;
 		case "search-results.ftl":
-			if (dependentItemName.equalsIgnoreCase("Search Results")) {
-				firstCheckPass = true;
-			}
-			if (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml")) {
-				secondCheckPass = true;
-			}
-			Assert.assertTrue(firstCheckPass);
-			Assert.assertTrue(secondCheckPass);
+			checkDependsOnSearchResultsFTL(dependentItemName, dependentItemLocation);
 			break;
 		default:
 			throw new IllegalArgumentException("No template case for provided template name: " + templateName);
 		}
 	}
 
-	public void checkDependenciesForRefersToATemplate(String templateName) {
-		this.driverManager.waitForAnimation();
-		// Switch to the frame
-		driverManager.getDriver().switchTo().defaultContent();
-		driverManager.getDriver().switchTo().activeElement();
-		driverManager.waitUntilPageLoad();
-		//checking if the item name is the correct on the dependencies dialog 
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
-		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(templateName));
-		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
-		categoriesDropDown.selectByValue("depends-on");
-		this.driverManager.waitForFullExpansionOfTree();
-		List<WebElement> dependeciesItems = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
-				.findElements(By.tagName("tr"));
-		this.checkNumberOfDependentItems(templateName, dependeciesItems);
-		for (WebElement webElement : dependeciesItems) {
-			checkDependentItemsForTemplate(templateName, webElement);
+	public void checkDependsOnMeArticleFTL(String dependentItemName, String dependentItemLocation) {
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
+				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
+				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
+				|| (dependentItemName.equalsIgnoreCase("ie8.css"))
+				|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
+				|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
+			firstCheckPass = true;
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
-				.click();
+		if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
+			secondCheckPass = true;
+		}
+		Assert.assertTrue(firstCheckPass);
+		Assert.assertTrue(secondCheckPass);
 	}
 
-	public void checkDependentItemsForComponent(String componentName, WebElement element) {
+	public void checkDependsOnMeCategoryLandingFTL(String dependentItemName, String dependentItemLocation) {
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
+				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
+				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
+				|| (dependentItemName.equalsIgnoreCase("ie8.css"))
+				|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
+				|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
+			firstCheckPass = true;
+		}
+		if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
+			secondCheckPass = true;
+		}
+		Assert.assertTrue(firstCheckPass);
+		Assert.assertTrue(secondCheckPass);
+	}
+
+	public void checkDependsOnMeHomeFTL(String dependentItemName, String dependentItemLocation) {
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
+				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
+				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
+				|| (dependentItemName.equalsIgnoreCase("ie8.css"))
+				|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
+				|| (dependentItemName.equalsIgnoreCase("respond.min.js"))) {
+			firstCheckPass = true;
+		}
+		if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/placeholder.png"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))) {
+			secondCheckPass = true;
+		}
+		Assert.assertTrue(firstCheckPass);
+		Assert.assertTrue(secondCheckPass);
+	}
+
+	public void checkDependsOnMeSearchResultsFTL(String dependentItemName, String dependentItemLocation) {
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		if ((dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.js"))
+				|| (dependentItemName.equalsIgnoreCase("ie9.css"))
+				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
+				|| (dependentItemName.equalsIgnoreCase("respond.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
+				|| (dependentItemName.equalsIgnoreCase("main.css"))
+				|| (dependentItemName.equalsIgnoreCase("handlebars.min-latest.js"))
+				|| (dependentItemName.equalsIgnoreCase("ie8.css"))
+				|| (dependentItemName.equalsIgnoreCase("search.js"))) {
+			firstCheckPass = true;
+		}
+		if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/respond.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/handlebars.min-latest.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie8.css"))
+				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/search.js"))) {
+			secondCheckPass = true;
+		}
+		Assert.assertTrue(firstCheckPass);
+		Assert.assertTrue(secondCheckPass);
+	}
+
+	public void checkDependsOnMe(String templateName, WebElement element) {
 		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
 		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
-		switch (componentName) {
-		case "Latest Articles Widget":
-			Assert.assertTrue(dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"));
-			Assert.assertTrue(dependentItemLocation
-					.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"));
-			break;
-		case "Header":
-			Assert.assertTrue(dependentItemName.equalsIgnoreCase(""));
-			Assert.assertTrue(
-					dependentItemLocation.equalsIgnoreCase("/site/website/crafter-level-descriptor.level.xml"));
-			break;
-		case "Left Rail with Latest Articles":
-			boolean firstCheckPass = false;
-			boolean secondCheckPass = false;
-			if ((dependentItemName.equalsIgnoreCase("Home"))
-					|| (dependentItemName.equalsIgnoreCase("Search Results"))) {
-				firstCheckPass = true;
-			}
-			if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))
-					|| (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
-				secondCheckPass = true;
-			}
-			Assert.assertTrue(firstCheckPass);
-			Assert.assertTrue(secondCheckPass);
-			break;
 
+		switch (templateName) {
+		case "article.ftl":
+			checkDependsOnMeArticleFTL(dependentItemName, dependentItemLocation);
+			break;
+		case "category-landing.ftl":
+			checkDependsOnMeCategoryLandingFTL(dependentItemName, dependentItemLocation);
+			break;
+		case "home.ftl":
+			checkDependsOnMeHomeFTL(dependentItemName, dependentItemLocation);
+			break;
+		case "search-results.ftl":
+			checkDependsOnMeSearchResultsFTL(dependentItemName, dependentItemLocation);
+			break;
 		default:
-			throw new IllegalArgumentException("No component case for provided component name: " + componentName);
+			throw new IllegalArgumentException("No template case for provided template name: " + templateName);
 		}
 	}
 
-	public void checkDependenciesForRefersToAComponent(String componentName) {
+	public void checkDependentItemsForTemplate(String templateName, WebElement element, boolean dependsOn) {
+		if (dependsOn) {
+			checkDependsOn(templateName, element);
+		} else {
+			checkDependsOnMe(templateName, element);
+		}
+	}
+
+	public void checkDependenciesForTemplateItem(String templateName, boolean dependsOn) {
 		this.driverManager.waitForAnimation();
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		//checking if the item name is the correct on the dependencies dialog 
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
-		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(componentName));
-		
+		// checking if the item name is the correct on the dependencies dialog
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				dependenciesForXpath);
+		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(templateName));
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
-		categoriesDropDown.selectByValue("depends-on");
+		if (dependsOn) {
+			// depends on case
+			categoriesDropDown.selectByValue("depends-on");
+
+		} else {
+			// depends on me case
+			categoriesDropDown.selectByValue("depends-on-me");
+		}
+
 		this.driverManager.waitForFullExpansionOfTree();
 		List<WebElement> dependeciesItems = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
-		this.checkNumberOfDependentItems(componentName, dependeciesItems);
+		this.checkNumberOfItemOnDependencies(templateName, dependeciesItems, dependsOn);
 		for (WebElement webElement : dependeciesItems) {
-			this.checkDependentItemsForComponent(componentName, webElement);
+			checkDependentItemsForTemplate(templateName, webElement, dependsOn);
 		}
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 	}
 
-	public void checkNumberOfDependentItems(String componentName, List<WebElement> dependeciesItems) {
-		switch (componentName) {
-		case "Latest Articles Widget":
-			Assert.assertTrue(dependeciesItems.size() == 1);
-			break;
-		case "Header":
-			Assert.assertTrue(dependeciesItems.size() == 1);
-			break;
-		case "Left Rail with Latest Articles":
-			Assert.assertTrue(dependeciesItems.size() == 2);
-			break;
-		case "book-woman-pic.jpg":
-			Assert.assertTrue(dependeciesItems.size() == 1);
-			break;
-		case "article.ftl":
-			Assert.assertTrue(dependeciesItems.size() == 10);
-			break;
-		case "category-landing.ftl":
-			Assert.assertTrue(dependeciesItems.size() == 4);
-			break;
-		case "home.ftl":
-			Assert.assertTrue(dependeciesItems.size() == 1);
-			break;
-		case "search-results.ftl":
-			Assert.assertTrue(dependeciesItems.size() == 1);
-			break;
-		case "category-landing.groovy":
-			Assert.assertTrue(dependeciesItems.size() == 4);
-			break;
-		case "home.groovy":
-			Assert.assertTrue(dependeciesItems.size() == 1);
-			break;
-		case "search-results.groovy":
-			Assert.assertTrue(dependeciesItems.size() == 1);
-			break;
-		case "ie8.css":
-			Assert.assertTrue(dependeciesItems.size() == 6);
-			break;
-		case "jquery.min.js":
-			Assert.assertTrue(dependeciesItems.size() == 6);
-			break;
-		default:
-			throw new IllegalArgumentException("No case for provided item name: " + componentName);
+	public void checkDependentItemsForComponent(String componentName, WebElement element, boolean dependsOn) {
+		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
+		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
+		boolean firstCheckPass = false;
+		boolean secondCheckPass = false;
+
+		if (dependsOn) {
+			switch (componentName) {
+			case "Latest Articles Widget":
+				Assert.assertTrue(dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"));
+				Assert.assertTrue(dependentItemLocation
+						.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"));
+				break;
+			case "Header":
+				Assert.assertTrue(dependentItemName.equalsIgnoreCase(""));
+				Assert.assertTrue(
+						dependentItemLocation.equalsIgnoreCase("/site/website/crafter-level-descriptor.level.xml"));
+				break;
+			case "Left Rail with Latest Articles":
+				if ((dependentItemName.equalsIgnoreCase("Home"))
+						|| (dependentItemName.equalsIgnoreCase("Search Results"))) {
+					firstCheckPass = true;
+				}
+				if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
+					secondCheckPass = true;
+				}
+				Assert.assertTrue(firstCheckPass);
+				Assert.assertTrue(secondCheckPass);
+				break;
+			default:
+				throw new IllegalArgumentException("No component case for provided component name: " + componentName);
+			}
+		} else {
+			switch (componentName) {
+			case "Latest Articles Widget":
+				if ((dependentItemName.equalsIgnoreCase("latest-articles.groovy"))
+						|| (dependentItemName.equalsIgnoreCase("articles-widget.ftl"))) {
+					firstCheckPass = true;
+				}
+				if ((dependentItemLocation.equalsIgnoreCase("/scripts/components/latest-articles.groovy"))
+						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/components/articles-widget.ftl"))) {
+					secondCheckPass = true;
+				}
+				break;
+			case "Header":
+				if ((dependentItemName.equalsIgnoreCase("header.ftl"))) {
+					firstCheckPass = true;
+				}
+				if ((dependentItemLocation.equalsIgnoreCase("/templates/web/components/header.ftl"))) {
+					secondCheckPass = true;
+				}
+				break;
+			case "Four":
+				if ((dependentItemName.equalsIgnoreCase("feature.ftl"))) {
+					firstCheckPass = true;
+				}
+				if ((dependentItemLocation.equalsIgnoreCase("/templates/web/components/feature.ftl"))) {
+					secondCheckPass = true;
+				}
+				break;
+			case "Left Rail with Latest Articles":
+				if ((dependentItemName.equalsIgnoreCase("left-rail.ftl"))
+						|| (dependentItemName.equalsIgnoreCase("Latest Articles Widget"))
+						|| (dependentItemName.equalsIgnoreCase("Contact Widget"))) {
+					firstCheckPass = true;
+				}
+				if ((dependentItemLocation.equalsIgnoreCase("/templates/web/components/left-rail.ftl"))
+						|| (dependentItemLocation
+								.equalsIgnoreCase("/site/components/articles-widget/latest-articles-widget.xml"))
+						|| (dependentItemLocation.equalsIgnoreCase("/site/components/contacts/contact-widget.xml"))) {
+					secondCheckPass = true;
+				}
+				break;
+			default:
+				throw new IllegalArgumentException("No component case for provided component name: " + componentName);
+			}
+		}
+
+	}
+
+	public void checkDependenciesForComponentItem(String componentName, boolean dependsOn) {
+		this.driverManager.waitForAnimation();
+		// Switch to the frame
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo().activeElement();
+		driverManager.waitUntilPageLoad();
+		// checking if the item name is the correct on the dependencies dialog
+		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				dependenciesForXpath);
+		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(componentName));
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
+		Select categoriesDropDown = new Select(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		if (dependsOn) {
+			// depends on case
+			categoriesDropDown.selectByValue("depends-on");
+		} else {
+			// depends on me case
+			categoriesDropDown.selectByValue("depends-on-me");
+		}
+
+		this.driverManager.waitForFullExpansionOfTree();
+		List<WebElement> dependeciesItems = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
+				.findElements(By.tagName("tr"));
+		this.checkNumberOfItemOnDependencies(componentName, dependeciesItems, dependsOn);
+		for (WebElement webElement : dependeciesItems) {
+			this.checkDependentItemsForComponent(componentName, webElement, dependsOn);
+		}
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+				.click();
+	}
+
+	public void checkNumberOfItemOnDependencies(String componentName, List<WebElement> dependeciesItems,
+			boolean dependsOn) {
+		if (dependsOn) {
+			switch (componentName) {
+			case "Latest Articles Widget":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "Header":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "Left Rail with Latest Articles":
+				Assert.assertTrue(dependeciesItems.size() == 2);
+				break;
+			case "book-woman-pic.jpg":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "article.ftl":
+				Assert.assertTrue(dependeciesItems.size() == 10);
+				break;
+			case "category-landing.ftl":
+				Assert.assertTrue(dependeciesItems.size() == 4);
+				break;
+			case "home.ftl":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "search-results.ftl":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "category-landing.groovy":
+				Assert.assertTrue(dependeciesItems.size() == 4);
+				break;
+			case "home.groovy":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "search-results.groovy":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "ie8.css":
+				Assert.assertTrue(dependeciesItems.size() == 6);
+				break;
+			case "jquery.min.js":
+				Assert.assertTrue(dependeciesItems.size() == 6);
+				break;
+			default:
+				throw new IllegalArgumentException("No case for provided item name: " + componentName);
+			}
+		} else {
+			switch (componentName) {
+			case "Home":
+				Assert.assertTrue(dependeciesItems.size() == 6);
+				break;
+			case "Style":
+				Assert.assertTrue(dependeciesItems.size() == 2);
+				break;
+			case "Women Styles for Winter":
+				Assert.assertTrue(dependeciesItems.size() == 2);
+				break;
+			case "Testing1":
+				Assert.assertTrue(dependeciesItems.size() == 2);
+				break;
+			case "Search Results":
+				Assert.assertTrue(dependeciesItems.size() == 3);
+				break;
+			case "Latest Articles Widget":
+				Assert.assertTrue(dependeciesItems.size() == 2);
+				break;
+			case "Header":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "Four":
+				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "Left Rail with Latest Articles":
+				Assert.assertTrue(dependeciesItems.size() == 3);
+				break;
+			case "article.ftl":
+				Assert.assertTrue(dependeciesItems.size() == 12);
+				break;
+			case "category-landing.ftl":
+				Assert.assertTrue(dependeciesItems.size() == 12);
+				break;
+			case "home.ftl":
+				Assert.assertTrue(dependeciesItems.size() == 12);
+				break;
+			case "search-results.ftl":
+				Assert.assertTrue(dependeciesItems.size() == 13);
+				break;
+			default:
+				throw new IllegalArgumentException("No case for provided item name: " + componentName);
+			}
 		}
 	}
 
