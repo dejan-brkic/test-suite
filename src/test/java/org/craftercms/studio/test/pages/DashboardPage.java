@@ -295,6 +295,7 @@ public class DashboardPage {
 	public void expandHomeTree() {
 		// Expand global entry content
 		logger.info("Expanding Home tree");
+		this.driverManager.waitForFullExpansionOfTree();
 		this.clickGlobalEntryContent();
 	}
 
