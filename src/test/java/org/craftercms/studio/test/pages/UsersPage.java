@@ -84,6 +84,7 @@ public class UsersPage {
 
 	public void clickDeleteOption() {
 		logger.info("Deleting user");
+		this.driverManager.waitForAnimation();
 		WebElement previewLink = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				deleteUserOption);
 		previewLink.click();

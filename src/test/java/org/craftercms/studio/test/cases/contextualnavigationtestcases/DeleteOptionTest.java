@@ -91,6 +91,8 @@ public class DeleteOptionTest extends StudioBaseTest {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		String contentDelete = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
 		Assert.assertEquals(contentDelete, "/test1");
