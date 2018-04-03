@@ -50,6 +50,11 @@ public class CreateGroupAPITest {
 		groupManagementAPI.testCreateStudioGroupAlreadyExists(siteManagementAPI.getSiteId());
 	}
 	
+	@Test(priority = 4,groups={"createGroup"})
+	public void testSiteNotFound() {
+		groupManagementAPI.testCreateStudioGroupSiteNotFound(siteManagementAPI.getSiteId());
+	}
+	
 	@AfterGroups(groups={"createGroup"})
 	public void afterTest() {
 		siteManagementAPI.testDeleteSite(siteId);

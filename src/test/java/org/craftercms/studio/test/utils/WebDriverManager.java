@@ -637,7 +637,7 @@ public class WebDriverManager {
 		} else {
 			selector = "div.yui-module.yui-overlay.yuimenu.visible";
 		}
-		
+
 		WebElement menu = waitUntilElementIsClickable("cssSelector", selector);
 		this.waitForAnimation();
 		actions.run();
@@ -969,5 +969,13 @@ public class WebDriverManager {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void selectAllAndDeleteContentAsFolderValueOnCodeArea(String elementLocator, String newTextValue) {
+		WebElement element = this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", elementLocator);
+		element.click();
+		(new Actions(this.driver)).moveToElement(element).sendKeys(Keys.chord(Keys.CONTROL, "A"))
+				.sendKeys(Keys.chord(Keys.DELETE)).pause(100).sendKeys(Keys.chord(newTextValue)).perform();
+		this.waitForAnimation();
 	}
 }
