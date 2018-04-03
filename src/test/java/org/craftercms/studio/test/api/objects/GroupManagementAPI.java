@@ -96,6 +96,19 @@ public class GroupManagementAPI extends BaseAPI {
 				.json("$.message", is("Group already exists")).debug();
 
 	}
+	
+	public void testCreateStudioGroupSiteNotFound(String siteId) {
+		Map<String, Object> json = new HashMap<>();
+		json.put("group_name", groupName1);
+		json.put("site_id", siteId+"nonvalid");
+		json.put("description", description);
+
+		api.post("/studio/api/1/services/api/1/group/create.json").json(json).execute().status(404)
+				.header("Location",
+						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.json("$.message", is("Site not found")).debug();
+
+	}
 
 	public void testCreateStudioGroupUnauthorized(String siteId) {
 		Map<String, Object> json = new HashMap<>();
@@ -128,6 +141,12 @@ public class GroupManagementAPI extends BaseAPI {
 
 	}
 
+	public void testGetGroupSiteNotFound(String siteId) {
+		api.get("/studio/api/1/services/api/1/group/get.json").urlParam("group_name", groupName1)
+				.urlParam("site_id", siteId + "nonvalid").execute().status(404).json("$.message", is("Site not found")).debug();
+
+	}
+	
 	public void testGetGroupUnauthorized(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/get.json").urlParam("group_name", groupName1)
 				.urlParam("site_id", siteId).execute().status(401).header("Location", is(headerLocationBase
@@ -169,6 +188,12 @@ public class GroupManagementAPI extends BaseAPI {
 	public void testGetUsersPerGroupSiteNotFound(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/users.json").urlParam("group_name", groupName1)
 				.urlParam("site_id", siteId + "nonvalid").execute().status(404).debug();
+
+	}
+	
+	public void testGetUsersPerGroupGroupNotFound(String siteId) {
+		api.get("/studio/api/1/services/api/1/group/users.json").urlParam("group_name", groupName1 + "nonvalid")
+				.urlParam("site_id", siteId).execute().status(404).debug();
 
 	}
 
@@ -229,8 +254,18 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		json.put("description", description + "updated");
 
-		api.post("/studio/api/1/services/api/1/group/update.json").execute().status(404)
+		api.post("/studio/api/1/services/api/1/group/update.json").json(json).execute().status(404)
 				.json("$.message", is("Group not found")).debug();
+	}
+	
+	public void testUpdateGroupSiteNotFound(String siteId) {
+		Map<String, Object> json = new HashMap<>();
+		json.put("group_name", groupName1);
+		json.put("site_id", siteId + "nonvalid");
+		json.put("description", description + "updated");
+
+		api.post("/studio/api/1/services/api/1/group/update.json").json(json).execute().status(404)
+				.json("$.message", is("Site not found")).debug();
 	}
 
 	public void testUpdateGroupUnauthorized(String siteId) {
@@ -268,6 +303,16 @@ public class GroupManagementAPI extends BaseAPI {
 
 		api.post("/studio/api/1/services/api/1/group/delete.json").json(json).execute().status(404)
 				.json("$.message", is("Group not found")).debug();
+
+	}
+	
+	public void testDeleteGroupSiteNotFound(String siteId) {
+		Map<String, Object> json = new HashMap<>();
+		json.put("group_name", groupName1);
+		json.put("site_id", siteId + "nonvalid");
+
+		api.post("/studio/api/1/services/api/1/group/delete.json").json(json).execute().status(404)
+				.json("$.message", is("Site not found")).debug();
 
 	}
 	
@@ -317,6 +362,16 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		api.post("/studio/api/1/services/api/1/group/add-user.json").json(json).execute().status(404)
 				.json("$.message", is("Group not found")).debug();
+
+	}
+
+	public void testAddUserToGroupSiteNotFound(String username, String siteId) {
+		Map<String, Object> json = new HashMap<>();
+		json.put("username", username);
+		json.put("group_name", groupName1);
+		json.put("site_id", siteId + "non-valid");
+		api.post("/studio/api/1/services/api/1/group/add-user.json").json(json).execute().status(404)
+				.json("$.message", is("Site not found")).debug();
 
 	}
 
@@ -382,6 +437,17 @@ public class GroupManagementAPI extends BaseAPI {
 
 		api.post("/studio/api/1/services/api/1/group/remove-user.json")
 				.json(json).execute().status(404).json("$.message", is("User not found"));
+
+	}
+	
+	public void testRemoveUserFromGroupSiteNotFound(String username, String siteId) {
+		Map<String, Object> json = new HashMap<>();
+		json.put("username", username);
+		json.put("group_name", groupName1);
+		json.put("site_id", siteId + "nonvalid");
+
+		api.post("/studio/api/1/services/api/1/group/remove-user.json")
+				.json(json).execute().status(404).json("$.message", is("Site not found"));
 
 	}
 
