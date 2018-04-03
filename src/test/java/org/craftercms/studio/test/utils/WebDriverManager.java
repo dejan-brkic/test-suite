@@ -456,7 +456,6 @@ public class WebDriverManager {
 					this.waitForAnimation();
 					(new Actions(driver)).moveToElement(waitUntilElementIsClickable(selectorType, selectorValue))
 							.build().perform();
-
 					this.waitUntilContentTooltipIsHidden();
 					this.waitForAnimation();
 					(new Actions(driver)).contextClick(waitUntilElementIsClickable(selectorType, selectorValue)).build()
@@ -630,8 +629,15 @@ public class WebDriverManager {
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
 	}
 
-	public void usingContextMenu(Runnable actions) {
-		String selector = "div.yui-module.yui-overlay.yuimenu.wcm-root-folder-context-menu.visible";
+	public void usingContextMenu(Runnable actions, String menuOption) {
+		String selector;
+		if ((menuOption.equalsIgnoreCase("Pages")) || (menuOption.equalsIgnoreCase("Components"))
+				|| (menuOption.equalsIgnoreCase("Taxonomy"))) {
+			selector = "div.yui-module.yui-overlay.yuimenu.wcm-root-folder-context-menu.visible";
+		} else {
+			selector = "div.yui-module.yui-overlay.yuimenu.visible";
+		}
+		
 		WebElement menu = waitUntilElementIsClickable("cssSelector", selector);
 		this.waitForAnimation();
 		actions.run();
@@ -785,13 +791,6 @@ public class WebDriverManager {
 		}
 	}
 
-	public void waitForPasteTreeProcess() {
-		try {
-			Thread.sleep(35000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 	public void waitForDeliveryRefresh() {
 		try {
 			// wait for a minute for delivery refresh
@@ -949,4 +948,26 @@ public class WebDriverManager {
 			this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).click();
 	}
 
+	public void fileUploadUsingSendKeys(String locator, String filePath) {
+		By selector = getSelector("xpath", locator);
+		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.elementToBeClickable(selector));
+		WebElement element;
+
+		try {
+			element = driver.findElement(selector);
+		} catch (NoSuchElementException e) {
+			logger.warn("Element has been removed {}, {}", "xpath", locator);
+			element = waitUntilElementIsDisplayed("xpath", locator);
+		}
+
+		element.sendKeys(filePath);
+	}
+
+	public void waitForBulkPublish(int waitTimeOut) {
+		try {
+			Thread.sleep(waitTimeOut);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -89,8 +89,14 @@ public class DeleteOptionTest extends StudioBaseTest {
 
 		previewPage.clickOnOKDeleteDependencies();
 
+		this.driverManager.waitUntilSidebarOpens();
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
+		
+		this.driverManager.waitForAnimation();
 		String contentDelete = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
 		Assert.assertEquals(contentDelete, "/test1");

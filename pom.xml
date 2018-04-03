@@ -4,7 +4,7 @@
 	<groupId>org.craftercms</groupId>
 	<artifactId>studio-test-suite</artifactId>
 	<packaging>jar</packaging>
-	<version>3.0.9</version>
+	<version>3.0.10</version>
 	<name>studio-test-suite</name>
 	<description>Crafter CMS Integration Test Suite</description>
 	<url>https://github.com/craftercms/test-suite</url>
@@ -76,7 +76,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-chrome-driver</artifactId>
-			<version>3.8.1</version>
+			<version>3.11.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -106,7 +106,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-api</artifactId>
-			<version>3.8.1</version>
+			<version>3.11.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -162,19 +162,19 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-remote-driver</artifactId>
-			<version>3.8.1</version>
+			<version>3.11.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.8.1</version>
+			<version>3.11.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-firefox-driver</artifactId>
-			<version>3.8.1</version>
+			<version>3.11.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
 		<dependency>
@@ -191,7 +191,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-edge-driver</artifactId>
-			<version>3.8.1</version>
+			<version>3.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.detro</groupId>

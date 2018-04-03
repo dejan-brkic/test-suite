@@ -330,7 +330,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitUntilSidebarOpens();
-		});
+		},"Pages");
 	}
 
 	public void step6() {
@@ -385,7 +385,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 	}
 
 	public void expandTheArticles2017folder() {
@@ -453,7 +453,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 
 	}
 

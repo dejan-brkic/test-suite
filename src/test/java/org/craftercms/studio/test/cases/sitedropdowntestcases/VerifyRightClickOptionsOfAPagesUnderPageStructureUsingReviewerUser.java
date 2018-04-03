@@ -240,7 +240,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 	}
 
 	public void step6() {
@@ -275,7 +275,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 	}
 
 	public void step8() {
@@ -324,7 +324,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 		
 	}
 	
@@ -539,10 +539,17 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
-		this.driverManager.waitForAnimation();
-
 		// Expand the site bar
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
+		this.driverManager.waitForAnimation();
+		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				.isDisplayed()) {
+			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+					.getAttribute("class").contains("site-dropdown-open")))
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+						.click();
+		}else
+				throw new NoSuchElementException(
+						"Site creation process is taking too long time and the element was not found");
 		
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 		

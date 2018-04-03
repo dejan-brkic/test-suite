@@ -374,7 +374,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// selecting the Publish option
 		driverManager.usingContextMenu(() -> {
 			dashboardPage.clickOnPublishOption();
-		});
+		},"Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
 		this.confirmPublishAction();
 		this.driverManager.waitUntilPublishMaskedModalCloses();
@@ -390,7 +390,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// selecting the Publish option
 		driverManager.usingContextMenu(() -> {
 			dashboardPage.clickOnPublishOption();
-		});
+		},"Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
 		this.confirmPublishAction();
 		this.driverManager.waitUntilPublishMaskedModalCloses();
@@ -406,7 +406,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// selecting the Publish option
 		driverManager.usingContextMenu(() -> {
 			dashboardPage.clickOnPublishOption();
-		});
+		},"Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
 		this.confirmPublishAction();
 		this.driverManager.waitUntilPublishMaskedModalCloses();
@@ -468,6 +468,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	}
 
 	public void step3() {
+		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", harnessFolderLocator);
 		this.createFolderOnAPresentFolder(myTestFolderName, harnessFolderLocator);
 
@@ -492,6 +493,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	}
 
 	public void step5() {
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", harnessFolderLocator);
 		this.createFolderOnAPresentFolder(anotherTestFolderName, harnessFolderLocator);
 	}

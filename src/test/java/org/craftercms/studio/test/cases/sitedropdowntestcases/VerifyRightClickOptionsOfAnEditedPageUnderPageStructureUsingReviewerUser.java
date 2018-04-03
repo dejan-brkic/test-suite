@@ -238,7 +238,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			this.driverManager.waitUntilSidebarOpens();
 			this.driverManager.waitForAnimation();
 
-		});
+		},"Pages");
 	}
 
 	public void step6() {
@@ -277,7 +277,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitUntilSidebarOpens();
 			this.driverManager.waitForAnimation();
-		});
+		},"Pages");
 	}
 
 	public void step8() {
@@ -327,7 +327,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			verifyDependenciesOptionIsPresent(section);
 
 			this.driverManager.getDriver().navigate().refresh();
-		});
+		},"Pages");
 
 	}
 
@@ -420,7 +420,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 	public void addNewUser() {
 
 		// click On Users option
-
+		this.driverManager.waitForAnimation();
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
@@ -588,8 +588,9 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 
 		this.login(userName, password);
 
+		this.driverManager.waitUntilLoginCloses();
+		
 		logger.info("Adding New User");
-
 		this.addNewUser();
 
 		logger.info("Go to Site Preview");

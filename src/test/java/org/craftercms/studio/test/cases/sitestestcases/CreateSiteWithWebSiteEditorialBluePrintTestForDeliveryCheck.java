@@ -1,5 +1,6 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.annotations.Test;
 import org.testng.Assert;
@@ -12,12 +13,14 @@ import org.testng.annotations.BeforeMethod;
  *
  */
 
-//related to ticket on windows: https://github.com/craftercms/craftercms/issues/1905
+// related to ticket on windows:
+// https://github.com/craftercms/craftercms/issues/1905
 public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends StudioBaseTest {
 
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
+	private String siteId;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -25,6 +28,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
+		siteId="testsite" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
 	}
 
 	@Test(priority = 0)
@@ -39,8 +43,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		homePage.clickOnCreateSiteButton();
 
 		// Filling the name of site
-
-		createSitePage.fillSiteName("testsitefordeliverytest");
+		createSitePage.fillSiteName(siteId);
 
 		// Filling the description of the site
 
@@ -58,12 +61,17 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.isDisplayed());
 
-		// go to delivery folder and init site for test	
-		int exitCode = this.driverManager.goToFolderAndExecuteInitSiteScriptThroughCommandLine(
-				"testsitefordeliverytest");
+		// go to delivery folder and init site for test
+		int exitCode = this.driverManager
+				.goToFolderAndExecuteInitSiteScriptThroughCommandLine(siteId);
+			
+		Assert.assertTrue(exitCode == 0, "Init site process failed");
 		
-		Assert.assertTrue(exitCode == 0,"Init site process failed");
+		//saving the siteId for the dependent test cases to this test case.
+		constantsPropertiesManager.setProperty("general.currentsiteid", siteId);
 	}
 }
