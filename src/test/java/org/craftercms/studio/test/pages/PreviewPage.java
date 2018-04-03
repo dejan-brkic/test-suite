@@ -388,6 +388,56 @@ public class PreviewPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
 	}
 
+	public void modifyPageXMLDefinitionContentAsFolder(String configurationSetUp) {
+		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
+				.contains("site-dropdown-open")))
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
+		// go to admin console page
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
+		// select content types
+		siteConfigPage.selectContentTypeOption();
+		// open content types
+		siteConfigPage.clickExistingTypeOption();
+		// Confirm the content type selected
+		siteConfigPage.confirmContentTypeSelected();
+		// wait for element is clickeable
+		driverManager.getDriver().switchTo().defaultContent();
+		// select main content
+		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
+		this.driverManager.waitForAnimation();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				".//div[@class='property-label label-configuration']/../input").click();
+
+		// Click on pencil icon
+		this.driverManager.waitForAnimation();
+		// this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
+		// lastPropertiesElementCssSelector);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				".//div[@class='property-label label-configuration']/../div[@class='options']/div").click();
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.getDriver().switchTo().activeElement();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@class='CodeMirror-lines']//div[3]").click();
+		this.driverManager
+				.selectAllAndDeleteContentAsFolderValueOnCodeArea("//div[@class='CodeMirror-lines']//div[3]/pre[7]",configurationSetUp);
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@id='template-editor-update-button']").click();
+
+		// save
+		this.driverManager.waitForAnimation();
+		siteConfigPage.saveDragAndDropProcess();
+		driverManager.getDriver().switchTo().defaultContent();
+		// go to dashboard
+		this.driverManager.getDriver().navigate().refresh();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+	}
+
 	public void changeBodyOfArticlePageToNotRequired() {
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
@@ -935,11 +985,10 @@ public class PreviewPage {
 		Assert.assertTrue(secondCheckPass);
 	}
 
-	
 	public void checkDependsOnHomeFTL(String dependentItemName, String dependentItemLocation) {
 		boolean firstCheckPass = false;
 		boolean secondCheckPass = false;
-		
+
 		if (dependentItemName.equalsIgnoreCase("Home")) {
 			firstCheckPass = true;
 		}
@@ -949,11 +998,11 @@ public class PreviewPage {
 		Assert.assertTrue(firstCheckPass);
 		Assert.assertTrue(secondCheckPass);
 	}
-	
+
 	public void checkDependsOnSearchResultsFTL(String dependentItemName, String dependentItemLocation) {
 		boolean firstCheckPass = false;
 		boolean secondCheckPass = false;
-		
+
 		if (dependentItemName.equalsIgnoreCase("Search Results")) {
 			firstCheckPass = true;
 		}
@@ -963,7 +1012,7 @@ public class PreviewPage {
 		Assert.assertTrue(firstCheckPass);
 		Assert.assertTrue(secondCheckPass);
 	}
-	
+
 	public void checkDependsOn(String templateName, WebElement element) {
 		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
 		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();

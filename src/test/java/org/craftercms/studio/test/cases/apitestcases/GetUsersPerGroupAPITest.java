@@ -53,6 +53,11 @@ public class GetUsersPerGroupAPITest {
 	}
 	
 	@Test(priority=3,groups={"getUsersPerGroup"})
+	public void testGetUsersGroupNotFound() {
+		groupManagementAPI.testGetUsersPerGroupGroupNotFound(siteManagementAPI.getSiteId());
+	}
+	
+	@Test(priority=4,groups={"getUsersPerGroup"})
 	public void testGetUsersSiteNotFound() {
 		groupManagementAPI.testGetUsersPerGroupSiteNotFound(siteManagementAPI.getSiteId());
 	}
