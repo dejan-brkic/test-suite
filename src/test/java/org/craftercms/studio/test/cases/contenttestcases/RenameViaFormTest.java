@@ -148,6 +148,8 @@ public class RenameViaFormTest extends StudioBaseTest {
 
 	public void step3() {
 		// expand pages folder
+		this.driverManager.waitUntilSidebarOpens();
+		this.driverManager.waitForAnimation();
 		dashboardPage.expandPagesTree();
 
 		// reload page
