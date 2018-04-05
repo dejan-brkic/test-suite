@@ -893,4 +893,14 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test name="Verify that studio allows to cut and paste content to folder (page.xml move to folder)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.CutPasteToFolderTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
