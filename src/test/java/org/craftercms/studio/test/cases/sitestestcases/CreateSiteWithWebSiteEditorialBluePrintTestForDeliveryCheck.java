@@ -28,7 +28,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteId="testsite" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
+		siteId = "testsite" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
 	}
 
 	@Test(priority = 0)
@@ -55,7 +55,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		createSitePage.selectWebSiteEditorialBluePrintOption();
 
 		// Click on Create button
-
+		this.driverManager.waitForAnimation();
 		createSitePage.clickOnCreateSiteButton();
 
 		this.driverManager.waitForAnimation();
@@ -66,12 +66,11 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 				.isDisplayed());
 
 		// go to delivery folder and init site for test
-		int exitCode = this.driverManager
-				.goToFolderAndExecuteInitSiteScriptThroughCommandLine(siteId);
-			
+		int exitCode = this.driverManager.goToFolderAndExecuteInitSiteScriptThroughCommandLine(siteId);
+
 		Assert.assertTrue(exitCode == 0, "Init site process failed");
-		
-		//saving the siteId for the dependent test cases to this test case.
+
+		// saving the siteId for the dependent test cases to this test case.
 		constantsPropertiesManager.setProperty("general.currentsiteid", siteId);
 	}
 }

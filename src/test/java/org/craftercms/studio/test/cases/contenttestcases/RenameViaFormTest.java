@@ -144,11 +144,12 @@ public class RenameViaFormTest extends StudioBaseTest {
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
 						.getText().contains("/foo.xml"));
-
 	}
 
 	public void step3() {
 		// expand pages folder
+		this.driverManager.waitUntilSidebarOpens();
+		this.driverManager.waitForAnimation();
 		dashboardPage.expandPagesTree();
 
 		// reload page
@@ -195,7 +196,6 @@ public class RenameViaFormTest extends StudioBaseTest {
 		}, "Pages");
 
 		this.driverManager.waitForAnimation();
-
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// check that the edit form was opened
 			// step 4

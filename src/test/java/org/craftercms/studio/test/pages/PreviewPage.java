@@ -712,6 +712,8 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
+		this.driverManager.waitForAnimation();
+		
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
