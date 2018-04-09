@@ -120,7 +120,7 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 
 	}
 
-	public void setup() {
+	public void loginAndChangeContentTypeConfiguration() {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -134,7 +134,9 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 
 		// modify page XML definition
 		this.modifyPageXMLDefinition();
+	}
 
+	public void createContentAndFolder() {
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
@@ -153,7 +155,9 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 
 		// reload page
 		driverManager.getDriver().navigate().refresh();
+	}
 
+	public void goToDashboardAndManageContents() {
 		// click on dashboard
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
@@ -232,6 +236,16 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
 						.getText().contains("/foo.xml"));
 	}
+	
+	public void setup() {
+
+		this.loginAndChangeContentTypeConfiguration();
+		
+		this.createContentAndFolder();
+		
+		this.goToDashboardAndManageContents();
+	
+	}
 
 	public void step4() {
 		this.driverManager.waitUntilSidebarOpens();
@@ -258,15 +272,16 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 					pasteContent);
 			pasteContentElement.click();
 		}, "Pages");
-		
+
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderSecondChildContent).isDisplayed());
-		
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderSecondChildContent)
+				.isDisplayed());
+
 		this.secondPasteContentText = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderSecondChildContent).getText();
-		}
+	}
 
 	public void step6() {
 		// click on dashboard
@@ -284,11 +299,11 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
 						.getText().contains(secondPasteContentText));
 		this.driverManager.waitForAnimation();
-		
-		String pageUrl = secondPasteContentText.replace("foo ", "foo-")+".xml";
+
+		String pageUrl = secondPasteContentText.replace("foo ", "foo-") + ".xml";
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
-						.getText().contains("/a-folder/"+pageUrl));
+						.getText().contains("/a-folder/" + pageUrl));
 
 		this.driverManager.waitForAnimation();
 		Assert.assertTrue(
@@ -298,7 +313,7 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
 						.getText().contains("/a-folder/foo.xml"));
-		
+
 		this.driverManager.waitForAnimation();
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityThirdContentName)
@@ -307,8 +322,7 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityThirdContentURL)
 						.getText().contains("/foo.xml"));
-		
-		
+
 	}
 
 	@Test(priority = 0)
