@@ -71,6 +71,7 @@ public class HistoryOptionTest extends StudioBaseTest{
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo);
 		
 		// expand home content
+		this.driverManager.waitForAnimation();
 		previewPage.expandHomeTree();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath).click();

@@ -114,6 +114,7 @@ public class DeleteContentTest extends StudioBaseTest {
 		dashboardPage.clickOKSubmittalComplete();
 
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitForFullExpansionOfTree();
 		String contentDeleted = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
 		Assert.assertEquals(contentDeleted, "/test1");

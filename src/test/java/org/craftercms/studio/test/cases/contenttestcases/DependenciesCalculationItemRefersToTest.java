@@ -251,6 +251,7 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage);
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage)
 				.click();
 
