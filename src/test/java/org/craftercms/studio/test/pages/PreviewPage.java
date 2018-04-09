@@ -1492,6 +1492,7 @@ public class PreviewPage {
 		this.driverManager.getDriver().switchTo().activeElement();
 		// wait for bulk publish notification according with length of tree to be
 		// published
+		this.driverManager.waitForAnimation();
 		this.driverManager.waitForBulkPublish(waitTimeForPublish);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
 				.isDisplayed());
