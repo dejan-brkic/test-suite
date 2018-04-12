@@ -568,6 +568,17 @@ public class WebDriverManager {
 		}
 	}
 
+	public void waitUntilDashboardLoadingAnimationIsNotDisplayed() {
+		logger.debug("Waiting for loading animation is gone");
+		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-MyRecentActivity']");
+		waitUntilElementIsHidden(element);
+	}
+
+	public void waitUntilHomeIsOpened() {
+		logger.debug("Waiting for home childs are displayed");
+		this.waitUntilElementIsDisplayed("xpath", ".//span[text()='Home']/../../../../../div[@class='ygtvchildren']");
+	}
+
 	public void waitUntilSiteConfigMaskedModalCloses() {
 		logger.debug("Waiting for publish dialog to close");
 		this.waitForAnimation();
