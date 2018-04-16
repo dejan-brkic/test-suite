@@ -1455,9 +1455,10 @@ public class PreviewPage {
 	}
 
 	public void bulkPublish(String path, int waitTimeForPublish) {
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id",
+		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id",
 				"admin-console");
 		siteConfigButton.click();
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteconfigPublishingOperationsoption);
 		this.driverManager.waitForAnimation();
