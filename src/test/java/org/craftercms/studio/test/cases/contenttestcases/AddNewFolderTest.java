@@ -67,7 +67,11 @@ public class AddNewFolderTest extends StudioBaseTest {
 		
 		dashboardPage.expandHomeTree();
 		
+	
 		this.driverManager.waitUntilFolderOpens("xpath", homeTree);
+		
+		driverManager.getDriver().navigate().refresh();
+		this.driverManager.waitUntilHomeIsOpened();
 		
 		// Assert find the new folder created	
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", newFolderXpath);
