@@ -22,7 +22,6 @@ public class HistoryOptionTest extends StudioBaseTest{
 	private String siteDropdownXpath;
 	private String homeXpath;
 	private String historyDialogTitle;
-	private String studioLogo;
 	private String actionsHeaderXpath;
 	private String siteDropdownListElementXPath;
 
@@ -39,8 +38,6 @@ public class HistoryOptionTest extends StudioBaseTest{
 				.getProperty("general.home");
 		historyDialogTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.historydialogtitle");
-		studioLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.studiologo");
 		actionsHeaderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.historydialogactionsheader");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -65,14 +62,10 @@ public class HistoryOptionTest extends StudioBaseTest{
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteDropdownXpath).click();
 		
+		this.driverManager.waitUntilSidebarOpens();
+		
 		// expand pages folder
 		previewPage.expandPagesTree();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo);
-		
-		// expand home content
-		this.driverManager.waitForAnimation();
-		previewPage.expandHomeTree();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath).click();
 
