@@ -267,6 +267,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		default:
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
 			Assert.assertTrue(itemURL.contains("/static-assets/page/images/"));
+			break;
 		}
 	}
 
