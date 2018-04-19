@@ -68,7 +68,7 @@ public class RenameViaFormTest extends StudioBaseTest {
 	}
 
 	public void modifyPageXMLDefinition() {
-		previewPage.modifyPageXMLDefinitionContentAsFolder(configurationSetUp);
+		previewPage.modifyPageXMLDefinitionContentAsFolderEntryContentType(configurationSetUp);
 	}
 
 	public void createContent() {

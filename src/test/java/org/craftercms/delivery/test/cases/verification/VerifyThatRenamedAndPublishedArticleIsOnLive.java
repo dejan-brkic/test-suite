@@ -10,26 +10,27 @@ import org.testng.annotations.Test;
  * @author Luis Hernandez
  *
  */
-
-//Test Case Studio- Site Content ID:2
-public class VerifyThatCutAndPastedLongTreeArticleIsOnLive extends DeliveryBaseTest {
+// Test Case Studio- Site Content ID:40
+public class VerifyThatRenamedAndPublishedArticleIsOnLive extends DeliveryBaseTest {
 	private String pageTitleXpath;
 
 	@BeforeMethod
 	public void beforeTest() {
-		String pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("delivery.verification.longtreearticlepageurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
-		this.driverManager.getDriver().get(pageURL);
 	}
 
 	@Test(priority = 0)
-	public void verifyThatCutAndPastedLongTreeArticleIsOnLive() {
-		this.driverManager.waitForAnimation();
+	public void verifyThatTheRenamedAndPublishedArticleIsOnLiveTest() {
+		//click on entertainment and check the article 
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='Entertainment']").click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='foo']").click();
+		
 		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
-				.getText().equalsIgnoreCase("Men Styles For Winter"));
+				.getText().equalsIgnoreCase("foo"));
+		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl()
+				.equalsIgnoreCase("http://localhost:9080/articles/2016/12/bar.html"));
 	}
 
 }
