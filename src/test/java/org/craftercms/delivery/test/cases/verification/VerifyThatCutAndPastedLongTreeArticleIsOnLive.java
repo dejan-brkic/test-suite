@@ -25,7 +25,7 @@ public class VerifyThatCutAndPastedLongTreeArticleIsOnLive extends DeliveryBaseT
 	}
 
 	@Test(priority = 0)
-	public void verifyThatCopiedAndPastedLongTreeArticleIsOnLive() {
+	public void verifyThatCutAndPastedLongTreeArticleIsOnLive() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
