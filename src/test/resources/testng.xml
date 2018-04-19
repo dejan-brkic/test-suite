@@ -963,4 +963,16 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+		<test name="Verify The Application allows to rename file and publish it (file.xml rename and publish)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLive" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->

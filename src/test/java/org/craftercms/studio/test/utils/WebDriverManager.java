@@ -150,15 +150,15 @@ public class WebDriverManager {
 					throw new IllegalArgumentException(
 							"webBrowser property is needed, valid values are:" + "chrome,edge,ie,firefox,phantomjs");
 				}
-				this.waitForDeliveryRefresh();
-				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
-				this.defaultTimeOut = Integer.parseInt(
-						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
 
 				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
 					this.maximizeWindow();
 				}
 
+				this.waitForDeliveryRefresh();
+				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
+				this.defaultTimeOut = Integer.parseInt(
+						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
 			} catch (IOException ex) {
 				throw new FileNotFoundException("Unable to read runtime properties file");
 			}

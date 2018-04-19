@@ -388,7 +388,7 @@ public class PreviewPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
 	}
 
-	public void modifyPageXMLDefinitionContentAsFolder(String configurationSetUp) {
+	public void modifyPageXMLDefinitionContentAsFolderEntryContentType(String configurationSetUp) {
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
 				.contains("site-dropdown-open")))
@@ -412,18 +412,64 @@ public class PreviewPage {
 				".//div[@class='property-label label-configuration']/../input").click();
 
 		// Click on pencil icon
-		this.driverManager.waitForAnimation();
-		// this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
-		// lastPropertiesElementCssSelector);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				".//div[@class='property-label label-configuration']/../div[@class='options']/div").click();
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo().activeElement();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				".//div[@class='CodeMirror-lines']//div[3]").click();
-		this.driverManager
-				.selectAllAndDeleteContentAsFolderValueOnCodeArea("//div[@class='CodeMirror-lines']//div[3]/pre[7]",configurationSetUp);
+		this.driverManager.selectAllAndDeleteContentAsFolderValueOnCodeArea(
+				"//div[@class='CodeMirror-lines']//div[3]/pre[7]", configurationSetUp);
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@id='template-editor-update-button']").click();
+
+		// save
+		this.driverManager.waitForAnimation();
+		siteConfigPage.saveDragAndDropProcess();
+		driverManager.getDriver().switchTo().defaultContent();
+		// go to dashboard
+		this.driverManager.getDriver().navigate().refresh();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+	}
+
+	public void modifyPageXMLDefinitionContentAsFolderForPageArticle(String configurationSetUp) {
+		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
+				.contains("site-dropdown-open")))
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
+		// go to admin console page
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
+		// select content types
+		siteConfigPage.selectContentTypeOption();
+		// open content types
+		siteConfigPage.clickExistingTypeOption();
+		// select Page Article content type
+		siteConfigPage.selectPageArticleContentType();
+		// Confirm the content type selected
+		siteConfigPage.confirmContentTypeSelected();
+		// wait for element is clickeable
+		driverManager.getDriver().switchTo().defaultContent();
+		// select main content
+		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
+		this.driverManager.waitForAnimation();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				".//div[@class='property-label label-configuration']/../input").click();
+
+		// Click on pencil icon
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@class='property-label label-configuration']/../div[@class='options']/div").click();
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.getDriver().switchTo().activeElement();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@class='CodeMirror-lines']//div[3]").click();
+		this.driverManager.selectAllAndDeleteContentAsFolderValueOnCodeArea(
+				"//div[@class='CodeMirror-lines']//div[3]/pre[7]", configurationSetUp);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -522,7 +568,7 @@ public class PreviewPage {
 		this.driverManager.waitUntilSidebarOpens();
 
 	}
-
+	
 	public void createPageArticleContent(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
@@ -713,7 +759,7 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
 		this.driverManager.waitForAnimation();
-		
+
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
@@ -1458,7 +1504,7 @@ public class PreviewPage {
 		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id",
 				"admin-console");
 		siteConfigButton.click();
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteconfigPublishingOperationsoption);
 		this.driverManager.waitForAnimation();
