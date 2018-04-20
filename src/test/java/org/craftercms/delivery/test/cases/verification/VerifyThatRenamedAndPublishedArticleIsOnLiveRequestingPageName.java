@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
  *
  */
 // Test Case Studio- Site Content ID:40
-public class VerifyThatRenamedAndPublishedArticleIsOnLive extends DeliveryBaseTest {
+public class VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName extends DeliveryBaseTest {
 	private String pageTitleXpath;
 
 	@BeforeMethod
@@ -21,7 +21,7 @@ public class VerifyThatRenamedAndPublishedArticleIsOnLive extends DeliveryBaseTe
 	}
 
 	@Test(priority = 0)
-	public void verifyThatTheRenamedAndPublishedArticleIsOnLiveTest() {
+	public void verifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName() {
 		//click on entertainment and check the article 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='Entertainment']").click();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='foo']").click();
@@ -30,7 +30,7 @@ public class VerifyThatRenamedAndPublishedArticleIsOnLive extends DeliveryBaseTe
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("foo"));
 		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl()
-				.equalsIgnoreCase("http://localhost:9080/articles/2016/12/bar.html"));
+				.equalsIgnoreCase("http://localhost:9080/articles/2016/12/bar"));
 	}
 
 }

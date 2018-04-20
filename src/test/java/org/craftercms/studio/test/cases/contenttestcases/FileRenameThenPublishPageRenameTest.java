@@ -18,8 +18,8 @@ import org.testng.annotations.Test;
  * @author luishernandez
  *
  */
-// Test Case Studio- Site Content ID:40
-public class FileRenameThenPublishTest extends StudioBaseTest {
+// Test Case Studio- Site Content ID:41
+public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -47,7 +47,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 	private String recentlyActivityItemIcon;
 	private String recentlyActivityItemURL;
 	private String recentlyActivityItemConfigurationEditedIcon;
-	private static Logger logger = LogManager.getLogger(FileRenameThenPublishTest.class);
+	private static Logger logger = LogManager.getLogger(FileRenameThenPublishPageRenameTest.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -89,13 +89,13 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.selectall");
 		recentlyActivityTable = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.tablebody");
-		recentlyActivityItemName= uiElementsPropertiesManager.getSharedUIElementsLocators()
+		recentlyActivityItemName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemname");
-		recentlyActivityItemIcon= uiElementsPropertiesManager.getSharedUIElementsLocators()
+		recentlyActivityItemIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemicon");
-		recentlyActivityItemURL= uiElementsPropertiesManager.getSharedUIElementsLocators()
+		recentlyActivityItemURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemurl");
-		recentlyActivityItemConfigurationEditedIcon= uiElementsPropertiesManager.getSharedUIElementsLocators()
+		recentlyActivityItemConfigurationEditedIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
 		configurationSetUp = "<content-as-folder>false</content-as-folder>";
 	}
@@ -112,8 +112,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		logger.info("Create Article Content");
 		this.driverManager.waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("foo", "foo", "foo", folderLocation,
-				selectEntertaimentCategoryCheckBox, selectAllSegmentsCheckBox, "foo", "foo",
-				"foo");
+				selectEntertaimentCategoryCheckBox, selectAllSegmentsCheckBox, "foo", "foo", "foo");
 
 		this.driverManager.waitUntilSidebarOpens();
 	}
@@ -133,9 +132,6 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 
 		// body not required
 		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		// modify page XML definition
-		this.modifyPageXMLDefinition();
 
 		this.driverManager.waitUntilSidebarOpens();
 		// expand pages folder
@@ -224,17 +220,21 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 
 	public void checkRecentActivityItems(WebElement element) {
 		this.driverManager.waitForAnimation();
-		String itemName = element.findElement(By.xpath(recentlyActivityItemName))
-				.getText();
-		String itemIconClass = element
-				.findElement(By.xpath(recentlyActivityItemIcon))
-				.getAttribute("class");
+		String itemName = element.findElement(By.xpath(recentlyActivityItemName)).getText();
+		String itemIconClass = element.findElement(By.xpath(recentlyActivityItemIcon)).getAttribute("class");
 		String itemURL = element.findElement(By.xpath(recentlyActivityItemURL)).getText();
 
 		switch (itemName) {
 		case "foo":
-			Assert.assertTrue(itemIconClass.contains("fa-file-o"));
-			Assert.assertTrue(itemURL.equalsIgnoreCase("/articles/2016/12/foo.xml"));
+			boolean itemIconPassAssert = false;
+			if (itemIconClass.contains("fa-file-o")) {
+				itemIconPassAssert = true;
+				Assert.assertTrue(itemURL.equalsIgnoreCase("/articles/2016/12/foo"));
+			} else if (itemIconClass.contains("fa-folder-o")) {
+				itemIconPassAssert = true;
+				Assert.assertTrue(itemURL.equalsIgnoreCase("/site/website/articles/2016/12/foo"));
+			}
+			Assert.assertTrue(itemIconPassAssert);
 			break;
 		case "page":
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
@@ -276,7 +276,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		this.driverManager.waitUntilSidebarOpens();
 		this.driverManager.waitForAnimation();
 		dashboardPage.expandPagesTree();
-		
+
 		// reload page
 		driverManager.getDriver().navigate().refresh();
 		this.driverManager.waitUntilHomeIsOpened();
@@ -303,7 +303,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		this.driverManager.waitForAnimation();
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
-						.getText().contains("/articles/2016/12/bar.xml"));
+						.getText().contains("/articles/2016/12/bar"));
 	}
 
 	public void step11() {
@@ -341,7 +341,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 	}
 
 	@Test(priority = 0)
-	public void fileRenameFileXMLRenameAndPublishTest() {
+	public void fileRenamePageRenameAndPublishTest() {
 		this.setup();
 
 		this.step3();
@@ -370,7 +370,8 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 					.getText().equalsIgnoreCase("Warning"));
 
 			// step 6
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", warningOkButton).click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", warningOkButton)
+					.click();
 
 			// step 7
 			this.driverManager.waitForAnimation();
@@ -379,11 +380,12 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 			this.driverManager.waitForAnimation();
 
 			// save and close
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElement)
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElement)
 					.click();
 
 		});
-		
+
 		// Step 8 Expected Output
 		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("/studio/site-dashboard"));
 
@@ -391,7 +393,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/articles/2016/12/bar.html"));
+		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/articles/2016/12/bar"));
 
 		// Step 10
 		this.step10();
