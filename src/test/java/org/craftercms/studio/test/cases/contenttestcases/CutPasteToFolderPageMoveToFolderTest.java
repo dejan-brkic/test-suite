@@ -154,7 +154,7 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayed();
+		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
@@ -199,7 +199,7 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyActivitySelectAll));
 
 		categoriesDropDown.selectByValue("all");
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayed();
+		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
 
 		// check items on My Recent Activity widget
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);

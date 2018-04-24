@@ -122,7 +122,7 @@ public class ContentTypesAddInputTest extends StudioBaseTest{
 				contentTypeContainerInputTitleLocator).getText();
 
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
 
 	}
 

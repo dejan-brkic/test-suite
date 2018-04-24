@@ -568,9 +568,23 @@ public class WebDriverManager {
 		}
 	}
 
-	public void waitUntilDashboardLoadingAnimationIsNotDisplayed() {
+	public void waitUntilDashboardWidgetsAreLoaded() {
+		logger.debug("Waiting for dashboard widgets are fully loaded");
+		this.waitUntilAttributeContains("xpath", ".//div[@id='GoLiveQueue']", "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", ".//div[@id='approvedScheduledItems']", "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", ".//div[@id='recentlyMadeLive']", "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", ".//div[@id='MyRecentActivity']", "style", "display: block;");	
+	}
+	
+	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity() {
 		logger.debug("Waiting for loading animation is gone");
 		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-MyRecentActivity']");
+		waitUntilElementIsHidden(element);
+	}
+	
+	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentlyPublished() {
+		logger.debug("Waiting for loading animation is gone");
+		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-recentlyMadeLive']");
 		waitUntilElementIsHidden(element);
 	}
 

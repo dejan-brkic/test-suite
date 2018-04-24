@@ -119,7 +119,7 @@ public class ContentTypesAddRichTextEditorTest extends StudioBaseTest{
 				.getText();
 
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
 
 	}
 }

@@ -124,6 +124,7 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 		// Asserts that fields are not empty.
 		String titleText =this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerAutoFileNameTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
+
 	}
 }

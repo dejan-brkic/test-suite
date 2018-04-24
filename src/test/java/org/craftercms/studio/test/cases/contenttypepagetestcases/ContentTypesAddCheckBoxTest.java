@@ -123,7 +123,7 @@ public class ContentTypesAddCheckBoxTest extends StudioBaseTest{
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerCheckBoxTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
 
 	}
 }

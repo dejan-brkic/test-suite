@@ -100,7 +100,7 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 		// validate the control added
 
 		Assert.assertTrue(driverManager.isElementPresentByXpath(contentFormContentSection));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
 		
 	}
 

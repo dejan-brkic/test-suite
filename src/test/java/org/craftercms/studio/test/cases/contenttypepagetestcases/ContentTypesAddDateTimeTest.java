@@ -132,7 +132,7 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 				contentTypeContainerDateTimeTitleLocator).getText();
 
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
 
 	}
 }

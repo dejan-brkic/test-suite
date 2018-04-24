@@ -146,7 +146,7 @@ public class CopyPasteToFolderPageCopyToFolderTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayed();
+		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
@@ -187,7 +187,7 @@ public class CopyPasteToFolderPageCopyToFolderTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayed();
+		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 

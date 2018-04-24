@@ -111,7 +111,8 @@ public class ContentTypesAddDataSourceImageUploadedFromDesktopTest extends Studi
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 						contentTypeContainerImageUploadedFromDesktopTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
+
 
 	}
 

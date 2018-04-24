@@ -18,8 +18,8 @@ import org.testng.annotations.Test;
  * @author luishernandez
  *
  */
-// Test Case Studio- Site Content ID:41
-public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
+// Test Case Studio- Site Content ID:42
+public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -47,7 +47,10 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	private String recentlyActivityItemIcon;
 	private String recentlyActivityItemURL;
 	private String recentlyActivityItemConfigurationEditedIcon;
-	private static Logger logger = LogManager.getLogger(FileRenameThenPublishPageRenameTest.class);
+	private String recentlyPublishedContentName;
+	private String recentlyPublishedContentURL;
+	private String recentlyPublishedSelectAll;
+	private static Logger logger = LogManager.getLogger(FileRenameRenameThenPublishTest.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -65,6 +68,10 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.contenturl");
 		recentActivityContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.contentname");
+		recentlyPublishedContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.myrecentlypublished.contentname");
+		recentlyPublishedContentURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.myrecentlypublished.contenturl");
 		fooContentXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.foocontent");
 		editURLButton = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("frame1.editurlbutton");
 		warningTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -87,6 +94,8 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 				.getProperty("general.statustopbaricon");
 		recentlyActivitySelectAll = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.selectall");
+		recentlyPublishedSelectAll = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.myrecentlypublished.selectall");
 		recentlyActivityTable = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.tablebody");
 		recentlyActivityItemName = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -132,6 +141,9 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 		// body not required
 		this.changeBodyToNotRequiredOnPageArticleContent();
+
+		// modify page XML definition
+		this.modifyPageXMLDefinition();
 
 		this.driverManager.waitUntilSidebarOpens();
 		// expand pages folder
@@ -226,15 +238,8 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 		switch (itemName) {
 		case "foo":
-			boolean itemIconPassAssert = false;
-			if (itemIconClass.contains("fa-file-o")) {
-				itemIconPassAssert = true;
-				Assert.assertTrue(itemURL.equalsIgnoreCase("/articles/2016/12/foo"));
-			} else if (itemIconClass.contains("fa-folder-o")) {
-				itemIconPassAssert = true;
-				Assert.assertTrue(itemURL.equalsIgnoreCase("/site/website/articles/2016/12/foo"));
-			}
-			Assert.assertTrue(itemIconPassAssert);
+			Assert.assertTrue(itemIconClass.contains("fa-file-o"));
+			Assert.assertTrue(itemURL.equalsIgnoreCase("/articles/2016/12/foo.xml"));
 			break;
 		case "page":
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
@@ -250,15 +255,13 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 			Assert.assertTrue(itemURL.contains("/testimage.jpg"));
 			break;
 		case "config.xml":
-			itemIconClass = element
-					.findElement(By.xpath(recentlyActivityItemConfigurationEditedIcon))
+			itemIconClass = element.findElement(By.xpath(recentlyActivityItemConfigurationEditedIcon))
 					.getAttribute("class");
 			Assert.assertTrue(itemIconClass.contains("fa-pencil"));
 			Assert.assertTrue(itemURL.equalsIgnoreCase("/config/studio/content-types/page/article/config.xml"));
 			break;
 		case "form-definition.xml":
-			itemIconClass = element
-					.findElement(By.xpath(recentlyActivityItemConfigurationEditedIcon))
+			itemIconClass = element.findElement(By.xpath(recentlyActivityItemConfigurationEditedIcon))
 					.getAttribute("class");
 			Assert.assertTrue(itemIconClass.contains("fa-pencil"));
 			Assert.assertTrue(
@@ -303,10 +306,53 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		this.driverManager.waitForAnimation();
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
-						.getText().contains("/articles/2016/12/bar"));
+						.getText().contains("/articles/2016/12/bar.xml"));
 	}
 
-	public void step11() {
+	public void step20() {
+		//checking if the content was published
+		for (int i = 0; i < 3; i++) {
+			try {
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
+						.click();
+				this.driverManager.waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
+				break;
+			} catch (TimeoutException e) {
+				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
+				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
+				driverManager.getDriver().navigate().refresh();
+			}
+		}
+
+		String elementClassValue = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
+				.getAttribute("class");
+		Assert.assertTrue(elementClassValue.contains("undefined live"));
+		
+		// click on dashboard
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+
+		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentlyPublished();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", recentlyPublishedSelectAll);
+		Select categoriesDropDown = new Select(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedSelectAll));
+
+		categoriesDropDown.selectByValue("all");
+		
+		// check items on Recently Published widget
+		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentlyPublished();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedContentName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",  recentlyPublishedContentURL);
+
+		Assert.assertTrue(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedContentName)
+						.getText().contains("foo"));
+		Assert.assertTrue(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedContentURL)
+						.getText().contains("/articles/2016/12/baz.xml"));
+	}
+
+	public void step18() {
 		this.driverManager.contextClick("xpath", fooContentXpath, false);
 		driverManager.usingContextMenu(() -> {
 			WebElement publishOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
@@ -315,7 +361,7 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		}, "Pages");
 	}
 
-	public void step12() {
+	public void step19() {
 		// submit
 		previewPage.clickOnSubmitButtonOfApprovePublish();
 		this.driverManager.waitForAnimation();
@@ -340,8 +386,66 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		Assert.assertTrue(elementClassValue.contains("undefined live"));
 	}
 
+	public void step11() {
+		// steps 11, , 12, 13 and 14
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
+		this.driverManager.contextClick("xpath", fooContentXpath, false);
+		driverManager.usingContextMenu(() -> {
+			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+					editRecentlyContentCreated);
+			editOption.click();
+		}, "Pages");
+
+		this.driverManager.waitForAnimation();
+		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+			// check that the edit form was opened
+			// step 4
+			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
+					.getText().equalsIgnoreCase("foo"));
+
+			// step 5
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editURLButton).click();
+
+			this.driverManager.getDriver().switchTo().activeElement();
+			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
+					.getText().equalsIgnoreCase("Warning"));
+
+			// step 6
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", warningOkButton)
+					.click();
+
+			// step 7
+			this.driverManager.waitForAnimation();
+			this.driverManager.getDriver().switchTo().activeElement();
+			this.driverManager.sendText("xpath", filenameInput, "baz");
+			this.driverManager.waitForAnimation();
+
+			// save and close
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElement)
+					.click();
+
+		});
+		// Step 8 Expected Output
+		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("/studio/site-dashboard"));
+
+	}
+
+	public void step16() {
+		this.driverManager.waitForFullExpansionOfTree();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
+		this.driverManager.waitForAnimation();
+		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/articles/2016/12/baz.html"));
+	}
+
+	public void step17() {
+		// click on dashboard
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+	}
+
 	@Test(priority = 0)
-	public void fileRenamePageRenameAndPublishTest() {
+	public void fileRenameFileXMLRenameRenameAndPublishTest() {
 		this.setup();
 
 		this.step3();
@@ -393,16 +497,22 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/articles/2016/12/bar"));
+		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/articles/2016/12/bar.html"));
 
 		// Step 10
 		this.step10();
-		// Step 11
+		// Step 11, 12, 13, 14 and 15
 		this.step11();
-		// Step 12
-		this.step12();
-		// Step 13
-		this.step13();
+		// Step 16
+		this.step16();
+		// Step 17
+		this.step17();
+		// Step 18
+		this.step18();
+		// Step 19
+		this.step19();
+		// Step 20 
+		this.step20();
 
 	}
 
