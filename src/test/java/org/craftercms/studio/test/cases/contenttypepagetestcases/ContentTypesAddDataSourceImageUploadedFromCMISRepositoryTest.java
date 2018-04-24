@@ -109,7 +109,7 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
 
 	}
 

@@ -199,7 +199,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayed();
+		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", recentlyActivitySelectAll);
 		Select categoriesDropDown = new Select(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyActivitySelectAll));
@@ -207,7 +207,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		categoriesDropDown.selectByValue("all");
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayed();
+		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
@@ -293,7 +293,7 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayed();
+		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 

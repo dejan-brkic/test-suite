@@ -126,7 +126,7 @@ public class ContentTypesAddGroupedCheckBoxesTest  extends StudioBaseTest{
 		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerGroupedCheckBoxesTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
 
 	}
 }
