@@ -175,7 +175,6 @@ public class CopyPasteToFolderWithCollisionPageTest extends StudioBaseTest {
 		// expand pages folder
 		this.driverManager.waitUntilSidebarOpens();
 		this.driverManager.waitForAnimation();
-		dashboardPage.expandPagesTree();
 		
 		// reload page
 		driverManager.getDriver().navigate().refresh();

@@ -233,6 +233,7 @@ public class RenameViaFormTest extends StudioBaseTest {
 		// Step 9
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilSidebarOpens();
 		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/bar.html"));
 
 		// Step 10

@@ -108,8 +108,6 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 				.getProperty("dashboard.itemswaitingforapproval.item.checkbox");
 		itemsWaitingForApprovalItemNameTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.itemswaitingforapproval.itemnametitle");
-		//itemsWaitingForApprovalViewTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
-		//		.getProperty("dashboard.itemswaitingforapproval.viewtitle");
 		itemsWaitingForApprovalEdittitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.itemswaitingforapproval.edittitle");
 		itemsWaitingForApprovalUrlTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -301,12 +299,6 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalItemNameTitle);
 		Assert.assertTrue(itemsWaitingForApprovalItemNameTitleElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Iten Name title is not present");
-		
-		//TODO uncomment when varible ID is fix
-//		WebElement itemsWaitingForApprovalViewTitleElement = this.driverManager
-//				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalViewTitle);
-//		Assert.assertTrue(itemsWaitingForApprovalViewTitleElement.isDisplayed(),
-//				"ERROR: Items Waiting for Approval View title is not present");	
 
 		WebElement itemsWaitingForApprovalEdittitleElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalEdittitle);
