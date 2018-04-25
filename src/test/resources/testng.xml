@@ -1011,4 +1011,17 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test
+		name="Verify The Application allows to rename, rename again and publish it (Page rename, rename and publish)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameRenameThenPublishPageRenameTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageName" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
