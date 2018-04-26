@@ -38,9 +38,8 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 	private String expandPagesTree;
 	private String staticAssetsButton;
 	private String staticAssetsChildFolder;
-	private String staticAssetsPageChildFolder;
-	private String staticAssetsPageImagesChildFolder;
-	private String staticAssetsPageImagesTestImagesChilds;
+	private String staticAssetsItemsImagesChildFolder;
+	private String staticAssetsItemImagesTestImagesChilds;
 	private String secondDestinationLocator;
 	private String thirdDestinationLocator;
 	private String fourthDestinationLocator;
@@ -50,6 +49,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 	private String eighthDestinationLocator;
 	private String ninthDestinationLocator;
 	private String tenthDestinationLocator;
+	private String staticAssetsItemsChildFolder;
 	private static Logger logger = LogManager.getLogger(CopyPasteContentWithSharedComponentsTest.class);
 
 	@BeforeMethod
@@ -87,12 +87,12 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 				.getProperty("preview.static_assets_button");
 		staticAssetsChildFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("preview.static_assets_child_folder");
-		staticAssetsPageChildFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.static_assets_pagechild_folder");
-		staticAssetsPageImagesChildFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.static_assets_pageimages_child_folder");
-		staticAssetsPageImagesTestImagesChilds = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.static_assets_pageimages_childsitems");
+		staticAssetsItemsChildFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("preview.static_assets_itemschild_folder");
+		staticAssetsItemsImagesChildFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("preview.static_assets_itemsimages_child_folder");
+		staticAssetsItemImagesTestImagesChilds = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("preview.static_assets_itemsimages_childsitems");
 	}
 
 	public void copyAndPasteLongTreeIntoExistentFolder(String childLocator, String destinationFolderLocator) {
@@ -110,6 +110,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.contextClick("xpath", destinationFolderLocator, false);
+		this.driverManager.waitUntilContentTooltipIsHidden();
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
@@ -194,7 +195,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.waitForFullExpansionOfTree();
 		secondDestinationLocator = firstDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,secondDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, secondDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017");
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				secondDestinationLocator + childFolder).isDisplayed());
@@ -202,7 +203,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForFullExpansionOfTree();
 		thirdDestinationLocator = secondDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,thirdDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, thirdDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017");
 		Assert.assertTrue(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", thirdDestinationLocator + childFolder)
@@ -210,7 +211,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 		this.driverManager.waitForFullExpansionOfTree();
 		fourthDestinationLocator = thirdDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,fourthDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, fourthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				fourthDestinationLocator + childFolder).isDisplayed());
@@ -218,7 +219,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForFullExpansionOfTree();
 		fifthDestinationLocator = fourthDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,fifthDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, fifthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fifthDestinationLocator + childFolder)
@@ -226,7 +227,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 		this.driverManager.waitForFullExpansionOfTree();
 		sixthDestinationLocator = fifthDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,sixthDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, sixthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager
@@ -236,7 +237,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForFullExpansionOfTree();
 		seventhDestinationLocator = sixthDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,seventhDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, seventhDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -244,7 +245,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 		this.driverManager.waitForFullExpansionOfTree();
 		eighthDestinationLocator = seventhDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,eighthDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, eighthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -253,7 +254,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForFullExpansionOfTree();
 		ninthDestinationLocator = eighthDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,ninthDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, ninthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager
@@ -262,7 +263,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 		this.driverManager.waitForFullExpansionOfTree();
 		tenthDestinationLocator = ninthDestinationLocator + childFolder;
-		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator,tenthDestinationLocator);
+		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, tenthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017/2017/2017");
 		Assert.assertTrue(this.driverManager
@@ -301,43 +302,48 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 		logger.info("Click the Static Assets/Page Tree");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				staticAssetsPageChildFolder);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsPageChildFolder)
-				.click();
+				staticAssetsItemsChildFolder);
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsItemsChildFolder).click();
 
-		logger.info("Click the Static Assets/page/images Tree");
+		logger.info("Click the Static Assets/item/images Tree");
 		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				staticAssetsPageImagesChildFolder);
+				staticAssetsItemsImagesChildFolder);
 		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsPageImagesChildFolder)
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+						 staticAssetsItemsImagesChildFolder)
 				.click();
+
+		// Expanding Year folder
+		String yearFolderXpath = ".//span[text()='" + this.driverManager.getCurrentYear() + "']";
+		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath).click();
+
+		// Expanding Month folder
+		String monthFolderXpath = ".//span[text()='" + this.driverManager.getCurrentMonth() + "']";
+		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath).click();
+
+		// Expanding Day folder
+		String dayFolderXpath = ".//span[text()='" + this.driverManager.getCurrentDay() + "']";
+		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath).click();
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
 
-		List<WebElement> testimagesitems = this.driverManager.getDriver()
-				.findElements(By.xpath(staticAssetsPageImagesTestImagesChilds));
-		int amountOfTestImageElements=0;
-		
-		logger.info("Checking the amount of static assets for pages that using testimage.jpg");
-		this.driverManager.waitForFullExpansionOfTree();
-		for (WebElement webElement : testimagesitems) {
-			this.driverManager.waitUntilContentTooltipIsHidden();
-			webElement.click();
-			this.driverManager.waitForFullExpansionOfTree();
-			WebElement childElement = webElement.findElement(By.xpath("div[@class='ygtvchildren']//span[1]"));
-			if(childElement.getText().equalsIgnoreCase("testimage.jpg")) {
-				amountOfTestImageElements++;
-			}
-			this.driverManager.scrollDownIntoSideBar();
-		}
-		
-		Assert.assertTrue((amountOfTestImageElements == 21),
-				"There are not the correct amount of items for static asset/page/images/testimage.jpg , expected 21");
+		String ImageItemsXpath = yearFolderXpath + "/../../../../../." + monthFolderXpath + "/../../../../../."
+				+ dayFolderXpath + staticAssetsItemImagesTestImagesChilds;
+		List<WebElement> testimagesitems = this.driverManager.getDriver().findElements(By.xpath(ImageItemsXpath));
+		Assert.assertTrue((testimagesitems.size() == 21),
+				"There are not the correct amount of items for static asset/page/images/testimage.jpg , expected 21 items");
 	}
 
 	public void collapseFolders() {
@@ -403,7 +409,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.waitUntilSidebarOpens();
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-	
+
 		previewPage.bulkPublish("/site/website/articles", 50000);
 
 		driverManager.getDriver().navigate().refresh();

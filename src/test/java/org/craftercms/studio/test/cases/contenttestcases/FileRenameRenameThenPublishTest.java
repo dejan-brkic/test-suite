@@ -50,6 +50,8 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 	private String recentlyPublishedContentName;
 	private String recentlyPublishedContentURL;
 	private String recentlyPublishedSelectAll;
+	private String recentActivitySecondContentURL;
+	private String recentActivitySecondContentName;
 	private static Logger logger = LogManager.getLogger(FileRenameRenameThenPublishTest.class);
 
 	@BeforeMethod
@@ -68,6 +70,10 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.contenturl");
 		recentActivityContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.contentname");
+		recentActivitySecondContentURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.myrecentactivity.contentsecondurl");
+		recentActivitySecondContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.myrecentactivity.contentsecondname");
 		recentlyPublishedContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentlypublished.contentname");
 		recentlyPublishedContentURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -241,17 +247,17 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 			Assert.assertTrue(itemIconClass.contains("fa-file-o"));
 			Assert.assertTrue(itemURL.equalsIgnoreCase("/articles/2016/12/foo.xml"));
 			break;
-		case "page":
-			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
-			Assert.assertTrue(itemURL.equalsIgnoreCase("/static-assets/page"));
-			break;
 		case "images":
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
-			Assert.assertTrue(itemURL.equalsIgnoreCase("/static-assets/page/images"));
+			Assert.assertTrue(itemURL.equalsIgnoreCase("/static-assets/item/images"));
+			break;
+		case "item":
+			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
+			Assert.assertTrue(itemURL.equalsIgnoreCase("/static-assets/item"));
 			break;
 		case "testimage.jpg":
 			Assert.assertTrue(itemIconClass.contains("fa-file-image-o"));
-			Assert.assertTrue(itemURL.contains("/static-assets/page/images/"));
+			Assert.assertTrue(itemURL.contains("/static-assets/item/images/"));
 			Assert.assertTrue(itemURL.contains("/testimage.jpg"));
 			break;
 		case "config.xml":
@@ -268,12 +274,32 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 					itemURL.equalsIgnoreCase("/config/studio/content-types/page/article/form-definition.xml"));
 			break;
 		default:
-			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
-			Assert.assertTrue(itemURL.contains("/static-assets/page/images/"));
-			break;
+            this.validateItemNameForStaticAssetsFolders(itemName, itemIconClass, itemURL);
+			break;	
 		}
 	}
 
+	public void validateItemNameForStaticAssetsFolders(String itemName, String itemIconClass, String itemURL) {
+		String year = this.driverManager.getCurrentYear();
+		String month = this.driverManager.getCurrentMonth();
+		String day = this.driverManager.getCurrentDay();
+
+		if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year)){
+			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
+			Assert.assertTrue(itemName.equalsIgnoreCase(year));
+		}	else if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year+"/"+month)){
+			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
+			Assert.assertTrue(itemName.equalsIgnoreCase(month));
+		}
+		else if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year+"/"+month+"/"+day)){
+			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
+			Assert.assertTrue(itemName.equalsIgnoreCase(day));
+		}
+		else {
+			Assert.assertTrue(false, "The Item URL is not the correct for the item: "+itemName);
+		}
+	}
+	
 	public void step3() {
 		// expand pages folder
 		this.driverManager.waitUntilSidebarOpens();
@@ -297,15 +323,15 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 
 		// check items on My Recent Activity widget
 		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL);
 
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName)
 						.getText().contains("foo"));
 		this.driverManager.waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
 						.getText().contains("/articles/2016/12/bar.xml"));
 	}
 

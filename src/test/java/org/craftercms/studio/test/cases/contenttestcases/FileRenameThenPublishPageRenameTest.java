@@ -236,38 +236,56 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 			}
 			Assert.assertTrue(itemIconPassAssert);
 			break;
-		case "page":
-			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
-			Assert.assertTrue(itemURL.equalsIgnoreCase("/static-assets/page"));
-			break;
 		case "images":
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
-			Assert.assertTrue(itemURL.equalsIgnoreCase("/static-assets/page/images"));
+			Assert.assertTrue(itemURL.equalsIgnoreCase("/static-assets/item/images"));
+			break;
+		case "item":
+			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
+			Assert.assertTrue(itemURL.equalsIgnoreCase("/static-assets/item"));
 			break;
 		case "testimage.jpg":
 			Assert.assertTrue(itemIconClass.contains("fa-file-image-o"));
-			Assert.assertTrue(itemURL.contains("/static-assets/page/images/"));
+			Assert.assertTrue(itemURL.contains("/static-assets/item/images/"));
 			Assert.assertTrue(itemURL.contains("/testimage.jpg"));
 			break;
 		case "config.xml":
-			itemIconClass = element
-					.findElement(By.xpath(recentlyActivityItemConfigurationEditedIcon))
+			itemIconClass = element.findElement(By.xpath(recentlyActivityItemConfigurationEditedIcon))
 					.getAttribute("class");
 			Assert.assertTrue(itemIconClass.contains("fa-pencil"));
 			Assert.assertTrue(itemURL.equalsIgnoreCase("/config/studio/content-types/page/article/config.xml"));
 			break;
 		case "form-definition.xml":
-			itemIconClass = element
-					.findElement(By.xpath(recentlyActivityItemConfigurationEditedIcon))
+			itemIconClass = element.findElement(By.xpath(recentlyActivityItemConfigurationEditedIcon))
 					.getAttribute("class");
 			Assert.assertTrue(itemIconClass.contains("fa-pencil"));
 			Assert.assertTrue(
 					itemURL.equalsIgnoreCase("/config/studio/content-types/page/article/form-definition.xml"));
 			break;
 		default:
-			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
-			Assert.assertTrue(itemURL.contains("/static-assets/page/images/"));
+            this.validateItemNameForStaticAssetsFolders(itemName, itemIconClass, itemURL);
 			break;
+		}
+	}
+
+	public void validateItemNameForStaticAssetsFolders(String itemName, String itemIconClass, String itemURL) {
+		String year = this.driverManager.getCurrentYear();
+		String month = this.driverManager.getCurrentMonth();
+		String day = this.driverManager.getCurrentDay();
+
+		if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year)){
+			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
+			Assert.assertTrue(itemName.equalsIgnoreCase(year));
+		}	else if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year+"/"+month)){
+			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
+			Assert.assertTrue(itemName.equalsIgnoreCase(month));
+		}
+		else if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year+"/"+month+"/"+day)){
+			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
+			Assert.assertTrue(itemName.equalsIgnoreCase(day));
+		}
+		else {
+			Assert.assertTrue(false, "The Item URL is not the correct for the item: "+itemName);
 		}
 	}
 

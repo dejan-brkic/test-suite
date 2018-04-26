@@ -725,8 +725,8 @@ public class PreviewPage {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
-					|| ((dependentItemLocation.contains("/static-assets/page/images/"))
-							&& (dependentItemLocation.contains("/testimage.jpg")))) {
+					|| ((dependentItemLocation.contains("/static-assets/item/images/testimage"))
+							&& (dependentItemLocation.contains("/testimage")))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
