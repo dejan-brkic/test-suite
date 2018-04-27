@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -573,15 +574,15 @@ public class WebDriverManager {
 		this.waitUntilAttributeContains("xpath", ".//div[@id='GoLiveQueue']", "style", "display: block;");
 		this.waitUntilAttributeContains("xpath", ".//div[@id='approvedScheduledItems']", "style", "display: block;");
 		this.waitUntilAttributeContains("xpath", ".//div[@id='recentlyMadeLive']", "style", "display: block;");
-		this.waitUntilAttributeContains("xpath", ".//div[@id='MyRecentActivity']", "style", "display: block;");	
+		this.waitUntilAttributeContains("xpath", ".//div[@id='MyRecentActivity']", "style", "display: block;");
 	}
-	
+
 	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity() {
 		logger.debug("Waiting for loading animation is gone");
 		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-MyRecentActivity']");
 		waitUntilElementIsHidden(element);
 	}
-	
+
 	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentlyPublished() {
 		logger.debug("Waiting for loading animation is gone");
 		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-recentlyMadeLive']");
@@ -1002,5 +1003,28 @@ public class WebDriverManager {
 		(new Actions(this.driver)).moveToElement(element).sendKeys(Keys.chord(Keys.CONTROL, "A"))
 				.sendKeys(Keys.chord(Keys.DELETE)).pause(100).sendKeys(Keys.chord(newTextValue)).perform();
 		this.waitForAnimation();
+	}
+
+	public String getCurrentYear() {
+		Calendar calendar = Calendar.getInstance();
+		return String.valueOf(calendar.get(Calendar.YEAR));
+	}
+
+	public String getCurrentDay() {
+		Calendar calendar = Calendar.getInstance();
+		if ((calendar.get(Calendar.DATE)) < 10) {
+			return "0" + String.valueOf(calendar.get(Calendar.DATE));
+		} else {
+			return String.valueOf(calendar.get(Calendar.DATE));
+		}
+	}
+
+	public String getCurrentMonth() {
+		Calendar calendar = Calendar.getInstance();
+		if ((calendar.get(Calendar.MONTH) + 1) < 10) {
+			return "0" + String.valueOf((calendar.get(Calendar.MONTH) + 1));
+		} else {
+			return String.valueOf((calendar.get(Calendar.MONTH) + 1));
+		}
 	}
 }
