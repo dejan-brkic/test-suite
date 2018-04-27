@@ -28,7 +28,7 @@ public class ActivityAPI extends BaseAPI{
 		.urlParam("user","admin")
 		.urlParam("path","/site/website/index.xml")
 		.urlParam("activity","UPDATED")
-		.urlParam("contentType","pages")
+		.urlParam("contentTypeClass","pages")
 		.execute().status(200)
 		.debug();
 	}

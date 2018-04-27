@@ -568,7 +568,7 @@ public class PreviewPage {
 		this.driverManager.waitUntilSidebarOpens();
 
 	}
-	
+
 	public void createPageArticleContent(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
@@ -720,13 +720,15 @@ public class PreviewPage {
 			Assert.assertTrue(secondCheckPass);
 			break;
 		case "Testing1":
+			String testImageLocation = "/static-assets/item/images/" + this.driverManager.getCurrentYear() + "/"
+					+ this.driverManager.getCurrentMonth() + "/"+this.driverManager.getCurrentDay()+"/testimage.jpg";
+			
 			if ((dependentItemName.equalsIgnoreCase("article.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("testimage.jpg"))) {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
-					|| ((dependentItemLocation.contains("/static-assets/item/images/testimage"))
-							&& (dependentItemLocation.contains("/testimage")))) {
+					|| (dependentItemLocation.contains(testImageLocation))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
