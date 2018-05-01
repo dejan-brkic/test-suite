@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
  * @author luishernandez
  *
  */
-// Test Case Studio- Site Content ID:40
+// Test Case Studio- Site Content ID:40, 44
 public class FileRenameThenPublishTest extends StudioBaseTest {
 
 	private String userName;
