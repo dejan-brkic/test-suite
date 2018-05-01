@@ -46,7 +46,7 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 	private String articlesFolder;
 	private String submittalCompleteOK;
 	private static Logger logger = LogManager.getLogger(FileRenameAgainAndDeleteTest.class);
-	
+
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
@@ -184,8 +184,7 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 		}
 	}
 
-	@Test(priority = 0)
-	public void fileRenameFileXMLRenameAgainAndDeleteTest() {
+	public void step16() {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -220,7 +219,13 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 
 		dashboardPage.expandParentFolder(
 				folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='12']");
+	}
 
+	@Test(priority = 0)
+	public void fileRenameFileXMLRenameAgainAndDeleteTest() {
+
+		this.step16();
+		
 		// step 17,18, 19 and 20
 		logger.info("Editing previously created article");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
@@ -288,7 +293,7 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 		WebElement submittalComplete = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				submittalCompleteOK);
 		submittalComplete.click();
-		
+
 		logger.info("Checking items on recent activity dashboard widget");
 		this.step25();
 	}
