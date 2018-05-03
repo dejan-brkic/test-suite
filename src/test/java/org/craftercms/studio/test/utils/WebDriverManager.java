@@ -854,8 +854,7 @@ public class WebDriverManager {
 		if (executionEnvironment.equalsIgnoreCase("unix")) {
 			shell = "/bin/bash";
 			script = "init-site.sh";
-			//folder = "../../crafter-delivery/bin";
-			folder = "/Users/luishernandez/Crafter_Project/craftercms_server/craftercms/crafter-delivery/bin";
+			folder = "../../crafter-delivery/bin";
 			try {
 				String[] command = { shell, script, siteId };
 
