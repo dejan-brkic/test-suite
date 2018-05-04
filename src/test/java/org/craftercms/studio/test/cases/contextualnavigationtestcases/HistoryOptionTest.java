@@ -66,7 +66,7 @@ public class HistoryOptionTest extends StudioBaseTest{
 		
 		// expand pages folder
 		previewPage.expandPagesTree();
-
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath).click();
 
 		// click on history option

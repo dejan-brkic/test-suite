@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
  * @author Luis Hernandez
  *
  */
-// Test Case Studio- Site Content ID:40
+// Test Case Studio- Site Content ID:41,45
 public class VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName extends DeliveryBaseTest {
 	private String pageTitleXpath;
 

@@ -1039,4 +1039,19 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test
+		name="Verify The Application allows to rename page and publish it, later rename and delete it (Page rename and publish, later rename and delete)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishPageRenameTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameAgainAndDeletePageRenameTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
