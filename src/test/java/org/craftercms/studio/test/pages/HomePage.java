@@ -9,6 +9,7 @@ import org.craftercms.studio.test.utils.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 /**
  * 
@@ -31,6 +32,8 @@ public class HomePage {
 	private String deleteIconsListXpath;
 	private String sitesOptionXpath;
 	private String sitesPageTitleXpath;
+	private String sitesPerPageInputXpath;
+	private String siteIdLabel;
 	private static Logger logger = LogManager.getLogger(HomePage.class);
 
 	public HomePage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -51,8 +54,10 @@ public class HomePage {
 				.getProperty("home.deletesiteiconlist");
 		sitesOptionXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.homesites");
-		sitesPageTitleXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("sites.pagetitle");
+		sitesPageTitleXpath = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("sites.pagetitle");
+		sitesPerPageInputXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.sitesperpageinput");
+		siteIdLabel = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.siteidlabel");
 	}
 
 	// Click on preview link
@@ -128,8 +133,7 @@ public class HomePage {
 	// Click on YES button
 	public void clickYesButton() {
 		this.driverManager.isElementPresentAndClickableByXpath(yesDeleteButton);
-		WebElement yesButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				yesDeleteButton);
+		WebElement yesButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", yesDeleteButton);
 		yesButton.click();
 		this.driverManager.waitForAnimation();
 	}
@@ -177,25 +181,24 @@ public class HomePage {
 	}
 
 	public void deleteAllSites() {
-		List<WebElement> siteListitem = this.driverManager.getDriver()
-				.findElements(By.xpath(deleteIconsListXpath));
+		List<WebElement> siteListitem = this.driverManager.getDriver().findElements(By.xpath(deleteIconsListXpath));
 
 		for (int i = 0; i < siteListitem.size(); i++) {
 			this.driverManager.waitForAnimation();
-			this.driverManager.waitUntilPageLoad();		
+			this.driverManager.waitUntilPageLoad();
 			// get the delete button element
 			WebElement element = this.driverManager.waitUntilElementIsClickable("xpath", deleteIconsListXpath);
 			// click on the delete button
 			element.click();
 			// confirm and wait
 			this.clickOnYesToDeleteSite();
-			
-			this.driverManager.waitUntilDeleteSiteModalCloses();	
+
+			this.driverManager.waitUntilDeleteSiteModalCloses();
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitUntilElementIsRemoved(element);
 		}
 	}
-	
+
 	public void clickOnSitesOption() {
 		WebElement siteOptionWebElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				sitesOptionXpath);
@@ -204,6 +207,43 @@ public class HomePage {
 
 	public boolean isSitePageTitlePresent() {
 		return this.driverManager.isElementPresentByXpath(sitesPageTitleXpath);
+	}
+
+	public void checkElementsOnSitePageWithoutSites() {
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createSiteButton).isDisplayed());
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).isDisplayed());
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sitesPageTitleXpath)
+				.isDisplayed());
+		
+		this.driverManager.waitWhileElementIsNotDisplayedByXpath(previewSite);
+		
+		Assert.assertFalse(this.driverManager
+				.isElementPresentAndClickableByXpath(previewSite));
+		Assert.assertFalse(this.driverManager
+				.isElementPresentAndClickableByXpath(dashboardSite));
+		Assert.assertFalse(this.driverManager
+				.isElementPresentAndClickableByXpath(siteIdLabel));
+		Assert.assertFalse(this.driverManager
+				.isElementPresentAndClickableByXpath(deleteSiteIcon));
+	}
+
+	public void checkElementsOnSitePageWithSites() {
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createSiteButton).isDisplayed());
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).isDisplayed());
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPageTitleXpath)
+				.isDisplayed());
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", previewSite).isDisplayed());
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardSite).isDisplayed());
+		Assert.assertTrue(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteIdLabel).isDisplayed());
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", deleteSiteIcon).isDisplayed());
 	}
 
 }
