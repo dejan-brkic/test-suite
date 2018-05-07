@@ -267,5 +267,27 @@ public class CreateSitePage {
 		Select select = new Select(bluePrintCombo);
 		select.selectByVisibleText("Website_editorial");
 	}
+	
+	public void selectHeadlessBlogBluePrintOption() {
+		// select blue corporate print
+		this. selectHeadlessBlogBluePrint();
+	}
+
+	private void  selectHeadlessBlogBluePrint() {
+		WebElement bluePrintCombo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "blueprint");
+		Select select = new Select(bluePrintCombo);
+		select.selectByVisibleText("Headless_blog");
+	}
+	
+	public void selectHeadlessStoreBluePrintOption() {
+		// select blue corporate print
+		this. selectHeadlessStoreBluePrint();
+	}
+
+	private void  selectHeadlessStoreBluePrint() {
+		WebElement bluePrintCombo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "blueprint");
+		Select select = new Select(bluePrintCombo);
+		select.selectByVisibleText("Headless_store");
+	}
 
 }
