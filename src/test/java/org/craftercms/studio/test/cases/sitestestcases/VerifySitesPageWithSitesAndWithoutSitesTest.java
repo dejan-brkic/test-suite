@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
  *
  */
 
+//Test Case Studio- Sites ID:1
 public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest {
 
 	private String userName;

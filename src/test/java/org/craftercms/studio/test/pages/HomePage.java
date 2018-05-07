@@ -34,6 +34,8 @@ public class HomePage {
 	private String sitesPageTitleXpath;
 	private String sitesPerPageInputXpath;
 	private String siteIdLabel;
+	private String siteTableRow;
+	private Object siteIDColumn;
 	private static Logger logger = LogManager.getLogger(HomePage.class);
 
 	public HomePage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -58,6 +60,8 @@ public class HomePage {
 		sitesPerPageInputXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.sitesperpageinput");
 		siteIdLabel = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.siteidlabel");
+		siteTableRow = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.general.sitetablerow");
+		siteIDColumn = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.general.siteidtablecolumn");
 	}
 
 	// Click on preview link
@@ -244,6 +248,12 @@ public class HomePage {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteIdLabel).isDisplayed());
 		Assert.assertTrue(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", deleteSiteIcon).isDisplayed());
+	}
+	
+	public void checkIfSiteIsListedOnSitesPage(String siteId) {
+		String currentSiteIdColumn= siteTableRow+siteId+siteIDColumn;
+		Assert.assertTrue(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", currentSiteIdColumn).isDisplayed());
 	}
 
 }

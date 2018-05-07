@@ -1061,4 +1061,11 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifySitesPageWithSitesAndWithoutSitesTest" />
 		</classes>
 	</test>
+	<test
+		name="Verify that the application allows to create a site with each blueprints availables">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateSitesWithEachBlueprint" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
