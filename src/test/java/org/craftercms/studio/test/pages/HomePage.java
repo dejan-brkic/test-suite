@@ -36,6 +36,7 @@ public class HomePage {
 	private String siteIdLabel;
 	private String siteTableRow;
 	private Object siteIDColumn;
+	private String remoteRepositoryLink;
 	private static Logger logger = LogManager.getLogger(HomePage.class);
 
 	public HomePage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -62,6 +63,7 @@ public class HomePage {
 		siteIdLabel = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.siteidlabel");
 		siteTableRow = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.general.sitetablerow");
 		siteIDColumn = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.general.siteidtablecolumn");
+		remoteRepositoryLink =  UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.createsite.linktoupstream");
 	}
 
 	// Click on preview link
@@ -254,6 +256,12 @@ public class HomePage {
 		String currentSiteIdColumn= siteTableRow+siteId+siteIDColumn;
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", currentSiteIdColumn).isDisplayed());
+	}
+	
+	public void clickOnLinkToUpstreamRemoteGitRepository() {
+		WebElement repositoryLink = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				remoteRepositoryLink);
+		repositoryLink.click();
 	}
 
 }

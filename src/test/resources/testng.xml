@@ -1065,7 +1065,14 @@
 		name="Verify that the application allows to create a site with each blueprints availables">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateSitesWithEachBlueprint" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateSitesWithEachBlueprintTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that the application shows each validations of the fields for the create site process">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioShowEachValidationOfFieldsForCreateSiteTest" />
 		</classes>
 	</test>
 </suite> <!-- Suite -->

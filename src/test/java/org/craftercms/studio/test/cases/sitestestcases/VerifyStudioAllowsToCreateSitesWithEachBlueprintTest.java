@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
  */
 
 // Test Case Studio- Sites ID:2
-public class VerifyStudioAllowsToCreateSitesWithEachBlueprint extends StudioBaseTest {
+public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
