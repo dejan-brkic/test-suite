@@ -9,8 +9,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
  * 
- * 
- * @author Gustavo Andrei Ortiz Alfaro
+ * @author luishernandez
  *
  */
 
@@ -59,11 +58,12 @@ public class CancelCreateSiteProcessTest extends StudioBaseTest{
 		createSitePage.clickOnCancelButtonOfTheCreateSiteProcess();
 
 		// Assert
-		WebElement siteName = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement sitePage = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				sitesPageTitleLocator);
 
-		Assert.assertTrue(siteName.isDisplayed());
+		Assert.assertTrue(sitePage.isDisplayed());
 
+		this.homePage.checkElementsOnSitePageWithoutSites();
 	}
 
 }
