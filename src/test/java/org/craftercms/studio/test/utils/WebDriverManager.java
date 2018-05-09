@@ -654,6 +654,14 @@ public class WebDriverManager {
 		input.sendKeys(text);
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
 	}
+	
+	public void sendTextForSiteIDRestrictions(String selectorType, String selectorValue, String text) {
+		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
+		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
+		input.clear();
+		input.sendKeys(text);
+		waitUntilAttributeIs(selectorType, selectorValue, "value", text.toLowerCase().replaceAll("[^a-zA-Z0-9_-]", ""));
+	}
 
 	public void usingContextMenu(Runnable actions, String menuOption) {
 		String selector;
@@ -881,8 +889,8 @@ public class WebDriverManager {
 					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
 					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
 					Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
-					int occurencesOfDone = StringUtils.countMatches(output, "Done");
-					Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+					int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
+					Assert.assertTrue((occurencesOfSuccessfully == 2), "The init-site result was: " + output);
 				}
 
 				return process.exitValue();
@@ -922,8 +930,8 @@ public class WebDriverManager {
 					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
 					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
 					Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
-					int occurencesOfDone = StringUtils.countMatches(output, "Done");
-					Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+					int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
+					Assert.assertTrue((occurencesOfSuccessfully == 2), "The init-site result was: " + output);
 				}
 
 				return process.exitValue();
