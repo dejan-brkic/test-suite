@@ -36,12 +36,6 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
-	<test name="Cancel Create Site Process Test">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CancelCreateSiteProcessTest" />
-		</classes>
-	</test>
 	<test name="Copy Paste Content Test">
 		<classes>
 			<class
@@ -1073,6 +1067,12 @@
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioShowEachValidationOfFieldsForCreateSiteTest" />
+		</classes>
+	</test>
+	<test name="Verify that the application allows to cancel the create site process">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CancelCreateSiteProcessTest" />
 		</classes>
 	</test>
 </suite> <!-- Suite -->
