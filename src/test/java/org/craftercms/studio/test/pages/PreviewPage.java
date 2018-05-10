@@ -388,6 +388,102 @@ public class PreviewPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
 	}
 
+	public void modifyPageXMLDefinitionContentAsFolderEntryContentType(String configurationSetUp) {
+		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
+				.contains("site-dropdown-open")))
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
+		// go to admin console page
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
+		// select content types
+		siteConfigPage.selectContentTypeOption();
+		// open content types
+		siteConfigPage.clickExistingTypeOption();
+		// Confirm the content type selected
+		siteConfigPage.confirmContentTypeSelected();
+		// wait for element is clickeable
+		driverManager.getDriver().switchTo().defaultContent();
+		// select main content
+		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
+		this.driverManager.waitForAnimation();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				".//div[@class='property-label label-configuration']/../input").click();
+
+		// Click on pencil icon
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@class='property-label label-configuration']/../div[@class='options']/div").click();
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.getDriver().switchTo().activeElement();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@class='CodeMirror-lines']//div[3]").click();
+		this.driverManager.selectAllAndDeleteContentAsFolderValueOnCodeArea(
+				"//div[@class='CodeMirror-lines']//div[3]/pre[7]", configurationSetUp);
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@id='template-editor-update-button']").click();
+
+		// save
+		this.driverManager.waitForAnimation();
+		siteConfigPage.saveDragAndDropProcess();
+		driverManager.getDriver().switchTo().defaultContent();
+		// go to dashboard
+		this.driverManager.getDriver().navigate().refresh();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+	}
+
+	public void modifyPageXMLDefinitionContentAsFolderForPageArticle(String configurationSetUp) {
+		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
+				.contains("site-dropdown-open")))
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
+		// go to admin console page
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
+		// select content types
+		siteConfigPage.selectContentTypeOption();
+		// open content types
+		siteConfigPage.clickExistingTypeOption();
+		// select Page Article content type
+		siteConfigPage.selectPageArticleContentType();
+		// Confirm the content type selected
+		siteConfigPage.confirmContentTypeSelected();
+		// wait for element is clickeable
+		driverManager.getDriver().switchTo().defaultContent();
+		// select main content
+		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
+		this.driverManager.waitForAnimation();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				".//div[@class='property-label label-configuration']/../input").click();
+
+		// Click on pencil icon
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@class='property-label label-configuration']/../div[@class='options']/div").click();
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.getDriver().switchTo().activeElement();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@class='CodeMirror-lines']//div[3]").click();
+		this.driverManager.selectAllAndDeleteContentAsFolderValueOnCodeArea(
+				"//div[@class='CodeMirror-lines']//div[3]/pre[7]", configurationSetUp);
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				".//div[@id='template-editor-update-button']").click();
+
+		// save
+		this.driverManager.waitForAnimation();
+		siteConfigPage.saveDragAndDropProcess();
+		driverManager.getDriver().switchTo().defaultContent();
+		// go to dashboard
+		this.driverManager.getDriver().navigate().refresh();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+	}
+
 	public void changeBodyOfArticlePageToNotRequired() {
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
@@ -624,13 +720,15 @@ public class PreviewPage {
 			Assert.assertTrue(secondCheckPass);
 			break;
 		case "Testing1":
+			String testImageLocation = "/static-assets/item/images/" + this.driverManager.getCurrentYear() + "/"
+					+ this.driverManager.getCurrentMonth() + "/"+this.driverManager.getCurrentDay()+"/testimage.jpg";
+			
 			if ((dependentItemName.equalsIgnoreCase("article.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("testimage.jpg"))) {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
-					|| ((dependentItemLocation.contains("/static-assets/page/images/"))
-							&& (dependentItemLocation.contains("/testimage.jpg")))) {
+					|| (dependentItemLocation.contains(testImageLocation))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
@@ -662,6 +760,8 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
+		this.driverManager.waitForAnimation();
+
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
@@ -935,11 +1035,10 @@ public class PreviewPage {
 		Assert.assertTrue(secondCheckPass);
 	}
 
-	
 	public void checkDependsOnHomeFTL(String dependentItemName, String dependentItemLocation) {
 		boolean firstCheckPass = false;
 		boolean secondCheckPass = false;
-		
+
 		if (dependentItemName.equalsIgnoreCase("Home")) {
 			firstCheckPass = true;
 		}
@@ -949,11 +1048,11 @@ public class PreviewPage {
 		Assert.assertTrue(firstCheckPass);
 		Assert.assertTrue(secondCheckPass);
 	}
-	
+
 	public void checkDependsOnSearchResultsFTL(String dependentItemName, String dependentItemLocation) {
 		boolean firstCheckPass = false;
 		boolean secondCheckPass = false;
-		
+
 		if (dependentItemName.equalsIgnoreCase("Search Results")) {
 			firstCheckPass = true;
 		}
@@ -963,7 +1062,7 @@ public class PreviewPage {
 		Assert.assertTrue(firstCheckPass);
 		Assert.assertTrue(secondCheckPass);
 	}
-	
+
 	public void checkDependsOn(String templateName, WebElement element) {
 		String dependentItemName = element.findElement(By.xpath("td[1]")).getText();
 		String dependentItemLocation = element.findElement(By.xpath("td[2]/div")).getText();
@@ -1404,9 +1503,10 @@ public class PreviewPage {
 	}
 
 	public void bulkPublish(String path, int waitTimeForPublish) {
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id",
+		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id",
 				"admin-console");
 		siteConfigButton.click();
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteconfigPublishingOperationsoption);
 		this.driverManager.waitForAnimation();
@@ -1441,6 +1541,7 @@ public class PreviewPage {
 		this.driverManager.getDriver().switchTo().activeElement();
 		// wait for bulk publish notification according with length of tree to be
 		// published
+		this.driverManager.waitForAnimation();
 		this.driverManager.waitForBulkPublish(waitTimeForPublish);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
 				.isDisplayed());

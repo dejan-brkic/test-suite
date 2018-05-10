@@ -132,6 +132,7 @@ public class ContentTypesAddPageOrderTest extends StudioBaseTest{
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerPageOrderTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
+
 	}
 }

@@ -130,6 +130,7 @@ public class ContentTypesAddFileNameTest extends StudioBaseTest{
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerFileNameTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
+
 	}
 }

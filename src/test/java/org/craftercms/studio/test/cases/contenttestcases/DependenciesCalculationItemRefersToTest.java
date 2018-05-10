@@ -248,8 +248,8 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 		dashboardPage
 				.expandParentFolder(folder2017Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='1']");
 
-		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage);
+		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage)
 				.click();
 
@@ -274,8 +274,8 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 		dashboardPage
 				.expandParentFolder(folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='6']");
 
-		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testpageXpath);
+		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testpageXpath).click();
 
 		logger.info("Open dependencies for the previous created element");
@@ -573,6 +573,7 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		this.driverManager.waitForFullExpansionOfTree();
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
 				.click();

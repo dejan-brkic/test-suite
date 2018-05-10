@@ -30,6 +30,12 @@ public class CreateSitePage {
 	private String documentationOption;
 	private String adminDropdownOption;
 	private String settingsOption;
+	private String repositoryNameXpath;
+	private String repositoryURLXpath;
+	private String repositoryUserNameXpath;
+	private String repositoryUserPasswordXpath;
+	private String repositoryTokenXpath;
+	private String repositoryPrivateKeyXpath;
 
 	/**
 	 * 
@@ -56,6 +62,18 @@ public class CreateSitePage {
 				.getProperty("create_admin_dropdown_option");
 		settingsOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("create_settings_option");
+		repositoryNameXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositoryname");
+		repositoryURLXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositoryurl");
+		repositoryUserNameXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositoryusername");
+		repositoryUserPasswordXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositoryuserpassword");
+		repositoryTokenXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositorytoken");
+		repositoryPrivateKeyXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositoryprivatekey");
 	}
 
 	public CreateSitePage(WebDriver driver) {
@@ -80,14 +98,66 @@ public class CreateSitePage {
 		driverManager.sendText("xpath", this.siteName, siteName);
 	}
 
+	public void setSiteNameForSiteIDRestrictions(String siteName) {
+		driverManager.sendTextForSiteIDRestrictions("xpath", this.siteName, siteName);
+	}
+
 	public void fillSiteName(String siteName) {
 		// Set site name
 		this.setSiteName(siteName);
 	}
-	
+
 	public void setSiteId(String strSiteID) {
 		WebElement idSite = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteID);
 		idSite.sendKeys(strSiteID);
+	}
+
+	public void setRepositoryName(String repositoryName) {
+		driverManager.sendText("xpath", this.repositoryNameXpath, repositoryName);
+		// WebElement repositoryNameElement =
+		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		// repositoryNameXpath);
+		// repositoryNameElement.sendKeys(repositoryName);
+	}
+
+	public void setRepositoryURL(String repositoryURL) {
+		driverManager.sendText("xpath", this.repositoryURLXpath, repositoryURL);
+		// WebElement repositoryURLElement =
+		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		// repositoryURLXpath);
+		// repositoryURLElement.sendKeys(repositoryURL);
+	}
+
+	public void setRepositoryUserName(String repositoryUserName) {
+		driverManager.sendText("xpath", this.repositoryUserNameXpath, repositoryUserName);
+		// WebElement repositoryUserNameElement =
+		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		// repositoryUserNameXpath);
+		// repositoryUserNameElement.sendKeys(repositoryUserName);
+	}
+
+	public void setRepositoryUserPassword(String repositoryUserPassword) {
+		driverManager.sendText("xpath", this.repositoryUserPasswordXpath, repositoryUserPassword);
+		// WebElement repositoryUserPasswordElement = this.driverManager
+		// .driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		// repositoryUserPasswordXpath);
+		// repositoryUserPasswordElement.sendKeys(repositoryUserPassword);
+	}
+
+	public void setRepositoryToken(String repositoryToken) {
+		driverManager.sendText("xpath", this.repositoryTokenXpath, repositoryToken);
+		// WebElement repositoryTokenElement =
+		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		// repositoryTokenXpath);
+		// repositoryTokenElement.sendKeys(repositoryToken);
+	}
+
+	public void setRepositoryPrivateKey(String repositoryPrivateKey) {
+		driverManager.sendText("xpath", this.repositoryPrivateKeyXpath, repositoryPrivateKey);
+		// WebElement repositoryPrivateKeyElement =
+		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		// repositoryPrivateKeyXpath);
+		// repositoryPrivateKeyElement.sendKeys(repositoryPrivateKey);
 	}
 
 	public void fillIdSite(String strSiteID) {
@@ -130,7 +200,7 @@ public class CreateSitePage {
 		// select blue empty print
 		this.selectEmptyBlueprint();
 	}
-	
+
 	// Press on create site
 	public void createButton() {
 		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
@@ -159,8 +229,7 @@ public class CreateSitePage {
 
 	// Press on Cancel button of the create site process.
 	public void cancelButton() {
-		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				cancelButton);
+		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", cancelButton);
 		createButton.click();
 	}
 
@@ -171,7 +240,8 @@ public class CreateSitePage {
 
 	// Press on help option
 	public void clickHelp() {
-		WebElement users = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", helpOption);
+		WebElement users = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				helpOption);
 		users.click();
 	}
 
@@ -266,6 +336,28 @@ public class CreateSitePage {
 		WebElement bluePrintCombo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "blueprint");
 		Select select = new Select(bluePrintCombo);
 		select.selectByVisibleText("Website_editorial");
+	}
+
+	public void selectHeadlessBlogBluePrintOption() {
+		// select blue corporate print
+		this.selectHeadlessBlogBluePrint();
+	}
+
+	private void selectHeadlessBlogBluePrint() {
+		WebElement bluePrintCombo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "blueprint");
+		Select select = new Select(bluePrintCombo);
+		select.selectByVisibleText("Headless_blog");
+	}
+
+	public void selectHeadlessStoreBluePrintOption() {
+		// select blue corporate print
+		this.selectHeadlessStoreBluePrint();
+	}
+
+	private void selectHeadlessStoreBluePrint() {
+		WebElement bluePrintCombo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "blueprint");
+		Select select = new Select(bluePrintCombo);
+		select.selectByVisibleText("Headless_store");
 	}
 
 }

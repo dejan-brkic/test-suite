@@ -104,7 +104,8 @@ public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", contentTypeContainerChildContentTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
+
 	}
 
 }

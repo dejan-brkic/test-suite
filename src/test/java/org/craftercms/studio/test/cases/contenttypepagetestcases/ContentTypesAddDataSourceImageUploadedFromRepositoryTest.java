@@ -109,7 +109,8 @@ public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends St
 		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerImageUploadedFromRepositoryTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
+
 	}
 
 }

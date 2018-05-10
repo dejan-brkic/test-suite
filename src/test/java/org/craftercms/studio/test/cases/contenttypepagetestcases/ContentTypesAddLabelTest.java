@@ -126,7 +126,7 @@ public class ContentTypesAddLabelTest  extends StudioBaseTest{
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerLabelTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
 
 	}
 }

@@ -129,7 +129,7 @@ public class UserManagementAPI extends BaseAPI {
 	}
 
 	public void testGetUserUserNotFound() {
-		api.get("/studio/api/1/services/api/1/user/get.json").urlParam("username", newusername + "nonvalid").execute()
+		api.get("/studio/api/1/services/api/1/user/get.json").urlParam("username", "notfound").execute()
 				.status(404);
 	}
 

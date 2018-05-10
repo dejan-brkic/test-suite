@@ -127,6 +127,7 @@ public class ContentTypesAddImageTest extends StudioBaseTest{
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerImageTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.cancelChangesOnContentType();
+
 	}
 }

@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -150,15 +151,15 @@ public class WebDriverManager {
 					throw new IllegalArgumentException(
 							"webBrowser property is needed, valid values are:" + "chrome,edge,ie,firefox,phantomjs");
 				}
-				this.waitForDeliveryRefresh();
-				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
-				this.defaultTimeOut = Integer.parseInt(
-						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
 
 				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
 					this.maximizeWindow();
 				}
 
+				this.waitForDeliveryRefresh();
+				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
+				this.defaultTimeOut = Integer.parseInt(
+						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
 			} catch (IOException ex) {
 				throw new FileNotFoundException("Unable to read runtime properties file");
 			}
@@ -568,6 +569,31 @@ public class WebDriverManager {
 		}
 	}
 
+	public void waitUntilDashboardWidgetsAreLoaded() {
+		logger.debug("Waiting for dashboard widgets are fully loaded");
+		this.waitUntilAttributeContains("xpath", ".//div[@id='GoLiveQueue']", "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", ".//div[@id='approvedScheduledItems']", "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", ".//div[@id='recentlyMadeLive']", "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", ".//div[@id='MyRecentActivity']", "style", "display: block;");
+	}
+
+	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity() {
+		logger.debug("Waiting for loading animation is gone");
+		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-MyRecentActivity']");
+		waitUntilElementIsHidden(element);
+	}
+
+	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentlyPublished() {
+		logger.debug("Waiting for loading animation is gone");
+		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-recentlyMadeLive']");
+		waitUntilElementIsHidden(element);
+	}
+
+	public void waitUntilHomeIsOpened() {
+		logger.debug("Waiting for home childs are displayed");
+		this.waitUntilElementIsDisplayed("xpath", ".//span[text()='Home']/../../../../../div[@class='ygtvchildren']");
+	}
+
 	public void waitUntilSiteConfigMaskedModalCloses() {
 		logger.debug("Waiting for publish dialog to close");
 		this.waitForAnimation();
@@ -628,6 +654,14 @@ public class WebDriverManager {
 		input.sendKeys(text);
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
 	}
+	
+	public void sendTextForSiteIDRestrictions(String selectorType, String selectorValue, String text) {
+		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
+		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
+		input.clear();
+		input.sendKeys(text);
+		waitUntilAttributeIs(selectorType, selectorValue, "value", text.toLowerCase().replaceAll("[^a-zA-Z0-9_-]", ""));
+	}
 
 	public void usingContextMenu(Runnable actions, String menuOption) {
 		String selector;
@@ -637,7 +671,7 @@ public class WebDriverManager {
 		} else {
 			selector = "div.yui-module.yui-overlay.yuimenu.visible";
 		}
-		
+
 		WebElement menu = waitUntilElementIsClickable("cssSelector", selector);
 		this.waitForAnimation();
 		actions.run();
@@ -777,7 +811,7 @@ public class WebDriverManager {
 
 	public void waitForAnimation() {
 		try {
-			Thread.sleep(300);
+			Thread.sleep(600);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -855,8 +889,8 @@ public class WebDriverManager {
 					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
 					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
 					Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
-					int occurencesOfDone = StringUtils.countMatches(output, "Done");
-					Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+					int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
+					Assert.assertTrue((occurencesOfSuccessfully == 2), "The init-site result was: " + output);
 				}
 
 				return process.exitValue();
@@ -896,8 +930,8 @@ public class WebDriverManager {
 					Assert.assertTrue((occurencesOfCreatingSolrCore == 1), "The init-site result was: " + output);
 					int occurencesOfCreatingTarget = StringUtils.countMatches(output, "Creating Deployer Target");
 					Assert.assertTrue((occurencesOfCreatingTarget == 1), "The init-site result was: " + output);
-					int occurencesOfDone = StringUtils.countMatches(output, "Done");
-					Assert.assertTrue((occurencesOfDone == 1), "The init-site result was: " + output);
+					int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
+					Assert.assertTrue((occurencesOfSuccessfully == 2), "The init-site result was: " + output);
 				}
 
 				return process.exitValue();
@@ -968,6 +1002,37 @@ public class WebDriverManager {
 			Thread.sleep(waitTimeOut);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void selectAllAndDeleteContentAsFolderValueOnCodeArea(String elementLocator, String newTextValue) {
+		WebElement element = this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", elementLocator);
+		element.click();
+		(new Actions(this.driver)).moveToElement(element).sendKeys(Keys.chord(Keys.CONTROL, "A"))
+				.sendKeys(Keys.chord(Keys.DELETE)).pause(100).sendKeys(Keys.chord(newTextValue)).perform();
+		this.waitForAnimation();
+	}
+
+	public String getCurrentYear() {
+		Calendar calendar = Calendar.getInstance();
+		return String.valueOf(calendar.get(Calendar.YEAR));
+	}
+
+	public String getCurrentDay() {
+		Calendar calendar = Calendar.getInstance();
+		if ((calendar.get(Calendar.DATE)) < 10) {
+			return "0" + String.valueOf(calendar.get(Calendar.DATE));
+		} else {
+			return String.valueOf(calendar.get(Calendar.DATE));
+		}
+	}
+
+	public String getCurrentMonth() {
+		Calendar calendar = Calendar.getInstance();
+		if ((calendar.get(Calendar.MONTH) + 1) < 10) {
+			return "0" + String.valueOf((calendar.get(Calendar.MONTH) + 1));
+		} else {
+			return String.valueOf((calendar.get(Calendar.MONTH) + 1));
 		}
 	}
 }

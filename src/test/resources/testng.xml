@@ -36,12 +36,6 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
-	<test name="Cancel Create Site Process Test">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CancelCreateSiteProcessTest" />
-		</classes>
-	</test>
 	<test name="Copy Paste Content Test">
 		<classes>
 			<class
@@ -851,7 +845,8 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
-	<test name="Verify The Application allows to copy and paste content with specific and shared components">
+	<test
+		name="Verify The Application allows to copy and paste content with specific and shared components">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
@@ -881,6 +876,203 @@
 				name="org.craftercms.studio.test.cases.contenttestcases.DependenciesCalculationItemRefersToTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that studio allows to rename content via Form (page.xml move name)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.RenameViaFormTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that studio allows to cut and paste content to folder (page.xml move to folder)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.CutPasteToFolderTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that studio allows to copy and paste content to folder (page.xml copy to folder)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteToFolderTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that studio allows to copy and paste content to folder with collision and duplicate">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteToFolderWithCollisionTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that studio allows to rename content via Form (page move name rename)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.RenameViaFormPageMoveNameRenameTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that studio allows to cut and paste content to folder (page move to folder)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.CutPasteToFolderPageMoveToFolderTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that studio allows to copy and paste content to folder (page copy to folder)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteToFolderPageCopyToFolderTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that studio allows to copy and paste content to folder with collision and duplicate (page copy to folder)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteToFolderWithCollisionPageTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify The Application allows to rename file and publish it (file.xml rename and publish)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageHTML" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify The Application allows to rename file and publish it (page rename and publish)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishPageRenameTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify The Application allows to rename, rename again and publish it (file.xml rename, rename and publish)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameRenameThenPublishTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageHTML" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify The Application allows to rename, rename again and publish it (Page rename, rename and publish)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameRenameThenPublishPageRenameTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageName" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify The Application allows to rename file and publish it, later rename and delete it (file.xml rename and publish, later rename and delete)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageHTML" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameAgainAndDeleteTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify The Application allows to rename page and publish it, later rename and delete it (Page rename and publish, later rename and delete)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishPageRenameTest" />
+			<class
+				name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.FileRenameAgainAndDeletePageRenameTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that the application show the sites page complete with or without sites created. (logos, titles, all links, buttons)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifySitesPageWithSitesAndWithoutSitesTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that the application allows to create a site with each blueprints availables">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateSitesWithEachBlueprintTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that the application shows each validations of the fields for the create site process">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioShowEachValidationOfFieldsForCreateSiteTest" />
+		</classes>
+	</test>
+	<test name="Verify that the application allows to cancel the create site process">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CancelCreateSiteProcessTest" />
 		</classes>
 	</test>
 </suite> <!-- Suite -->

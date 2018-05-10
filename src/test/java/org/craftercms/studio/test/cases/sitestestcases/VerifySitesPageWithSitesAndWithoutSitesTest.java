@@ -1,26 +1,22 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
- * 
  * 
  * @author luishernandez
  *
  */
 
-// related to ticket on windows:
-// https://github.com/craftercms/craftercms/issues/1905
-public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends StudioBaseTest {
+//Test Case Studio- Sites ID:1
+public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String siteId;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -28,49 +24,65 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteId = "testsite" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
 	}
 
-	@Test(priority = 0)
-	public void createSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck() {
-
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		driverManager.waitUntilLoginCloses();
-
+	public void createSite() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
 		// Filling the name of site
-		createSitePage.fillSiteName(siteId);
+
+		createSitePage.fillSiteName();
 
 		// Filling the description of the site
 
 		createSitePage.fillDescription("Description");
 
-		// Open blueprint combo
-		// Select blueprint
+		// Select empty blueprint
 
-		createSitePage.selectWebSiteEditorialBluePrintOption();
+		createSitePage.selectEmptyBluePrintOption();
 
 		// Click on Create button
-		this.driverManager.waitForAnimation();
 		createSitePage.clickOnCreateSiteButton();
 
-		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
 		Assert.assertTrue(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 
-		// go to delivery folder and init site for test
-		int exitCode = this.driverManager.goToFolderAndExecuteInitSiteScriptThroughCommandLine(siteId);
-
-		Assert.assertTrue(exitCode == 0, "Init site process failed");
-
-		// saving the siteId for the dependent test cases to this test case.
-		constantsPropertiesManager.setProperty("general.currentsiteid", siteId);
+		dashboardPage.clickOnSitesOption();
 	}
+
+	public void step3() {
+		this.homePage.checkElementsOnSitePageWithoutSites();
+	}
+
+	public void step6() {
+		this.homePage.checkElementsOnSitePageWithSites();
+	}
+
+	public void step7() {
+		this.homePage.deleteAllSites();
+		this.homePage.checkElementsOnSitePageWithoutSites();
+	}
+
+	@Test(priority = 0)
+	public void verifySitesPageWithSitesAndWithoutSitesTest() {
+
+		// login to application
+		loginPage.loginToCrafter(userName, password);
+
+		driverManager.waitUntilLoginCloses();
+
+		step3();
+
+		// Steps 4 y 5
+		createSite();
+
+		step6();
+
+		step7();
+	}
+
 }

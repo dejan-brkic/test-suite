@@ -47,6 +47,7 @@ public class SiteConfigPage {
 	public String clickOnDataSourceImageUploadedFromCMISRepositorySection;
 	private String contentTypeVisualContainer;
 	private String contentTypeSavedNotification;
+	private String cancelButton;
 	private static Logger logger = LogManager.getLogger(SiteConfigPage.class);
 
 	public SiteConfigPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -57,6 +58,7 @@ public class SiteConfigPage {
 				.getProperty("adminconsole.open_Existing_Type_Option");
 		okButton = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("adminconsole.ok_Button");
 		saveButton = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("adminconsole.save_Button");
+		cancelButton = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("adminconsole.cancel_Button");
 		genericTitle = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.generic_title");
 		inputTitle = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("adminconsole.input_Title");
@@ -129,6 +131,7 @@ public class SiteConfigPage {
 	// Click on open existing Type option
 
 	public void clickOpenExistingTypeOption() {
+		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", openExistingTypeOption);
 		WebElement openExistingTypeOpt = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				openExistingTypeOption);
@@ -191,6 +194,11 @@ public class SiteConfigPage {
 		logger.debug("Click on Save button");
 		this.driverManager.waitForAnimation();
 		this.saveSectionDropped();
+	}
+	
+	public void cancelChangesOnContentType() {
+		logger.debug("Click on Cancel button");
+		 this.driverManager.waitUntilElementIsClickable("xpath", cancelButton).click();
 	}
 
 	// Click on generic title to edit the context type selected.
