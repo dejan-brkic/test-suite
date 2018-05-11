@@ -25,11 +25,12 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
  * 
- * @author Gustavo Andrei Ortiz Alfaro
+ * @author luishernandez
  *
  */
 
-public class SitesPerPageTest extends StudioBaseTest{
+//Test Case Studio- Sites ID:6
+public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTest{
 
 	private String userName;
 	private String password;
@@ -42,6 +43,10 @@ public class SitesPerPageTest extends StudioBaseTest{
 	private String topNavDeleteOption;
 	private String topNavEditOption;
 	private String topNavSitesOption;
+	private String lastNumberOfPaginationXpath;
+	private String firstNumberOfPaginationXpath;
+	private String lastArrowOfPaginationXpath;
+	private String firstArrowOfPaginationXpath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -66,6 +71,14 @@ public class SitesPerPageTest extends StudioBaseTest{
 				.getProperty("general.edittopnavoption");
 		topNavSitesOption= uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.preview.sitesoption");
+		lastNumberOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.pagination.lastnumberelement");
+		firstNumberOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.pagination.firstnumberelement");
+		lastArrowOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.pagination.lastarrowelement");
+		firstArrowOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.pagination.firstarrowelement");
 		
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -160,6 +173,8 @@ public class SitesPerPageTest extends StudioBaseTest{
 				sitesPerPageInputXpath).sendKeys("10");
 		
 		this.driverManager.waitForAnimation();
+		
+		this.navigationOfPage();
 	}
 
 	public void deleteSites() {
@@ -170,8 +185,34 @@ public class SitesPerPageTest extends StudioBaseTest{
 		homePage.deleteAllSites();
 	}
 
+	public void navigationOfPage() {
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("1");
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("2");
+
+		// navigation
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastNumberOfPaginationXpath).click();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstNumberOfPaginationXpath).click();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastArrowOfPaginationXpath).click();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstArrowOfPaginationXpath).click();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
+		
+		this.driverManager.waitForAnimation();
+		
+	}
 	@Test(priority = 0)
-	public void verifyThatTheShowSitesPerPageWorksProperlyTest() {
+	public void verifyStudioAllowsToFilterNumberOfSitesPerPage() {
 		// filters
 		filters();
 	}
