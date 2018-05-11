@@ -27,22 +27,27 @@ import org.testng.annotations.Test;
  *
  */
 
-//Test Case Studio- Sites ID:1
-public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest {
+public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
+	private String deletedSiteRow;
+	private String createSiteButton;
 	private String siteDropdownElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
+		deletedSiteRow = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.deletedsiterow");
+		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sites.createsitebutton");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 	}
 
-	public void createSite() {
+	public void createSiteUsingEmptyBluePrint() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
@@ -54,8 +59,7 @@ public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest 
 
 		createSitePage.fillDescription("Description");
 
-		// Select empty blueprint
-
+		// Select empty blueprints
 		createSitePage.selectEmptyBluePrintOption();
 
 		// Click on Create button
@@ -70,35 +74,25 @@ public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest 
 		dashboardPage.clickOnSitesOption();
 	}
 
-	public void step3() {
-		this.homePage.checkElementsOnSitePageWithoutSites();
-	}
-
-	public void step6() {
-		this.homePage.checkElementsOnSitePageWithSites();
-	}
-
-	public void step7() {
-		this.homePage.deleteAllSites();
-		this.homePage.checkElementsOnSitePageWithoutSites();
-	}
-
 	@Test(priority = 0)
-	public void verifySitesPageWithSitesAndWithoutSitesTest() {
+	public void verifyStudioAllowsToDeleteASiteCreatedTest() {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
-		step3();
+		
+		this.createSiteUsingEmptyBluePrint();
+		
+		// Click on Delete icon
+		this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
 
-		// Steps 4 y 5
-		createSite();
+		this.homePage.deleteAllSites();
 
-		step6();
-
-		step7();
+		// Assert
+		this.driverManager.waitWhileElementIsNotDisplayedByXpath(deletedSiteRow);
+		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(deletedSiteRow));
+		this.homePage.checkElementsOnSitePageWithoutSites();
 	}
-
 }
