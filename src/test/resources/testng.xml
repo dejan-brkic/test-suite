@@ -321,12 +321,6 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.PaginationOfListOfSitesTest" />
 		</classes>
 	</test>
-	<test name="Sites Per Page Test">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.SitesPerPageTest" />
-		</classes>
-	</test>
 	<test name="About Us Test">
 		<classes>
 			<class
@@ -1091,6 +1085,12 @@
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToDeleteASiteCreatedTest" />
+		</classes>
+	</test>
+	<test name="Verify that the application allows to filter the number of sites displayed per page">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToFilterNumberOfSitesPerPage" />
 		</classes>
 	</test>
 </suite> <!-- Suite -->

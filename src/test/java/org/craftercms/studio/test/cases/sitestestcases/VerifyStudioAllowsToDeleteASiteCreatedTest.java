@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
  * @author luishernandez
  *
  */
-
+//Test Case Studio- Sites ID:5
 public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 
 	private String userName;

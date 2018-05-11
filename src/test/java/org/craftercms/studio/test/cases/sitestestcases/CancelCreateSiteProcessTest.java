@@ -27,7 +27,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
  * @author luishernandez
  *
  */
-
+//Test Case Studio- Sites ID:3
 public class CancelCreateSiteProcessTest extends StudioBaseTest{
 
 	private String userName;
