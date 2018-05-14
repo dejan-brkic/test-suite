@@ -1,15 +1,15 @@
 
-<!--  Copyright (C) 2007-2018 Crafter Software Corporation. All Rights Reserved. -->
-<!--   This program is free software: you can redistribute it and/or modify -->
-<!--   it under the terms of the GNU General Public License as published by -->
-<!--   the Free Software Foundation, either version 3 of the License, or -->
-<!--   (at your option) any later version. -->
-<!--   This program is distributed in the hope that it will be useful, -->
-<!--   but WITHOUT ANY WARRANTY; without even the implied warranty of -->
-<!--   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the -->
-<!--   GNU General Public License for more details. -->
-<!--   You should have received a copy of the GNU General Public License -->
-<!--   along with this program.  If not, see <http://www.gnu.org/licenses/>. -->
+<!-- Copyright (C) 2007-2018 Crafter Software Corporation. All Rights Reserved. -->
+<!-- This program is free software: you can redistribute it and/or modify -->
+<!-- it under the terms of the GNU General Public License as published by -->
+<!-- the Free Software Foundation, either version 3 of the License, or -->
+<!-- (at your option) any later version. -->
+<!-- This program is distributed in the hope that it will be useful, -->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the -->
+<!-- GNU General Public License for more details. -->
+<!-- You should have received a copy of the GNU General Public License -->
+<!-- along with this program. If not, see <http://www.gnu.org/licenses/>. -->
  
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="craftercms - Studio UI -AllTestCases TestSuite"
@@ -1069,7 +1069,8 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioShowEachValidationOfFieldsForCreateSiteTest" />
 		</classes>
 	</test>
-	<test name="Verify that the application allows to cancel the create site process">
+	<test
+		name="Verify that the application allows to cancel the create site process">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CancelCreateSiteProcessTest" />
@@ -1081,16 +1082,26 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToDeleteASiteCreatedTest" />
 		</classes>
 	</test>
-	<test name="Verify that the application allows to filter the number of sites displayed per page">
+	<test
+		name="Verify that the application allows to filter the number of sites displayed per page">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToFilterNumberOfSitesPerPage" />
 		</classes>
 	</test>
+	<test
+		name="Verify that the application allows to go to the preview page for a site when Preview link is clicked">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyThatPaginationOfSiteListWorksProperlyTest" />
+		</classes>
+	</test>
 	<test name="Verify that the pagination on the sites list works properly">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyThatPaginationOfSiteListWorksProperly" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToGoToPreviewPageWhenClickOnPreviewLinkTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
 </suite> <!-- Suite -->
