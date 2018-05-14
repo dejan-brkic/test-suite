@@ -315,12 +315,6 @@
 				name="org.craftercms.studio.test.cases.userstestcases.PaginationOfListOfUsersTest" />
 		</classes>
 	</test>
-	<test name="Pagination of List Sites Page Test">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.PaginationOfListOfSitesTest" />
-		</classes>
-	</test>
 	<test name="About Us Test">
 		<classes>
 			<class
@@ -1091,6 +1085,12 @@
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToFilterNumberOfSitesPerPage" />
+		</classes>
+	</test>
+	<test name="Verify that the pagination on the sites list works properly">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyThatPaginationOfSiteListWorksProperly" />
 		</classes>
 	</test>
 </suite> <!-- Suite -->
