@@ -1090,16 +1090,24 @@
 		</classes>
 	</test>
 	<test
-		name="Verify that the application allows to go to the preview page for a site when Preview link is clicked">
+		name="Verify that the pagination on the sites list works properly">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyThatPaginationOfSiteListWorksProperlyTest" />
 		</classes>
 	</test>
-	<test name="Verify that the pagination on the sites list works properly">
+	<test name="Verify that the application allows to go to the preview page for a site when Preview link is clicked">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToGoToPreviewPageWhenClickOnPreviewLinkTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test name="Verify that the application allows to go to the dashboard page for a site when Dashboard link is clicked">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
