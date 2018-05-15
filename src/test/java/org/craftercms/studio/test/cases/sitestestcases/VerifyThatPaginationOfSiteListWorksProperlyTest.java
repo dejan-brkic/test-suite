@@ -27,7 +27,8 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
  *
  */
 
-public class VerifyThatPaginationOfSiteListWorksProperly extends StudioBaseTest{
+//Test Case Studio- Sites ID:7
+public class VerifyThatPaginationOfSiteListWorksProperlyTest extends StudioBaseTest{
 	
 	private String userName;
 	private String password;
