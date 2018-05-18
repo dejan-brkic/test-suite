@@ -964,12 +964,9 @@ public class WebDriverManager {
 
 	@SuppressWarnings("deprecation")
 	public int goToFolderAndExecuteGitInitBareRepository(String repositoryName) {
-		String repositoryFolder;
-		if (executionEnvironment.equalsIgnoreCase("unix")) {
-			repositoryFolder = System.getProperty("user.dir") + "/../../" + repositoryName + "/";
-		} else {
-			repositoryFolder = System.getProperty("user.dir") + "\\..\\..\\" + repositoryName + "\\";
-		}
+		String repositoryFolder = System.getProperty("user.dir") + File.separator +".."
+				+ File.separator +".."+ File.separator + repositoryName + File.separator;
+		
 		try {
 			// if the repository folder does not exist, it will create it.
 			Git bareRepo = Git.init().setBare(true).setDirectory(new File(repositoryFolder)).call();
@@ -992,13 +989,8 @@ public class WebDriverManager {
 
 	public int goToFolderAndExecuteDeleteBareRepositoryFolder(String repositoryName) {
 		try {
-			String repositoryFolder;
-			if (executionEnvironment.equalsIgnoreCase("unix")) {
-				repositoryFolder = System.getProperty("user.dir") + "/../../" + repositoryName + "/";
-
-			} else {
-				repositoryFolder = System.getProperty("user.dir") + "\\..\\..\\" + repositoryName + "\\";
-			}
+			String repositoryFolder = System.getProperty("user.dir") + File.separator +".."
+					+ File.separator +".."+ File.separator + repositoryName + File.separator;
 
 			FileUtils.deleteDirectory(new File(repositoryFolder));
 			return 0;
@@ -1009,12 +1001,8 @@ public class WebDriverManager {
 	}
 
 	public String getLocalBareRepoURL(String repositoryName) {
-		String repositoryFolder;
-		if (executionEnvironment.equalsIgnoreCase("unix")) {
-			repositoryFolder = System.getProperty("user.dir") + "/../../" + repositoryName + "/";
-		} else {
-			repositoryFolder = System.getProperty("user.dir") + "\\..\\..\\" + repositoryName + "\\";
-		}
+		String repositoryFolder = System.getProperty("user.dir") + File.separator +".."
+				+ File.separator +".."+ File.separator + repositoryName + File.separator;
 		return repositoryFolder;
 	}
 
