@@ -171,10 +171,10 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		String notificationSecondText = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationError).getText();
 
-		Assert.assertTrue(notificationTitleText.equals("Notification"));
+		Assert.assertTrue("Notification".equals(notificationTitleText));
 		Assert.assertTrue(
-				notificationFirstText.equals("Unable to create site. Please contact your system administrator."));
-		Assert.assertTrue(notificationSecondText.equals("Error: Remote repository not bare"));
+				"Unable to create site. Please contact your system administrator.".equals(notificationFirstText));
+		Assert.assertTrue("Error: Remote repository not bare".equals(notificationSecondText));
 	}
 
 	public void clickOnCreateSiteButton() {
