@@ -1,4 +1,5 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <!-- Copyright (C) 2007-2018 Crafter Software Corporation. All Rights Reserved. -->
 <!-- This program is free software: you can redistribute it and/or modify -->
 <!-- it under the terms of the GNU General Public License as published by -->
@@ -10,8 +11,6 @@
 <!-- GNU General Public License for more details. -->
 <!-- You should have received a copy of the GNU General Public License -->
 <!-- along with this program. If not, see <http://www.gnu.org/licenses/>. -->
- 
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="craftercms - Studio UI -AllTestCases TestSuite"
 	preserve-order="true" verbose="3">
 	<test name="Try to delete user connected test">
@@ -1089,8 +1088,7 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToFilterNumberOfSitesPerPage" />
 		</classes>
 	</test>
-	<test
-		name="Verify that the pagination on the sites list works properly">
+	<test name="Verify that the pagination on the sites list works properly">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyThatPaginationOfSiteListWorksProperlyTest" />
@@ -1108,6 +1106,14 @@
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test name="Verify that application allows to create a site based on a blueprint then push to remote git repository">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRepoTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>

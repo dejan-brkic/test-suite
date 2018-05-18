@@ -40,7 +40,6 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 	private String password;
 	private String createFormFrameElementCss;
 	private String createFormSaveAndCloseElement;
-	private String configurationSetUp;
 	private String dashboardLink;
 	private String editRecentlyContentCreated;
 	private String recentActivityContentURL;
@@ -65,6 +64,8 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 	private String recentlyPublishedContentName;
 	private String recentlyPublishedContentURL;
 	private String recentlyPublishedSelectAll;
+	private String recentActivitySecondContentURL;
+	private String recentActivitySecondContentName;
 	private static Logger logger = LogManager.getLogger(FileRenameRenameThenPublishPageRenameTest.class);
 
 	@BeforeMethod
@@ -121,15 +122,15 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.itemurl");
 		recentlyActivityItemConfigurationEditedIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
-		configurationSetUp = "<content-as-folder>false</content-as-folder>";
+		recentActivitySecondContentURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.myrecentactivity.contentsecondurl");
+		recentActivitySecondContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.myrecentactivity.contentsecondname");
+		
 	}
 
 	public void changeBodyToNotRequiredOnEntryContent() {
 		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
-
-	public void modifyPageXMLDefinition() {
-		previewPage.modifyPageXMLDefinitionContentAsFolderForPageArticle(configurationSetUp);
 	}
 
 	public void createNewPageArticle(String folderLocation) {
@@ -336,15 +337,15 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 		// check items on My Recent Activity widget
 		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL);
 
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName)
 						.getText().contains("foo"));
 		this.driverManager.waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
 						.getText().contains("/articles/2016/12/bar"));
 	}
 

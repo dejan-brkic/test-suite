@@ -20,6 +20,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.lib.Constants;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -670,7 +673,7 @@ public class WebDriverManager {
 		input.sendKeys(text);
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
 	}
-	
+
 	public void sendTextForSiteIDRestrictions(String selectorType, String selectorValue, String text) {
 		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
 		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
@@ -957,6 +960,62 @@ public class WebDriverManager {
 			}
 		}
 
+	}
+
+	@SuppressWarnings("deprecation")
+	public int goToFolderAndExecuteGitInitBareRepository(String repositoryName) {
+		String repositoryFolder;
+		if (executionEnvironment.equalsIgnoreCase("unix")) {
+			repositoryFolder = System.getProperty("user.dir") + "/../../" + repositoryName + "/";
+		} else {
+			repositoryFolder = System.getProperty("user.dir") + "\\..\\..\\" + repositoryName + "\\";
+		}
+		try {
+			// if the repository folder does not exist, it will create it.
+			Git bareRepo = Git.init().setBare(true).setDirectory(new File(repositoryFolder)).call();
+
+			// Assert if there is the HEAD file
+			Assert.assertNotNull(bareRepo.getRepository().getRef(Constants.HEAD));
+
+			return 0;
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+			return -1;
+		} catch (GitAPIException e) {
+			e.printStackTrace();
+			return -1;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	public int goToFolderAndExecuteDeleteBareRepositoryFolder(String repositoryName) {
+		try {
+			String repositoryFolder;
+			if (executionEnvironment.equalsIgnoreCase("unix")) {
+				repositoryFolder = System.getProperty("user.dir") + "/../../" + repositoryName + "/";
+
+			} else {
+				repositoryFolder = System.getProperty("user.dir") + "\\..\\..\\" + repositoryName + "\\";
+			}
+
+			FileUtils.deleteDirectory(new File(repositoryFolder));
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
+	public String getLocalBareRepoURL(String repositoryName) {
+		String repositoryFolder;
+		if (executionEnvironment.equalsIgnoreCase("unix")) {
+			repositoryFolder = System.getProperty("user.dir") + "/../../" + repositoryName + "/";
+		} else {
+			repositoryFolder = System.getProperty("user.dir") + "\\..\\..\\" + repositoryName + "\\";
+		}
+		return repositoryFolder;
 	}
 
 	public void focusAndScrollDownToBottomInASection(String cssContainer, String cssSelectorValue) {

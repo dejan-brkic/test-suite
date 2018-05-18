@@ -90,8 +90,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 
 		createSitePage.fillDescription("Description");
 
-		// Select empty blueprint
-
+		// Select website blueprint
 		createSitePage.selectWebSiteEditorialBluePrintOption();
 
 		// Click on Create button
