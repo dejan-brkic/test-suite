@@ -1110,7 +1110,7 @@ public class PreviewPage {
 				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
 				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
-				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+				|| (dependentItemName.equalsIgnoreCase("html5shiv.js")) || (dependentItemName.equalsIgnoreCase("cstudio-support.ftl"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
 				|| (dependentItemName.equalsIgnoreCase("ie8.css"))
 				|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
@@ -1123,6 +1123,7 @@ public class PreviewPage {
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/templates/system/common/cstudio-support.ftl"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
@@ -1145,6 +1146,7 @@ public class PreviewPage {
 				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
 				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
 				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+				|| (dependentItemName.equalsIgnoreCase("cstudio-support.ftl"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
 				|| (dependentItemName.equalsIgnoreCase("ie8.css"))
 				|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
@@ -1153,6 +1155,7 @@ public class PreviewPage {
 		}
 		if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/templates/system/common/cstudio-support.ftl"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
@@ -1178,6 +1181,7 @@ public class PreviewPage {
 				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
 				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
+				|| (dependentItemName.equalsIgnoreCase("cstudio-support.ftl"))
 				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
 				|| (dependentItemName.equalsIgnoreCase("ie8.css"))
@@ -1187,6 +1191,7 @@ public class PreviewPage {
 		}
 		if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery.min.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/jquery-ui.min.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/templates/system/common/cstudio-support.ftl"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/skel.min.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/main.css"))
@@ -1210,6 +1215,7 @@ public class PreviewPage {
 		if ((dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.js"))
 				|| (dependentItemName.equalsIgnoreCase("ie9.css"))
 				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+				|| (dependentItemName.equalsIgnoreCase("cstudio-support.ftl"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
 				|| (dependentItemName.equalsIgnoreCase("respond.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("jquery.min.js"))
@@ -1223,6 +1229,7 @@ public class PreviewPage {
 		}
 		if ((dependentItemLocation.equalsIgnoreCase("/static-assets/js/util.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/main.js"))
+				|| (dependentItemLocation.equalsIgnoreCase("/templates/system/common/cstudio-support.ftl"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/ie9.css"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/js/ie/html5shiv.js"))
 				|| (dependentItemLocation.equalsIgnoreCase("/static-assets/css/jquery-ui.min.css"))
@@ -1501,16 +1508,16 @@ public class PreviewPage {
 				Assert.assertTrue(dependeciesItems.size() == 3);
 				break;
 			case "article.ftl":
-				Assert.assertTrue(dependeciesItems.size() == 12);
+				Assert.assertTrue(dependeciesItems.size() == 13);
 				break;
 			case "category-landing.ftl":
-				Assert.assertTrue(dependeciesItems.size() == 12);
+				Assert.assertTrue(dependeciesItems.size() == 13);
 				break;
 			case "home.ftl":
-				Assert.assertTrue(dependeciesItems.size() == 12);
+				Assert.assertTrue(dependeciesItems.size() == 13);
 				break;
 			case "search-results.ftl":
-				Assert.assertTrue(dependeciesItems.size() == 13);
+				Assert.assertTrue(dependeciesItems.size() == 14);
 				break;
 			default:
 				throw new IllegalArgumentException("No case for provided item name: " + componentName);

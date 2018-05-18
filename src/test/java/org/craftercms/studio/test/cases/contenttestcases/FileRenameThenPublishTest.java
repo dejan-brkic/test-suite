@@ -63,8 +63,6 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 	private String recentlyActivityItemIcon;
 	private String recentlyActivityItemURL;
 	private String recentlyActivityItemConfigurationEditedIcon;
-	private String recentActivitySecondContentURL;
-	private String recentActivitySecondContentName;
 	private static Logger logger = LogManager.getLogger(FileRenameThenPublishTest.class);
 
 	@BeforeMethod
@@ -83,10 +81,6 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.contenturl");
 		recentActivityContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.contentname");
-		recentActivitySecondContentURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("dashboard.myrecentactivity.contentsecondurl");
-		recentActivitySecondContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("dashboard.myrecentactivity.contentsecondname");
 		fooContentXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.foocontent");
 		editURLButton = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("frame1.editurlbutton");
 		warningTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -331,18 +325,21 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		// click on dashboard
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
-
+		this.driverManager.waitForAnimation();
+		
 		// check items on My Recent Activity widget
 		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName)
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
 						.getText().contains("foo"));
 		this.driverManager.waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
 						.getText().contains("/articles/2016/12/bar.xml"));
 	}
 

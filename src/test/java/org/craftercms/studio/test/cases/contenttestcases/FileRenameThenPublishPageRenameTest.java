@@ -41,7 +41,6 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	private String password;
 	private String createFormFrameElementCss;
 	private String createFormSaveAndCloseElement;
-	private String configurationSetUp;
 	private String dashboardLink;
 	private String editRecentlyContentCreated;
 	private String recentActivityContentURL;
@@ -113,15 +112,10 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.itemurl");
 		recentlyActivityItemConfigurationEditedIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
-		configurationSetUp = "<content-as-folder>false</content-as-folder>";
 	}
 
 	public void changeBodyToNotRequiredOnEntryContent() {
 		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
-
-	public void modifyPageXMLDefinition() {
-		previewPage.modifyPageXMLDefinitionContentAsFolderForPageArticle(configurationSetUp);
 	}
 
 	public void createNewPageArticle(String folderLocation) {
@@ -279,7 +273,7 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 					itemURL.equalsIgnoreCase("/config/studio/content-types/page/article/form-definition.xml"));
 			break;
 		default:
-            this.validateItemNameForStaticAssetsFolders(itemName, itemIconClass, itemURL);
+			this.validateItemNameForStaticAssetsFolders(itemName, itemIconClass, itemURL);
 			break;
 		}
 	}
@@ -289,19 +283,17 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		String month = this.driverManager.getCurrentMonth();
 		String day = this.driverManager.getCurrentDay();
 
-		if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year)){
+		if (itemURL.equalsIgnoreCase("/static-assets/item/images/" + year)) {
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
 			Assert.assertTrue(itemName.equalsIgnoreCase(year));
-		}	else if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year+"/"+month)){
+		} else if (itemURL.equalsIgnoreCase("/static-assets/item/images/" + year + "/" + month)) {
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
 			Assert.assertTrue(itemName.equalsIgnoreCase(month));
-		}
-		else if (itemURL.equalsIgnoreCase("/static-assets/item/images/"+year+"/"+month+"/"+day)){
+		} else if (itemURL.equalsIgnoreCase("/static-assets/item/images/" + year + "/" + month + "/" + day)) {
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
 			Assert.assertTrue(itemName.equalsIgnoreCase(day));
-		}
-		else {
-			Assert.assertTrue(false, "The Item URL is not the correct for the item: "+itemName);
+		} else {
+			Assert.assertTrue(false, "The Item URL is not the correct for the item: " + itemName);
 		}
 	}
 
@@ -325,12 +317,15 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		// click on dashboard
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.driverManager.waitForAnimation();
 
 		// check items on My Recent Activity widget
 		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
 						.getText().contains("foo"));
