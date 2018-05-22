@@ -180,6 +180,9 @@ public class RenameViaFormPageMoveNameRenameTest extends StudioBaseTest {
 
 		// check items on My Recent Activity widget
 		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
+		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 

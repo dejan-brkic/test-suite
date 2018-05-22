@@ -319,22 +319,11 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 		this.driverManager.waitForAnimation();
 
-		// check items on My Recent Activity widget
-		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.dashboardPage.validateItemsOnRecentActivity(true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
-		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
-						.getText().contains("foo"));
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
-						.getText().contains("/articles/2016/12/bar"));
 	}
 
+	
 	public void step11() {
 		this.driverManager.contextClick("xpath", fooContentXpath, false);
 		driverManager.usingContextMenu(() -> {

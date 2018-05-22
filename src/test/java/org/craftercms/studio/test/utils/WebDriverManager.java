@@ -590,21 +590,42 @@ public class WebDriverManager {
 
 	public void waitUntilDashboardWidgetsAreLoaded() {
 		logger.debug("Waiting for dashboard widgets are fully loaded");
+		this.waitForAnimation();
+		this.waitUntilLoadingAnimationIsNotDisplayedOnAllDashboardWidgets();
 		this.waitUntilAttributeContains("xpath", ".//div[@id='GoLiveQueue']", "style", "display: block;");
 		this.waitUntilAttributeContains("xpath", ".//div[@id='approvedScheduledItems']", "style", "display: block;");
 		this.waitUntilAttributeContains("xpath", ".//div[@id='recentlyMadeLive']", "style", "display: block;");
 		this.waitUntilAttributeContains("xpath", ".//div[@id='MyRecentActivity']", "style", "display: block;");
 	}
 
+	public void waitUntilLoadingAnimationIsNotDisplayedOnAllDashboardWidgets() {
+		this.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
+		this.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentlyPublished();
+		this.waitUntilDashboardLoadingAnimationIsNotDisplayedOnApprovedScheduled();
+		this.waitUntilDashboardLoadingAnimationIsNotDisplayedOnItemsWaitingForApproval();
+	}
+
 	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity() {
-		logger.debug("Waiting for loading animation is gone");
+		logger.debug("Waiting for loading animation is gone on Recent Activity");
 		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-MyRecentActivity']");
 		waitUntilElementIsHidden(element);
 	}
 
 	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentlyPublished() {
-		logger.debug("Waiting for loading animation is gone");
+		logger.debug("Waiting for loading animation is gone on Recently Published");
 		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-recentlyMadeLive']");
+		waitUntilElementIsHidden(element);
+	}
+
+	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnApprovedScheduled() {
+		logger.debug("Waiting for loading animation is gone on Approved Scheduled");
+		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-approvedScheduledItems']");
+		waitUntilElementIsHidden(element);
+	}
+
+	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnItemsWaitingForApproval() {
+		logger.debug("Waiting for loading animation is gone on Waiting For Approval");
+		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-GoLiveQueue']");
 		waitUntilElementIsHidden(element);
 	}
 
@@ -876,12 +897,13 @@ public class WebDriverManager {
 	public int goToFolderAndExecuteInitSiteScriptThroughCommandLine(String siteId) {
 		String script;
 		String shell;
-		String folder;
+		String folder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".." + File.separator
+				+ "crafter-delivery" + File.separator + "bin";
 
 		if (executionEnvironment.equalsIgnoreCase("unix")) {
 			shell = "/bin/bash";
 			script = "init-site.sh";
-			folder = "../../crafter-delivery/bin";
+
 			try {
 				String[] command = { shell, script, siteId };
 
@@ -923,8 +945,6 @@ public class WebDriverManager {
 			command[1] = "/C";
 			command[2] = "init-site.bat " + siteId;
 
-			folder = System.getProperty("user.dir") + "\\..\\..\\crafter-delivery\\bin";
-
 			try {
 
 				ProcessBuilder processBuilder = new ProcessBuilder(command);
@@ -964,9 +984,9 @@ public class WebDriverManager {
 
 	@SuppressWarnings("deprecation")
 	public int goToFolderAndExecuteGitInitBareRepository(String repositoryName) {
-		String repositoryFolder = System.getProperty("user.dir") + File.separator +".."
-				+ File.separator +".."+ File.separator + repositoryName + File.separator;
-		
+		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+				+ File.separator + repositoryName + File.separator;
+
 		try {
 			// if the repository folder does not exist, it will create it.
 			Git bareRepo = Git.init().setBare(true).setDirectory(new File(repositoryFolder)).call();
@@ -989,8 +1009,8 @@ public class WebDriverManager {
 
 	public int goToFolderAndExecuteDeleteBareRepositoryFolder(String repositoryName) {
 		try {
-			String repositoryFolder = System.getProperty("user.dir") + File.separator +".."
-					+ File.separator +".."+ File.separator + repositoryName + File.separator;
+			String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+					+ File.separator + repositoryName + File.separator;
 
 			FileUtils.deleteDirectory(new File(repositoryFolder));
 			return 0;
@@ -1001,8 +1021,16 @@ public class WebDriverManager {
 	}
 
 	public String getLocalBareRepoURL(String repositoryName) {
-		String repositoryFolder = System.getProperty("user.dir") + File.separator +".."
-				+ File.separator +".."+ File.separator + repositoryName + File.separator;
+		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+				+ File.separator + repositoryName + File.separator;
+		return repositoryFolder;
+	}
+
+	public String getAuthoringSiteSandboxRepoURL(String siteID) {
+		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+				+ File.separator + "crafter-authoring" + File.separator + "data" + File.separator + "repos"
+				+ File.separator + "sites" + File.separator + siteID + File.separator + "sandbox";
+
 		return repositoryFolder;
 	}
 
