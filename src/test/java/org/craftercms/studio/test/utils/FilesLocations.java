@@ -16,11 +16,27 @@
  */
 package org.craftercms.studio.test.utils;
 
+import java.io.File;
+
 public interface FilesLocations {
 
- public static String UIELEMENTSPROPERTIESFILEPATH = "./src/test/resources/SharedUIElements.properties";
- public static String CONSTANTSPROPERTIESFILEPATH = "./src/test/resources/ExecutionConstants.properties";
- public static String SCREENSHOTSFOLDEPATH = "./executionscreenshots";
- public static String TESTINGIMAGEFILEPATH = "./src/test/resources/testimage.jpg";
- 
+	public static String UIELEMENTSPROPERTIESFILEPATH = "./src/test/resources/SharedUIElements.properties";
+	public static String CONSTANTSPROPERTIESFILEPATH = "./src/test/resources/ExecutionConstants.properties";
+	public static String SCREENSHOTSFOLDEPATH = "./executionscreenshots";
+	public static String TESTINGIMAGEFILEPATH = "./src/test/resources/testimage.jpg";
+	public static String BULK_CSSFOLDERFILEPATH = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+			+ File.separator + "bulkupload_test" + File.separator + "bulk_css";
+	public static String BULK_FONTSFOLDERFILEPATH = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+			+ File.separator + "bulkupload_test" + File.separator+ "bulk_font";
+	public static String BULK_IMAGEFOLDERFILEPATH =System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+			+ File.separator + "bulkupload_test" + File.separator+ "bulk_image";
+	public static String BULK_JSFOLDERFILEPATH = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+			+ File.separator + "bulkupload_test" + File.separator+ "bulk_js";
+	public static String BULK_SCRIPTSFOLDERFILEPATH = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+			+ File.separator + "bulkupload_test" + File.separator+ "bulk_scripts";
+	public static String BULK_TEMPLATESFILEPATH = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+			+ File.separator + "bulkupload_test" + File.separator+ "bulk_templates";
+	public static String BULK_TXTFILEPATH = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+			+ File.separator + "bulkupload_test" + File.separator+ "bulk_txt";
+
 }
