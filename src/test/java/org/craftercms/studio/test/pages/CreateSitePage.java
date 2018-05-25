@@ -52,6 +52,8 @@ public class CreateSitePage {
 	private String repositoryUserPasswordXpath;
 	private String repositoryTokenXpath;
 	private String repositoryPrivateKeyXpath;
+	private String basicAuthenticationOption;
+	private String tokenAuthenticationOption;
 
 	/**
 	 * 
@@ -90,6 +92,10 @@ public class CreateSitePage {
 				.getProperty("home.createsite.repositorytoken");
 		repositoryPrivateKeyXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.repositoryprivatekey");
+		basicAuthenticationOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositorybasicauthentication");
+		tokenAuthenticationOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositorygittokenauthenticationtype");
 	}
 
 	public CreateSitePage(WebDriver driver) {
@@ -108,8 +114,8 @@ public class CreateSitePage {
 		// Set site name
 		this.setSiteName();
 	}
-	// Set site ID
 
+	// Set site ID
 	public void setSiteName(String siteName) {
 		driverManager.sendText("xpath", this.siteName, siteName);
 	}
@@ -130,50 +136,26 @@ public class CreateSitePage {
 
 	public void setRepositoryName(String repositoryName) {
 		driverManager.sendText("xpath", this.repositoryNameXpath, repositoryName);
-		// WebElement repositoryNameElement =
-		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-		// repositoryNameXpath);
-		// repositoryNameElement.sendKeys(repositoryName);
 	}
 
 	public void setRepositoryURL(String repositoryURL) {
 		driverManager.sendText("xpath", this.repositoryURLXpath, repositoryURL);
-		// WebElement repositoryURLElement =
-		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-		// repositoryURLXpath);
-		// repositoryURLElement.sendKeys(repositoryURL);
 	}
 
 	public void setRepositoryUserName(String repositoryUserName) {
 		driverManager.sendText("xpath", this.repositoryUserNameXpath, repositoryUserName);
-		// WebElement repositoryUserNameElement =
-		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-		// repositoryUserNameXpath);
-		// repositoryUserNameElement.sendKeys(repositoryUserName);
 	}
 
 	public void setRepositoryUserPassword(String repositoryUserPassword) {
 		driverManager.sendText("xpath", this.repositoryUserPasswordXpath, repositoryUserPassword);
-		// WebElement repositoryUserPasswordElement = this.driverManager
-		// .driverWaitUntilElementIsPresentAndDisplayed("xpath",
-		// repositoryUserPasswordXpath);
-		// repositoryUserPasswordElement.sendKeys(repositoryUserPassword);
 	}
 
 	public void setRepositoryToken(String repositoryToken) {
 		driverManager.sendText("xpath", this.repositoryTokenXpath, repositoryToken);
-		// WebElement repositoryTokenElement =
-		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-		// repositoryTokenXpath);
-		// repositoryTokenElement.sendKeys(repositoryToken);
 	}
 
 	public void setRepositoryPrivateKey(String repositoryPrivateKey) {
 		driverManager.sendText("xpath", this.repositoryPrivateKeyXpath, repositoryPrivateKey);
-		// WebElement repositoryPrivateKeyElement =
-		// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-		// repositoryPrivateKeyXpath);
-		// repositoryPrivateKeyElement.sendKeys(repositoryPrivateKey);
 	}
 
 	public void fillIdSite(String strSiteID) {
@@ -370,10 +352,22 @@ public class CreateSitePage {
 		this.selectHeadlessStoreBluePrint();
 	}
 
-	private void selectHeadlessStoreBluePrint() {
+	public void selectHeadlessStoreBluePrint() {
 		WebElement bluePrintCombo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "blueprint");
 		Select select = new Select(bluePrintCombo);
 		select.selectByVisibleText("Headless_store");
+	}
+
+	public void selectGitRepoBasicAutheticationType() {
+		WebElement basicAuthenticationGitRepoOption = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", basicAuthenticationOption);
+		basicAuthenticationGitRepoOption.click();
+	}
+
+	public void selectGitRepoTokenAutheticationType() {
+		WebElement tokenAuthenticationGitRepoOption = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", tokenAuthenticationOption);
+		tokenAuthenticationGitRepoOption.click();
 	}
 
 }
