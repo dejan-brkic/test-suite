@@ -63,6 +63,7 @@ public class WebDriverManager {
 	WebDriver driver;
 	private ConstantsPropertiesManager constantsPropertiesManager;
 	private int defaultTimeOut;
+	private int numberOfAttemptsForElementsDisplayed;
 	private String webBrowserProperty;
 	private String executionEnvironment;
 
@@ -114,6 +115,8 @@ public class WebDriverManager {
 				driver.get(envProperties.getProperty("baseUrl"));
 				this.defaultTimeOut = Integer.parseInt(
 						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
+				this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+						.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 
 				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
 					this.maximizeWindow();
@@ -181,6 +184,9 @@ public class WebDriverManager {
 				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
 				this.defaultTimeOut = Integer.parseInt(
 						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
+				this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+						.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
+
 			} catch (IOException ex) {
 				throw new FileNotFoundException("Unable to read runtime properties file");
 			}
@@ -465,7 +471,7 @@ public class WebDriverManager {
 	}
 
 	public void contextClick(String selectorType, String selectorValue, boolean executeThroughJavaScript) {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				waitUntilElementIsClickable(selectorType, selectorValue);
 				if (executeThroughJavaScript) {
@@ -580,12 +586,14 @@ public class WebDriverManager {
 	public void waitUntilCreateSiteModalCloses() {
 		logger.debug("Waiting for notification modal to close");
 		WebElement element = this.waitUntilElementIsDisplayed("xpath", ".//div[@class='modal-content']");
-		for (int i = 0; i < 3; i++) {
+
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				waitUntilElementIsRemoved(element);
 				break;
 			} catch (TimeoutException e) {
-				logger.warn("Element {} selected by {} does not disappear ", ".//div[@class='modal-content']", "xpath");
+				logger.warn("Element {} selected by {} does not disappear ",
+						".//div[@class='modal-content']", "xpath");
 			}
 		}
 	}
@@ -1213,6 +1221,14 @@ public class WebDriverManager {
 
 		contentAssetAPI.testWriteContentOnFolder(siteId, path, contentType, file);
 		securityAPI.logOutFromStudioUsingAPICall();
+	}
+
+	public int getNumberOfAttemptsForElementsDisplayed() {
+		return numberOfAttemptsForElementsDisplayed;
+	}
+
+	public void setNumberOfAttemptsForElementsDisplayed(int numberOfAttemptsForElementsDisplayed) {
+		this.numberOfAttemptsForElementsDisplayed = numberOfAttemptsForElementsDisplayed;
 	}
 
 }
