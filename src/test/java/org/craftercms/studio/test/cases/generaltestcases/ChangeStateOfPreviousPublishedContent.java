@@ -83,6 +83,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String articleContentCreatedName;
 	private String gearImageXpath;
 	private String siteDropdownListElementXPath;
+	private int numberOfAttemptsForElementsDisplayed;
 	private static Logger logger = LogManager.getLogger(ChangeStateOfPreviousPublishedContent.class);
 
 	@BeforeMethod
@@ -174,6 +175,8 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("complexscenarios.general.gearimagexpath");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
+		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 	}
 
 	public void addNewUser() {
@@ -595,7 +598,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.click();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pageStatus).click();
 				this.driverManager.waitUntilAttributeContains("xpath", pageStatus, "class", "undefined live");

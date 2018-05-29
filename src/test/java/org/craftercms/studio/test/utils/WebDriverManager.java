@@ -20,6 +20,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.craftercms.studio.test.api.objects.ContentAssetAPI;
+import org.craftercms.studio.test.api.objects.SecurityAPI;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Constants;
@@ -61,6 +63,7 @@ public class WebDriverManager {
 	WebDriver driver;
 	private ConstantsPropertiesManager constantsPropertiesManager;
 	private int defaultTimeOut;
+	private int numberOfAttemptsForElementsDisplayed;
 	private String webBrowserProperty;
 	private String executionEnvironment;
 
@@ -112,6 +115,8 @@ public class WebDriverManager {
 				driver.get(envProperties.getProperty("baseUrl"));
 				this.defaultTimeOut = Integer.parseInt(
 						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
+				this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+						.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 
 				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
 					this.maximizeWindow();
@@ -179,6 +184,9 @@ public class WebDriverManager {
 				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
 				this.defaultTimeOut = Integer.parseInt(
 						constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
+				this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+						.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
+
 			} catch (IOException ex) {
 				throw new FileNotFoundException("Unable to read runtime properties file");
 			}
@@ -463,7 +471,7 @@ public class WebDriverManager {
 	}
 
 	public void contextClick(String selectorType, String selectorValue, boolean executeThroughJavaScript) {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				waitUntilElementIsClickable(selectorType, selectorValue);
 				if (executeThroughJavaScript) {
@@ -573,6 +581,19 @@ public class WebDriverManager {
 		WebElement element = this.waitUntilElementIsDisplayed("xpath",
 				".//*[@class='modal fade ng-isolate-scope centered-dialog studioMedium in']");
 		waitUntilElementIsRemoved(element);
+	}
+
+	public void waitUntilCreateSiteModalCloses() {
+		logger.debug("Waiting for notification modal to close");
+		WebElement element = this.waitUntilElementIsDisplayed("xpath", ".//div[@class='modal-content']");
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
+			try {
+				waitUntilElementIsRemoved(element);
+				break;
+			} catch (TimeoutException e) {
+				logger.warn("Element {} selected by {} does not disappear ", ".//div[@class='modal-content']", "xpath");
+			}
+		}
 	}
 
 	public void waitUntilPublishMaskedModalCloses() {
@@ -1096,6 +1117,14 @@ public class WebDriverManager {
 		}
 	}
 
+	public void waitForBulkUploadProcess(int waitTimeOut) {
+		try {
+			Thread.sleep(waitTimeOut);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void selectAllAndDeleteContentAsFolderValueOnCodeArea(String elementLocator, String newTextValue) {
 		WebElement element = this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", elementLocator);
 		element.click();
@@ -1126,4 +1155,78 @@ public class WebDriverManager {
 			return String.valueOf((calendar.get(Calendar.MONTH) + 1));
 		}
 	}
+
+	public void uploadFilesOnADirectoryUsingAPICalls(File rootDirectory, String siteId, String rootPath) {
+		createFoldersAndFilesStructureUsingAPICalls(rootDirectory, siteId, rootPath);
+	}
+
+	public void createFoldersAndFilesStructureUsingAPICalls(File rootDirectory, String siteId, String rootPath) {
+
+		// creating root folder
+		createFolderUsingAPICall(rootDirectory, siteId, rootPath);
+
+		String childPath = rootPath + "/" + rootDirectory.getName();
+
+		File[] listOfFiles = rootDirectory.listFiles();
+
+		for (File file : listOfFiles) {
+			if (file.isDirectory()) {
+				// First we need to create folders structure
+				createFoldersAndFilesStructureUsingAPICalls(file, siteId, childPath);
+			} else {
+				writeFileUsingAPICall(file, siteId, childPath);
+			}
+		}
+	}
+
+	public void createFolderUsingAPICall(File file, String siteId, String path) {
+		APIConnectionManager apiConnectionManager = new APIConnectionManager();
+		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
+				apiConnectionManager.getPort());
+		SecurityAPI securityAPI = new SecurityAPI(api, apiConnectionManager);
+		ContentAssetAPI contentAssetAPI = new ContentAssetAPI(api, apiConnectionManager);
+		securityAPI.logInIntoStudioUsingAPICall();
+
+		if (file.isDirectory()) {
+			contentAssetAPI.testCreateFolderOnAPath(siteId, path, file.getName());
+		}
+
+		securityAPI.logOutFromStudioUsingAPICall();
+	}
+
+	public void writeFileUsingAPICall(File file, String siteId, String path) {
+		APIConnectionManager apiConnectionManager = new APIConnectionManager();
+		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
+				apiConnectionManager.getPort());
+		SecurityAPI securityAPI = new SecurityAPI(api, apiConnectionManager);
+		ContentAssetAPI contentAssetAPI = new ContentAssetAPI(api, apiConnectionManager);
+		securityAPI.logInIntoStudioUsingAPICall();
+
+		if (!file.isDirectory()) {
+			contentAssetAPI.testWriteContentOnFolder(siteId, path, "folder", file);
+		}
+
+		securityAPI.logOutFromStudioUsingAPICall();
+	}
+
+	public void createFileUsingAPICall(File file, String siteId, String path, String contentType) {
+		APIConnectionManager apiConnectionManager = new APIConnectionManager();
+		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
+				apiConnectionManager.getPort());
+		SecurityAPI securityAPI = new SecurityAPI(api, apiConnectionManager);
+		ContentAssetAPI contentAssetAPI = new ContentAssetAPI(api, apiConnectionManager);
+		securityAPI.logInIntoStudioUsingAPICall();
+
+		contentAssetAPI.testWriteContentOnFolder(siteId, path, contentType, file);
+		securityAPI.logOutFromStudioUsingAPICall();
+	}
+
+	public int getNumberOfAttemptsForElementsDisplayed() {
+		return numberOfAttemptsForElementsDisplayed;
+	}
+
+	public void setNumberOfAttemptsForElementsDisplayed(int numberOfAttemptsForElementsDisplayed) {
+		this.numberOfAttemptsForElementsDisplayed = numberOfAttemptsForElementsDisplayed;
+	}
+	
 }
