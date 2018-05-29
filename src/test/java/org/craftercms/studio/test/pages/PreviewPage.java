@@ -1588,7 +1588,7 @@ public class PreviewPage {
 				.click();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalDeleteOption);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < driverManager.getNumberOfAttemptsForElementsDisplayed(); i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteStatusIcon)
 						.click();

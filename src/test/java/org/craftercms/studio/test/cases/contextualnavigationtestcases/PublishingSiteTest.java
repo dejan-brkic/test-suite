@@ -46,6 +46,7 @@ public class PublishingSiteTest extends StudioBaseTest {
 	private String testingContentItem;
 	private String topNavStatusIcon;
 	private String homeXpath;
+	private int numberOfAttemptsForElementsDisplayed;
 
 	private static Logger logger = LogManager.getLogger(PublishingSiteTest.class);
 
@@ -65,6 +66,8 @@ public class PublishingSiteTest extends StudioBaseTest {
 		topNavStatusIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.statustopbaricon");
 		homeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.home");
+		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 
 	}
 
@@ -182,7 +185,7 @@ public class PublishingSiteTest extends StudioBaseTest {
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentItem)
 						.click();

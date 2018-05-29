@@ -62,6 +62,7 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	private String recentlyActivityItemIcon;
 	private String recentlyActivityItemURL;
 	private String recentlyActivityItemConfigurationEditedIcon;
+	private int numberOfAttemptsForElementsDisplayed;
 	private static Logger logger = LogManager.getLogger(FileRenameThenPublishPageRenameTest.class);
 
 	@BeforeMethod
@@ -112,6 +113,8 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.itemurl");
 		recentlyActivityItemConfigurationEditedIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
+		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 	}
 
 	public void changeBodyToNotRequiredOnEntryContent() {
@@ -180,7 +183,7 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		previewPage.clickOnSubmitButtonOfApprovePublish();
 		this.driverManager.waitForAnimation();
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
 						.click();
@@ -340,7 +343,7 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	}
 
 	public void step13() {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
 						.click();

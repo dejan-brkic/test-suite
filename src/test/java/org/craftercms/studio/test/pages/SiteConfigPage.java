@@ -186,7 +186,7 @@ public class SiteConfigPage {
 	 // Save the section dropped.
     public void saveSectionDropped() {
         this.driverManager.waitForAnimation();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < driverManager.getNumberOfAttemptsForElementsDisplayed(); i++) {
             try {
                 this.driverManager.waitUntilElementIsClickable("xpath", saveButton).click();
                 WebElement notification = this.driverManager.waitUntilElementIsDisplayed("xpath",

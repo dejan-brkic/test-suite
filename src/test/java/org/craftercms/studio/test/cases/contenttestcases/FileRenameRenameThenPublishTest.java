@@ -66,6 +66,7 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 	private String recentlyPublishedContentName;
 	private String recentlyPublishedContentURL;
 	private String recentlyPublishedSelectAll;
+	private int numberOfAttemptsForElementsDisplayed;
 	private static Logger logger = LogManager.getLogger(FileRenameRenameThenPublishTest.class);
 
 	@BeforeMethod
@@ -122,6 +123,8 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.itemurl");
 		recentlyActivityItemConfigurationEditedIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
+		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 		configurationSetUp = "<content-as-folder>false</content-as-folder>";
 	}
 
@@ -198,7 +201,7 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 		previewPage.clickOnSubmitButtonOfApprovePublish();
 		this.driverManager.waitForAnimation();
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
 						.click();
@@ -338,7 +341,7 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 
 	public void step20() {
 		//checking if the content was published
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
 						.click();
@@ -395,7 +398,7 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 	}
 
 	public void step13() {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
 						.click();
