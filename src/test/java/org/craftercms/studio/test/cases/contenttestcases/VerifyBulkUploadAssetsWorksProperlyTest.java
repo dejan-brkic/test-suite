@@ -17,13 +17,13 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.io.File;
 import java.util.NoSuchElementException;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.craftercms.studio.test.utils.FilesLocations;
-import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -38,7 +38,6 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	private String password;
 	private String siteDropdownElementXPath;
 	private String siteDropdownListElementXPath;
-	private String bulkUploadOptionXpath;
 	private String staticAssetsTreeXpath;
 	private String staticAssetsSubTreeXpath;
 	private String cssFolder;
@@ -52,8 +51,6 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdown");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
-		bulkUploadOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("rightclick.bulkuploadoption");
 		cssFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.staticassets.cssfolder");
 		staticAssetsTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -63,7 +60,13 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 		editorialBPSiteId = "editorialbpsite";
 	}
-
+	
+	public void createFoldersStructureToTest() {
+		
+		int exitCode = this.driverManager.createFoldersStructureForTestingCopiedFromSite(editorialBPSiteId);	
+		Assert.assertTrue(exitCode == 0, "Create folders structure process failed");
+	}
+	
 	public void setup() {
 		loginPage.loginToCrafter(userName, password);
 
@@ -72,6 +75,8 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 		this.createSiteUsingWebSiteEditorialBluePrint();
 
 		dashboardPage.clickOnSitesOption();
+		
+		createFoldersStructureToTest();
 	}
 
 	public void createSiteUsingWebSiteEditorialBluePrint() {
@@ -134,23 +139,8 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
-		this.rightClickAndClickOnBulkUpload(cssFolder, "Static Assets");
 	}
 
-	public void rightClickAndClickOnBulkUpload(String itemLocator, String menuLocation) {
-		this.driverManager.waitForAnimation();
-		WebElement element = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemLocator);
-
-		this.driverManager.contextClick(this.driverManager.getDriver(), element, false);
-		driverManager.usingContextMenu(() -> {
-			this.driverManager.waitUntilContentTooltipIsHidden();
-			WebElement bulkUploadOption = this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkUploadOptionXpath);
-			bulkUploadOption.click();
-		}, menuLocation);
-
-		this.driverManager.waitForAnimation();
-	}
 
 	public void bulkUploadFolderToCssFolder() {
 		this.bulkUploadFolderContainingNestedFolders(FilesLocations.BULK_CSSFOLDERFILEPATH);
@@ -187,5 +177,15 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 		// Step 5 and 6
 		this.bulkUploadFolderToCssFolder();
 
+	}
+	
+	public void deleteFoldersStructureToTest() {
+		int exitCode = this.driverManager.deleteFoldersStructureForTestingCopiedFromSite();	
+		Assert.assertTrue(exitCode == 0, "Delete folders structure process failed");
+	}
+	
+	@AfterMethod
+	public void afterTest() {
+		this.deleteFoldersStructureToTest();
 	}
 }

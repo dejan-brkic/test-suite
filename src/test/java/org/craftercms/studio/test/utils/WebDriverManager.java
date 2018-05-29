@@ -50,8 +50,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -1155,7 +1158,7 @@ public class WebDriverManager {
 	}
 
 	public void createFoldersAndFilesStructureUsingAPICalls(File rootDirectory, String siteId, String rootPath) {
-
+ 
 		// creating root folder
 		createFolderUsingAPICall(rootDirectory, siteId, rootPath);
 
@@ -1213,6 +1216,168 @@ public class WebDriverManager {
 
 		contentAssetAPI.testWriteContentOnFolder(siteId, path, contentType, file);
 		securityAPI.logOutFromStudioUsingAPICall();
+	}
+
+	public int createFoldersStructureForTestingCopiedFromSite(String siteId) {
+		
+		try {
+			// First create folders con craftercms folder
+			this.createFoldersOnCrafterFolder();
+
+			// Go to siteFolder and copy folders to previously created folders
+			this.goToScriptsFolderAndCreateTestStructure(siteId);
+			this.goToStaticAssetsImagesFolderAndCreateTestStructure(siteId);
+			this.goToStaticAssetsFolderAndCreateTestStructure(siteId);
+			this.goToTemplatesFolderAndCreateTestStructure(siteId);
+			this.goToStaticAssetsFontsFolderAndCreateTestStructure(siteId);
+			this.goToStaticAssetsCSSFolderAndCreateTestStructure(siteId);
+			this.goToStaticAssetsJSFolderAndCreateTestStructure(siteId);
+			
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+	}
+
+	public void createFoldersOnCrafterFolder() {
+		new File(FilesLocations.BULKUPLOAD_FOLDERFILEPATH).mkdir();
+		new File(FilesLocations.BULK_CSSFOLDERFILEPATH).mkdir();
+		new File(FilesLocations.BULK_FONTSFOLDERFILEPATH).mkdir();
+		new File(FilesLocations.BULK_IMAGEFOLDERFILEPATH).mkdir();
+		new File(FilesLocations.BULK_JSFOLDERFILEPATH).mkdir();
+		new File(FilesLocations.BULK_SCRIPTSFOLDERFILEPATH).mkdir();
+		new File(FilesLocations.BULK_TEMPLATESFILEPATH).mkdir();
+		new File(FilesLocations.BULK_TXTFILEPATH).mkdir();
+		new File(FilesLocations.BULK_SCRIPTSFOLDERFILEPATH + "scripts" + File.separator).mkdir();
+		new File(FilesLocations.BULK_IMAGEFOLDERFILEPATH + "images" + File.separator).mkdir();
+		new File(FilesLocations.BULK_TXTFILEPATH + "txt" + File.separator).mkdir();
+		new File(FilesLocations.BULK_TEMPLATESFILEPATH + "templates" + File.separator).mkdir();
+		new File(FilesLocations.BULK_FONTSFOLDERFILEPATH + "fonts" + File.separator).mkdir();
+		new File(FilesLocations.BULK_CSSFOLDERFILEPATH + "css" + File.separator).mkdir();
+		new File(FilesLocations.BULK_JSFOLDERFILEPATH + "js" + File.separator).mkdir();
+	}
+
+	public void goToScriptsFolderAndCreateTestStructure(String siteId) throws IOException {
+
+		String restFolderPath = FilesLocations.BULK_SCRIPTSFOLDERFILEPATH + "scripts" + File.separator;
+		for (int i = 0; i <= 7; i++) {
+			File sourceFolder = this.getAuthoringSiteFolder(siteId, "scripts");
+			this.copyFolderStructureToTestFolder(sourceFolder, new File(restFolderPath));
+			restFolderPath = restFolderPath + "rest" + File.separator + "scripts" + File.separator;
+		}
+	}
+
+	public void goToStaticAssetsImagesFolderAndCreateTestStructure(String siteId) throws IOException {
+		String restFolderPath = FilesLocations.BULK_IMAGEFOLDERFILEPATH + "images" + File.separator;
+		for (int i = 0; i <= 7; i++) {
+			File sourceFolder = this.getAuthoringSiteFolder(siteId, "static-assets" + File.separator + "images");
+			this.copyFolderStructureToTestFolder(sourceFolder, new File(restFolderPath));
+			restFolderPath = restFolderPath + "images" + File.separator;
+		}
+	}
+
+	public void goToStaticAssetsFolderAndCreateTestStructure(String siteId) throws IOException {
+		String restFolderPath = FilesLocations.BULK_TXTFILEPATH + "txt" + File.separator;
+		for (int i = 0; i <= 7; i++) {
+			File sourceFolder = this.getAuthoringSiteFolder(siteId, "static-assets");
+			this.copyFolderStructureToTestFolder(sourceFolder, new File(restFolderPath));
+			restFolderPath = restFolderPath + "txt" + File.separator;
+		}
+	}
+
+	public void goToTemplatesFolderAndCreateTestStructure(String siteId) throws IOException {
+		String restFolderPath = FilesLocations.BULK_TEMPLATESFILEPATH + "templates" + File.separator;
+		for (int i = 0; i <= 7; i++) {
+			File sourceFolder = this.getAuthoringSiteFolder(siteId, "templates");
+			this.copyFolderStructureToTestFolder(sourceFolder, new File(restFolderPath));
+			restFolderPath = restFolderPath + "web" + File.separator + "templates" + File.separator;
+		}
+	}
+
+	public void goToStaticAssetsFontsFolderAndCreateTestStructure(String siteId) throws IOException {
+		String restFolderPath = FilesLocations.BULK_FONTSFOLDERFILEPATH + "fonts" + File.separator;
+		for (int i = 0; i <= 7; i++) {
+			File sourceFolder = this.getAuthoringSiteFolder(siteId, "static-assets" + File.separator + "fonts");
+			this.copyFolderStructureToTestFolder(sourceFolder, new File(restFolderPath));
+			restFolderPath = restFolderPath + "fonts" + File.separator;
+		}
+	}
+
+	public void goToStaticAssetsCSSFolderAndCreateTestStructure(String siteId) throws IOException {
+		String restFolderPath = FilesLocations.BULK_CSSFOLDERFILEPATH + "css" + File.separator;
+		for (int i = 0; i <= 7; i++) {
+			File sourceFolder = this.getAuthoringSiteFolder(siteId, "static-assets" + File.separator + "css");
+			this.copyFolderStructureToTestFolder(sourceFolder, new File(restFolderPath));
+			restFolderPath = restFolderPath + "css" + File.separator;
+		}
+	}
+
+	public void goToStaticAssetsJSFolderAndCreateTestStructure(String siteId) throws IOException {
+		String restFolderPath = FilesLocations.BULK_JSFOLDERFILEPATH + "js" + File.separator;
+		for (int i = 0; i <= 7; i++) {
+			File sourceFolder = this.getAuthoringSiteFolder(siteId, "static-assets" + File.separator + "js");
+			this.copyFolderStructureToTestFolder(sourceFolder, new File(restFolderPath));
+			restFolderPath = restFolderPath + "ie" + File.separator + "js" + File.separator;
+		}
+	}
+
+	public void copyFolderStructureToTestFolder(File source, File target) throws IOException {
+			this.copy(source, target);
+	}
+
+	public File getAuthoringSiteFolder(String siteId, String requestedFolderPath) {
+		File existentFolder = new File(
+				"/Users/luishernandez/Crafter_Project/craftercms_server/craftercms/crafter-authoring/data/repos/sites/"
+						+ siteId + "/sandbox/" + requestedFolderPath);
+		// File existentFolder = new File(System.getProperty("user.dir") +
+		// File.separator + ".." + File.separator + ".."
+		// + File.separator + "crafter-authoring" + File.separator + "data" +
+		// File.separator + "repos"
+		// + File.separator + "sites" + File.separator + siteId + File.separator +
+		// "sandbox" + File.separator
+		// + requestedFolderPath);
+		return existentFolder;
+	}
+
+	public void copy(File sourceLocation, File targetLocation) throws IOException {
+		if (sourceLocation.isDirectory()) {
+			copyDirectory(sourceLocation, targetLocation);
+		} else {
+			copyFile(sourceLocation, targetLocation);
+		}
+	}
+
+	private void copyDirectory(File source, File target) throws IOException {
+		if (!target.exists()) {
+			target.mkdir();
+		}
+
+		for (String f : source.list()) {
+			copy(new File(source, f), new File(target, f));
+		}
+	}
+
+	private void copyFile(File source, File target) throws IOException {
+		try (InputStream inputStream = new FileInputStream(source);
+				OutputStream outputStream = new FileOutputStream(target)) {
+			byte[] buf = new byte[1024];
+			int length;
+			while ((length = inputStream.read(buf)) > 0) {
+				outputStream.write(buf, 0, length);
+			}
+		}
+	}
+
+	public int deleteFoldersStructureForTestingCopiedFromSite() {
+		try {
+			FileUtils.deleteDirectory(new File(FilesLocations.BULKUPLOAD_FOLDERFILEPATH));
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 }
