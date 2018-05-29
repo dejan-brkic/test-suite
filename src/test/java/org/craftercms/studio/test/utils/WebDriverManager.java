@@ -586,12 +586,14 @@ public class WebDriverManager {
 	public void waitUntilCreateSiteModalCloses() {
 		logger.debug("Waiting for notification modal to close");
 		WebElement element = this.waitUntilElementIsDisplayed("xpath", ".//div[@class='modal-content']");
+
 		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				waitUntilElementIsRemoved(element);
 				break;
 			} catch (TimeoutException e) {
-				logger.warn("Element {} selected by {} does not disappear ", ".//div[@class='modal-content']", "xpath");
+				logger.warn("Element {} selected by {} does not disappear ",
+						".//div[@class='modal-content']", "xpath");
 			}
 		}
 	}
@@ -1228,5 +1230,5 @@ public class WebDriverManager {
 	public void setNumberOfAttemptsForElementsDisplayed(int numberOfAttemptsForElementsDisplayed) {
 		this.numberOfAttemptsForElementsDisplayed = numberOfAttemptsForElementsDisplayed;
 	}
-	
+
 }
