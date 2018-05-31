@@ -1564,7 +1564,7 @@ public class WebDriverManager {
 			// waiting for last update on the tomcatlog for get all the lines into it.
 			this.waitForBulkUploadSyncProcess();
 			int amountOfLinesReturned = this.getAmountOfLinesOnLogFile(file);
-			if (!(currentAmount == amountOfLinesReturned)) {
+			if (currentAmount < amountOfLinesReturned) {
 				newAmountOfLines = amountOfLinesReturned;
 			}
 		}
