@@ -1080,6 +1080,7 @@ public class DashboardPage {
 	}
 
 	public void expandParentFolder(String parentElementLocator) {
+		logger.info("Expanding folder on sidebar");
 		this.driverManager.waitForAnimation();
 		WebElement parentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				parentElementLocator);
@@ -1090,6 +1091,7 @@ public class DashboardPage {
 	}
 
 	public void collapseParentFolder(String parentElementLocator) {
+		logger.info("Collapsing folder on sidebar");
 		this.driverManager.waitForAnimation();
 
 		WebElement parentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
