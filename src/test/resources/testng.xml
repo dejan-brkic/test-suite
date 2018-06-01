@@ -1137,4 +1137,13 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test
+		name="Verify that the application allows to bulk upload assets correctly">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.VerifyBulkUploadAssetsWorksProperlyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
