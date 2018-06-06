@@ -1138,6 +1138,15 @@
 		</classes>
 	</test>
 	<test
+		name="Verify that the application allows to create a site based on a remote git repository -Authentication type: private key on local repository">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
 		name="Verify that the application allows to bulk upload assets correctly">
 		<classes>
 			<class

@@ -24,6 +24,7 @@ public interface FilesLocations {
 	public static String CONSTANTSPROPERTIESFILEPATH = "./src/test/resources/ExecutionConstants.properties";
 	public static String SCREENSHOTSFOLDEPATH = "./executionscreenshots";
 	public static String TESTINGIMAGEFILEPATH = "./src/test/resources/testimage.jpg";
+	public static String PRIVATEKEYCONTENTFILEPATH = "./src/test/resources/PrivateKeyContent.txt";
 	public static String BULKUPLOAD_FOLDERFILEPATH = System.getProperty("user.dir") + File.separator + ".."
 			+ File.separator + ".." + File.separator + "bulkupload_test" + File.separator;
 	public static String BULK_CSSFOLDERFILEPATH = System.getProperty("user.dir") + File.separator + ".."
