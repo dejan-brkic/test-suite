@@ -339,13 +339,13 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath).click();
 
 		// Expanding Month folder
-		String monthFolderXpath = ".//span[text()='" + this.driverManager.getCurrentMonth() + "']";
+		String monthFolderXpath = yearFolderXpath + "/../../../../../div[@class='ygtvchildren']//span[text()='" + this.driverManager.getCurrentMonth() + "']";
 		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath).click();
 
 		// Expanding Day folder
-		String dayFolderXpath = ".//span[text()='" + this.driverManager.getCurrentDay() + "']";
+		String dayFolderXpath = monthFolderXpath + "/../../../../../div[@class='ygtvchildren']//span[text()='"+ this.driverManager.getCurrentDay()+"']";
 		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath).click();
@@ -355,8 +355,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.driverManager.scrollDownIntoSideBar();
 		this.driverManager.waitForAnimation();
 
-		String ImageItemsXpath = yearFolderXpath + "/../../../../../." + monthFolderXpath + "/../../../../../."
-				+ dayFolderXpath + staticAssetsItemImagesTestImagesChilds;
+		String ImageItemsXpath = dayFolderXpath + staticAssetsItemImagesTestImagesChilds;
 		List<WebElement> testimagesitems = this.driverManager.getDriver().findElements(By.xpath(ImageItemsXpath));
 		Assert.assertTrue((testimagesitems.size() == 21),
 				"There are not the correct amount of items for static asset/page/images/testimage.jpg , expected 21 items");

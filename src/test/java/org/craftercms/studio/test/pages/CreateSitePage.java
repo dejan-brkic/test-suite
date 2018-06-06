@@ -54,6 +54,7 @@ public class CreateSitePage {
 	private String repositoryPrivateKeyXpath;
 	private String basicAuthenticationOption;
 	private String tokenAuthenticationOption;
+	private String privateKeyAuthenticationOption;
 
 	/**
 	 * 
@@ -96,6 +97,8 @@ public class CreateSitePage {
 				.getProperty("home.createsite.repositorybasicauthentication");
 		tokenAuthenticationOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.repositorygittokenauthenticationtype");
+		privateKeyAuthenticationOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositorygitprivatekeyauthenticationtype");
 	}
 
 	public CreateSitePage(WebDriver driver) {
@@ -368,6 +371,12 @@ public class CreateSitePage {
 		WebElement tokenAuthenticationGitRepoOption = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", tokenAuthenticationOption);
 		tokenAuthenticationGitRepoOption.click();
+	}
+	
+	public void selectGitRepoPrivateKeyAutheticationType() {
+		WebElement privaetKeyAuthenticationGitRepoOption = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", privateKeyAuthenticationOption);
+		privaetKeyAuthenticationGitRepoOption.click();
 	}
 
 }

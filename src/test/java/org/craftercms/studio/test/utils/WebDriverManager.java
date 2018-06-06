@@ -47,6 +47,7 @@ import org.testng.Assert;
 import org.testng.TestException;
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -55,6 +56,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -1309,7 +1311,7 @@ public class WebDriverManager {
 		new File(FilesLocations.BULK_TEMPLATESFILEPATH).mkdir();
 		logger.info("Creating test folder: {}", FilesLocations.BULK_TXTFILEPATH);
 		new File(FilesLocations.BULK_TXTFILEPATH).mkdir();
-		
+
 		logger.info("Creating test folder: {}", FilesLocations.BULK_SCRIPTSFOLDERFILEPATH + "scripts");
 		new File(FilesLocations.BULK_SCRIPTSFOLDERFILEPATH + "scripts" + File.separator).mkdir();
 		logger.info("Creating test folder: {}", FilesLocations.BULK_IMAGEFOLDERFILEPATH + "images");
@@ -1432,13 +1434,10 @@ public class WebDriverManager {
 
 	public File getAuthoringSiteFolder(String siteId, String requestedFolderPath) {
 		// locate the given folder path on crafter-authoring repo folder
-		 File existentFolder = new File(System.getProperty("user.dir") +
-		 File.separator + ".." + File.separator + ".."
-		 + File.separator + "crafter-authoring" + File.separator + "data" +
-		 File.separator + "repos"
-		 + File.separator + "sites" + File.separator + siteId + File.separator +
-		 "sandbox" + File.separator
-		 + requestedFolderPath);
+		File existentFolder = new File(System.getProperty("user.dir") + File.separator + ".." + File.separator
+				+ ".." + File.separator + "crafter-authoring" + File.separator + "data" + File.separator
+				+ "repos" + File.separator + "sites" + File.separator + siteId + File.separator + "sandbox"
+				+ File.separator + requestedFolderPath);
 		return existentFolder;
 	}
 
@@ -1522,10 +1521,9 @@ public class WebDriverManager {
 
 	public String getStudioTomcatLog() {
 		// locate the path of the tomcat log file
-		String tomcatLog = 
-				System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
-						+ File.separator + "crafter-authoring" + File.separator + "logs" + File.separator
-						+ "tomcat" + File.separator;
+		String tomcatLog = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+				+ File.separator + "crafter-authoring" + File.separator + "logs" + File.separator + "tomcat"
+				+ File.separator;
 
 		if (executionEnvironment.equalsIgnoreCase("unix")) {
 			return tomcatLog + "catalina.out";
@@ -1657,5 +1655,26 @@ public class WebDriverManager {
 
 	public boolean checkIfThereIsLastCommitMessageWhenWriteContent(String logLine, String siteID) {
 		return logLine.contains("Last commit ID for site: " + siteID);
+	}
+
+	public String getPrivateKeyContentFromPrivateKeyTestFile(String fileLocation) {
+		String keyContent = "";
+
+		try {
+			File privateKeyFile = new File(fileLocation);
+			DataInputStream dataInputStream = new DataInputStream(new FileInputStream(privateKeyFile));
+			
+			byte[] privateKeyBytes = new byte[(int) privateKeyFile.length()];
+			
+			dataInputStream.readFully(privateKeyBytes);
+			dataInputStream.close();
+			
+			keyContent = new String(privateKeyBytes, StandardCharsets.UTF_8);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return keyContent;
 	}
 }
