@@ -177,6 +177,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
+		
 	}
 
 	public void addNewUser() {
