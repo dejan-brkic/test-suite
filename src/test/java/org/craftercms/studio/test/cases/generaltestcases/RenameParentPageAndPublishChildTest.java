@@ -22,6 +22,7 @@ import org.testng.Assert;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * @author luishernandez
@@ -48,6 +49,7 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 	private String homeExpansorXpath;
 	private String createFormArticleMainTitleElementXPath;
 	private String siteDropdownListElementXPath;
+	private String categoryDrowpdownXpath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -85,6 +87,8 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 				.getProperty("complexscenarios.general.homeexpansor");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
+		categoryDrowpdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.createformcategorydropdown");
 	}
 
 	public void loginAndGoToSiteContentPagesStructure() {
@@ -152,6 +156,11 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 			// Set the title of main content
 			this.driverManager.scrollDown();
 			driverManager.sendText("xpath", createFormArticleMainTitleElementXPath, pageName);
+			
+			WebElement categoryDropdown = this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayed("xpath", categoryDrowpdownXpath);
+			Select select = new Select(categoryDropdown);
+			select.selectByValue("style");
 
 			// save and close
 			this.driverManager.waitForAnimation();

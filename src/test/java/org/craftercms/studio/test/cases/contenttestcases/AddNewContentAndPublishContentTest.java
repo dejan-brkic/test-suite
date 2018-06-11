@@ -18,6 +18,8 @@ package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -39,6 +41,7 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 	private String homeContent;
 	private String createdContentXPath;
 	private String siteDropdownListElementXPath;
+	private String categoryDrowpdownXpath;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -59,6 +62,8 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 				.getProperty("general.studio.deliverypagecontenttodelete");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
+		categoryDrowpdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.createformcategorydropdown");
 	}
 
 	@Test(priority = 0)
@@ -136,6 +141,11 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 			this.driverManager.scrollDown();
 			driverManager.sendText("xpath", createFormArticleMainTitleElementXPath, "testingPage");
 
+			WebElement categoryDropdown = this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayed("xpath", categoryDrowpdownXpath);
+			Select select = new Select(categoryDropdown);
+			select.selectByValue("style");
+			
 			// save and close
 			this.driverManager.waitForAnimation();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)

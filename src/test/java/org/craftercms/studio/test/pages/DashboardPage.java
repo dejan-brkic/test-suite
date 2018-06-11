@@ -1015,8 +1015,8 @@ public class DashboardPage {
 	}
 
 	public void clickDeleteDeleteSubmitButton() {
-		this.driverManager.isElementPresentAndClickableById(deleteDeletButtonLocator);
-		WebElement deleteButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", deleteDeletButtonLocator);
+		WebElement deleteButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				deleteDeletButtonLocator);
 		deleteButton.click();
 		this.acceptDeletionAction();
