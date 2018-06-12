@@ -29,7 +29,7 @@ import org.testng.annotations.Test;
  */
 
 // Test Case Studio- Sites ID:11
-public class VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneAuthenticationTypeTest
+public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneAuthenticationTypeTest
 		extends StudioBaseTest {
 
 	private String userName;
