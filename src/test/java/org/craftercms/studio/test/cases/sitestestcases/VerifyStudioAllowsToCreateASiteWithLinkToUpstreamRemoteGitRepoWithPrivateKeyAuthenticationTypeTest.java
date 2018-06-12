@@ -20,7 +20,6 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.craftercms.studio.test.utils.FilesLocations;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -30,8 +29,8 @@ import org.testng.annotations.Test;
  *
  */
 
-// Test Case Studio- Sites ID:14
-public class VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeTest
+// Test Case Studio- Sites ID:15
+public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest
 		extends StudioBaseTest {
 
 	private String userName;
@@ -39,23 +38,26 @@ public class VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	private String siteId;
 	private String siteDropdownElementXPath;
 	private String gitPrivateKey;
-	private String localRepoName;
 	private String pushToBareRepoInput;
-	private String gitRepoUrlForSSH;
+	private String gitRepoUrl;
+	private String topNavSitesOption;
+	private String basedOnRemoteRepoInput;
 
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		localRepoName = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.localrepositoryname");
-		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
+		gitRepoUrl = constantsPropertiesManager.getSharedExecutionConstants()
+				.getProperty("crafter.gitrepository.remotegiturl");
+		gitPrivateKey = FilesLocations.REMOTEGITPRIVATEKEYCONTENTFILEPATH;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.repositorypushtoremotebare");
-
-		this.setup();
+		basedOnRemoteRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.repositorybasedonremotegitrepo");
+		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.preview.sitesoption");
 		siteId = "testingtargetsite";
 	}
 
@@ -77,7 +79,7 @@ public class VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	}
 
 	public void step6() {
-		createSitePage.setRepositoryURL(gitRepoUrlForSSH);
+		createSitePage.setRepositoryURL(gitRepoUrl);
 	}
 
 	public void step7() {
@@ -85,8 +87,8 @@ public class VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	}
 
 	public void step8() {
-		createSitePage
-				.setRepositoryPrivateKey(driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+		createSitePage.setRepositoryPrivateKey(
+				driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
 	}
 
 	public void step9() {
@@ -115,6 +117,62 @@ public class VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 				.isDisplayed());
 	}
 
+	public void step12() {
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavSitesOption)
+				.click();
+	}
+
+	public void step13() {
+		this.clickOnCreateSiteButton();
+	}
+
+	public void step14() {
+		// Filling the name of site
+		createSitePage.setSiteName(siteId + "duplicate");
+	}
+
+	public void step15() {
+		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
+	}
+
+	public void step16() {
+		createSitePage.setRepositoryName("origin2");
+	}
+
+	public void step17() {
+		createSitePage.setRepositoryURL(gitRepoUrl);
+	}
+
+	public void step18() {
+		createSitePage.selectGitRepoPrivateKeyAutheticationType();
+	}
+
+	public void step19() {
+		createSitePage.setRepositoryPrivateKey(
+				driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+	}
+
+	public void step20() {
+		WebElement baseOnRepoInputElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", basedOnRemoteRepoInput);
+		baseOnRepoInputElement.click();
+	}
+
+	public void step21() {
+		// Click on Create button
+		createSitePage.clickOnCreateSiteButton();
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilCreateSiteModalCloses();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				siteDropdownElementXPath);
+
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.isDisplayed());
+	}
+
 	public void clickOnCreateSiteButton() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -122,7 +180,7 @@ public class VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 
 	@Test(
 			priority = 0)
-	public void verifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeOnLocalRepositoryTest() {
+	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest() {
 		this.testScenario();
 	}
 
@@ -158,29 +216,38 @@ public class VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 
 		// Step 10
 		step10();
-		
+
 		// Step 11
 		step11();
 
-	}
+		// Step 12
+		step12();
 
-	public void setup() {
-		int exitCode = this.driverManager.goToFolderAndExecuteGitInitBareRepository(localRepoName);
-		Assert.assertTrue(exitCode == 0, "Init bare repository process failed");
-		String gitRepositorySSHPrefix = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.localsshprefix");
+		// Step 13
+		step13();
 
-		//Getting the repository url for local ssh 
-		gitRepoUrlForSSH = gitRepositorySSHPrefix + this.driverManager.getLocalBareRepoURL(localRepoName);
-	}
+		// Step 14
+		step14();
 
-	public void deleteRepositoryFolder() {
-		int exitCode = this.driverManager.goToFolderAndExecuteDeleteBareRepositoryFolder(localRepoName);
-		Assert.assertTrue(exitCode == 0, "Delete bare repository process failed");
-	}
+		// Step 15
+		step15();
 
-	@AfterMethod
-	public void afterTest() {
-		this.deleteRepositoryFolder();
+		// Step 16
+		step16();
+
+		// Step 17
+		step17();
+
+		// Step18
+		step18();
+
+		// Step 19
+		step19();
+
+		// Step 20
+		step20();
+
+		// Step 21
+		step21();
 	}
 }

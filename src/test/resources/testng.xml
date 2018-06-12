@@ -1102,6 +1102,15 @@
 		</classes>
 	</test>
 	<test
+		name="Verify that the application allows to bulk upload assets correctly">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.VerifyBulkUploadAssetsWorksProperlyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
 		name="Verify that application allows to create a site based on a blueprint then push to remote git repository">
 		<classes>
 			<class
@@ -1114,7 +1123,7 @@
 		name="Verify that the application allows to create a site based on a remote git repository -Authentication type: none">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneAuthenticationTypeTest" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneAuthenticationTypeTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -1123,7 +1132,7 @@
 		name="Verify that the application allows to create a site based on a remote git repository -Authentication type: basic">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -1132,7 +1141,7 @@
 		name="Verify that the application allows to create a site based on a remote git repository -Authentication type: token">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -1141,16 +1150,16 @@
 		name="Verify that the application allows to create a site based on a remote git repository -Authentication type: private key on local repository">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeTest" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
 	<test
-		name="Verify that the application allows to bulk upload assets correctly">
+	name="Automate verification that the application allows to create a site with Link to upstream remote git repository (git, gitlab) -Authentication type: Remote Git Repository Private Key">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.contenttestcases.VerifyBulkUploadAssetsWorksProperlyTest" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
