@@ -653,6 +653,7 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 
 	public void changeBodyToNotRequiredOnPageArticleContent() {
 		previewPage.changeBodyOfArticlePageToNotRequired();
+		previewPage.changeDateOfArticlePageToNotRequired();
 	}
 
 	public void createNewPageArticle(String folderLocation) {

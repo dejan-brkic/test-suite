@@ -147,6 +147,7 @@ public class FileRenameRenameThenPublishTest extends StudioBaseTest {
 
 	public void changeBodyToNotRequiredOnPageArticleContent() {
 		previewPage.changeBodyOfArticlePageToNotRequired();
+		previewPage.changeDateOfArticlePageToNotRequired();
 	}
 
 	public void setup() {

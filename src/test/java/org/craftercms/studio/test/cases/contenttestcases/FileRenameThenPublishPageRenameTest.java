@@ -132,6 +132,7 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 	public void changeBodyToNotRequiredOnPageArticleContent() {
 		previewPage.changeBodyOfArticlePageToNotRequired();
+		previewPage.changeDateOfArticlePageToNotRequired();
 	}
 
 	public void setup() {

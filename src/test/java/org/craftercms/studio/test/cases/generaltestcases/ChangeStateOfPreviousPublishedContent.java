@@ -269,6 +269,8 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", generalSiteDropdown).click();
 
 		previewPage.changeBodyOfArticlePageToNotRequired();
+		
+		previewPage.changeDateOfArticlePageToNotRequired();
 
 	}
 
