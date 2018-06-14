@@ -17,6 +17,7 @@
 package org.craftercms.studio.test.utils;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -1070,8 +1071,8 @@ public class WebDriverManager {
 
 	@SuppressWarnings("deprecation")
 	public int goToFolderAndExecuteGitInitBareRepository(String repositoryName) {
-		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator
-				+ ".." + File.separator + repositoryName + File.separator;
+		String repositoryFolder = System.getProperty("user.home") + File.separator + "craftercms_testrepos"
+				+ File.separator + repositoryName + File.separator;
 
 		try {
 			// if the repository folder does not exist, it will create it.
@@ -1095,8 +1096,8 @@ public class WebDriverManager {
 
 	public int goToFolderAndExecuteDeleteBareRepositoryFolder(String repositoryName) {
 		try {
-			String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator
-					+ ".." + File.separator + repositoryName + File.separator;
+			String repositoryFolder = System.getProperty("user.home") + File.separator
+					+ "craftercms_testrepos" + File.separator + repositoryName + File.separator;
 
 			FileUtils.deleteDirectory(new File(repositoryFolder));
 			return 0;
@@ -1107,9 +1108,18 @@ public class WebDriverManager {
 	}
 
 	public String getLocalBareRepoURL(String repositoryName) {
-		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator
-				+ ".." + File.separator + repositoryName + File.separator;
-		return repositoryFolder;
+		String repositoryFolder = System.getProperty("user.home") + File.separator + "craftercms_testrepos"
+				+ File.separator + repositoryName + File.separator;
+
+		if ("unix".equalsIgnoreCase(executionEnvironment)) {
+			return repositoryFolder;
+		} else {
+			// Remove the drive name and replacing to :/ to convert to openSSH format
+			// Replace \ windows separator to / openSSh path format
+			repositoryFolder = ":/" + FilenameUtils.getPath(repositoryFolder)
+					+ FilenameUtils.getName(repositoryFolder);
+			return repositoryFolder.replace("\\", "/");
+		}
 	}
 
 	public String getAuthoringSiteSandboxRepoURL(String siteID) {
@@ -1663,12 +1673,12 @@ public class WebDriverManager {
 		try {
 			File privateKeyFile = new File(fileLocation);
 			DataInputStream dataInputStream = new DataInputStream(new FileInputStream(privateKeyFile));
-			
+
 			byte[] privateKeyBytes = new byte[(int) privateKeyFile.length()];
-			
+
 			dataInputStream.readFully(privateKeyBytes);
 			dataInputStream.close();
-			
+
 			keyContent = new String(privateKeyBytes, StandardCharsets.UTF_8);
 
 		} catch (IOException e) {

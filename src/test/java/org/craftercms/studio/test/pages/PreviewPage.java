@@ -74,6 +74,7 @@ public class PreviewPage {
 	private String siteDropdownListElementXPath;
 	private String lastPropertiesElementCssSelector;
 	private String dependenciesForXpath;
+	private String articlesContentTypeDate;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -154,6 +155,8 @@ public class PreviewPage {
 				.getProperty("dashboard.site_content");
 		articlesContentTypeRepeatingGroup = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.edit.articles.content.type.sections.repeating.group");
+		articlesContentTypeDate = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.edit.articles.content.type.date");
 		gearItemXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearlocator");
 		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("bulkoperations.frame");
@@ -499,7 +502,41 @@ public class PreviewPage {
 		this.driverManager.getDriver().navigate().refresh();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
 	}
-
+	public void changeDateOfArticlePageToNotRequired() {
+		// Show site content panel
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
+				.contains("site-dropdown-open")))
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
+		// go to admin console page
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		// Click on Content Types Option
+		siteConfigPage.clickContentTypeOption();
+		// open content types
+		siteConfigPage.clickExistingTypeOption();
+		// select content types
+		siteConfigPage.selectPageArticleContentType();
+		// Confirm the content type selected
+		siteConfigPage.confirmContentTypeSelected();
+		// wait for element is clickeable
+		driverManager.getDriver().switchTo().defaultContent();
+		// Scroll Down to select the item
+		this.driverManager.scrollDown();
+		// select main content
+		this.driverManager.waitForAnimation();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articlesContentTypeDate)
+				.click();
+		// Mark Body not required
+		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
+				lastPropertiesElementCssSelector);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
+		// save
+		siteConfigPage.saveDragAndDropProcess();
+		this.driverManager.getDriver().switchTo().defaultContent();
+		// go to dashboard
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+	}
+	
 	public void changeBodyOfArticlePageToNotRequired() {
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
