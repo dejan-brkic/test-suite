@@ -14,8 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.craftercms.studio.test.cases.contenttypepagetestcases;
-
+package org.craftercms.studio.test.cases.siteconfigtestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
@@ -27,15 +26,15 @@ import org.testng.annotations.Test;
  * @author luishernandez
  *
  */
-public class ContentTypesAddImageTest extends StudioBaseTest{
-	
+public class ContentTypesAddLabelTest  extends StudioBaseTest{
+
 	private String userName;
 	private String password;
 	private String controlsSectionFormSectionLocator;
 	private String contentTypeContainerLocator;
-	private String controlsSectionImageLocator;
+	private String controlsSectionLabelLocator;
 	private String contentTypeContainerFormSectionContainerLocator;
-	private String contentTypeContainerImageTitleLocator;
+	private String contentTypeContainerLabelTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
 	private String siteDropdownListElementXPath;
@@ -50,12 +49,12 @@ public class ContentTypesAddImageTest extends StudioBaseTest{
 				.getProperty("adminconsole.contenttype.entry.controlssectionformsection");
 		this.contentTypeContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainer");
-		this.controlsSectionImageLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.controlsimage");
+		this.controlsSectionLabelLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.controlslabel");
 		this.contentTypeContainerFormSectionContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainerformsectioncontainer");
-		this.contentTypeContainerImageTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.contenttypecontainerimagetitle");
+		this.contentTypeContainerLabelTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainerlabeltitle");
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -66,29 +65,28 @@ public class ContentTypesAddImageTest extends StudioBaseTest{
 				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
-	
 	public void dragAndDrop() {
 
 		// Getting the Form Section control input for drag and drop action
 		WebElement FromControlSectionFormSectionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFormSectionLocator);
+		
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
 		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
 
 		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
-		// wait for element
-
+	
 		this.driverManager.waitForAnimation();
 		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector);
-		WebElement FromImage = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				controlsSectionImageLocator);
+		WebElement FromLabel = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				controlsSectionLabelLocator);
 
 		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerFormSectionContainerLocator);
 		
-		siteConfigPage.getDriverManager().dragAndDropElement(FromImage, ToDefaultSection);
+		siteConfigPage.getDriverManager().dragAndDropElement(FromLabel, ToDefaultSection);
 
 		// Complete the input fields basics
 		siteConfigPage.completeControlFieldsBasics("TestTitle", "TestICEGroup", "TestDescription", "TestDefault");
@@ -99,12 +97,12 @@ public class ContentTypesAddImageTest extends StudioBaseTest{
 	}
 
 	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddAnImageControlToExistingContentTypeTest() {
+	public void verifyThatStudioAllowsToAddALabelControlToExistingContentTypeTest() {
 
 		// login to application
 		loginPage.loginToCrafter(
 				userName,password);
-		
+
 		//Wait for login page to closes
 		driverManager.waitUntilLoginCloses();
 
@@ -114,9 +112,10 @@ public class ContentTypesAddImageTest extends StudioBaseTest{
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
+		// Show admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
 
 		// Select the content type to the test
@@ -133,11 +132,11 @@ public class ContentTypesAddImageTest extends StudioBaseTest{
 
 		// Click on input section to can view the properties
 		driverManager.waitUntilPopupIsHidden();
-		siteConfigPage.clickImageSection();
+		siteConfigPage.clickLabelSection();
 
 		// Asserts that fields are not empty.
 		String titleText = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerImageTitleLocator)
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerLabelTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();

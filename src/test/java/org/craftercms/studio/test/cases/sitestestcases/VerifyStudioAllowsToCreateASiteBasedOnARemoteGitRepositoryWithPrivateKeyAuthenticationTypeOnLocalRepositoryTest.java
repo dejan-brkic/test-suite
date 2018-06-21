@@ -31,7 +31,7 @@ import org.testng.annotations.Test;
  */
 
 // Test Case Studio- Sites ID:14
-public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeTest
+public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeOnLocalRepositoryTest
 		extends StudioBaseTest {
 
 	private String userName;
@@ -56,7 +56,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 				.getProperty("home.createsite.repositorypushtoremotebare");
 
 		this.setup();
-		siteId = "testingtargetsite";
+		siteId = "testingtargetsiteforprivatekeyauthonlocal";
 	}
 
 	public void step2() {

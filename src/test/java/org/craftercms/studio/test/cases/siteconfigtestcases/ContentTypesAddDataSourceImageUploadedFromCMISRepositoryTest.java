@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.craftercms.studio.test.cases.contenttypepagetestcases;
+package org.craftercms.studio.test.cases.siteconfigtestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
@@ -23,37 +23,34 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
+ * 
  * @author luishernandez
  *
  */
-public class ContentTypesAddTextAreaTest extends StudioBaseTest{
+
+public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extends StudioBaseTest {
+
 	private String userName;
 	private String password;
-	private String controlsSectionFormSectionLocator;
 	private String contentTypeContainerLocator;
-	private String controlsSectionTextAreaLocator;
-	private String contentTypeContainerFormSectionContainerLocator;
-	private String contentTypeContainerTextAreaTitleLocator;
+	private String dataSourceSectionImageUploadedFromCMISRepositoryLocator;
+	private String contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
 	private String siteDropdownListElementXPath;
 
 	@BeforeMethod
 	public void beforeTest() {
-		
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		
-		this.controlsSectionFormSectionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.controlssectionformsection");
 		this.contentTypeContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainer");
-		this.controlsSectionTextAreaLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.controlstextarea");
-		this.contentTypeContainerFormSectionContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.contenttypecontainerformsectioncontainer");
-		this.contentTypeContainerTextAreaTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.contenttypecontainertextareatitle");
+		this.dataSourceSectionImageUploadedFromCMISRepositoryLocator = uiElementsPropertiesManager
+				.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.datasourceimageuploadedfromCMISrepository");
+		this.contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator = uiElementsPropertiesManager
+				.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainerimageuploadedfromCMISrepositorytitle");
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -63,41 +60,33 @@ public class ContentTypesAddTextAreaTest extends StudioBaseTest{
 	}
 
 	public void dragAndDrop() {
+		this.driverManager.scrollDownPx(3000);
+		// Getting the ChildContent for drag and drop action
+		WebElement FromDataSourceImageUploadedFromRepoElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+						dataSourceSectionImageUploadedFromCMISRepositoryLocator);
 
-		// Getting the Form Section control input for drag and drop action
-		WebElement FromControlSectionFormSectionElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFormSectionLocator);
-	
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
 		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
-
-		WebElement FromRepeatingGroup = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				controlsSectionTextAreaLocator);
-
-		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				contentTypeContainerFormSectionContainerLocator);
-
-		siteConfigPage.getDriverManager().dragAndDropElement(FromRepeatingGroup, ToDefaultSection);
+		driverManager.dragAndDropElement(FromDataSourceImageUploadedFromRepoElement, ToContentTypeContainer);
 
 		// Complete the input fields basics
-		siteConfigPage.completeControlFieldsBasics("TestTitle", "TestICEGroup", "TestDescription", "TestDefault");
+		siteConfigPage.completeDataSourceFieldsBasics("TestTitle");
 
 		// Save the data
 		siteConfigPage.saveDragAndDropProcess();
-
 	}
 
 	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddATextAreaControlToExistingContentTypeTest() {
+	public void verifyThatStudioAllowsToAddADataSourceImageUploadedFromCMISRepositoryToExistingContentTypeTest() {
 
 		// login to application
 		loginPage.loginToCrafter(
 				userName,password);
-
+		
 		//Wait for login page to closes
 		driverManager.waitUntilLoginCloses();
 
@@ -109,9 +98,10 @@ public class ContentTypesAddTextAreaTest extends StudioBaseTest{
 				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
-
+		
 		// Show admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				adminConsoleXpath).click();
 
 		// Select the content type to the test
 		siteConfigPage.selectEntryContentTypeFromAdminConsole();
@@ -127,15 +117,16 @@ public class ContentTypesAddTextAreaTest extends StudioBaseTest{
 
 		// Click on input section to can view the properties
 		driverManager.waitUntilPopupIsHidden();
-		siteConfigPage.clickTextAreaSection();
+		siteConfigPage.clickDataSourceImageUploadedFromCMISRepositorySection();
 
 		// Asserts that fields are not empty.
-		String titleText = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerTextAreaTitleLocator)
-				.getText();
-
+		this.driverManager.isElementPresentByXpath(contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator);
+		
+		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();
 
 	}
+
 }

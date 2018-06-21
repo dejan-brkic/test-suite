@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.craftercms.studio.test.cases.contenttypepagetestcases;
+package org.craftercms.studio.test.cases.siteconfigtestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
@@ -28,13 +28,13 @@ import org.testng.annotations.Test;
  *
  */
 
-public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
+public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
 	private String contentTypeContainerLocator;
-	private String dataSourceSectionChildContentLocator;
-	private String contentTypeContainerChildContentTitleLocator;
+	private String dataSourceSectionImageUploadedFromRepositoryLocator;
+	private String contentTypeContainerImageUploadedFromRepositoryTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
 	private String siteDropdownListElementXPath;
@@ -45,14 +45,16 @@ public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		this.contentTypeContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainer");
-		this.dataSourceSectionChildContentLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.datasourcechildcontent");
-		this.contentTypeContainerChildContentTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.contenttypecontainerchildcontenttitle");
+		this.dataSourceSectionImageUploadedFromRepositoryLocator = uiElementsPropertiesManager
+				.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.datasourceimageuploadedfromrepository");
+		this.contentTypeContainerImageUploadedFromRepositoryTitleLocator = uiElementsPropertiesManager
+				.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainerimageuploadedfromrepositorytitle");
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general" + ".sitedropdown");
+				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general" + ".adminconsole");
+				.getProperty("general.adminconsole");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
@@ -60,16 +62,17 @@ public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 	public void dragAndDrop() {
 		this.driverManager.scrollDownPx(3000);
 		// Getting the ChildContent for drag and drop action
-		WebElement FromDataSourceChildContentElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dataSourceSectionChildContentLocator);
+		WebElement FromDataSourceImageUploadedFromRepoElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+						dataSourceSectionImageUploadedFromRepositoryLocator);
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromDataSourceChildContentElement, ToContentTypeContainer);
-
+		driverManager.dragAndDropElement(FromDataSourceImageUploadedFromRepoElement, ToContentTypeContainer);
+		
 		// Complete the input fields basics
 		siteConfigPage.completeDataSourceFieldsBasics("TestTitle");
 
@@ -78,24 +81,26 @@ public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 	}
 
 	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddADataSourceChildToExistingContentTypeTest() {
+	public void verifyThatStudioAllowsToAddADataSourceImageUploadedFromRepositoryToExistingContentTypeTest() {
 
 		// login to application
-		loginPage.loginToCrafter(userName, password);
+		loginPage.loginToCrafter(
+				userName,password);
 
-		// Wait for login page to closes
+		//Wait for login page to closes
 		driverManager.waitUntilLoginCloses();
-
-		// go to preview page
+		
+		//Go to Preview Page
 		homePage.goToPreviewPage();
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				siteDropdownXpath).click();
 
 		// Show admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
 
 		// Select the content type to the test
 		siteConfigPage.selectEntryContentTypeFromAdminConsole();
@@ -111,14 +116,14 @@ public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 
 		// Click on input section to can view the properties
 		driverManager.waitUntilPopupIsHidden();
-		siteConfigPage.clickDataSourceChildContentSection();
+		siteConfigPage.clickDataSourceImageUploadedFromRepositorySection();
 
 		// Asserts that fields are not empty.
-		this.driverManager.isElementPresentByXpath(contentTypeContainerChildContentTitleLocator);
-
-		String titleText = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", contentTypeContainerChildContentTitleLocator)
-				.getText();
+		this.driverManager.isElementPresentAndClickableByXpath(contentTypeContainerLocator);
+		this.driverManager.isElementPresentByXpath(contentTypeContainerImageUploadedFromRepositoryTitleLocator);
+		
+		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				contentTypeContainerImageUploadedFromRepositoryTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();
 

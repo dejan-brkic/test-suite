@@ -14,55 +14,55 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.craftercms.studio.test.cases.contenttypepagetestcases;
+package org.craftercms.studio.test.cases.siteconfigtestcases;
 
-import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
- * @author luishernandez
+ * 
+ * @author Gustavo Andrei Ortiz Alfaro
  *
  */
-public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
+
+public class ContentTypesAddInputTest extends StudioBaseTest{
 	
 	private String userName;
 	private String password;
 	private String controlsSectionFormSectionLocator;
 	private String contentTypeContainerLocator;
-	private String controlsSectionAutoFileNameLocator;
+	private String controlsSectionInputLocator;
 	private String contentTypeContainerFormSectionContainerLocator;
-	private String contentTypeContainerAutoFileNameTitleLocator;
+	private String contentTypeContainerInputTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
 	private String siteDropdownListElementXPath;
-	private String lastControlElementCssSelector;
-	
+
 	@BeforeMethod
 	public void beforeTest() {
-		
+
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
+
 		this.controlsSectionFormSectionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.controlssectionformsection");
 		this.contentTypeContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainer");
-		this.controlsSectionAutoFileNameLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.controlsautofilename");
+		this.controlsSectionInputLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.controlsinput");
 		this.contentTypeContainerFormSectionContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainerformsectioncontainer");
-		this.contentTypeContainerAutoFileNameTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.contenttypecontainerautofilenametitle");
+		this.contentTypeContainerInputTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainerinputtitle");
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
-		lastControlElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
 
@@ -70,45 +70,41 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 
 		// Getting the Form Section control input for drag and drop action
 		WebElement FromControlSectionFormSectionElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFormSectionLocator);
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+						controlsSectionFormSectionLocator);
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				contentTypeContainerLocator);
-	
+		WebElement ToContentTypeContainer = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerLocator);
+
 		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToBottomInASection("#widgets-container",lastControlElementCssSelector);
-		WebElement FromAutoFileName = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				controlsSectionAutoFileNameLocator);
+		WebElement FromRepeatingGroup = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionInputLocator);
 
-		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				contentTypeContainerFormSectionContainerLocator);
+		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+				"xpath", contentTypeContainerFormSectionContainerLocator);
 
-		siteConfigPage.getDriverManager().dragAndDropElement(FromAutoFileName, ToDefaultSection);
+		siteConfigPage.getDriverManager().dragAndDropElement(FromRepeatingGroup, ToDefaultSection);
 
 		// Complete the input fields basics
 		siteConfigPage.completeControlFieldsBasics("TestTitle", "TestICEGroup", "TestDescription", "TestDefault");
 
 		// Save the data
 		siteConfigPage.saveDragAndDropProcess();
-
 	}
 
 	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddAnAutoFileNameControlToExistingContentTypeTest() {
+	public void verifyThatStudioAllowsToAddAnInputControlToExistingContentTypeTest() {
 
 		// login to application
-		loginPage.loginToCrafter(
-				userName,password);
+		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to closes
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		
 		homePage.goToPreviewPage();
 
 		// Show site content panel
@@ -116,8 +112,10 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
-		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
+
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath)
+				.click();
 
 		// Select the content type to the test
 		siteConfigPage.selectEntryContentTypeFromAdminConsole();
@@ -130,14 +128,18 @@ public class ContentTypesAddAutoFileNameTest extends StudioBaseTest{
 
 		// Confirm the content type selected
 		siteConfigPage.confirmContentTypeSelected();
-		driverManager.waitUntilPopupIsHidden();
+
 		// Click on input section to can view the properties
-		siteConfigPage.clickAutoFileNameSection();
+		driverManager.waitUntilPopupIsHidden();
+		siteConfigPage.clickInputSection();
 
 		// Asserts that fields are not empty.
-		String titleText =this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerAutoFileNameTitleLocator).getText();
+		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				contentTypeContainerInputTitleLocator).getText();
+
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();
 
 	}
+
 }

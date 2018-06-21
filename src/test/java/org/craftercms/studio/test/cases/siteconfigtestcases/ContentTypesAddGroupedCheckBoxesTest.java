@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.craftercms.studio.test.cases.contenttypepagetestcases;
+package org.craftercms.studio.test.cases.siteconfigtestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
@@ -23,65 +23,82 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- * 
  * @author luishernandez
  *
  */
-
-public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extends StudioBaseTest {
-
+public class ContentTypesAddGroupedCheckBoxesTest  extends StudioBaseTest{
+	
 	private String userName;
 	private String password;
+	private String controlsSectionFormSectionLocator;
 	private String contentTypeContainerLocator;
-	private String dataSourceSectionImageUploadedFromCMISRepositoryLocator;
-	private String contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator;
+	private String controlsSectionGroupedCheckBoxesLocator;
+	private String contentTypeContainerFormSectionContainerLocator;
+	private String contentTypeContainerGroupedCheckBoxesTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
 	private String siteDropdownListElementXPath;
+	private String lastControlElementCssSelector;
 
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
+		this.controlsSectionFormSectionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.controlssectionformsection");
 		this.contentTypeContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainer");
-		this.dataSourceSectionImageUploadedFromCMISRepositoryLocator = uiElementsPropertiesManager
+		this.controlsSectionGroupedCheckBoxesLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.controlsgroupedcheckboxes");
+		this.contentTypeContainerFormSectionContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainerformsectioncontainer");
+		this.contentTypeContainerGroupedCheckBoxesTitleLocator = uiElementsPropertiesManager
 				.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.datasourceimageuploadedfromCMISrepository");
-		this.contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator = uiElementsPropertiesManager
-				.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.contenttypecontainerimageuploadedfromCMISrepositorytitle");
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainergroupedcheckboxestitle");
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
+		lastControlElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
-	public void dragAndDrop() {
-		this.driverManager.scrollDownPx(3000);
-		// Getting the ChildContent for drag and drop action
-		WebElement FromDataSourceImageUploadedFromRepoElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-						dataSourceSectionImageUploadedFromCMISRepositoryLocator);
 
+	public void dragAndDrop() {
+
+		// Getting the Form Section control input for drag and drop action
+		WebElement FromControlSectionFormSectionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFormSectionLocator);
+	
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
 		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromDataSourceImageUploadedFromRepoElement, ToContentTypeContainer);
+		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
+
+		this.driverManager.waitForAnimation();
+		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector);
+		WebElement FromGroupedCheckBoxes = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				controlsSectionGroupedCheckBoxesLocator);
+
+		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				contentTypeContainerFormSectionContainerLocator);
+
+		siteConfigPage.getDriverManager().dragAndDropElement(FromGroupedCheckBoxes, ToDefaultSection);
 
 		// Complete the input fields basics
-		siteConfigPage.completeDataSourceFieldsBasics("TestTitle");
+		siteConfigPage.completeControlFieldsBasics("TestTitle", "TestICEGroup", "TestDescription", "TestDefault");
 
 		// Save the data
 		siteConfigPage.saveDragAndDropProcess();
+
 	}
 
 	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddADataSourceImageUploadedFromCMISRepositoryToExistingContentTypeTest() {
+	public void verifyThatStudioAllowsToAddAGroupedCheckBoxesControlToExistingContentTypeTest() {
 
 		// login to application
 		loginPage.loginToCrafter(
@@ -96,11 +113,10 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				siteDropdownXpath).click();
-		
-		// Show admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				adminConsoleXpath).click();
 
 		// Select the content type to the test
@@ -115,18 +131,15 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 		// Confirm the content type selected
 		siteConfigPage.confirmContentTypeSelected();
 
-		// Click on input section to can view the properties
 		driverManager.waitUntilPopupIsHidden();
-		siteConfigPage.clickDataSourceImageUploadedFromCMISRepositorySection();
+		// Click on input section to can view the properties
+		siteConfigPage.clickGroupedCheckBoxSection();
 
-		// Asserts that fields are not empty.
-		this.driverManager.isElementPresentByXpath(contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator);
-		
+		// Asserts that fields are not empty.	
 		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator).getText();
+				contentTypeContainerGroupedCheckBoxesTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();
 
 	}
-
 }

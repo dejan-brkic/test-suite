@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.craftercms.studio.test.cases.sitestestcases;
+package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -28,7 +28,7 @@ import org.testng.annotations.Test;
  *
  */
 
-public class ShowSitesPageTest extends StudioBaseTest {
+public class ShowUsersPageTest extends StudioBaseTest {
 	
 
 	private APIConnectionManager apiConnectionManager;
@@ -42,10 +42,11 @@ public class ShowSitesPageTest extends StudioBaseTest {
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		newUserXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.new_user");
 		apiConnectionManager = new APIConnectionManager();
+	
 	}
 
 	@Test(priority = 0)
-	public void verifyThatApplicationShowsSitesPageWhenUserClicksSitesContextualNavigationOption() {
+	public void verifyThatStudioAllowsToAccessTheUsersPageWhenUserClicksOnUsersOptionTopNavigationBar() {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -58,30 +59,33 @@ public class ShowSitesPageTest extends StudioBaseTest {
 
 	    this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",newUserXpath);
 		
-		// go back to Sites Page
-		usersPage.clickOnSitesOption();
-
-		// Checking if the Sites page was Loaded
-		this.driverManager.waitForAnimation();
+	    // Checking if the UsersPage was Loaded
 		Assert.assertTrue(usersPage.getDriverManager().getDriver().getCurrentUrl()
-				.equals(apiConnectionManager.getHeaderLocationBase()+"/studio/#/sites"));
-		
+				.equals(apiConnectionManager.getHeaderLocationBase()+"/studio/#/users"));
+
 		// Checking if the Users title is displayed on the current page
-		Assert.assertTrue(homePage.isSitePageTitlePresent());
-				
+		Assert.assertTrue(usersPage.isUsersPageTitlePresent());
+
+		// go back to Sites Page
+		usersPage.clickOnCrafterLogo();
+
 		// select the about us option
 		homePage.goToDashboardPage();
-		this.driverManager.waitForAnimation();
-		dashboardPage.clickOnSitesOption();
 
-		// Checking if the Sites page was Loaded
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(dashboardPage.getDriverManager().getDriver().getCurrentUrl()
-				.equals(apiConnectionManager.getHeaderLocationBase()+"/studio/#/sites"));
+		dashboardPage.clickUsersContextualNavigationOption();
+
+		// Checking if the UsersPage was Loaded
+		this.driverManager.waitForAnimation();
+		Assert.assertTrue(usersPage.getDriverManager().getDriver().getCurrentUrl()
+				.equals(apiConnectionManager.getHeaderLocationBase()+"/studio/#/users"));
 
 		// Checking if the Users title is displayed on the current page
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(homePage.isSitePageTitlePresent());
+		Assert.assertTrue(usersPage.isUsersPageTitlePresent());
+
+		// go back to Sites Page
+		usersPage.clickOnCrafterLogo();
 
 	}
 }

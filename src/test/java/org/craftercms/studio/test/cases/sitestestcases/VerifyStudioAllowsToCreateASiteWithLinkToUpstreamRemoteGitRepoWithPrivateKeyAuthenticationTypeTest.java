@@ -42,6 +42,7 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	private String gitRepoUrl;
 	private String topNavSitesOption;
 	private String basedOnRemoteRepoInput;
+	private String siteIdFromGit;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -58,7 +59,8 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 				.getProperty("home.createsite.repositorybasedonremotegitrepo");
 		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.preview.sitesoption");
-		siteId = "testingtargetsite";
+		siteId = "testingtargetsiteforpushremotegit";
+		siteIdFromGit = "testingtargetsitefromremotegit";
 	}
 
 	public void step2() {
@@ -128,7 +130,7 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 
 	public void step14() {
 		// Filling the name of site
-		createSitePage.setSiteName(siteId + "duplicate");
+		createSitePage.setSiteName(siteIdFromGit);
 	}
 
 	public void step15() {

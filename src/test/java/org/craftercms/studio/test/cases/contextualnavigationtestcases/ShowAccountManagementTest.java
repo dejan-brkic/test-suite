@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.test.cases.accountmanagementtestcases;
+package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;

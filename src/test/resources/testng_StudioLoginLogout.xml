@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="craftercms - Studio UI -AllTestCases TestSuite"
+	preserve-order="true" verbose="3">
+	<test name="Login Test And Logout Test">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.loginlogouttestcases.LoginTest" />
+			<class
+				name="org.craftercms.studio.test.cases.loginlogouttestcases.LogOutTest" />
+		</classes>
+	</test>
+	<test name="Wrong Login Test">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.loginlogouttestcases.WrongLoginTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+</suite> <!-- Suite -->

@@ -14,8 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-package org.craftercms.studio.test.cases.contenttypepagetestcases;
+package org.craftercms.studio.test.cases.siteconfigtestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
@@ -27,24 +26,21 @@ import org.testng.annotations.Test;
  * @author luishernandez
  *
  */
-public class ContentTypesAddDateTimeTest extends StudioBaseTest{
-	
+public class ContentTypesAddTextAreaTest extends StudioBaseTest{
 	private String userName;
 	private String password;
 	private String controlsSectionFormSectionLocator;
 	private String contentTypeContainerLocator;
-	private String controlsSectionDateTimeLocator;
+	private String controlsSectionTextAreaLocator;
 	private String contentTypeContainerFormSectionContainerLocator;
-	private String contentTypeContainerDateTimeTitleLocator;
+	private String contentTypeContainerTextAreaTitleLocator;
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
 	private String siteDropdownListElementXPath;
-	private String lastControlElementCssSelector;
-	
 
 	@BeforeMethod
 	public void beforeTest() {
-				
+		
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		
@@ -52,20 +48,18 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 				.getProperty("adminconsole.contenttype.entry.controlssectionformsection");
 		this.contentTypeContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainer");
-		this.controlsSectionDateTimeLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.controlsdatetime");
+		this.controlsSectionTextAreaLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.controlstextarea");
 		this.contentTypeContainerFormSectionContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.entry.contenttypecontainerformsectioncontainer");
-		this.contentTypeContainerDateTimeTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.contenttype.entry.contenttypecontainerdatetimetitle");
+		this.contentTypeContainerTextAreaTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainertextareatitle");
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
-		lastControlElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
 	public void dragAndDrop() {
@@ -73,7 +67,7 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 		// Getting the Form Section control input for drag and drop action
 		WebElement FromControlSectionFormSectionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFormSectionLocator);
-		
+	
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
 		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
@@ -81,16 +75,13 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 
 		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector);
-		
-		WebElement FromDateTime = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				controlsSectionDateTimeLocator);
-	
+		WebElement FromRepeatingGroup = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+				controlsSectionTextAreaLocator);
+
 		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerFormSectionContainerLocator);
 
-		siteConfigPage.getDriverManager().dragAndDropElement(FromDateTime, ToDefaultSection);
+		siteConfigPage.getDriverManager().dragAndDropElement(FromRepeatingGroup, ToDefaultSection);
 
 		// Complete the input fields basics
 		siteConfigPage.completeControlFieldsBasics("TestTitle", "TestICEGroup", "TestDescription", "TestDefault");
@@ -101,12 +92,12 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 	}
 
 	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddADateTimeControlToExistingContentTypeTest() {
+	public void verifyThatStudioAllowsToAddATextAreaControlToExistingContentTypeTest() {
 
 		// login to application
 		loginPage.loginToCrafter(
 				userName,password);
-		
+
 		//Wait for login page to closes
 		driverManager.waitUntilLoginCloses();
 
@@ -118,9 +109,9 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 				.getAttribute("class").contains("site-dropdown-open")))
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
-		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				adminConsoleXpath).click();
+
+		// Show admin console page
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
 
 		// Select the content type to the test
 		siteConfigPage.selectEntryContentTypeFromAdminConsole();
@@ -134,16 +125,14 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 		// Confirm the content type selected
 		siteConfigPage.confirmContentTypeSelected();
 
-		// Click on input section to can view the properties	
+		// Click on input section to can view the properties
 		driverManager.waitUntilPopupIsHidden();
-		
-		siteConfigPage.clickDateTimeSection();
+		siteConfigPage.clickTextAreaSection();
 
 		// Asserts that fields are not empty.
-		this.driverManager.isElementPresentByXpath(contentTypeContainerDateTimeTitleLocator);
-		
-		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				contentTypeContainerDateTimeTitleLocator).getText();
+		String titleText = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerTextAreaTitleLocator)
+				.getText();
 
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();

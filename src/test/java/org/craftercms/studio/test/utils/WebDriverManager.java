@@ -1097,9 +1097,14 @@ public class WebDriverManager {
 	public int goToFolderAndExecuteDeleteBareRepositoryFolder(String repositoryName) {
 		try {
 			String repositoryFolder = System.getProperty("user.home") + File.separator
-					+ "craftercms_testrepos" + File.separator + repositoryName + File.separator;
+					+ "craftercms_testrepos";
 
 			FileUtils.deleteDirectory(new File(repositoryFolder));
+
+			repositoryFolder = repositoryFolder + File.separator + repositoryName + File.separator;
+			
+			FileUtils.deleteDirectory(new File(repositoryFolder));
+			
 			return 0;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1686,5 +1691,12 @@ public class WebDriverManager {
 		}
 
 		return keyContent;
+	}
+	
+	public void waitUntilNotificationModalIsNotPresent() {
+		logger.debug("Waiting for notification modal to close");
+		WebElement notification = this.waitUntilElementIsDisplayed("xpath",
+				".//div[@class='modal-dialog modal-sm']");
+		this.waitUntilElementIsRemoved(notification);
 	}
 }
