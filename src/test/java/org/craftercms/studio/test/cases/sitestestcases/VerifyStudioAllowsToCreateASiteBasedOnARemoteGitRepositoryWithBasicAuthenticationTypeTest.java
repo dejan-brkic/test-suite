@@ -56,7 +56,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 
-		siteId = "testingtargetsite";
+		siteId = "testingtargetsiteforbasicauth";
 	}
 
 	public void step2() {
@@ -102,6 +102,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 		// Click on Create button
 		createSitePage.clickOnCreateSiteButton();
 
+		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilCreateSiteModalCloses();
 		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);

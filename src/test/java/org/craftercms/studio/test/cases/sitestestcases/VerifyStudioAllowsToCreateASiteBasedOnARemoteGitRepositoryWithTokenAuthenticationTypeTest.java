@@ -53,7 +53,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 
-		siteId = "testingtargetsite";
+		siteId = "testingtargetsitefortokenauth";
 	}
 
 	public void step2() {

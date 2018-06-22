@@ -48,7 +48,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		
-		emptyBPSiteId = "testingemptysite";
+		emptyBPSiteId = "testingemptysitefornoneauth";
 		siteId = "testingtargetsite";
 	}
 
@@ -83,6 +83,9 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 		// Click on Create button
 		createSitePage.clickOnCreateSiteButton();
 
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilCreateSiteModalCloses();
+		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
 		Assert.assertTrue(this.driverManager

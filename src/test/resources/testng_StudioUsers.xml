@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="craftercms - Studio Users TestSuite"
+	preserve-order="true" verbose="3">
+	<test name="Try to delete user connected test">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.TryToDeleteUserConnectedTest" />
+		</classes>
+	</test>
+	<test name="New User Test and Delete User Test">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.AddNewUserTest" />
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+		</classes>
+	</test>
+	<test name="Edit User Test">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.userstestcases.EditUserTest" />
+		</classes>
+	</test>
+	<test name="Design of Users Page Test">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.DesignOfUsersPageTest" />
+		</classes>
+	</test>
+	<test name="Users Per Page Test">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.UsersPerPageTest" />
+		</classes>
+	</test>
+	<test name="Pagination of List Users Page Test">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.userstestcases.PaginationOfListOfUsersTest" />
+		</classes>
+	</test>
+</suite> <!-- Suite -->

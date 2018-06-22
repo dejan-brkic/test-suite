@@ -295,7 +295,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		this.driverManager.getDriver().switchTo()
 				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
+ 
 		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
 
 		this.driverManager.getDriver().switchTo().activeElement();

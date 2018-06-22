@@ -50,10 +50,19 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<threads>2</threads>
-		<file>src/test/resources/testng.xml</file>
-		<file>src/test/resources/testngcomplexscenarios.xml</file>
-		<file>src/test/resources/testngAPI.xml</file>
-		<file>src/test/resources/testngSanityTest.xml</file>
+		<file>src/test/resources/testng_SanityTest.xml</file>
+		<file>src/test/resources/testng_StudioAccountManagement.xml</file>
+		<file>src/test/resources/testng_StudioContent.xml</file>
+		<file>src/test/resources/testng_StudioContextualNavigation.xml</file>
+		<file>src/test/resources/testng_StudioSiteDropdown.xml</file>
+		<file>src/test/resources/testng_StudioDashboard.xml</file>
+		<file>src/test/resources/testng_StudioGeneral.xml</file>
+		<file>src/test/resources/testng_StudioPreviewTools.xml</file>
+		<file>src/test/resources/testng_StudioSiteConfig.xml</file>
+		<file>src/test/resources/testng_StudioSites.xml</file>
+		<file>src/test/resources/testng_StudioUsers.xml</file>
+		<file>src/test/resources/testng_StudioLoginLogout.xml</file>
+		<file>src/test/resources/testng_StudioAPI.xml</file>
 	</properties>
 	<dependencies>
 		<dependency>
