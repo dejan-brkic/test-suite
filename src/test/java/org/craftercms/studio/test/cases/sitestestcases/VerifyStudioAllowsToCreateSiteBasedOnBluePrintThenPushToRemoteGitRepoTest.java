@@ -42,6 +42,7 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	private String notificationTitle;
 	private String notificationText;
 	private String notificationError;
+	private String siteIdFromLocalRepo;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -49,7 +50,6 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		localRepoName = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.localrepositoryname");
-		siteId = "testsitewithremotebarerepository";
 		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.repositorypushtoremotebare");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -62,6 +62,8 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 				.getProperty("home.createsite.notificationdialog.text");
 		notificationError = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.notificationdialog.error");
+		siteId = "testsitewithremotebarerepositoryforpushlocal";
+		siteIdFromLocalRepo = "testsitefromlocalrepo";
 
 		this.setup();
 	}
@@ -106,6 +108,9 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	public void step10() {
 		// Click on Create button
 		createSitePage.clickOnCreateSiteButton();
+		
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitUntilCreateSiteModalCloses();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
@@ -124,7 +129,7 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 
 	public void step13() {
 		// Filling the name of site
-		createSitePage.setSiteName(siteId + "duplicate");
+		createSitePage.setSiteName(siteIdFromLocalRepo);
 	}
 
 	public void step14() {

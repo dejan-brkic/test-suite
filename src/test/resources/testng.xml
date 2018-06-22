@@ -69,7 +69,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesDragAndDropTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesDragAndDropTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -325,7 +325,7 @@
 		name="Verify that the application shows the account management page when user clicks on settings contextual navigation bar option">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.accountmanagementtestcases.ShowAccountManagementTest" />
+				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.ShowAccountManagementTest" />
 		</classes>
 	</test>
 	<test name="Add New Content Section Defaults Test">
@@ -343,7 +343,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.userstestcases.ShowUsersPageTest" />
+				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.ShowUsersPageTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -354,7 +354,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.ShowSitesPageTest" />
+				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.ShowSitesPageTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -364,7 +364,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddInputTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddInputTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -374,7 +374,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddRepeatingGroupTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddRepeatingGroupTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -384,7 +384,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddTextAreaTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddTextAreaTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -394,7 +394,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddRichTextEditorTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddRichTextEditorTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -404,7 +404,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddDropdownTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDropdownTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -414,7 +414,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddDateTimeTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDateTimeTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -424,7 +424,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddCheckBoxTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddCheckBoxTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -434,7 +434,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddGroupedCheckBoxesTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddGroupedCheckBoxesTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -444,7 +444,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddItemSelectorTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddItemSelectorTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -454,7 +454,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddImageTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddImageTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -464,7 +464,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddVideoTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddVideoTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -474,7 +474,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddLabelTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddLabelTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -484,7 +484,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddPageOrderTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddPageOrderTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -494,7 +494,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddFileNameTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddFileNameTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -504,7 +504,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddAutoFileNameTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddAutoFileNameTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -514,7 +514,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddDataSourceChildContentTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceChildContentTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -525,7 +525,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddDataSourceImageUploadedFromDesktopTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromDesktopTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -536,7 +536,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddDataSourceImageUploadedFromRepositoryTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromRepositoryTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -547,7 +547,7 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttypepagetestcases.ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
@@ -1150,7 +1150,7 @@
 		name="Verify that the application allows to create a site based on a remote git repository -Authentication type: private key on local repository">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeTest" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeOnLocalRepositoryTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
