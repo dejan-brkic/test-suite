@@ -87,6 +87,6 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		Assert.assertTrue(exitCode == 0, "Init site process failed");
 
 		// saving the siteId for the dependent test cases to this test case.
-		constantsPropertiesManager.setProperty("general.currentsiteid", siteId);
+		deliveryExecutionValuesManager.setProperty("general.currentsiteid", siteId);
 	}
 }
