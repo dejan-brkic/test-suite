@@ -75,6 +75,9 @@ public class PreviewPage {
 	private String lastPropertiesElementCssSelector;
 	private String dependenciesForXpath;
 	private String articlesContentTypeDate;
+	private String itemsTree;
+	private String itemsSubtree;
+	private String authorsTree;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -162,6 +165,12 @@ public class PreviewPage {
 		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("bulkoperations.frame");
 		dependenciesForXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.dependencies.dependeciesforitem");
+		itemsTree = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.itemstree");
+		itemsSubtree = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.itemssubtree");
+		authorsTree = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.authorstree");
 	}
 
 	// Click on admin console link
@@ -348,6 +357,24 @@ public class PreviewPage {
 		this.clickPagesTree();
 	}
 
+	public void expandItemsTree() {
+		WebElement expandItemsTree = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				this.itemsTree);
+		expandItemsTree.click();
+	}
+	
+	public void expandItemsSubtree() {
+		WebElement expandItemsSubtree = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				this.itemsSubtree);
+		expandItemsSubtree.click();
+	}
+	
+	public void expandAuthorsTree() {
+		WebElement expandAuthorsTree = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				this.authorsTree);
+		expandAuthorsTree.click();
+	}
+	
 	// Expand global entry content
 	public void clickHomeContent() {
 		this.driverManager.isElementPresentAndClickableByXpath(expandHomeTree);
