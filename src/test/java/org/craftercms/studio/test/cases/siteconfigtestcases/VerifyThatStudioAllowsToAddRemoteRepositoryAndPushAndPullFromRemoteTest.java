@@ -58,7 +58,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitRepoUrl = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.remotegiturlforaddrepositorytosite");
-		gitPrivateKey = FilesLocations.REMOTEGITPRIVATEKEYCONTENTFILEPATH;
+		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
