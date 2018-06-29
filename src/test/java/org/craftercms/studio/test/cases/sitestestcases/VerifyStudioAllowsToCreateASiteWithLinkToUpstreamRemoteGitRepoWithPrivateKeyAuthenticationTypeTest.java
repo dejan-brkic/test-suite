@@ -50,7 +50,7 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitRepoUrl = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.remotegiturl");
-		gitPrivateKey = FilesLocations.REMOTEGITPRIVATEKEYCONTENTFILEPATH;
+		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()

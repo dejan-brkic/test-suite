@@ -111,6 +111,7 @@ public class DashboardPage {
 	private String recentActivitySecondContentURL;
 	private String recentActivitySecondContentName;
 	private String recentActivitySecondContentIcon;
+	private String authorReplaceImageButton;
 	private static Logger logger = LogManager.getLogger(DashboardPage.class);
 
 	/**
@@ -254,6 +255,8 @@ public class DashboardPage {
 				.getProperty("dashboard.myrecentactivity.contentsecondname");
 		recentActivitySecondContentIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.contentsecondicon");
+		authorReplaceImageButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.author.replaceimage");
 	}
 
 	public DashboardPage(WebDriver driver) {
@@ -1182,6 +1185,26 @@ public class DashboardPage {
 
 	}
 
+	public void addAnImageToAnAuthorUsingUploadOption() {
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", authorReplaceImageButton)
+				.click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", uploadImagesButton).click();
+
+		// Switch to the form
+		this.driverManager.waitForAnimation();
+		driverManager.getDriver().switchTo().activeElement();
+
+		File file = new File(FilesLocations.TESTINGIMAGEFILEPATH);
+		this.driverManager.fileUploadUsingSendKeys(chooseFileButtom, file.getAbsolutePath());
+
+		this.driverManager.waitForAnimation();
+		driverManager.getDriver().switchTo().activeElement();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", uploadButtom).click();
+		this.driverManager.waitForFullExpansionOfTree();
+	}
+
+	
 	public void clickEditOptionOfRecentActivitySection() {
 		this.driverManager.waitForAnimation();
 		WebElement editOptionMyRecentActivity = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
