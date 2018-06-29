@@ -33,48 +33,52 @@ import org.craftercms.studio.test.utils.WebDriverManager;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-
 /**
  * All Test Cases should extend this class
  */
 public class StudioBaseTest {
 
-    protected WebDriverManager driverManager;
-    protected UIElementsPropertiesManager uiElementsPropertiesManager;
-    protected ConstantsPropertiesManager constantsPropertiesManager;
+	protected WebDriverManager driverManager;
+	protected UIElementsPropertiesManager uiElementsPropertiesManager;
+	protected ConstantsPropertiesManager constantsPropertiesManager;
+	protected ConstantsPropertiesManager deliveryExecutionValuesManager;
+	
+	protected LoginPage loginPage;
+	protected HomePage homePage;
+	protected DashboardPage dashboardPage;
+	protected PreviewPage previewPage;
+	protected CreateSitePage createSitePage;
+	protected AccountManagementPage accountManagementPage;
+	protected SiteConfigPage siteConfigPage;
+	protected MyRecentActivityPage myRecentActivityFramePage1;
+	protected UsersPage usersPage;
 
-    protected LoginPage loginPage;
-    protected HomePage homePage;
-    protected DashboardPage dashboardPage;
-    protected PreviewPage previewPage;
-    protected CreateSitePage createSitePage;
-    protected AccountManagementPage accountManagementPage;
-    protected SiteConfigPage siteConfigPage;
-    protected MyRecentActivityPage myRecentActivityFramePage1;
-    protected UsersPage usersPage;
+	@BeforeClass
+	public void setUp() {
+		driverManager = new WebDriverManager();
+		uiElementsPropertiesManager = new UIElementsPropertiesManager(
+				FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
+		constantsPropertiesManager = new ConstantsPropertiesManager(
+				FilesLocations.CONSTANTSPROPERTIESFILEPATH);
+		deliveryExecutionValuesManager = new ConstantsPropertiesManager(
+				FilesLocations.DELIVERYEXECUTIONVALUESPROPERTIESFILEPATH);
+		driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
 
-    @BeforeClass
-    public void setUp() {
-        driverManager = new WebDriverManager();
-        uiElementsPropertiesManager = new UIElementsPropertiesManager(FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
-        constantsPropertiesManager = new ConstantsPropertiesManager(FilesLocations.CONSTANTSPROPERTIESFILEPATH);
-        driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
+		loginPage = new LoginPage(driverManager, uiElementsPropertiesManager);
+		homePage = new HomePage(driverManager, uiElementsPropertiesManager);
+		previewPage = new PreviewPage(driverManager, uiElementsPropertiesManager);
+		dashboardPage = new DashboardPage(driverManager, uiElementsPropertiesManager);
+		createSitePage = new CreateSitePage(driverManager, uiElementsPropertiesManager);
+		accountManagementPage = new AccountManagementPage(driverManager, uiElementsPropertiesManager);
+		siteConfigPage = new SiteConfigPage(driverManager, uiElementsPropertiesManager);
+		myRecentActivityFramePage1 = new MyRecentActivityPage(driverManager, uiElementsPropertiesManager);
+		usersPage = new UsersPage(driverManager, uiElementsPropertiesManager);
 
-        loginPage = new LoginPage(driverManager, uiElementsPropertiesManager);
-        homePage = new HomePage(driverManager, uiElementsPropertiesManager);
-        previewPage = new PreviewPage(driverManager, uiElementsPropertiesManager);
-        dashboardPage = new DashboardPage(driverManager, uiElementsPropertiesManager);
-        createSitePage = new CreateSitePage(driverManager, uiElementsPropertiesManager);
-        accountManagementPage = new AccountManagementPage(driverManager, uiElementsPropertiesManager);
-        siteConfigPage = new SiteConfigPage(driverManager, uiElementsPropertiesManager);
-        myRecentActivityFramePage1 = new MyRecentActivityPage(driverManager, uiElementsPropertiesManager);
-        usersPage = new UsersPage(driverManager, uiElementsPropertiesManager);
+	}
 
-    }
+	@AfterClass
+	public void close() {
+		driverManager.closeConnection();
+	}
 
-    @AfterClass
-    public void close() {
-        driverManager.closeConnection();
-    }
-    	
 }

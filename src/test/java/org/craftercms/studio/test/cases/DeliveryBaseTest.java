@@ -25,31 +25,37 @@ import org.craftercms.studio.test.utils.WebDriverManager;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-
 /**
  * All Test Cases should extend this class
  */
 public class DeliveryBaseTest {
 
-    protected WebDriverManager driverManager;
-    protected UIElementsPropertiesManager uiElementsPropertiesManager;
-    protected ConstantsPropertiesManager constantsPropertiesManager;
-    protected DeliveryHomePage deliveryHome;
-    
-    @BeforeClass
-    public void setUp() {
-        driverManager = new WebDriverManager();
-        uiElementsPropertiesManager = new UIElementsPropertiesManager(FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
-        constantsPropertiesManager = new ConstantsPropertiesManager(FilesLocations.CONSTANTSPROPERTIESFILEPATH);
-        driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
-        String currentSiteId=constantsPropertiesManager.getSharedExecutionConstants()
-		.getProperty("general.currentsiteid");
-        deliveryHome = new DeliveryHomePage(driverManager, currentSiteId);
-    }
+	protected WebDriverManager driverManager;
+	protected UIElementsPropertiesManager uiElementsPropertiesManager;
+	protected ConstantsPropertiesManager constantsPropertiesManager;
+	protected ConstantsPropertiesManager deliveryExecutionValuesManager;
 
-    @AfterClass
-    public void close() {
-        driverManager.closeConnection();
-    }
+	protected DeliveryHomePage deliveryHome;
+
+	@BeforeClass
+	public void setUp() {
+		driverManager = new WebDriverManager();
+		uiElementsPropertiesManager = new UIElementsPropertiesManager(
+				FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
+		constantsPropertiesManager = new ConstantsPropertiesManager(
+				FilesLocations.CONSTANTSPROPERTIESFILEPATH);
+		deliveryExecutionValuesManager = new ConstantsPropertiesManager(
+				FilesLocations.DELIVERYEXECUTIONVALUESPROPERTIESFILEPATH);
+
+		driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
+		String currentSiteId = deliveryExecutionValuesManager.getSharedExecutionConstants()
+				.getProperty("general.currentsiteid");
+		deliveryHome = new DeliveryHomePage(driverManager, currentSiteId);
+	}
+
+	@AfterClass
+	public void close() {
+		driverManager.closeConnection();
+	}
 
 }
