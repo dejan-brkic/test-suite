@@ -45,6 +45,9 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 	private String testingArticleXpath;
 	private String editRecentlyContentCreated;
 	private String createFormFrameElementCss;
+	private String articles201612Folder;
+	private String testingArticleCompleteXPath;
+	private String previewDraftBar;
 
 	private static final Logger logger = LogManager.getLogger(VerifyThatSaveDraftWorksProperlyTest.class);
 
@@ -70,6 +73,12 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 				.getProperty("rightclick.edit.option");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
+		articles201612Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.articles.201612childfolder");
+		testingArticleCompleteXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.articles.2016.testingarticle");
+		previewDraftBar = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("preview.savedraftbar");
 	}
 
 	public void loginAndGoToPreview() {
@@ -114,7 +123,6 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 		dashboardPage.expandPagesTree();
 
 		// Expand Home Tree
-		this.driverManager.waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
@@ -126,11 +134,10 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 				articles2016Folder);
 		dashboardPage.expandParentFolder(articles2016Folder);
 
-		this.driverManager.waitForAnimation();
 		dashboardPage.expandParentFolder(
-				articles2016Folder + "/../../../../../div[@class='ygtvchildren']//span[text()='12']");
+				articles201612Folder);
 		this.createNewPageArticleAsDraft(
-				articles2016Folder + "/../../../../../div[@class='ygtvchildren']//span[text()='12']");
+				articles201612Folder);
 	}
 
 	public void editArticleAndSaveAndClose() {
@@ -155,22 +162,19 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 
 	public void checkDraftPreviewBarIsDisplayed() {
 		logger.info("Checking if testing article is displayed");
-		String testingContentXpath = articles2016Folder
-				+ "/../../../../../div[@class='ygtvchildren']//span[text()='12']"
-				+ "/../../../../../div[@class='ygtvchildren']//span[text()='Testing1']";
 		this.driverManager.waitUntilSidebarOpens();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				testingContentXpath);
+				testingArticleCompleteXPath);
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentXpath)
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath)
 				.isDisplayed());
 		logger.info("Checking if testing article has locked icon");
 		Assert.assertTrue(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-						testingContentXpath + "//span[@class='fa studio-fa-stack-1x fa-lock locked']")
+						testingArticleCompleteXPath + "//span[@class='fa studio-fa-stack-1x fa-lock locked']")
 				.isDisplayed());
 		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentXpath)
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath)
 				.click();
 
 		this.driverManager.waitForFullExpansionOfTree();
@@ -179,14 +183,12 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 		Assert.assertTrue(
 				"Content was saved as DRAFT. Some required fields may not be populated. This can cause errors when previewed or deployed."
 						.equalsIgnoreCase(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
-								"xpath", ".//div[@class='acnDraftContent']").getText()));
+								"xpath", previewDraftBar).getText()));
 	}
 
 	public void checkDraftPreviewBarIsNotDisplayed() {
 		logger.info("Checking if testing article is displayed");
-		String testingContentXpath = articles2016Folder
-				+ "/../../../../../div[@class='ygtvchildren']//span[text()='12']"
-				+ "/../../../../../div[@class='ygtvchildren']//span[text()='Testing']";
+		String testingContentXpath = testingArticleCompleteXPath.replace("Testing1", "Testing");
 
 		this.driverManager.waitUntilSidebarOpens();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -208,7 +210,7 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 		driverManager.getDriver().switchTo().defaultContent();
 		logger.info("Checking if Draft preview bar is not displayed");
 		Assert.assertFalse(
-				this.driverManager.isElementPresentAndClickableByXpath(".//div[@class='acnDraftContent']"));
+				this.driverManager.isElementPresentAndClickableByXpath(previewDraftBar));
 	}
 
 	@Test(
