@@ -80,7 +80,8 @@ public class PreviewPage {
 	private String authorsTree;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
-	public PreviewPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
+	public PreviewPage(WebDriverManager driverManager,
+			UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
 		this.driverManager.getDriver();
 		this.siteConfigPage = new SiteConfigPage(driverManager, UIElementsPropertiesManager);
@@ -97,20 +98,24 @@ public class PreviewPage {
 				.getProperty("general.approve&publish");
 		submitButtonApprovePublish = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.approve&publish.submit");
-		previewDuplicate = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.duplicate");
+		previewDuplicate = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.duplicate");
 		duplicateName = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.onduplicate.internalname");
 		expandPagesTree = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.expandpages");
 		expandHomeTree = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.expandhome");
-		previewDelete = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.delete");
+		previewDelete = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.delete");
 		deleteDependencies = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.delete.delete");
 		OKdeleteDependencies = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.submitall.ok");
-		previewEdit = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.edittopnavoption");
-		saveAndCloseiFrame = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("frame1.save_close");
+		previewEdit = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.edittopnavoption");
+		saveAndCloseiFrame = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame1.save_close");
 		previewHistory = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.historytopnavoption");
 		previewDependecies = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -131,7 +136,8 @@ public class PreviewPage {
 				.getProperty("bulkoperations.accept_warning");
 		bulkoperationsMessage = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("bulkoperations.message");
-		studioLogo = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.studiologo");
+		studioLogo = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.studiologo");
 		siteDropdownElementXPath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		siteDropdownListElementXPath = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -162,7 +168,8 @@ public class PreviewPage {
 				.getProperty("complexscenarios.edit.articles.content.type.date");
 		gearItemXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearlocator");
-		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("bulkoperations.frame");
+		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("bulkoperations.frame");
 		dependenciesForXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.dependencies.dependeciesforitem");
 		itemsTree = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -175,8 +182,8 @@ public class PreviewPage {
 
 	// Click on admin console link
 	public void clickAdminConsoleOption() {
-		WebElement adminConsoleOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				adminConsole);
+		WebElement adminConsoleOption = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
 		adminConsoleOption.click();
 	}
 
@@ -199,8 +206,8 @@ public class PreviewPage {
 
 	// Expand the In Context Menu
 	public void expandInContextEditing() {
-		WebElement expandInContextMenu = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				expandInContextEditing);
+		WebElement expandInContextMenu = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandInContextEditing);
 		expandInContextMenu.click();
 	}
 
@@ -211,8 +218,8 @@ public class PreviewPage {
 
 	// Enable/Diseble In-Context Editing
 	public void inContextEditing() {
-		WebElement inContextEditingOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				clickInContextEdit);
+		WebElement inContextEditingOption = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", clickInContextEdit);
 		inContextEditingOption.click();
 	}
 
@@ -223,8 +230,8 @@ public class PreviewPage {
 
 	// Click on Approve&Publish option
 	public void approvePublish() {
-		WebElement publishIcon = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				approvePublish);
+		WebElement publishIcon = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", approvePublish);
 		publishIcon.click();
 	}
 
@@ -235,7 +242,8 @@ public class PreviewPage {
 
 	// Click on submit button of Approve&Publish
 	public void submitApprovePublish() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", submitButtonApprovePublish);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				submitButtonApprovePublish);
 		WebElement toolsIcon = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				submitButtonApprovePublish);
 		toolsIcon.click();
@@ -300,7 +308,8 @@ public class PreviewPage {
 
 	// Click on edit button of the menu
 	public void EditButton() {
-		WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", previewEdit);
+		WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				previewEdit);
 		editOption.click();
 	}
 
@@ -362,24 +371,24 @@ public class PreviewPage {
 				this.itemsTree);
 		expandItemsTree.click();
 	}
-	
+
 	public void expandItemsSubtree() {
-		WebElement expandItemsSubtree = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				this.itemsSubtree);
+		WebElement expandItemsSubtree = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", this.itemsSubtree);
 		expandItemsSubtree.click();
 	}
-	
+
 	public void expandAuthorsTree() {
 		WebElement expandAuthorsTree = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				this.authorsTree);
 		expandAuthorsTree.click();
 	}
-	
+
 	// Expand global entry content
 	public void clickHomeContent() {
 		this.driverManager.isElementPresentAndClickableByXpath(expandHomeTree);
-		WebElement homeContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				expandHomeTree);
+		WebElement homeContent = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", expandHomeTree);
 		homeContent.click();
 	}
 
@@ -402,12 +411,13 @@ public class PreviewPage {
 
 	public void changeBodyOfEntryContentPageToNotRequired() {
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
-				.contains("site-dropdown-open")))
-			this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					siteDropdownElementXPath).click();
 		// go to admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath)
+				.click();
 		// select content types
 		siteConfigPage.selectContentTypeOption();
 		// open content types
@@ -419,29 +429,33 @@ public class PreviewPage {
 		// select main content
 		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath)
+				.click();
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
 		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
 				lastPropertiesElementCssSelector);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
 		// save
 		this.driverManager.waitForAnimation();
 		siteConfigPage.saveDragAndDropProcess();
 		driverManager.getDriver().switchTo().defaultContent();
 		// go to dashboard
 		this.driverManager.getDriver().navigate().refresh();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
+				.click();
 	}
 
 	public void modifyPageXMLDefinitionContentAsFolderEntryContentType(String configurationSetUp) {
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
-				.contains("site-dropdown-open")))
-			this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					siteDropdownElementXPath).click();
 		// go to admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath)
+				.click();
 		// select content types
 		siteConfigPage.selectContentTypeOption();
 		// open content types
@@ -458,8 +472,10 @@ public class PreviewPage {
 				".//div[@class='property-label label-configuration']/../input").click();
 
 		// Click on pencil icon
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//div[@class='property-label label-configuration']/../div[@class='options']/div").click();
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+						".//div[@class='property-label label-configuration']/../div[@class='options']/div")
+				.click();
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo().activeElement();
@@ -478,17 +494,19 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		// go to dashboard
 		this.driverManager.getDriver().navigate().refresh();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
+				.click();
 	}
 
 	public void modifyPageXMLDefinitionContentAsFolderForPageArticle(String configurationSetUp) {
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
-				.contains("site-dropdown-open")))
-			this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath).click();
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					siteDropdownElementXPath).click();
 		// go to admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath)
+				.click();
 		// select content types
 		siteConfigPage.selectContentTypeOption();
 		// open content types
@@ -507,8 +525,10 @@ public class PreviewPage {
 				".//div[@class='property-label label-configuration']/../input").click();
 
 		// Click on pencil icon
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//div[@class='property-label label-configuration']/../div[@class='options']/div").click();
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+						".//div[@class='property-label label-configuration']/../div[@class='options']/div")
+				.click();
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo().activeElement();
@@ -527,12 +547,14 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		// go to dashboard
 		this.driverManager.getDriver().navigate().refresh();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
+				.click();
 	}
+
 	public void changeDateOfArticlePageToNotRequired() {
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
-				.contains("site-dropdown-open")))
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
@@ -556,18 +578,20 @@ public class PreviewPage {
 		this.driverManager.waitForAnimation();
 		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
 				lastPropertiesElementCssSelector);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
 		// save
 		siteConfigPage.saveDragAndDropProcess();
 		this.driverManager.getDriver().switchTo().defaultContent();
 		// go to dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
+				.click();
 	}
-	
+
 	public void changeBodyOfArticlePageToNotRequired() {
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
-				.contains("site-dropdown-open")))
+		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+				.getAttribute("class").contains("site-dropdown-open")))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
@@ -585,22 +609,26 @@ public class PreviewPage {
 		this.driverManager.scrollDown();
 		// select main content
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articlesContentTypeRepeatingGroup)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", articlesContentTypeRepeatingGroup)
 				.click();
 		// Mark Body not required
 		this.driverManager.waitForAnimation();
 		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
 				lastPropertiesElementCssSelector);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
 		// save
 		siteConfigPage.saveDragAndDropProcess();
 		this.driverManager.getDriver().switchTo().defaultContent();
 		// go to dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
+				.click();
 	}
 
-	public void createPageArticleContentUsingUploadedImage(String url, String name, String title, String folderLocation,
-			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
+	public void createPageArticleContentUsingUploadedImage(String url, String name, String title,
+			String folderLocation, String selectedSegments, String selectedCategories, String subject,
+			String author, String summary) {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
@@ -637,20 +665,22 @@ public class PreviewPage {
 			dashboardPage.addAnImageToAnArticleUsingUploadOption();
 			// Switch to the iframe
 			driverManager.getDriver().switchTo().defaultContent();
-			driverManager.getDriver().switchTo().frame(this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", ".studio-ice-dialog > .bd iframe"));
+			driverManager.getDriver().switchTo()
+					.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
+							".studio-ice-dialog > .bd iframe"));
 			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
 			// save and close
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitForFullExpansionOfTree();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
+					.click();
 		});
 		this.driverManager.waitUntilSidebarOpens();
-
 	}
 
 	public void createPageArticleContent(String url, String name, String title, String folderLocation,
-			String selectedSegments, String selectedCategories, String subject, String author, String summary) {
+			String selectedSegments, String selectedCategories, String subject, String author,
+			String summary) {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
@@ -686,16 +716,78 @@ public class PreviewPage {
 			dashboardPage.addAnImageToAnArticle();
 			// Switch to the iframe
 			driverManager.getDriver().switchTo().defaultContent();
-			driverManager.getDriver().switchTo().frame(this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", ".studio-ice-dialog > .bd iframe"));
+			driverManager.getDriver().switchTo()
+					.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
+							".studio-ice-dialog > .bd iframe"));
 			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
 			// save and close
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitForFullExpansionOfTree();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
+					.click();
 		});
 		this.driverManager.waitUntilSidebarOpens();
 
+	}
+
+	public void createPageArticleContentAsDraft(String url, String name, String title, String folderLocation,
+			String selectedSegments, String selectedCategories, String subject, String author,
+			String summary) {
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
+		// right click to see the the menu
+		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
+		// Select Entry Content Type
+		dashboardPage.clickEntryCT();
+		// Confirm the Content Type selected
+		dashboardPage.clickOKButton();
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForAnimation();
+		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+			// Fill the New Article page Fields
+			this.driverManager.waitForAnimation();
+			dashboardPage.setPageURL1(url);
+			this.driverManager.waitForAnimation();
+			dashboardPage.setInternalName1(name);
+			this.driverManager.waitForAnimation();
+			dashboardPage.setArticlesTitle(title);
+			this.driverManager.waitForAnimation();
+			// Fill the New Article Content Section
+			this.driverManager.scrollDown();
+			this.driverManager.waitForAnimation();
+			dashboardPage.setNewArticleContentSection(subject, author, summary);
+			// Select the catergory of the Article Page
+			this.driverManager.scrollMiddle();
+			this.driverManager.waitForAnimation();
+			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
+			// Select the segment of the Article Page
+			this.driverManager.waitForAnimation();
+			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
+			this.driverManager.scrollDown();
+			// Add an Image
+			this.driverManager.waitForAnimation();
+
+			// Switch to the iframe
+			driverManager.getDriver().switchTo().defaultContent();
+			driverManager.getDriver().switchTo()
+					.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
+							".studio-ice-dialog > .bd iframe"));
+			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
+			// save and close
+			this.driverManager.waitForAnimation();
+			this.driverManager.waitForFullExpansionOfTree();
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "cstudioSaveAndCloseDraft")
+					.click();
+
+			this.driverManager.waitForFullExpansionOfTree();
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "colExpButtonBtn").click();
+
+			this.driverManager.waitForFullExpansionOfTree();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "cancelBtn")
+					.click();
+		});
+		this.driverManager.waitUntilSidebarOpens();
 	}
 
 	public void checkDependencies() {
@@ -704,13 +796,15 @@ public class PreviewPage {
 		driverManager.getDriver().switchTo().defaultContent();
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.waitUntilPageLoad();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				dependenciesSelector);
+		Select categoriesDropDown = new Select(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		categoriesDropDown.selectByValue("depends-on-me");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", gearItemXpath);
 		Assert.assertTrue(this.getDriverManager().isElementPresentByXpath(gearItemXpath));
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 	}
 
@@ -723,13 +817,14 @@ public class PreviewPage {
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				dependenciesForXpath);
+		WebElement dependenciesForItemElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(itemText));
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				dependenciesSelector);
+		Select categoriesDropDown = new Select(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 
 		if (dependsOn) {
 			// depends on case
@@ -745,7 +840,8 @@ public class PreviewPage {
 						".//div[@id='dependencies-dialog']//table[contains(@class,'item-listing')]/tbody")
 				.findElements(By.tagName("tr"));
 		Assert.assertTrue(dependeciesItems.size() == 0);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 	}
 
@@ -757,19 +853,23 @@ public class PreviewPage {
 
 		switch (pageName) {
 		case "Home":
-			if ((dependentItemName.equalsIgnoreCase("home.ftl")) || (dependentItemName.equalsIgnoreCase("home.groovy"))
+			if ((dependentItemName.equalsIgnoreCase("home.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("home.groovy"))
 					|| (dependentItemName.equalsIgnoreCase("strawberries.jpg"))
-					|| (dependentItemName.equalsIgnoreCase("Three")) || (dependentItemName.equalsIgnoreCase("Two"))
+					|| (dependentItemName.equalsIgnoreCase("Three"))
+					|| (dependentItemName.equalsIgnoreCase("Two"))
 					|| (dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"))) {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
 					|| (dependentItemLocation.equalsIgnoreCase("/scripts/pages/home.groovy"))
 					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/strawberries.jpg"))
-					|| (dependentItemLocation.equalsIgnoreCase("/site/components/features/sapien-veroeros.xml"))
-					|| (dependentItemLocation.equalsIgnoreCase("/site/components/features/quam-lorem-ipsum.xml"))
 					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"))) {
+							.equalsIgnoreCase("/site/components/features/sapien-veroeros.xml"))
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/site/components/features/quam-lorem-ipsum.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase(
+							"/site/components/left-rails/left-rail-with-latest-articles.xml"))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
@@ -781,7 +881,8 @@ public class PreviewPage {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/scripts/pages/category-landing.groovy"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
@@ -793,16 +894,18 @@ public class PreviewPage {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/winter-woman-pic.jpg"))) {
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/static-assets/images/winter-woman-pic.jpg"))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
 		case "Testing1":
-			String testImageLocation = "/static-assets/item/images/" + this.driverManager.getCurrentYear() + "/"
-					+ this.driverManager.getCurrentMonth() + "/"+this.driverManager.getCurrentDay()+"/testimage.jpg";
-			
+			String testImageLocation = "/static-assets/item/images/" + this.driverManager.getCurrentYear()
+					+ "/" + this.driverManager.getCurrentMonth() + "/" + this.driverManager.getCurrentDay()
+					+ "/testimage.jpg";
+
 			if ((dependentItemName.equalsIgnoreCase("article.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("testimage.jpg"))) {
 				firstCheckPass = true;
@@ -821,8 +924,8 @@ public class PreviewPage {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/scripts/pages/search-results.groovy"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/components/left-rails/left-rail-with-latest-articles.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase(
+							"/site/components/left-rails/left-rail-with-latest-articles.xml"))
 					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))) {
 				secondCheckPass = true;
 			}
@@ -845,13 +948,14 @@ public class PreviewPage {
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				dependenciesForXpath);
+		WebElement dependenciesForItemElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(staticAssetName));
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				dependenciesSelector);
+		Select categoriesDropDown = new Select(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		if (dependsOn) {
 			// depends on case
 			categoriesDropDown.selectByValue("depends-on");
@@ -870,7 +974,8 @@ public class PreviewPage {
 		for (WebElement webElement : dependeciesItems) {
 			this.checkDependentItemsForPage(staticAssetName, webElement);
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 
 	}
@@ -888,7 +993,8 @@ public class PreviewPage {
 					.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"));
 			break;
 		case "ie8.css":
-			if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
+			if ((dependentItemName.equalsIgnoreCase("404.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("500.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("article.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("home.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
@@ -900,14 +1006,16 @@ public class PreviewPage {
 					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
 					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
 					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
 		case "jquery.min.js":
-			if ((dependentItemName.equalsIgnoreCase("404.ftl")) || (dependentItemName.equalsIgnoreCase("500.ftl"))
+			if ((dependentItemName.equalsIgnoreCase("404.ftl"))
+					|| (dependentItemName.equalsIgnoreCase("500.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("article.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("home.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
@@ -919,7 +1027,8 @@ public class PreviewPage {
 					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
 					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
 					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+					|| (dependentItemLocation
+							.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
@@ -940,13 +1049,14 @@ public class PreviewPage {
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				dependenciesForXpath);
+		WebElement dependenciesForItemElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(staticAssetName));
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				dependenciesSelector);
+		Select categoriesDropDown = new Select(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		if (dependsOn) {
 			// depends on case
 			categoriesDropDown.selectByValue("depends-on");
@@ -965,7 +1075,8 @@ public class PreviewPage {
 		for (WebElement webElement : dependeciesItems) {
 			this.checkDependentItemsForStaticAsset(staticAssetName, webElement);
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 
 	}
@@ -978,14 +1089,15 @@ public class PreviewPage {
 
 		switch (scriptName) {
 		case "category-landing.groovy":
-			if ((dependentItemName.equalsIgnoreCase("Style")) || (dependentItemName.equalsIgnoreCase("Health"))
+			if ((dependentItemName.equalsIgnoreCase("Style"))
+					|| (dependentItemName.equalsIgnoreCase("Health"))
 					|| (dependentItemName.equalsIgnoreCase("Technology"))
 					|| (dependentItemName.equalsIgnoreCase("Entertainment"))) {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/site/website/style/index.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
+					|| (dependentItemLocation.equalsIgnoreCase(
+							"/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
 					|| (dependentItemLocation.equalsIgnoreCase("/site/website/health/index.xml"))
 					|| (dependentItemLocation.equalsIgnoreCase("/site/website/technology/index.xml"))
 					|| (dependentItemLocation.equalsIgnoreCase("/site/website/entertainment/index.xml"))) {
@@ -1028,13 +1140,14 @@ public class PreviewPage {
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				dependenciesForXpath);
+		WebElement dependenciesForItemElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(scriptName));
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				dependenciesSelector);
+		Select categoriesDropDown = new Select(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		if (dependsOn) {
 			// depends on case
 			categoriesDropDown.selectByValue("depends-on");
@@ -1053,7 +1166,8 @@ public class PreviewPage {
 		for (WebElement webElement : dependeciesItems) {
 			checkDependentItemsForScript(scriptName, webElement);
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 	}
 
@@ -1072,23 +1186,24 @@ public class PreviewPage {
 				|| (dependentItemName.equalsIgnoreCase("Testing1"))) {
 			firstCheckPass = true;
 		}
-		if ((dependentItemLocation.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
+		if ((dependentItemLocation
+				.equalsIgnoreCase("/site/website/articles/2017/3/top-clubs-in-virginia/index.xml"))
 				|| (dependentItemLocation
 						.equalsIgnoreCase("/site/website/articles/2017/1/men-styles-for-winter/index.xml"))
-				|| (dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
-				|| (dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
-				|| (dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
-				|| (dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase(
+						"/site/website/articles/2016/7/new-acme-phone-released-today/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase(
+						"/site/website/articles/2017/2/top-romantic-valentine-movies/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase(
+						"/site/website/articles/2016/12/top-books-for-young-women/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase(
+						"/site/website/articles/2016/6/coffee-is-good-for-your-health/index.xml"))
 				|| (dependentItemLocation
 						.equalsIgnoreCase("/site/website/articles/2017/1/women-styles-for-winter/index.xml"))
-				|| (dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
-				|| (dependentItemLocation
-						.equalsIgnoreCase("/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase(
+						"/site/website/articles/2017/3/5-popular-diets-for-women/index.xml"))
+				|| (dependentItemLocation.equalsIgnoreCase(
+						"/site/website/articles/2017/2/10-tips-to-get-a-six-pack/index.xml"))
 				|| (dependentItemLocation.equalsIgnoreCase("/site/website/articles/2016/6/test/index.xml"))) {
 			secondCheckPass = true;
 		}
@@ -1161,7 +1276,8 @@ public class PreviewPage {
 			checkDependsOnSearchResultsFTL(dependentItemName, dependentItemLocation);
 			break;
 		default:
-			throw new IllegalArgumentException("No template case for provided template name: " + templateName);
+			throw new IllegalArgumentException(
+					"No template case for provided template name: " + templateName);
 		}
 	}
 
@@ -1172,9 +1288,12 @@ public class PreviewPage {
 		if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
-				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
-				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
-				|| (dependentItemName.equalsIgnoreCase("html5shiv.js")) || (dependentItemName.equalsIgnoreCase("cstudio-support.ftl"))
+				|| (dependentItemName.equalsIgnoreCase("util.js"))
+				|| (dependentItemName.equalsIgnoreCase("main.css"))
+				|| (dependentItemName.equalsIgnoreCase("main.js"))
+				|| (dependentItemName.equalsIgnoreCase("ie9.css"))
+				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
+				|| (dependentItemName.equalsIgnoreCase("cstudio-support.ftl"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
 				|| (dependentItemName.equalsIgnoreCase("ie8.css"))
 				|| (dependentItemName.equalsIgnoreCase("placeholder.png"))
@@ -1207,8 +1326,10 @@ public class PreviewPage {
 		if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
-				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
-				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
+				|| (dependentItemName.equalsIgnoreCase("util.js"))
+				|| (dependentItemName.equalsIgnoreCase("main.css"))
+				|| (dependentItemName.equalsIgnoreCase("main.js"))
+				|| (dependentItemName.equalsIgnoreCase("ie9.css"))
 				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
 				|| (dependentItemName.equalsIgnoreCase("cstudio-support.ftl"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
@@ -1243,8 +1364,10 @@ public class PreviewPage {
 		if ((dependentItemName.equalsIgnoreCase("jquery.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.js"))
 				|| (dependentItemName.equalsIgnoreCase("skel.min.js"))
-				|| (dependentItemName.equalsIgnoreCase("util.js")) || (dependentItemName.equalsIgnoreCase("main.css"))
-				|| (dependentItemName.equalsIgnoreCase("main.js")) || (dependentItemName.equalsIgnoreCase("ie9.css"))
+				|| (dependentItemName.equalsIgnoreCase("util.js"))
+				|| (dependentItemName.equalsIgnoreCase("main.css"))
+				|| (dependentItemName.equalsIgnoreCase("main.js"))
+				|| (dependentItemName.equalsIgnoreCase("ie9.css"))
 				|| (dependentItemName.equalsIgnoreCase("cstudio-support.ftl"))
 				|| (dependentItemName.equalsIgnoreCase("html5shiv.js"))
 				|| (dependentItemName.equalsIgnoreCase("jquery-ui.min.css"))
@@ -1329,7 +1452,8 @@ public class PreviewPage {
 			checkDependsOnMeSearchResultsFTL(dependentItemName, dependentItemLocation);
 			break;
 		default:
-			throw new IllegalArgumentException("No template case for provided template name: " + templateName);
+			throw new IllegalArgumentException(
+					"No template case for provided template name: " + templateName);
 		}
 	}
 
@@ -1350,13 +1474,14 @@ public class PreviewPage {
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				dependenciesForXpath);
+		WebElement dependenciesForItemElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(templateName));
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				dependenciesSelector);
+		Select categoriesDropDown = new Select(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		if (dependsOn) {
 			// depends on case
 			categoriesDropDown.selectByValue("depends-on");
@@ -1375,7 +1500,8 @@ public class PreviewPage {
 		for (WebElement webElement : dependeciesItems) {
 			checkDependentItemsForTemplate(templateName, webElement, dependsOn);
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 	}
 
@@ -1394,8 +1520,8 @@ public class PreviewPage {
 				break;
 			case "Header":
 				Assert.assertTrue(dependentItemName.equalsIgnoreCase(""));
-				Assert.assertTrue(
-						dependentItemLocation.equalsIgnoreCase("/site/website/crafter-level-descriptor.level.xml"));
+				Assert.assertTrue(dependentItemLocation
+						.equalsIgnoreCase("/site/website/crafter-level-descriptor.level.xml"));
 				break;
 			case "Left Rail with Latest Articles":
 				if ((dependentItemName.equalsIgnoreCase("Home"))
@@ -1403,14 +1529,16 @@ public class PreviewPage {
 					firstCheckPass = true;
 				}
 				if ((dependentItemLocation.equalsIgnoreCase("/site/website/index.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
+						|| (dependentItemLocation
+								.equalsIgnoreCase("/site/website/search-results/index.xml"))) {
 					secondCheckPass = true;
 				}
 				Assert.assertTrue(firstCheckPass);
 				Assert.assertTrue(secondCheckPass);
 				break;
 			default:
-				throw new IllegalArgumentException("No component case for provided component name: " + componentName);
+				throw new IllegalArgumentException(
+						"No component case for provided component name: " + componentName);
 			}
 		} else {
 			switch (componentName) {
@@ -1420,7 +1548,8 @@ public class PreviewPage {
 					firstCheckPass = true;
 				}
 				if ((dependentItemLocation.equalsIgnoreCase("/scripts/components/latest-articles.groovy"))
-						|| (dependentItemLocation.equalsIgnoreCase("/templates/web/components/articles-widget.ftl"))) {
+						|| (dependentItemLocation
+								.equalsIgnoreCase("/templates/web/components/articles-widget.ftl"))) {
 					secondCheckPass = true;
 				}
 				break;
@@ -1447,14 +1576,16 @@ public class PreviewPage {
 					firstCheckPass = true;
 				}
 				if ((dependentItemLocation.equalsIgnoreCase("/templates/web/components/left-rail.ftl"))
+						|| (dependentItemLocation.equalsIgnoreCase(
+								"/site/components/articles-widget/latest-articles-widget.xml"))
 						|| (dependentItemLocation
-								.equalsIgnoreCase("/site/components/articles-widget/latest-articles-widget.xml"))
-						|| (dependentItemLocation.equalsIgnoreCase("/site/components/contacts/contact-widget.xml"))) {
+								.equalsIgnoreCase("/site/components/contacts/contact-widget.xml"))) {
 					secondCheckPass = true;
 				}
 				break;
 			default:
-				throw new IllegalArgumentException("No component case for provided component name: " + componentName);
+				throw new IllegalArgumentException(
+						"No component case for provided component name: " + componentName);
 			}
 		}
 
@@ -1468,13 +1599,14 @@ public class PreviewPage {
 		driverManager.waitUntilPageLoad();
 		// checking if the item name is the correct on the dependencies dialog
 		this.driverManager.waitForFullExpansionOfTree();
-		WebElement dependenciesForItemElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				dependenciesForXpath);
+		WebElement dependenciesForItemElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
 		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(componentName));
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesSelector);
-		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				dependenciesSelector);
+		Select categoriesDropDown = new Select(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
 		if (dependsOn) {
 			// depends on case
 			categoriesDropDown.selectByValue("depends-on");
@@ -1492,7 +1624,8 @@ public class PreviewPage {
 		for (WebElement webElement : dependeciesItems) {
 			this.checkDependentItemsForComponent(componentName, webElement, dependsOn);
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesCloseButton)
 				.click();
 	}
 
@@ -1590,38 +1723,37 @@ public class PreviewPage {
 	}
 
 	public void bulkPublish(String path, int waitTimeForPublish) {
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id",
-				"admin-console");
+		WebElement siteConfigButton = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "admin-console");
 		siteConfigButton.click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteconfigPublishingOperationsoption);
 		this.driverManager.waitForAnimation();
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigPublishingOperationsoption)
-				.click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				siteconfigPublishingOperationsoption).click();
 		this.driverManager.waitForAnimation();
-		this.driverManager.getDriver().switchTo()
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingFrame));
+		this.driverManager.getDriver().switchTo().frame(
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingFrame));
 		this.driverManager.isElementPresentAndClickableByXpath(publishingFrame);
 		this.driverManager.getDriver().switchTo().activeElement();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkPublishTab).click();
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkPublishTab)
 				.click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				bulkOperationsPathToPublishInput).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				bulkOperationsPathToPublishInput).clear();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				bulkOperationsPathToPublishInput).sendKeys(path);
 		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
-				.clear();
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkOperationsPathToPublishInput)
-				.sendKeys(path);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsPublishButton)
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsPublishButton)
 				.click();
 		this.driverManager.getDriver().switchTo().activeElement();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bulkoperationsAcceptWarning);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsAcceptWarning)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", bulkoperationsAcceptWarning)
 				.click();
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
@@ -1630,47 +1762,55 @@ public class PreviewPage {
 		// published
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForBulkPublish(waitTimeForPublish);
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage)
-				.isDisplayed());
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", bulkoperationsMessage).isDisplayed());
 		// Switch back to the dashboard page
 		driverManager.getDriver().switchTo().defaultContent();
 		this.driverManager.getDriver().switchTo().activeElement();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "navbar-site-name");
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "navbar-site-name").click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "navbar-site-name")
+				.click();
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("cssSelector", "#admin-console");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("cssSelector",
+				"#admin-console");
 
 	}
 
 	public void verifyPageArticleIsPublished() {
 		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				articleContentCreatedName);
 		this.driverManager.waitForFullExpansionOfTree();
 		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName)
 				.click();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalDeleteOption);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				generalDeleteOption);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				generalEditOption);
 		for (int i = 0; i < driverManager.getNumberOfAttemptsForElementsDisplayed(); i++) {
 			try {
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteStatusIcon)
+				this.driverManager
+						.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteStatusIcon)
 						.click();
-				this.driverManager.waitUntilAttributeContains("xpath", siteStatusIcon, "class", "undefined live");
+				this.driverManager.waitUntilAttributeContains("xpath", siteStatusIcon, "class",
+						"undefined live");
 				break;
 			} catch (TimeoutException e) {
 				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
-				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
+				logger.warn(
+						"Content page is not published yet, checking again if it has published icon on top bar");
 				driverManager.getDriver().navigate().refresh();
 				this.driverManager.waitForAnimation();
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName)
-						.click();
+				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+						articleContentCreatedName).click();
 			}
 		}
 		this.driverManager.waitForFullExpansionOfTree();
-		Assert.assertTrue(this.driverManager.getDriver().findElement(By.xpath(siteStatusIcon)).getAttribute("class")
-				.contains("undefined live"));
+		Assert.assertTrue(this.driverManager.getDriver().findElement(By.xpath(siteStatusIcon))
+				.getAttribute("class").contains("undefined live"));
 
 	}
 }
