@@ -23,7 +23,6 @@ import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.craftercms.studio.test.utils.WebDriverManager;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -47,7 +46,7 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 	private String cropImageDialogButton;
 	private String photoImageInfo;
 
-	private static final Logger logger = LogManager.getLogger(WebDriverManager.class);
+	private static final Logger logger = LogManager.getLogger(VerifyThatImageCropWorksProperlyTest.class);
 
 	@BeforeMethod
 	public void beforeTest() {
