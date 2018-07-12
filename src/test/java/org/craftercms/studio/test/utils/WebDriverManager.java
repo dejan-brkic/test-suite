@@ -763,6 +763,7 @@ public class WebDriverManager {
 		}
 	}
 
+	
 	public void sendText(String selectorType, String selectorValue, String text) {
 		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
 		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
