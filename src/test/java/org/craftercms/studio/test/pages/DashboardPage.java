@@ -112,6 +112,8 @@ public class DashboardPage {
 	private String recentActivitySecondContentName;
 	private String recentActivitySecondContentIcon;
 	private String authorReplaceImageButton;
+	private String changeTemplateSubmitButtonLocator;
+	private String changeTemplateArticlesTitleLocator;
 	private static Logger logger = LogManager.getLogger(DashboardPage.class);
 
 	/**
@@ -175,6 +177,8 @@ public class DashboardPage {
 				.getProperty("dashboard.pageArticle_Content_Type");
 		articlesTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame2.articlestitlefield");
+		changeTemplateArticlesTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.changetemplate.articlestitlefield");
 		categoriesLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame2.categoriesdropdownlist");
 		copyOptionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -199,6 +203,8 @@ public class DashboardPage {
 				.getProperty("rightclick.approveandpublish.option");
 		approveAndPublishPublishButtonLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.approveandpublishsubmitbutton");
+		changeTemplateSubmitButtonLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.changetemplatesubmitbutton");
 		deleteOptionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.delete.option");
 		deleteDeletButtonLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -920,6 +926,10 @@ public class DashboardPage {
 	public void setArticlesTitle(String strArticlesTitle) {
 		driverManager.sendText("xpath", articlesTitleLocator, strArticlesTitle);
 	}
+	
+	public void setArticlesTitleWhenChangeTemplate(String articlesTitle) {
+		driverManager.sendText("xpath", changeTemplateArticlesTitleLocator, articlesTitle);
+	}
 
 	public void setNewArticleContentSection(String subject, String author, String summary) {
 		driverManager.sendText("xpath", articlesSubjectInput, subject);
@@ -1017,6 +1027,21 @@ public class DashboardPage {
 		this.driverManager.waitForAnimation();
 	}
 
+	public void clickChangeTemplateSubmitButton() {
+		WebElement submitButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				changeTemplateSubmitButtonLocator);
+		submitButton.click();
+		this.driverManager.waitForAnimation();
+	}
+	
+	
+	public void clickOnChangeTemplateYesButton() {
+		WebElement changeTemplateYesButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id",
+				"acceptCTChange");
+		changeTemplateYesButton.click();
+		this.driverManager.waitForAnimation();
+	}
+	
 	public void clickDeleteDeleteSubmitButton() {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", deleteDeletButtonLocator);
 		WebElement deleteButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
