@@ -63,6 +63,7 @@ public class StudioBaseTest {
 		deliveryExecutionValuesManager = new ConstantsPropertiesManager(
 				FilesLocations.DELIVERYEXECUTIONVALUESPROPERTIESFILEPATH);
 		driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
+		driverManager.setUIElementsPropertiesManager(uiElementsPropertiesManager);
 
 		loginPage = new LoginPage(driverManager, uiElementsPropertiesManager);
 		homePage = new HomePage(driverManager, uiElementsPropertiesManager);
