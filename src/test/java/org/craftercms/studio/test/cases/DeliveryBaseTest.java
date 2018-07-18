@@ -48,6 +48,8 @@ public class DeliveryBaseTest {
 				FilesLocations.DELIVERYEXECUTIONVALUESPROPERTIESFILEPATH);
 
 		driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
+		driverManager.setUIElementsPropertiesManager(uiElementsPropertiesManager);
+		
 		String currentSiteId = deliveryExecutionValuesManager.getSharedExecutionConstants()
 				.getProperty("general.currentsiteid");
 		deliveryHome = new DeliveryHomePage(driverManager, currentSiteId);

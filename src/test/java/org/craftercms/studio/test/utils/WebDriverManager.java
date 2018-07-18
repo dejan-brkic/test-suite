@@ -68,6 +68,7 @@ public class WebDriverManager {
 
 	WebDriver driver;
 	private ConstantsPropertiesManager constantsPropertiesManager;
+	private UIElementsPropertiesManager uiElementsPropertiesManager;
 	private int defaultTimeOut;
 	private int numberOfAttemptsForElementsDisplayed;
 	private int amountOfTestFoldersToGenerateForBulkUploadTest;
@@ -75,6 +76,26 @@ public class WebDriverManager {
 	private String executionEnvironment;
 	private int bulkUploadSyncTimeOut;
 	private int numberOfAttemptsForLogFileUpdate;
+	private String sideBarDropDownWrapper;
+	private String notificationModal;
+	private String createSiteModal;
+	private String goLiveWidget;
+	private String scheduledItemWidget;
+	private String recentlyMadeLiveWidget;
+	private String myRecentActivityWidget;
+	private String myRecentActivityLoading;
+	private String recentlyMadeLiveLoading;
+	private String approvedScheduledItemLoading;
+	private String goLiveLoading;
+	private String homeContentsChilds;
+	private String deleteSiteModal;
+	private String toolTipModal;
+	private String toolTipContentType;
+	private String toolTipContentName;
+	private String toolTipContentStatus;
+	private String tooTipContentEditeBy;
+
+	private String newRepoNotificationDialog;
 
 	@SuppressWarnings("deprecation")
 	public void openConnection() {
@@ -126,19 +147,9 @@ public class WebDriverManager {
 				}
 
 				driver.get(envProperties.getProperty("baseUrl"));
-				this.defaultTimeOut = Integer.parseInt(constantsPropertiesManager
-						.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
-				this.numberOfAttemptsForElementsDisplayed = Integer
-						.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
-								.getProperty("crafter.numberofattemptsforelementdisplayed"));
-				this.amountOfTestFoldersToGenerateForBulkUploadTest = Integer
-						.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
-								.getProperty("crafter.bulkupload.amountoftestfolderstogenerate"));
-				this.bulkUploadSyncTimeOut = Integer.parseInt(constantsPropertiesManager
-						.getSharedExecutionConstants().getProperty("crafter.bulkupload.syncprocesstimeout"));
-				this.numberOfAttemptsForLogFileUpdate = Integer
-						.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
-								.getProperty("crafter.numberofattemptsforlogfileupdate"));
+				this.initializeExecutionValuesForStudio();
+				this.initializeLocators();
+
 				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
 					this.maximizeWindow();
 				}
@@ -150,6 +161,20 @@ public class WebDriverManager {
 			throw new TestException("Required Files are not found.");
 		}
 
+	}
+
+	public void initializeExecutionValuesForStudio() {
+		this.defaultTimeOut = Integer.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
+				.getProperty("crafter.defaulttimeout"));
+		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
+		this.amountOfTestFoldersToGenerateForBulkUploadTest = Integer
+				.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
+						.getProperty("crafter.bulkupload.amountoftestfolderstogenerate"));
+		this.bulkUploadSyncTimeOut = Integer.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
+				.getProperty("crafter.bulkupload.syncprocesstimeout"));
+		this.numberOfAttemptsForLogFileUpdate = Integer.parseInt(constantsPropertiesManager
+				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforlogfileupdate"));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -207,17 +232,9 @@ public class WebDriverManager {
 
 				this.waitForDeliveryRefresh();
 				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
-				this.defaultTimeOut = Integer.parseInt(constantsPropertiesManager
-						.getSharedExecutionConstants().getProperty("crafter.defaulttimeout"));
-				this.numberOfAttemptsForElementsDisplayed = Integer
-						.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
-								.getProperty("crafter.numberofattemptsforelementdisplayed"));
-				this.amountOfTestFoldersToGenerateForBulkUploadTest = Integer
-						.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
-								.getProperty("crafter.bulkupload.amountoftestfolderstogenerate"));
-				this.numberOfAttemptsForLogFileUpdate = Integer
-						.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
-								.getProperty("crafter.numberofattemptsforlogfileupdate"));
+				this.initializeExecutionValuesForDelivery();
+				this.initializeLocators();
+
 			} catch (IOException ex) {
 				throw new FileNotFoundException("Unable to read runtime properties file");
 			}
@@ -225,6 +242,59 @@ public class WebDriverManager {
 			throw new TestException("Required Files are not found.");
 		}
 
+	}
+
+	public void initializeExecutionValuesForDelivery() {
+		this.defaultTimeOut = Integer.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
+				.getProperty("crafter.defaulttimeout"));
+		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
+				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
+		this.amountOfTestFoldersToGenerateForBulkUploadTest = Integer
+				.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
+						.getProperty("crafter.bulkupload.amountoftestfolderstogenerate"));
+		this.numberOfAttemptsForLogFileUpdate = Integer.parseInt(constantsPropertiesManager
+				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforlogfileupdate"));
+	}
+
+	public void initializeLocators() {
+		this.sideBarDropDownWrapper = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sidebar.dropdownwrapper");
+		notificationModal= uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.notificationmodal");
+		createSiteModal=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.createsitemodal");
+		goLiveWidget=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.golive.container");
+		scheduledItemWidget=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scheduleditems.container");
+		recentlyMadeLiveWidget=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.recentlymadelive.container");
+		myRecentActivityWidget=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.myrecentactivity.container");
+		myRecentActivityLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.myrecentactivity.loadinganimation");
+		recentlyMadeLiveLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.recentlymadelive.loadinganimation");
+		approvedScheduledItemLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.scheduleditems.loadinganimation");
+		goLiveLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.golive.loadinganimation");
+		homeContentsChilds=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("childsgeneral.homecontent.childsdiv");
+		deleteSiteModal=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.modalcontainer");
+		toolTipModal=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.tooltipmodal");
+		toolTipContentType=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.tooltipmodal.contenttype");
+		toolTipContentName=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.tooltipmodal.contentname");
+		toolTipContentStatus=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.tooltipmodal.contentstatus");
+		tooTipContentEditeBy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.tooltipmodal.contenteditedby");
+		newRepoNotificationDialog=uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("remoterepositories.newrepo.push.notificationdialog");
 	}
 
 	public void closeConnection() {
@@ -590,6 +660,16 @@ public class WebDriverManager {
 		action.perform();
 	}
 
+	public void moveMouseToElementAndClick(WebElement toElement) {
+		// Creating an actions builder
+		Actions builder = new Actions(this.getDriver());
+		// Creating the action for click and hold from the origin web element
+		Action action = builder.moveToElement(toElement).click().build();
+
+		// commit the actions above
+		action.perform();
+	}
+
 	public void waitUntilLoginCloses() {
 		logger.debug("Waiting for login dialog to close");
 		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
@@ -604,8 +684,7 @@ public class WebDriverManager {
 
 	public void waitUntilSidebarOpens() {
 		logger.debug("Waiting for sidebar to open");
-		this.waitUntilAttributeContains("xpath", ".//li[@id='acn-dropdown-wrapper']", "class",
-				"site-dropdown-open");
+		this.waitUntilAttributeContains("xpath", sideBarDropDownWrapper, "class", "site-dropdown-open");
 	}
 
 	public void waitUntilSidebarCloses() {
@@ -615,21 +694,19 @@ public class WebDriverManager {
 
 	public void waitUntilModalCloses() {
 		logger.debug("Waiting for notification modal to close");
-		WebElement element = this.waitUntilElementIsDisplayed("xpath",
-				".//*[@class='modal fade ng-isolate-scope centered-dialog studioMedium in']");
+		WebElement element = this.waitUntilElementIsDisplayed("xpath", notificationModal);
 		waitUntilElementIsRemoved(element);
 	}
 
 	public void waitUntilCreateSiteModalCloses() {
 		logger.debug("Waiting for notification modal to close");
-		WebElement element = this.waitUntilElementIsDisplayed("xpath", ".//div[@class='modal-content']");
+		WebElement element = this.waitUntilElementIsDisplayed("xpath", createSiteModal);
 		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
 				waitUntilElementIsRemoved(element);
 				break;
 			} catch (TimeoutException e) {
-				logger.warn("Element {} selected by {} does not disappear ", ".//div[@class='modal-content']",
-						"xpath");
+				logger.warn("Element {} selected by {} does not disappear ", createSiteModal, "xpath");
 			}
 		}
 	}
@@ -651,13 +728,10 @@ public class WebDriverManager {
 		logger.debug("Waiting for dashboard widgets are fully loaded");
 		this.waitForAnimation();
 		this.waitUntilLoadingAnimationIsNotDisplayedOnAllDashboardWidgets();
-		this.waitUntilAttributeContains("xpath", ".//div[@id='GoLiveQueue']", "style", "display: block;");
-		this.waitUntilAttributeContains("xpath", ".//div[@id='approvedScheduledItems']", "style",
-				"display: block;");
-		this.waitUntilAttributeContains("xpath", ".//div[@id='recentlyMadeLive']", "style",
-				"display: block;");
-		this.waitUntilAttributeContains("xpath", ".//div[@id='MyRecentActivity']", "style",
-				"display: block;");
+		this.waitUntilAttributeContains("xpath", goLiveWidget, "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", scheduledItemWidget, "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", recentlyMadeLiveWidget, "style", "display: block;");
+		this.waitUntilAttributeContains("xpath", myRecentActivityWidget, "style", "display: block;");
 	}
 
 	public void waitUntilLoadingAnimationIsNotDisplayedOnAllDashboardWidgets() {
@@ -669,33 +743,31 @@ public class WebDriverManager {
 
 	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity() {
 		logger.debug("Waiting for loading animation is gone on Recent Activity");
-		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-MyRecentActivity']");
+		WebElement element = this.waitUntilElementIsPresent("xpath", myRecentActivityLoading);
 		waitUntilElementIsHidden(element);
 	}
 
 	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentlyPublished() {
 		logger.debug("Waiting for loading animation is gone on Recently Published");
-		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-recentlyMadeLive']");
+		WebElement element = this.waitUntilElementIsPresent("xpath", recentlyMadeLiveLoading);
 		waitUntilElementIsHidden(element);
 	}
 
 	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnApprovedScheduled() {
 		logger.debug("Waiting for loading animation is gone on Approved Scheduled");
-		WebElement element = this.waitUntilElementIsPresent("xpath",
-				".//li[@id='loading-approvedScheduledItems']");
+		WebElement element = this.waitUntilElementIsPresent("xpath", approvedScheduledItemLoading);
 		waitUntilElementIsHidden(element);
 	}
 
 	public void waitUntilDashboardLoadingAnimationIsNotDisplayedOnItemsWaitingForApproval() {
 		logger.debug("Waiting for loading animation is gone on Waiting For Approval");
-		WebElement element = this.waitUntilElementIsPresent("xpath", ".//li[@id='loading-GoLiveQueue']");
+		WebElement element = this.waitUntilElementIsPresent("xpath", goLiveLoading);
 		waitUntilElementIsHidden(element);
 	}
 
 	public void waitUntilHomeIsOpened() {
 		logger.debug("Waiting for home childs are displayed");
-		this.waitUntilElementIsDisplayed("xpath",
-				".//span[text()='Home']/../../../../../div[@class='ygtvchildren']");
+		this.waitUntilElementIsDisplayed("xpath", homeContentsChilds);
 	}
 
 	public void waitUntilSiteConfigMaskedModalCloses() {
@@ -728,8 +800,7 @@ public class WebDriverManager {
 				}
 				break;
 			} catch (TimeoutException e) {
-				logger.warn("Element {} selected by {} does not disappear ", ".//div[@class='modal-content']",
-						"xpath");
+				logger.warn("Element {} selected by {} does not disappear ", deleteSiteModal, "xpath");
 			}
 		}
 
@@ -755,15 +826,80 @@ public class WebDriverManager {
 
 	public void waitUntilContentTooltipIsHidden() {
 		logger.debug("Waiting for content tooltip is hidden");
-		WebElement element = this.waitUntilElementIsPresent("xpath",
-				".//div[@id='acn-context-tooltipWrapper']");
+		WebElement element = this.waitUntilElementIsPresent("xpath", toolTipModal);
 
 		if (!element.getAttribute("style").contains("visibility: hidden;")) {
 			waitUntilElementIsHidden(element);
 		}
 	}
 
-	
+	public String getContentTypeTooltipInfo(WebElement element) {
+		String contentTypeInfo = "";
+
+		logger.debug("Moving pointer to element");
+		this.moveMouseToElementAndClick(element);
+
+		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
+
+		if (!(toolTip.getAttribute("style").contains("visibility: hidden;"))) {
+			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath", toolTipContentType);
+			contentTypeInfo = contentTypeInfoLabel.getText();
+		}
+
+		return contentTypeInfo;
+	}
+
+	public String getContentNameTooltipInfo(WebElement element) {
+		String contentNameInfo = "";
+
+		logger.debug("Moving pointer to element");
+		this.moveMouseToElementAndClick(element);
+
+		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
+
+		if (!(toolTip.getAttribute("style").contains("visibility: hidden;"))) {
+			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath",
+					toolTipContentName);
+			contentNameInfo = contentTypeInfoLabel.getText();
+		}
+
+		return contentNameInfo;
+	}
+
+	public String getContentStatusTooltipInfo(WebElement element) {
+		String contentStatusInfo = "";
+
+		logger.debug("Moving pointer to element");
+		this.moveMouseToElementAndClick(element);
+
+		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
+
+		if (!(toolTip.getAttribute("style").contains("visibility: hidden;"))) {
+			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath",
+					toolTipContentStatus);
+			contentStatusInfo = contentTypeInfoLabel.getText();
+		}
+
+		return contentStatusInfo;
+	}
+
+	public String getContentEditedByTooltipInfo(WebElement element) {
+		String contentEditedByInfo = "";
+
+		logger.debug("Moving pointer to element");
+		this.moveMouseToElementAndClick(element);
+
+		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
+
+		if (!(toolTip.getAttribute("style").contains("visibility: hidden;"))) {
+			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath",
+					tooTipContentEditeBy);
+			contentEditedByInfo = contentTypeInfoLabel.getText();
+		}
+
+		return contentEditedByInfo;
+	}
+
 	public void sendText(String selectorType, String selectorValue, String text) {
 		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
 		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
@@ -1103,9 +1239,9 @@ public class WebDriverManager {
 			FileUtils.deleteDirectory(new File(repositoryFolder));
 
 			repositoryFolder = repositoryFolder + File.separator + repositoryName + File.separator;
-			
+
 			FileUtils.deleteDirectory(new File(repositoryFolder));
-			
+
 			return 0;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1693,11 +1829,20 @@ public class WebDriverManager {
 
 		return keyContent;
 	}
-	
+
 	public void waitUntilNotificationModalIsNotPresent() {
 		logger.debug("Waiting for notification modal to close");
 		WebElement notification = this.waitUntilElementIsDisplayed("xpath",
-				".//div[@class='modal-dialog modal-sm']");
+				newRepoNotificationDialog);
 		this.waitUntilElementIsRemoved(notification);
 	}
+
+	public UIElementsPropertiesManager getUIElementsPropertiesManager() {
+		return uiElementsPropertiesManager;
+	}
+
+	public void setUIElementsPropertiesManager(UIElementsPropertiesManager uiElementsPropertiesManager) {
+		this.uiElementsPropertiesManager = uiElementsPropertiesManager;
+	}
+
 }
