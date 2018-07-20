@@ -434,7 +434,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("book-woman-pic.jpg",true);
+		previewPage.checkDependenciesForStaticAssetItem("book-woman-pic.jpg",true, false);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsimagesFolder);
@@ -615,7 +615,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("ie8.css",true);
+		previewPage.checkDependenciesForStaticAssetItem("ie8.css",true, false);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsCssFolder);
@@ -632,7 +632,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("jquery.min.js",true);
+		previewPage.checkDependenciesForStaticAssetItem("jquery.min.js",true, false);
 	}
 
 	public void rightClickAndClickOnDependencies(String itemLocator, String menuLocation) {
