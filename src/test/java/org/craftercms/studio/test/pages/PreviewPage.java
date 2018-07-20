@@ -1044,9 +1044,29 @@ public class PreviewPage {
 			Assert.assertTrue("/site/website/articles/2016/12/top-books-for-young-women/index.xml"
 					.equalsIgnoreCase(dependentItemLocation));
 			break;
-		case "winter-woman-pic.jpg":
+		case "duplication-winter-woman-pic.jpg":
 			if (("Testing2".equalsIgnoreCase(dependentItemName))
-					|| ("Women Styles for Winter".equalsIgnoreCase(dependentItemName))) {
+					|| ("Women Styles for Winter".equalsIgnoreCase(dependentItemName))
+					|| ("Testing2Duplicated".equalsIgnoreCase(dependentItemName))) {
+				firstCheckPass = true;
+			}
+			if (("/site/website/articles/2017/1/women-styles-for-winter/index.xml"
+					.equalsIgnoreCase(dependentItemLocation))
+					|| ("/site/website/articles/2017/1/test2/index.xml"
+							.equalsIgnoreCase(dependentItemLocation))
+					|| ((dependentItemLocation.contains("/site/website/articles/2017/1/test2-"))
+							&& (dependentItemLocation.contains("/index.xml")))
+					|| ((dependentItemLocation.contains("/site/website/articles/2017/2/test2-"))
+							&& (dependentItemLocation.contains("/index.xml")))) {
+				secondCheckPass = true;
+			}
+
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "winter-woman-pic.jpg":
+			if (("Women Styles for Winter".equalsIgnoreCase(dependentItemName))
+					|| ("Testing2".equalsIgnoreCase(dependentItemName))) {
 				firstCheckPass = true;
 			}
 			if (("/site/website/articles/2017/1/women-styles-for-winter/index.xml"
@@ -1109,7 +1129,8 @@ public class PreviewPage {
 		}
 	}
 
-	public void checkDependenciesForStaticAssetItem(String staticAssetName, boolean dependsOn) {
+	public void checkDependenciesForStaticAssetItem(String staticAssetName, boolean dependsOn,
+			boolean isDuplicationScenario) {
 		this.driverManager.waitForAnimation();
 		// Switch to the frame
 		driverManager.getDriver().switchTo().defaultContent();
@@ -1120,7 +1141,12 @@ public class PreviewPage {
 		this.driverManager.waitForFullExpansionOfTree();
 		WebElement dependenciesForItemElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesForXpath);
-		Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(staticAssetName));
+		if (isDuplicationScenario) {
+			Assert.assertTrue(dependenciesForItemElement.getText()
+					.equalsIgnoreCase(staticAssetName.replace("duplication-", "")));
+		} else {
+			Assert.assertTrue(dependenciesForItemElement.getText().equalsIgnoreCase(staticAssetName));
+		}
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				dependenciesSelector);
@@ -1713,6 +1739,9 @@ public class PreviewPage {
 				break;
 			case "book-woman-pic.jpg":
 				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "duplication-winter-woman-pic.jpg":
+				Assert.assertTrue(dependeciesItems.size() == 4);
 				break;
 			case "winter-woman-pic.jpg":
 				Assert.assertTrue(dependeciesItems.size() == 3);

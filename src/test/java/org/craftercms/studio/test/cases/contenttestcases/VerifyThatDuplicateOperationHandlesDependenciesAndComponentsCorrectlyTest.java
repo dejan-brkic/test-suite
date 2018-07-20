@@ -34,8 +34,9 @@ import org.openqa.selenium.WebElement;
  *
  */
 
-// Test Case Studio- Site Content ID:6
-public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTest extends StudioBaseTest {
+// Test Case Studio- Site Content ID:7
+public class VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrectlyTest
+		extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -47,7 +48,9 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	private String articles201612Folder;
 	private String articlesFolder;
 	private String testingArticleXpath;
+	private String testingDuplicatedArticleXpath;
 	private String copyContent;
+	private String duplicateOption;
 	private String pasteContent;
 	private String articles20167Folder;
 	private String articles20171Folder;
@@ -64,9 +67,12 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	private String staticAssetsimagesFolder;
 	private String winterWomanImage;
 	private String dependeciesOption;
+	private String createFormFrameElementCss;
+	private String duplicateConfirmButton;
+	private String testing2DuplicatedArticleXpath;
 
 	private static final Logger logger = LogManager
-			.getLogger(VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTest.class);
+			.getLogger(VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrectlyTest.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -84,7 +90,11 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 				.getProperty("frame2.select_All_Categories_CheckBox");
 		testingArticleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.page.testpage");
+		testingDuplicatedArticleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.page.testpage");
 		testing2ArticleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.page.testpage2");
+		testing2DuplicatedArticleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.page.testpage2");
 		articles201612Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.201612childfolder");
@@ -94,6 +104,8 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 				.getProperty("dashboard.articlesfolder");
 		copyContent = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.copy.option");
+		duplicateOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("rightclick.duplicate.option");
 		pasteContent = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.paste.option");
 		articles20171Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -122,6 +134,10 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 				.getProperty("general.staticassets.winterwomanimage");
 		dependeciesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.dependenciesoption");
+		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.createformframe");
+		duplicateConfirmButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitecontent.duplicateconfirmation");
 	}
 
 	public void loginAndGoToPreview() {
@@ -210,6 +226,73 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		this.createSecondPageArticle(articles20171Folder);
 
 		this.driverManager.waitForAnimation();
+	}
+
+	public void clickOnDuplicateConfirmAction() {
+		this.driverManager.getDriver().switchTo().defaultContent();
+		this.driverManager.getDriver().switchTo().activeElement();
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", duplicateConfirmButton)
+				.click();
+	}
+
+	public void duplicateFirstArticle(String pageXpath) {
+		this.driverManager.waitUntilSidebarOpens();
+		logger.info("Duplicating testing article created previously");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pageXpath);
+		this.driverManager.contextClick("xpath", pageXpath, false);
+		driverManager.usingContextMenu(() -> {
+			WebElement duplicateOption = this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayed("xpath", this.duplicateOption);
+			duplicateOption.click();
+		}, "Pages");
+
+		this.clickOnDuplicateConfirmAction();
+
+		this.driverManager.waitForAnimation();
+		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+			dashboardPage.setInternalName1("Testing1Duplicated");
+			// save and close
+			this.driverManager.waitForAnimation();
+			this.driverManager.waitForFullExpansionOfTree();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
+					.click();
+		});
+
+		this.driverManager.waitUntilSidebarOpens();
+
+	}
+	
+	public void duplicateSecondArticle(String pageXpath) {
+		this.driverManager.waitUntilSidebarOpens();
+		this.dashboardPage.collapseParentFolder(articles2016Folder);
+		
+		logger.info("Duplicating second testing article created previously");
+		this.driverManager.scrollDownIntoSideBar();
+		this.driverManager.scrollUpIntoSideBar(expandPagesTree);
+		
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pageXpath);
+		this.driverManager.contextClick("xpath", pageXpath, false);
+		driverManager.usingContextMenu(() -> {
+			WebElement duplicateOption = this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayed("xpath", this.duplicateOption);
+			duplicateOption.click();
+		}, "Pages");
+
+		this.clickOnDuplicateConfirmAction();
+
+		this.driverManager.waitForAnimation();
+		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+			dashboardPage.setInternalName1("Testing2Duplicated");
+			// save and close
+			this.driverManager.waitForAnimation();
+			this.driverManager.waitForFullExpansionOfTree();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
+					.click();
+		});
+
+		this.driverManager.waitUntilSidebarOpens();
+
 	}
 
 	public void copyArticleToNewFolder(String pageXpath, String folderXpath) {
@@ -310,7 +393,7 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		String ImageItemsXpath = dayFolderXpath + staticAssetsItemImagesTestImagesChilds;
 		List<WebElement> testimagesitems = this.driverManager.getDriver()
 				.findElements(By.xpath(ImageItemsXpath));
-		Assert.assertTrue((testimagesitems.size() == 2),
+		Assert.assertTrue((testimagesitems.size() == 3),
 				"There are not the correct amount of items for static asset/page/images/testimage.jpg , expected 2 items");
 	}
 
@@ -331,7 +414,7 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("winter-woman-pic.jpg", true, false);
+		previewPage.checkDependenciesForStaticAssetItem("duplication-winter-woman-pic.jpg", true, true);
 
 	}
 
@@ -353,20 +436,28 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 
 	@Test(
 			priority = 0)
-	public void verifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTest() {
+	public void verifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrectlyTest() {
 		this.setup();
 
 		this.openSidebarAndGotoArticlesChildFolderAndCreatNewArticle();
 
-		// Copy just created article to 2016/7 folder
-		this.copyArticleToNewFolder(testingArticleXpath, articles20167Folder);
+		this.duplicateFirstArticle(testingArticleXpath);
+
+		// Copy just duplicated article to 2016/7 folder
+		this.copyArticleToNewFolder(
+				testingDuplicatedArticleXpath.replace("Testing1", "Testing1Duplicated"),
+				articles20167Folder);
 
 		this.checkDependenciesForFirstCopiedArticleAttachedImage();
 
 		this.createNewArticleOn2017Folder();
 
-		// Copy just created article (using static asset) to 2017/2
-		this.copyArticleToNewFolder(testing2ArticleXpath, articles20172Folder);
+		this.duplicateSecondArticle(testing2ArticleXpath);
+		
+		// Copy just duplicated article (using static asset) to 2017/2
+		this.copyArticleToNewFolder(
+				testing2DuplicatedArticleXpath.replace("Testing2", "Testing2Duplicated"),
+				articles20172Folder);
 
 		this.checkDependenciesForSecondCopiedArticleAttachedImage();
 
