@@ -114,6 +114,7 @@ public class DashboardPage {
 	private String authorReplaceImageButton;
 	private String changeTemplateSubmitButtonLocator;
 	private String changeTemplateArticlesTitleLocator;
+	private String addCloseWinterWomanButton;
 	private static Logger logger = LogManager.getLogger(DashboardPage.class);
 
 	/**
@@ -231,6 +232,8 @@ public class DashboardPage {
 				.getProperty("frame2.article_upload_images_button");
 		addCloseGearImageButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame2.article_addclose_gear_image");
+		addCloseWinterWomanButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.article_addclose_winterwomand_image");
 		editRecentActivity = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.editoption");
 		seeThePageEdited = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -1187,6 +1190,25 @@ public class DashboardPage {
 
 	}
 
+	public void addWinterWomanAssetImageToAnArticle() {
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleAddImageButton)
+				.click();
+
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", existingImagesButton)
+				.click();
+
+		// Switch to the iframe
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo().frame(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("cssSelector", ".studio-ice-dialog > .bd iframe"));
+		this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
+		driverManager.getDriver().switchTo().defaultContent();
+		this.driverManager.getDriver().switchTo().frame(2);
+		this.driverManager.scrollDown();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", addCloseWinterWomanButton)
+				.click();
+
+	}
 	public void addAnImageToAnArticleUsingUploadOption() {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleAddImageButton)
 				.click();

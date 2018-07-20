@@ -31,7 +31,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
  */
 
 // Test Case Studio- Site Content ID:8
-public class VerifyThatStudioDisplaysTheProperPrevioInfoForAContentTest extends StudioBaseTest {
+public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -48,7 +48,7 @@ public class VerifyThatStudioDisplaysTheProperPrevioInfoForAContentTest extends 
 	private String articleImage;
 
 	private static final Logger logger = LogManager
-			.getLogger(VerifyThatStudioDisplaysTheProperPrevioInfoForAContentTest.class);
+			.getLogger(VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest.class);
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -178,7 +178,7 @@ public class VerifyThatStudioDisplaysTheProperPrevioInfoForAContentTest extends 
 
 	@Test(
 			priority = 0)
-	public void verifyThatStudioDisplaysTheProperPrevioInfoForAContentTest() {
+	public void verifyThatStudioDisplaysTheProperPreviewInfoForAContentTest() {
 		this.setup();
 
 		// Checking Testing Article preview info
