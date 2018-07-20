@@ -434,7 +434,18 @@
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
 			<class
-				name="org.craftercms.studio.test.cases.contenttestcases.VerifyThatStudioDisplaysTheProperPrevioInfoForAContentTest" />
+				name="org.craftercms.studio.test.cases.contenttestcases.VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
+	<test
+		name="Verify that the copy operation handles dependencies and page/component specific assets">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contenttestcases.VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTest" />
 			<class
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>

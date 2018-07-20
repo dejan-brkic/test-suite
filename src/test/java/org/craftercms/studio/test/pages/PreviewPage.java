@@ -730,6 +730,58 @@ public class PreviewPage {
 
 	}
 
+	public void createPageArticleContentUsingWinterWomanPicture(String url, String name, String title,
+			String folderLocation, String selectedSegments, String selectedCategories, String subject,
+			String author, String summary) {
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
+		// right click to see the the menu
+		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
+		// Select Entry Content Type
+		dashboardPage.clickEntryCT();
+		// Confirm the Content Type selected
+		dashboardPage.clickOKButton();
+		this.driverManager.waitForAnimation();
+		this.driverManager.waitForAnimation();
+		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+			// Fill the New Article page Fields
+			this.driverManager.waitForAnimation();
+			dashboardPage.setPageURL1(url);
+			this.driverManager.waitForAnimation();
+			dashboardPage.setInternalName1(name);
+			this.driverManager.waitForAnimation();
+			dashboardPage.setArticlesTitle(title);
+			this.driverManager.waitForAnimation();
+			// Fill the New Article Content Section
+			this.driverManager.scrollDown();
+			this.driverManager.waitForAnimation();
+			dashboardPage.setNewArticleContentSection(subject, author, summary);
+			// Select the catergory of the Article Page
+			this.driverManager.scrollMiddle();
+			this.driverManager.waitForAnimation();
+			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
+			// Select the segment of the Article Page
+			this.driverManager.waitForAnimation();
+			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
+			this.driverManager.scrollDown();
+			// Add an Image
+			this.driverManager.waitForAnimation();
+			dashboardPage.addWinterWomanAssetImageToAnArticle();
+			// Switch to the iframe
+			driverManager.getDriver().switchTo().defaultContent();
+			driverManager.getDriver().switchTo()
+					.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
+							".studio-ice-dialog > .bd iframe"));
+			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
+			// save and close
+			this.driverManager.waitForAnimation();
+			this.driverManager.waitForFullExpansionOfTree();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
+					.click();
+		});
+		this.driverManager.waitUntilSidebarOpens();
+
+	}
+
 	public void createPageArticleContentAsDraft(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author,
 			String summary) {
@@ -988,47 +1040,64 @@ public class PreviewPage {
 
 		switch (staticAssetName) {
 		case "book-woman-pic.jpg":
-			Assert.assertTrue(dependentItemName.equalsIgnoreCase("Top Books For Young Women"));
-			Assert.assertTrue(dependentItemLocation
-					.equalsIgnoreCase("/site/website/articles/2016/12/top-books-for-young-women/index.xml"));
+			Assert.assertTrue("Top Books For Young Women".equalsIgnoreCase(dependentItemName));
+			Assert.assertTrue("/site/website/articles/2016/12/top-books-for-young-women/index.xml"
+					.equalsIgnoreCase(dependentItemLocation));
 			break;
-		case "ie8.css":
-			if ((dependentItemName.equalsIgnoreCase("404.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("500.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("article.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("home.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
+		case "winter-woman-pic.jpg":
+			if (("Testing2".equalsIgnoreCase(dependentItemName))
+					|| ("Women Styles for Winter".equalsIgnoreCase(dependentItemName))) {
 				firstCheckPass = true;
 			}
-			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/errors/404.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/errors/500.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+			if (("/site/website/articles/2017/1/women-styles-for-winter/index.xml"
+					.equalsIgnoreCase(dependentItemLocation))
+					|| ("/site/website/articles/2017/1/test2/index.xml"
+							.equalsIgnoreCase(dependentItemLocation))
+					|| ("/site/website/articles/2017/2/test2/index.xml"
+							.equalsIgnoreCase(dependentItemLocation))) {
+				secondCheckPass = true;
+			}
+
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
+			break;
+		case "ie8.css":
+			if (("404.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("500.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("article.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("home.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("search-results.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("category-landing.ftl".equalsIgnoreCase(dependentItemName))) {
+				firstCheckPass = true;
+			}
+			if (("/templates/web/errors/404.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/errors/500.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/pages/article.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/pages/home.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/pages/search-results.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/pages/category-landing.ftl"
+							.equalsIgnoreCase(dependentItemLocation))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
 			Assert.assertTrue(secondCheckPass);
 			break;
 		case "jquery.min.js":
-			if ((dependentItemName.equalsIgnoreCase("404.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("500.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("article.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("home.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))
-					|| (dependentItemName.equalsIgnoreCase("category-landing.ftl"))) {
+			if (("404.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("500.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("article.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("home.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("search-results.ftl".equalsIgnoreCase(dependentItemName))
+					|| ("category-landing.ftl".equalsIgnoreCase(dependentItemName))) {
 				firstCheckPass = true;
 			}
-			if ((dependentItemLocation.equalsIgnoreCase("/templates/web/errors/404.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/errors/500.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/article.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/home.ftl"))
-					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/templates/web/pages/category-landing.ftl"))) {
+			if (("/templates/web/errors/404.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/errors/500.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/pages/article.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/pages/home.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/pages/search-results.ftl".equalsIgnoreCase(dependentItemLocation))
+					|| ("/templates/web/pages/category-landing.ftl"
+							.equalsIgnoreCase(dependentItemLocation))) {
 				secondCheckPass = true;
 			}
 			Assert.assertTrue(firstCheckPass);
@@ -1644,6 +1713,9 @@ public class PreviewPage {
 				break;
 			case "book-woman-pic.jpg":
 				Assert.assertTrue(dependeciesItems.size() == 1);
+				break;
+			case "winter-woman-pic.jpg":
+				Assert.assertTrue(dependeciesItems.size() == 3);
 				break;
 			case "article.ftl":
 				Assert.assertTrue(dependeciesItems.size() == 10);
