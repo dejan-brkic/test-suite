@@ -45,11 +45,11 @@ public class ConstantsPropertiesManager {
 		this.sharedExecutionConstants = sharedExecutionConstants;
 	}
 
-	public void setProperty(String key, String value) {
+	public void setProperty(String key, String value, String filePath) {
 
 		FileOutputStream fileOutputStream;
 		try {
-			fileOutputStream = new FileOutputStream(FilesLocations.CONSTANTSPROPERTIESFILEPATH);
+			fileOutputStream = new FileOutputStream(filePath);
 			this.sharedExecutionConstants.setProperty(key, value);
 			this.sharedExecutionConstants.store(fileOutputStream, null);
 			fileOutputStream.close();
