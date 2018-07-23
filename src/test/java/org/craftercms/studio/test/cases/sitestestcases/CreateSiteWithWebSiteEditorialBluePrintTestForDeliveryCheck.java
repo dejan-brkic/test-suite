@@ -18,6 +18,7 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.craftercms.studio.test.cases.StudioBaseTest;
+import org.craftercms.studio.test.utils.FilesLocations;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -87,6 +88,6 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		Assert.assertTrue(exitCode == 0, "Init site process failed");
 
 		// saving the siteId for the dependent test cases to this test case.
-		deliveryExecutionValuesManager.setProperty("general.currentsiteid", siteId);
+		deliveryExecutionValuesManager.setProperty("general.currentsiteid", siteId, FilesLocations.DELIVERYEXECUTIONVALUESPROPERTIESFILEPATH);
 	}
 }
