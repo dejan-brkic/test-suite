@@ -603,18 +603,6 @@ public class WebDriverManager {
 
 	}
 
-	public void contextClick(WebDriver driver, WebElement element, Boolean executeThroughJavaScript) {
-		if (executeThroughJavaScript) {
-			String script = "var element = arguments[0];" + "var event = document.createEvent('HTMLEvents');"
-					+ "event.initEvent('contextmenu', true, false);" + "element.dispatchEvent(event);";
-			((JavascriptExecutor) driver).executeScript(script, new Object[] { element });
-		} else {
-			(new Actions(driver)).moveToElement(element, 0, 0).build().perform();
-			this.waitUntilContentTooltipIsHidden();
-			(new Actions(driver)).contextClick(element).build().perform();
-		}
-	}
-
 	public void scrollUp() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 	}
