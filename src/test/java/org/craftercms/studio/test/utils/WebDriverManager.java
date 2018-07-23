@@ -280,7 +280,7 @@ public class WebDriverManager {
 		goLiveLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.golive.loadinganimation");
 		homeContentsChilds=uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("childsgeneral.homecontent.childsdiv");
+				.getProperty("general.homecontent.childsdiv");
 		deleteSiteModal=uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.modalcontainer");
 		toolTipModal=uiElementsPropertiesManager.getSharedUIElementsLocators()
