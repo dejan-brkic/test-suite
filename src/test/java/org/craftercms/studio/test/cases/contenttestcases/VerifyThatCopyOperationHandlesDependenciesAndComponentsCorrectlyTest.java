@@ -336,11 +336,10 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	}
 
 	public void rightClickAndClickOnDependencies(String itemLocator, String menuLocation) {
-		this.driverManager.waitForAnimation();
-		WebElement element = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				itemLocator);
 
-		this.driverManager.contextClick(this.driverManager.getDriver(), element, false);
+		this.driverManager.contextClick("xpath", itemLocator, false);
 		driverManager.usingContextMenu(() -> {
 			this.driverManager.waitUntilContentTooltipIsHidden();
 			WebElement dependenciesOption = this.driverManager

@@ -102,17 +102,22 @@ public class VerifyThatStudioDisplaysAsLockedTheContentCorrectlyTest extends Stu
 		logger.info("Editing testing article created previously");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleCompleteXPath);
-		this.driverManager.contextClick("xpath", testingArticleXpath, false);
-		driverManager.usingContextMenu(() -> {
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-					unlockOptionXpath).isDisplayed());
-		}, "Pages");
 		
 		Assert.assertTrue(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 						testingArticleCompleteXPath
 								+ "//span[@class='fa studio-fa-stack-1x fa-lock locked']")
 				.isDisplayed());
+		
+		this.driverManager.contextClick("xpath", testingArticleXpath, false);
+		driverManager.usingContextMenu(() -> {
+			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+					unlockOptionXpath).isDisplayed());
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					unlockOptionXpath).click();
+		}, "Pages");
+		
+		
 
 	}
 
