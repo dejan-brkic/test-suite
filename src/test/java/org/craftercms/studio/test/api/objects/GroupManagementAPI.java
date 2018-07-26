@@ -21,7 +21,6 @@ import static org.hamcrest.Matchers.is;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -46,8 +45,8 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("description", description);
 
 		api.post("/studio/api/1/services/api/1/group/create.json").json(json).execute().status(201)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.json("$.message", is("OK")).debug();
 	}
 
@@ -58,8 +57,8 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("description", description);
 
 		api.post("/studio/api/1/services/api/1/group/create.json").json(json).execute().status(201)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName2))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName2))
 				.json("$.message", is("OK")).debug();
 	}
 
@@ -70,8 +69,8 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 
 		api.post("/studio/api/1/services/api/1/group/add-user.json").json(json).execute().status(200)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.json("$.message", is("OK")).debug();
 	}
 
@@ -82,8 +81,8 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 
 		api.post("/studio/api/1/services/api/1/group/add-user.json").json(json).execute().status(200)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName2))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName2))
 				.json("$.message", is("OK")).debug();
 	}
 
@@ -105,21 +104,21 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("description", description);
 
 		api.post("/studio/api/1/services/api/1/group/create.json").json(json).execute().status(409)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.json("$.message", is("Group already exists")).debug();
 
 	}
-	
+
 	public void testCreateStudioGroupSiteNotFound(String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("group_name", groupName1);
-		json.put("site_id", siteId+"nonvalid");
+		json.put("site_id", siteId + "nonvalid");
 		json.put("description", description);
 
 		api.post("/studio/api/1/services/api/1/group/create.json").json(json).execute().status(404)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.json("$.message", is("Site not found")).debug();
 
 	}
@@ -131,15 +130,16 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("description", description);
 
 		api.post("/studio/api/1/services/api/1/group/create.json").json(json).execute().status(401)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.debug();
 	}
-	
+
 	public void testGetGroup(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/get.json").urlParam("group_name", groupName1)
-				.urlParam("site_id", siteId).execute().status(200).header("Location", is(headerLocationBase
-						+ "/studio/api/1/services/api/1/get/get.json?site_id=" + siteId + "&group_name=" + groupName1));
+				.urlParam("site_id", siteId).execute().status(200).header("Location",
+						is(headerLocationBase + "/studio/api/1/services/api/1/get/get.json?site_id=" + siteId
+								+ "&group_name=" + groupName1));
 
 	}
 
@@ -151,46 +151,50 @@ public class GroupManagementAPI extends BaseAPI {
 
 	public void testGetGroupGroupNotFound(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/get.json").urlParam("group_name", groupName1 + "nonvalid")
-				.urlParam("site_id", siteId).execute().status(404).json("$.message", is("Group not found")).debug();
+				.urlParam("site_id", siteId).execute().status(404).json("$.message", is("Group not found"))
+				.debug();
 
 	}
 
 	public void testGetGroupSiteNotFound(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/get.json").urlParam("group_name", groupName1)
-				.urlParam("site_id", siteId + "nonvalid").execute().status(404).json("$.message", is("Site not found")).debug();
+				.urlParam("site_id", siteId + "nonvalid").execute().status(404)
+				.json("$.message", is("Site not found")).debug();
 
 	}
-	
+
 	public void testGetGroupUnauthorized(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/get.json").urlParam("group_name", groupName1)
-				.urlParam("site_id", siteId).execute().status(401).header("Location", is(headerLocationBase
-						+ "/studio/api/1/services/api/1/get/get.json?site_id=" + siteId + "&group_name=" + groupName1));
+				.urlParam("site_id", siteId).execute().status(401).header("Location",
+						is(headerLocationBase + "/studio/api/1/services/api/1/get/get.json?site_id=" + siteId
+								+ "&group_name=" + groupName1));
 
 	}
-	
+
 	public void testGetGroups() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("start", "0");
 		json.put("number", "25");
-
-		api.get("/studio/api/1/services/api/1/group/get-all.json").json(json).execute().status(200).header("Location",
+		api.get("/studio/api/1/services/api/1/group/get-all.json").json(json).execute().status(200).header(
+				"Location",
 				is(headerLocationBase + "/studio/api/1/services/api/1/group/get-all.json?start=0&number=25"));
 	}
-	
+
 	public void testGetGroupsUnauthorized() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("start", "0");
 		json.put("number", "25");
 
-		api.get("/studio/api/1/services/api/1/group/get-all.json").json(json).execute().status(401).header("Location",
+		api.get("/studio/api/1/services/api/1/group/get-all.json").json(json).execute().status(401).header(
+				"Location",
 				is(headerLocationBase + "/studio/api/1/services/api/1/group/get-all.json?start=0&number=25"));
 	}
-	
+
 	public void testGetUsersPerGroup(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/users.json").urlParam("group_name", groupName1)
-				.urlParam("site_id", siteId).execute().status(200)
-				.header("Location", is(headerLocationBase + "/studio/api/1/services/api/1/group/users.json?site_id="
-						+ siteId + "&group_name=" + this.groupName1 + "&start=0&number=25"));
+				.urlParam("site_id", siteId).execute().status(200).header("Location",
+						is(headerLocationBase + "/studio/api/1/services/api/1/group/users.json?site_id="
+								+ siteId + "&group_name=" + this.groupName1 + "&start=0&number=25"));
 	}
 
 	public void testGetUsersPerGroupInvalidParameters(String siteId) {
@@ -198,46 +202,51 @@ public class GroupManagementAPI extends BaseAPI {
 				.urlParam("site_idnonvalid", siteId).execute().status(400).debug();
 
 	}
-	
+
 	public void testGetUsersPerGroupSiteNotFound(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/users.json").urlParam("group_name", groupName1)
 				.urlParam("site_id", siteId + "nonvalid").execute().status(404).debug();
 
 	}
-	
+
 	public void testGetUsersPerGroupGroupNotFound(String siteId) {
-		api.get("/studio/api/1/services/api/1/group/users.json").urlParam("group_name", groupName1 + "nonvalid")
-				.urlParam("site_id", siteId).execute().status(404).debug();
+		api.get("/studio/api/1/services/api/1/group/users.json")
+				.urlParam("group_name", groupName1 + "nonvalid").urlParam("site_id", siteId).execute()
+				.status(404).debug();
 
 	}
 
 	public void testGetUsersPerGroupUnauthorized(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/users.json").urlParam("group_name", groupName1)
-				.urlParam("site_id", siteId).execute().status(401)
-				.header("Location", is(headerLocationBase + "/studio/api/1/services/api/1/group/users.json?site_id="
-						+ siteId + "&group_name=" + this.groupName1 + "&start=0&number=25"));
+				.urlParam("site_id", siteId).execute().status(401).header("Location",
+						is(headerLocationBase + "/studio/api/1/services/api/1/group/users.json?site_id="
+								+ siteId + "&group_name=" + this.groupName1 + "&start=0&number=25"));
 	}
-	
+
 	public void testGetGroupsPerSite(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/get-per-site.json").urlParam("site_id", siteId).execute()
-				.status(200)
-		 .header("Location",is(headerLocationBase+"/studio/api/1/services/api/1/group/get-per-site.json?site_id="+siteId+"&start=0&number=25"));
+				.status(200).header("Location",
+						is(headerLocationBase
+								+ "/studio/api/1/services/api/1/group/get-per-site.json?site_id=" + siteId
+								+ "&start=0&number=25"));
 	}
-	
+
 	public void testGetGroupsPerSiteInvalidParameters(String siteId) {
-		api.get("/studio/api/1/services/api/1/group/users.json").urlParam("group_name", groupName1)
-		.urlParam("site_idnonvalid",siteId).execute().status(400).debug();
+		api.get("/studio/api/1/services/api/1/group/get-per-site.json").urlParam("site_idnonvalid", siteId)
+				.urlParam("number", "10").urlParam("start", "0").execute().status(400).debug();
 	}
-	
+
 	public void testGetGroupsPerSiteNotFound(String siteId) {
-		api.get("/studio/api/1/services/api/1/group/users.json").urlParam("group_name", groupName1)
-		.urlParam("site_id",siteId + "nonvalid").execute().status(404).debug();
+		api.get("/studio/api/1/services/api/1/group/get-per-site.json").urlParam("site_id", siteId+"nonvalid")
+		.urlParam("number", "10").urlParam("start", "0").execute().status(404).debug();
 	}
-	
+
 	public void testGetGroupsPerSiteUnauthorized(String siteId) {
 		api.get("/studio/api/1/services/api/1/group/get-per-site.json").urlParam("site_id", siteId).execute()
-				.status(401)
-		 .header("Location",is(headerLocationBase+"/studio/api/1/services/api/1/group/get-per-site.json?site_id="+siteId+"&start=0&number=25"));
+				.status(401).header("Location",
+						is(headerLocationBase
+								+ "/studio/api/1/services/api/1/group/get-per-site.json?site_id=" + siteId
+								+ "&start=0&number=25"));
 	}
 
 	public void testUpdateGroup(String siteId) {
@@ -247,8 +256,8 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("description", description + "updated");
 
 		api.post("/studio/api/1/services/api/1/group/update.json").json(json).execute().status(200)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.json("$.message", is("OK")).debug();
 	}
 
@@ -271,7 +280,7 @@ public class GroupManagementAPI extends BaseAPI {
 		api.post("/studio/api/1/services/api/1/group/update.json").json(json).execute().status(404)
 				.json("$.message", is("Group not found")).debug();
 	}
-	
+
 	public void testUpdateGroupSiteNotFound(String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("group_name", groupName1);
@@ -289,11 +298,11 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("description", description + "updated");
 
 		api.post("/studio/api/1/services/api/1/group/update.json").json(json).execute().status(401)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.debug();
 	}
-	
+
 	public void testDeleteGroup(String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("group_name", groupName1);
@@ -319,9 +328,10 @@ public class GroupManagementAPI extends BaseAPI {
 				.json("$.message", is("Group not found")).debug();
 
 	}
-	
+
 	public void testDeleteGroupSiteNotFound(String siteId) {
 		Map<String, Object> json = new HashMap<>();
+
 		json.put("group_name", groupName1);
 		json.put("site_id", siteId + "nonvalid");
 
@@ -329,7 +339,7 @@ public class GroupManagementAPI extends BaseAPI {
 				.json("$.message", is("Site not found")).debug();
 
 	}
-	
+
 	public void testDeleteGroupUnauthorized(String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("group_name", groupName1);
@@ -337,15 +347,14 @@ public class GroupManagementAPI extends BaseAPI {
 		api.post("/studio/api/1/services/api/1/group/delete.json").json(json).execute().status(401);
 	}
 
-
 	public void testAddUserToGroup(String username, String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", username);
 		json.put("group_name", groupName1);
 		json.put("site_id", siteId);
 		api.post("/studio/api/1/services/api/1/group/add-user.json").json(json).execute().status(200)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.json("$.message", is("OK")).debug();
 	}
 
@@ -396,11 +405,11 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 
 		api.post("/studio/api/1/services/api/1/group/add-user.json").json(json).execute().status(409)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.json("$.message", is("User already in group")).debug();
 	}
-	
+
 	public void testAddUserToGroupUnauthorized(String newUserName, String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newUserName);
@@ -408,8 +417,8 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 
 		api.post("/studio/api/1/services/api/1/group/add-user.json").json(json).execute().status(401)
-				.header("Location",
-						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
+				.header("Location", is(headerLocationBase
+						+ "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.debug();
 	}
 
@@ -449,19 +458,19 @@ public class GroupManagementAPI extends BaseAPI {
 		json.put("group_name", groupName1);
 		json.put("site_id", siteId);
 
-		api.post("/studio/api/1/services/api/1/group/remove-user.json")
-				.json(json).execute().status(404).json("$.message", is("User not found"));
+		api.post("/studio/api/1/services/api/1/group/remove-user.json").json(json).execute().status(404)
+				.json("$.message", is("User not found"));
 
 	}
-	
+
 	public void testRemoveUserFromGroupSiteNotFound(String username, String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", username);
 		json.put("group_name", groupName1);
 		json.put("site_id", siteId + "nonvalid");
 
-		api.post("/studio/api/1/services/api/1/group/remove-user.json")
-				.json(json).execute().status(404).json("$.message", is("Site not found"));
+		api.post("/studio/api/1/services/api/1/group/remove-user.json").json(json).execute().status(404)
+				.json("$.message", is("Site not found"));
 
 	}
 

@@ -169,6 +169,7 @@ public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends S
 		String testingArticleXpathAfterEdit = testingArticleXpath.replace("Testing1", "Testing");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleXpathAfterEdit);
+		
 		this.driverManager.contextClick("xpath", testingArticleXpathAfterEdit, false);
 		driverManager.usingContextMenu(() -> {
 			WebElement historyOption = this.driverManager
