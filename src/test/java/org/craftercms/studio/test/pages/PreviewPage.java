@@ -79,6 +79,7 @@ public class PreviewPage {
 	private String itemsSubtree;
 	private String authorsTree;
 	private String publishingStatusOption;
+	private String searchOption;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager,
@@ -123,6 +124,8 @@ public class PreviewPage {
 				.getProperty("general.dependenciestopnavoption");
 		publishingStatusOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.publishingstatustopnavoption");
+		searchOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.searchtopnavoption");
 		dependenciesSelector = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dependencies.content_selector");
 		dependenciesCloseButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -349,6 +352,12 @@ public class PreviewPage {
 		WebElement publishingStatusOptionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingStatusOption);
 		publishingStatusOptionElement.click();
+	}
+
+	public void clickOnSearchOption() {
+		WebElement searchOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", searchOption);
+		searchOptionElement.click();
 	}
 
 	// Set the new name duplicated
