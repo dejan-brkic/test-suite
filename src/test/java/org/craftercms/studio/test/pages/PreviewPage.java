@@ -78,6 +78,7 @@ public class PreviewPage {
 	private String itemsTree;
 	private String itemsSubtree;
 	private String authorsTree;
+	private String publishingStatusOption;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager,
@@ -120,6 +121,8 @@ public class PreviewPage {
 				.getProperty("general.historytopnavoption");
 		previewDependecies = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.dependenciestopnavoption");
+		publishingStatusOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.publishingstatustopnavoption");
 		dependenciesSelector = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dependencies.content_selector");
 		dependenciesCloseButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -332,14 +335,20 @@ public class PreviewPage {
 
 	// Click on dependencies button of the menu
 	public void dependenciesButton() {
-		WebElement historyOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				previewDependecies);
-		historyOption.click();
+		WebElement dependenciesOption = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", previewDependecies);
+		dependenciesOption.click();
 	}
 
 	public void clickOnDependenciesOption() {
 		// Click on dependencies button of the menu
 		this.dependenciesButton();
+	}
+
+	public void clickOnPublishingStatusOption() {
+		WebElement publishingStatusOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingStatusOption);
+		publishingStatusOptionElement.click();
 	}
 
 	// Set the new name duplicated
