@@ -79,6 +79,8 @@ public class PreviewPage {
 	private String itemsSubtree;
 	private String authorsTree;
 	private String publishingStatusOption;
+	private String searchOption;
+	private String previewToolsOption;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager,
@@ -123,6 +125,10 @@ public class PreviewPage {
 				.getProperty("general.dependenciestopnavoption");
 		publishingStatusOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.publishingstatustopnavoption");
+		searchOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.searchtopnavoption");
+		previewToolsOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.previewtoolstopnavoption");
 		dependenciesSelector = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dependencies.content_selector");
 		dependenciesCloseButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -349,6 +355,18 @@ public class PreviewPage {
 		WebElement publishingStatusOptionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishingStatusOption);
 		publishingStatusOptionElement.click();
+	}
+
+	public void clickOnSearchOption() {
+		WebElement searchOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", searchOption);
+		searchOptionElement.click();
+	}
+	
+	public void clickOnPreviewToolsOption() {
+		WebElement previewToolsOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", previewToolsOption);
+		previewToolsOptionElement.click();
 	}
 
 	// Set the new name duplicated
