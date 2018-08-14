@@ -134,4 +134,15 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test
+		name="Verify that application displays the In-Context Edit icon when in preview for all users except user Reviewer and that the in-context edit appears in the preview page">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->

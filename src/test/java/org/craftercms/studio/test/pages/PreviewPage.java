@@ -81,6 +81,7 @@ public class PreviewPage {
 	private String publishingStatusOption;
 	private String searchOption;
 	private String previewToolsOption;
+	private String inContextEditOption;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager,
@@ -129,6 +130,8 @@ public class PreviewPage {
 				.getProperty("general.searchtopnavoption");
 		previewToolsOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.previewtoolstopnavoption");
+		inContextEditOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.incontextedittopnavoption");
 		dependenciesSelector = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dependencies.content_selector");
 		dependenciesCloseButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -369,6 +372,12 @@ public class PreviewPage {
 		previewToolsOptionElement.click();
 	}
 
+	public void clickOnInContextEditOption() {
+		WebElement inContextEditOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", inContextEditOption);
+		inContextEditOptionElement.click();
+	}
+	
 	// Set the new name duplicated
 	public void duplicateName(String strDuplicateName) {
 		WebElement internalName = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
