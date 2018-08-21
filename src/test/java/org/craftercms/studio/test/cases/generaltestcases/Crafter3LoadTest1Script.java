@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.cases.generaltestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.craftercms.studio.test.pages.SiteConfigPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.Assert;
@@ -75,7 +74,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	private String actionsHeaderXpath;
 	private String siteDropdownListElementXPath;
 	private String categoryDrowpdownXpath;
-	private static Logger logger = LogManager.getLogger(SiteConfigPage.class);
+	private static Logger logger = LogManager.getLogger(Crafter3LoadTest1Script.class);
 
 	@BeforeMethod
 	public void beforeTest() {
