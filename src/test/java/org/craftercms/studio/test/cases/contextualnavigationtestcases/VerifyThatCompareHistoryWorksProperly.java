@@ -157,14 +157,13 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	}
 
 	public void editHome() {
-		// Step7 a)
+		
 		this.driverManager.waitForAnimation();
 
 		dashboardPage.clickHomeTree();
 
 		dashboardPage.clickOnContextualNavigationEditOption();
 
-		// Step7 b)
 		this.editSelectedContent();
 
 	}
@@ -180,7 +179,7 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	}
 
 	public void compareVersionsOfHome() {
-		// Step9
+	
 		this.compareTwoVersionsOfAContentPage();
 	}
 
