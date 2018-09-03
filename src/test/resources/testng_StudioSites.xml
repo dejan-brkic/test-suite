@@ -156,4 +156,13 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
+	<test
+	name="Automate verification of create site with link to upstream remote bitbucket repository (With Basic Auth)">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkUpstreanRemoteBitBucketRepoWithBasicAuthTest" />
+			<class
+				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
