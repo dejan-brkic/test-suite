@@ -47,7 +47,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 		gitToken = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.token");
 		gitRepositoryURL = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.url");
+				.getProperty("crafter.gitrepository.tokenauth.url");
 		createBaseOnGitRepoOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.repositorybasedonremotegitrepo");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()

@@ -205,15 +205,4 @@
 				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
-	<test
-		name="Verify that Studio allows to add a remote repository for the site and to push and pull from the remote repo">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-		</classes>
-	</test>
 </suite> <!-- Suite -->
