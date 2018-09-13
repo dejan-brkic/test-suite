@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="craftercms - Studio API2 TestSuite"
+	preserve-order="true" verbose="3">
+	<test name="Get All Groups Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetAllGroupsAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Create Group Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.CreateGroupsAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Update Group Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.UpdateGroupsAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Delete Group Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.DeleteGroupsAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Get Group Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetGroupsAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Get Group Members Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetGroupsMembersAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Add Member to Group Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.AddMemberToGroupsAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Remove Member from Group Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.RemoveMemberFromGroupsAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Get All Users Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetAllUsersAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Create User Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.CreateUserAPI2Test2" />
+		</classes>
+	</test> 
+	<test name="Update User Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.UpdateUserAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Delete User Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.DeleteUserAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Get User Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetUserAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Enable User Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.UpdateUserEnableUserAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Disable User Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.UpdateUserDisableUserAPI2Test2" />
+		</classes>
+	</test> 
+	<test name="Disable User Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.UpdateUserDisableUserAPI2Test2" />
+		</classes>
+	</test> 
+	<test name="Get User Sites Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetUserSitesAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Get User Authenticated Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetCurrentAuthenticatedUserAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Get Global Menu Items for current User Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetViewsGlobalMenuItemsForCurrentUserAPI2Test" />
+		</classes>
+	</test> 
+</suite> <!-- Suite -->

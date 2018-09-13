@@ -18,6 +18,9 @@ package org.craftercms.studio.test.utils;
 
 import com.jayway.jsonassert.JsonAssert;
 import com.jayway.jsonassert.JsonAsserter;
+
+import net.minidev.json.JSONObject;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;

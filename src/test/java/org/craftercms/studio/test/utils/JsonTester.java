@@ -62,4 +62,10 @@ public class JsonTester {
 	public JsonRequest post(String url){
 		return new JsonRequest(schema,host,port,url,"POST",httpClient,cookieJar);
 	}
+	public JsonRequest delete(String url){
+		return new JsonRequest(schema,host,port,url,"DELETE",httpClient,cookieJar);
+	}
+	public JsonRequest patch(String url){
+		return new JsonRequest(schema,host,port,url,"PATCH",httpClient,cookieJar);
+	}
 }
