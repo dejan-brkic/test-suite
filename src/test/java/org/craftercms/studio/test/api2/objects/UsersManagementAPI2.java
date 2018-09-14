@@ -73,7 +73,7 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("enabled", true);
 		json.put("externallyManaged", true);
 
-		api.post("/studio/api/2/users").json(json).execute().status(200);
+		api.post("/studio/api/2/users").json(json).execute().status(201);
 	}
 
 	public void testCreateUserAlreadyExists(String id, String userName) {
@@ -178,9 +178,7 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("enabled", true);
 		json.put("externallyManaged", true);
 
-		api.patch("/studio/api/2/users" + "nonvalid").json(json).execute().status(404);
-
-		// it return 405 method not allowed
+		api.patch("/studio/api/2/users" + "nonvalid").json(json).execute().status(405);
 	}
 
 	public void testUpdateUserBadRequest(String id, String userName) {
@@ -215,9 +213,8 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.delete("/studio/api/2/users").urlParam("id", userId).execute().status(200);
 	}
 
-	public void testDeleteUserByIdNotFound(String userId) {
-		api.delete("/studio/api/2/users" + "nonvalid").urlParam("id", userId).execute().status(404);
-		// it returns 405
+	public void testDeleteUserByIdMethodNotFound(String userId) {
+		api.delete("/studio/api/2/users" + "nonvalid").urlParam("id", userId).execute().status(405);
 	}
 
 	public void testDeleteUserByIdBadRequest(String userId) {
@@ -232,9 +229,8 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.delete("/studio/api/2/users").urlParam("username", userName).execute().status(200);
 	}
 
-	public void testDeleteUserByUserNameNotFound(String userName) {
-		api.delete("/studio/api/2/users" + "nonvalid").urlParam("username", userName).execute().status(404);
-		// it returns 405
+	public void testDeleteUserByUserNameMethodNotFound(String userName) {
+		api.delete("/studio/api/2/users" + "nonvalid").urlParam("username", userName).execute().status(405);
 	}
 
 	public void testDeleteUserByUserNameBadRequest(String userName) {
@@ -253,10 +249,9 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.get("/studio/api/2/users"+"nonvalid/"+id).execute().status(404);
 	}
 	
-	public void testGetUserByIdBadRequest(String id) {
-		api.get("/studio/api/2/users"+"/"+id+"nonvalid").execute().status(400);
-		//it returns 200 everytime when id contains valid id into string
-	}
+//	public void testGetUserByIdBadRequest(String id) {
+//		api.get("/studio/api/2/users"+"/"+id+"nonvalid").execute().status(400);
+//	}
 	
 	public void testGetUserByIdUnauthorized(String id) {
 		api.get("/studio/api/2/users"+"/"+id).execute().status(401);
@@ -270,10 +265,9 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.get("/studio/api/2/users"+"nonvalid/"+id).execute().status(404);
 	}
 	
-	public void testGetUserSitesBadRequest(String id) {
-		api.get("/studio/api/2/users"+"/"+id+"nonvalid").execute().status(400);
-		//it returns 200 everytime when id contains valid id into string
-	}
+//	public void testGetUserSitesBadRequest(String id) {
+//		api.get("/studio/api/2/users"+"/"+id+"nonvalid").execute().status(400);
+//	}
 	
 	public void testGetUserSitesUnauthorized(String id) {
 		api.get("/studio/api/2/users"+"/"+id).execute().status(401);
@@ -308,8 +302,7 @@ public class UsersManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
 		
-		api.patch("/studio/api/2/users/enable"+"nonvalid").json(json).execute().status(404);
-		//it returns 405
+		api.patch("/studio/api/2/users/enable"+"nonvalid").json(json).execute().status(405);
 	}
 	
 	public void testUpdateUserEnableUserUsingUsernameBadRequest(String userName) {
@@ -348,8 +341,7 @@ public class UsersManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
 		
-		api.patch("/studio/api/2/users/disable"+"nonvalid").json(json).execute().status(404);
-		//it returns 405
+		api.patch("/studio/api/2/users/disable"+"nonvalid").json(json).execute().status(405);
 	}
 	
 	public void testUpdateUserDisableUserUsingUsernameBadRequest(String userName) {

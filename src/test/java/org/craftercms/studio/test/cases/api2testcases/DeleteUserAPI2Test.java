@@ -72,9 +72,9 @@ public class DeleteUserAPI2Test {
 	@Test(
 			priority = 2,
 			groups = { "deleteUserAPI2" })
-	public void testDeleteUserNotFound() {
-		usersManagementAPI2.testDeleteUserByIdNotFound(userId);
-		usersManagementAPI2.testDeleteUserByUserNameNotFound(userName2);
+	public void testDeleteUserMethodNotFound() {
+		usersManagementAPI2.testDeleteUserByIdMethodNotFound(userId);
+		usersManagementAPI2.testDeleteUserByUserNameMethodNotFound(userName2);
 	}
 
 	@Test(

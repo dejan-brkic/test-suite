@@ -85,8 +85,6 @@ public class RemoveMemberFromGroupsAPI2Test {
 			groups = { "removeMemberFromGroup" })
 	public void testRemoveMemberFromGroupBadRequest() {
 		groupsManagementAPI2.testRemoveMemberFromGroupUsingUsernameBadRequest(groupId, userName);
-		// it returns 200ok even if the username is not the right or the non-valid
-		// username contains a valid username + something non valid
 	}
 
 	@AfterGroups(

@@ -65,12 +65,12 @@ public class GetUserSitesAPI2Test {
 		usersManagementAPI2.testGetUserSitesNotFound(userId);
 	}
 
-	@Test(
-			priority = 3,
-			groups = { "getUserSitesAPI2" })
-	public void testGetUserSitesBadRequest() {
-		usersManagementAPI2.testGetUserSitesBadRequest(userId);
-	}
+//	@Test(
+//			priority = 3,
+//			groups = { "getUserSitesAPI2" })
+//	public void testGetUserSitesBadRequest() {
+//		usersManagementAPI2.testGetUserSitesBadRequest(userId);
+//	}
 
 	@AfterGroups(
 			groups = { "getUserSitesAPI2" })

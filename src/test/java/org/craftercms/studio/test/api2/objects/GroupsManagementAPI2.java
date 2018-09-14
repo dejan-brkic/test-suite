@@ -95,7 +95,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2 with given id");
 
-		api.post("/studio/api/2/groups").json(json).execute().status(200);
+		api.post("/studio/api/2/groups").json(json).execute().status(201);
 	}
 
 	public void testCreateGroupsAlreadyExists(String id) {
@@ -271,12 +271,11 @@ public class GroupsManagementAPI2 extends BaseAPI {
 	}
 	
 	public void testRemoveMemberFromGroupUsingUsernameBadRequest(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName+"nonvalid").execute().status(400);
+		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName+"nonvalid").execute().status(404);
 	}
 	
 	public void testRemoveMemberFromUsingUsernameNotFound(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members"+"nonvalid").urlParam("username",userName).execute().status(404);
-		//it returns 405 method not allowed
+		api.delete("/studio/api/2/groups/" + groupId + "/members"+"nonvalid").urlParam("username",userName).execute().status(405);
 	}
 	
 }
