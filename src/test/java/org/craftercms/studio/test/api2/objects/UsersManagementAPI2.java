@@ -228,116 +228,130 @@ public class UsersManagementAPI2 extends BaseAPI {
 	}
 
 	public void testGetUserById(String id) {
-		api.get("/studio/api/2/users"+"/"+id).execute().status(200);
+		api.get("/studio/api/2/users" + "/" + id).execute().status(200);
 	}
-	
+
 	public void testGetUserByIdNotFound(String id) {
-		api.get("/studio/api/2/users"+"nonvalid/"+id).execute().status(404);
+		api.get("/studio/api/2/users" + "nonvalid/" + id).execute().status(404);
 	}
-	
+
 	public void testGetUserByIdUnauthorized(String id) {
-		api.get("/studio/api/2/users"+"/"+id).execute().status(401);
+		api.get("/studio/api/2/users" + "/" + id).execute().status(401);
 	}
-	
+
 	public void testGetUserSites(String id) {
-		api.get("/studio/api/2/users"+"/"+id).execute().status(200);
+		api.get("/studio/api/2/users" + "/" + id).execute().status(200);
 	}
-	
+
 	public void testGetUserSitesNotFound(String id) {
-		api.get("/studio/api/2/users"+"nonvalid/"+id).execute().status(404);
+		api.get("/studio/api/2/users" + "nonvalid/" + id).execute().status(404);
 	}
-	
+
 	public void testGetUserSitesUnauthorized(String id) {
-		api.get("/studio/api/2/users"+"/"+id).execute().status(401);
+		api.get("/studio/api/2/users" + "/" + id).execute().status(401);
 	}
-	
+
+	public void testGetUserSiteRole(String id, String siteId) {
+		api.get("/studio/api/2/users/" + id + "/sites/"+siteId+"/roles").execute().status(200);
+	}
+
+	public void testGetUserSiteRoleNotFound(String id, String siteId) {
+		api.get("/studio/api/2/users/" + id + "/sitesnonvalid/"+siteId+"/roles").execute().status(404);
+	}
+
+	public void testGetUserSiteRoleUnauthorized(String id, String siteId) {
+		api.get("/studio/api/2/users/" + id + "/sites/"+siteId+"/roles").execute().status(401);
+	}
+
 	public void testGetCurrentAuthenticatedUser() {
 		api.get("/studio/api/2/user").execute().status(200);
 	}
-	
+
 	public void testGetCurrentAuthenticatedUserNotFound() {
-		api.get("/studio/api/2/user"+"nonvalid").execute().status(404);
+		api.get("/studio/api/2/user" + "nonvalid").execute().status(404);
 	}
-	
+
 	public void testGetCurrentAuthenticatedUserUnauthorized() {
 		api.get("/studio/api/2/user").execute().status(401);
 	}
-	
+
 	public void testUpdateUserEnableUserUsingUsername(String userName) {
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
 		json.put("usernames", usernames);
-		
+
 		api.patch("/studio/api/2/users/enable").json(json).execute().status(200);
 	}
-	
+
 	public void testUpdateUserEnableUserUsingUsernameNotFound(String userName) {
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
-		
-		api.patch("/studio/api/2/users/enable"+"nonvalid").json(json).execute().status(405);
+
+		api.patch("/studio/api/2/users/enable" + "nonvalid").json(json).execute().status(405);
 	}
-	
+
 	public void testUpdateUserEnableUserUsingUsernameBadRequest(String userName) {
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
-		
+
 		api.patch("/studio/api/2/users/enable").json(json).execute().status(400);
 	}
+
 	public void testUpdateUserEnableUserUsingUsernameUnauthorized(String userName) {
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
 		json.put("usernames", usernames);
-		
+
 		api.patch("/studio/api/2/users/enable").json(json).execute().status(401);
 	}
-	
+
 	public void testUpdateUserDisableUserUsingUsername(String userName) {
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
 		json.put("usernames", usernames);
-		
+
 		api.patch("/studio/api/2/users/disable").json(json).execute().status(200);
 	}
-	
+
 	public void testUpdateUserDisableUserUsingUsernameNotFound(String userName) {
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
-		
-		api.patch("/studio/api/2/users/disable"+"nonvalid").json(json).execute().status(405);
+
+		api.patch("/studio/api/2/users/disable" + "nonvalid").json(json).execute().status(405);
 	}
-	
+
 	public void testUpdateUserDisableUserUsingUsernameBadRequest(String userName) {
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
-		
+
 		api.patch("/studio/api/2/users/disable").json(json).execute().status(400);
 	}
+
 	public void testUpdateUserDisableUserUsingUsernameUnauthorized(String userName) {
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
 		json.put("usernames", usernames);
-		
+
 		api.patch("/studio/api/2/users/disable").json(json).execute().status(401);
 	}
 }

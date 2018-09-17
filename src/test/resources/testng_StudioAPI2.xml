@@ -104,6 +104,12 @@
 				name="org.craftercms.studio.test.cases.api2testcases.GetUserSitesAPI2Test" />
 		</classes>
 	</test> 
+	<test name="Get User Site Role Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetUserSiteRoleAPI2Test" />
+		</classes>
+	</test> 
 	<test name="Get User Authenticated Test" preserve-order="true">
 		<classes>
 			<class
