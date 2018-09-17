@@ -98,15 +98,6 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		api.post("/studio/api/2/groups").json(json).execute().status(201);
 	}
 
-	public void testCreateGroupsAlreadyExists(String id) {
-		Map<String, Object> json = new HashMap<>();
-		json.put("id", id);
-		json.put("name", "Test_Groups");
-		json.put("desc", "Testing Group API2");
-
-		api.post("/studio/api/2/groups").json(json).execute().status(409);
-	}
-
 	public void testCreateGroupsNotFound() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("id", 0);

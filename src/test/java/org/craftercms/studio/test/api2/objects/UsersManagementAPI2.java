@@ -76,20 +76,6 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.post("/studio/api/2/users").json(json).execute().status(201);
 	}
 
-	public void testCreateUserAlreadyExists(String id, String userName) {
-		Map<String, Object> json = new HashMap<>();
-		json.put("id", id);
-		json.put("username", userName);
-		json.put("password", userName);
-		json.put("firstName", "Test");
-		json.put("lastName", "Test");
-		json.put("email", "test@test.com");
-		json.put("enabled", true);
-		json.put("externallyManaged", true);
-
-		api.post("/studio/api/2/users").json(json).execute().status(409);
-	}
-
 	public void testCreateUserNotFound(String id, String userName) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("id", id);
@@ -249,10 +235,6 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.get("/studio/api/2/users"+"nonvalid/"+id).execute().status(404);
 	}
 	
-//	public void testGetUserByIdBadRequest(String id) {
-//		api.get("/studio/api/2/users"+"/"+id+"nonvalid").execute().status(400);
-//	}
-	
 	public void testGetUserByIdUnauthorized(String id) {
 		api.get("/studio/api/2/users"+"/"+id).execute().status(401);
 	}
@@ -264,10 +246,6 @@ public class UsersManagementAPI2 extends BaseAPI {
 	public void testGetUserSitesNotFound(String id) {
 		api.get("/studio/api/2/users"+"nonvalid/"+id).execute().status(404);
 	}
-	
-//	public void testGetUserSitesBadRequest(String id) {
-//		api.get("/studio/api/2/users"+"/"+id+"nonvalid").execute().status(400);
-//	}
 	
 	public void testGetUserSitesUnauthorized(String id) {
 		api.get("/studio/api/2/users"+"/"+id).execute().status(401);

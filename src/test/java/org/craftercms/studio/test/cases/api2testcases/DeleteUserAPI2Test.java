@@ -85,13 +85,6 @@ public class DeleteUserAPI2Test {
 		usersManagementAPI2.testDeleteUserByUserNameBadRequest(userName2);
 	}
 
-	// @Test(
-	// priority = 4,
-	// groups = { "createUser" })
-	// public void testCreateUserAlreadyExists() {
-	// usersManagementAPI2.testCreateUserAlreadyExists(String.valueOf(randomID),
-	// "tester");
-	// }
 
 	@AfterGroups(
 			groups = { "deleteUserAPI2" })

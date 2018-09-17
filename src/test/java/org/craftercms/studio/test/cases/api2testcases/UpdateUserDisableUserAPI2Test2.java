@@ -80,13 +80,6 @@ public class UpdateUserDisableUserAPI2Test2 {
 		usersManagementAPI2.testUpdateUserDisableUserUsingUsernameBadRequest(userName);
 	}
 
-	// @Test(
-	// priority = 4,
-	// groups = { "createUser" })
-	// public void testCreateUserAlreadyExists() {
-	// usersManagementAPI2.testCreateUserAlreadyExists(String.valueOf(randomID),
-	// "tester");
-	// }
 
 	@AfterGroups(
 			groups = { "updateUserDisableUserAPI2" })

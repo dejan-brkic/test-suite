@@ -78,14 +78,7 @@ public class CreateUserAPI2Test2 {
 		usersManagementAPI2.testCreateUserBadRequest(String.valueOf(randomID), userName);
 	}
 
-	// @Test(
-	// priority = 4,
-	// groups = { "createUser" })
-	// public void testCreateUserAlreadyExists() {
-	// usersManagementAPI2.testCreateUserAlreadyExists(String.valueOf(randomID),
-	// "tester");
-	// }
-
+	 
 	@AfterGroups(
 			groups = { "createUserAPI2" })
 	public void afterTest() {

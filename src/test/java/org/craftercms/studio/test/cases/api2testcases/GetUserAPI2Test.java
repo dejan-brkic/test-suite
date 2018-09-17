@@ -71,13 +71,6 @@ public class GetUserAPI2Test {
 		usersManagementAPI2.testGetUserByIdNotFound(userId);
 	}
 
-//	@Test(
-//			priority = 3,
-//			groups = { "getUserAPI2" })
-//	public void testGetUserBadRequest() {
-//		usersManagementAPI2.testGetUserByIdBadRequest(userId);
-//	}
-
 	@AfterGroups(
 			groups = { "getUserAPI2" })
 	public void afterTest() {

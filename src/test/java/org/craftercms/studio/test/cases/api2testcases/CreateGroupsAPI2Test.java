@@ -79,13 +79,6 @@ public class CreateGroupsAPI2Test {
 		groupsManagementAPI2.testCreateGroupsBadRequest();
 	}
 
-//	@Test(
-//			priority = 4,
-//			groups = { "createGroups" })
-//	public void testCreateGroupsAlreadyExists() {
-//		groupsManagementAPI2.testCreateGroupsAlreadyExists();
-//	}
-
 	@AfterGroups(
 			groups = { "createGroups" })
 	public void afterTest() {
