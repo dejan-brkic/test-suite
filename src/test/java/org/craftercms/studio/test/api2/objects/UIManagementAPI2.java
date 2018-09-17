@@ -17,6 +17,7 @@
 
 package org.craftercms.studio.test.api2.objects;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.api.objects.BaseAPI;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
@@ -32,15 +33,15 @@ public class UIManagementAPI2 extends BaseAPI {
 	}
 
 	public void testGetViewsGlobalMenuItemsForCurrentUser() {
-		api.get("/studio/api/2/ui/views/global_menu").execute().status(200);
+		api.get("/studio/api/2/ui/views/global_menu").execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testGetViewsGlobalMenuItemsForCurrentUserNotFound() {
-		api.get("/studio/api/2/ui/views/global_menu"+"nonvalid").execute().status(404);
+		api.get("/studio/api/2/ui/views/global_menu"+"nonvalid").execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 	
 	public void testGetViewsGlobalMenuItemsForCurrentUserUnauthorized() {
-		api.get("/studio/api/2/ui/views/global_menu").execute().status(401);
+		api.get("/studio/api/2/ui/views/global_menu").execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 	
 }

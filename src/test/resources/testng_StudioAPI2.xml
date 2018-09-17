@@ -86,13 +86,7 @@
 				name="org.craftercms.studio.test.cases.api2testcases.UpdateUserEnableUserAPI2Test" />
 		</classes>
 	</test> 
-	<test name="Disable User Test" preserve-order="true">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.api2testcases.UpdateUserDisableUserAPI2Test2" />
-		</classes>
-	</test> 
-	<test name="Disable User Test" preserve-order="true">
+	<test name="Disable User  Test" preserve-order="true">
 		<classes>
 			<class
 				name="org.craftercms.studio.test.cases.api2testcases.UpdateUserDisableUserAPI2Test2" />

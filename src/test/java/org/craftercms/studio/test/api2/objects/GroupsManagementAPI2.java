@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.api.objects.BaseAPI;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonResponse;
@@ -41,7 +43,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 
 	public void testGetAllGroups() {
 		api.get("/studio/api/2/groups").urlParam("offset", "0").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(200);
+				.urlParam("sort", "asc").execute().status(HttpStatus.SC_OK);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -67,17 +69,17 @@ public class GroupsManagementAPI2 extends BaseAPI {
 
 	public void testGetAllGroupsNotFound() {
 		api.get("/studio/api/2/groups" + "nonvalid").urlParam("offset", "0").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(404);
+				.urlParam("sort", "asc").execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testGetAllGroupsBadRequest() {
 		api.get("/studio/api/2/groups").urlParam("offset", "noninteger").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(400);
+				.urlParam("sort", "asc").execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testGetAllGroupsNonAuthorized() {
 		api.get("/studio/api/2/groups").urlParam("offset", "0").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(401);
+				.urlParam("sort", "asc").execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testCreateGroups(String groupName) {
@@ -86,7 +88,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2");
 
-		api.post("/studio/api/2/groups").json(json).execute().status(200);
+		api.post("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testCreateGroupsWithGivenID(String id, String groupName) {
@@ -104,7 +106,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", "Test_Groups");
 		json.put("desc", "Testing Group API2");
 
-		api.post("/studio/api/2/groups" + "nonvalid").json(json).execute().status(404);
+		api.post("/studio/api/2/groups" + "nonvalid").json(json).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testCreateGroupsBadRequest() {
@@ -113,7 +115,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", "Test_Groups");
 		json.put("desc", "Testing Group API2");
 
-		api.post("/studio/api/2/groups").json(json).execute().status(400);
+		api.post("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testCreateGroupsUnauthorized() {
@@ -122,23 +124,23 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", "Test_Groups");
 		json.put("desc", "Testing Group API2");
 
-		api.post("/studio/api/2/groups").json(json).execute().status(401);
+		api.post("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testDeleteGroups(String id) {
-		api.delete("/studio/api/2/groups").urlParam("id", id).execute().status(200);
+		api.delete("/studio/api/2/groups").urlParam("id", id).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testDeleteGroupsNotFound(String id) {
-		api.delete("/studio/api/2/groups" + "nonvalid").urlParam("id", id).execute().status(405);
+		api.delete("/studio/api/2/groups" + "nonvalid").urlParam("id", id).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
 	}
 
 	public void testDeleteGroupsBadRequest(String id) {
-		api.delete("/studio/api/2/groups").urlParam("idnonvalid", id).execute().status(400);
+		api.delete("/studio/api/2/groups").urlParam("idnonvalid", id).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testDeleteGroupsUnauthorized(String id) {
-		api.delete("/studio/api/2/groups").urlParam("idnonvalid", id).execute().status(401);
+		api.delete("/studio/api/2/groups").urlParam("idnonvalid", id).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testUpdateGroups(String id, String groupName) {
@@ -147,7 +149,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2 updated");
 
-		api.patch("/studio/api/2/groups").json(json).execute().status(200);
+		api.patch("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testUpdateGroupsNotAllowed(String id, String groupName) {
@@ -156,7 +158,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2 updated");
 
-		api.patch("/studio/api/2/groups" + "nonvalid").json(json).execute().status(405);
+		api.patch("/studio/api/2/groups" + "nonvalid").json(json).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
 	}
 
 	public void testUpdateGroupsBadRequest(String id, String groupName) {
@@ -165,7 +167,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2 updated");
 
-		api.patch("/studio/api/2/groups").json(json).execute().status(400);
+		api.patch("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testUpdateGroupsUnauthorized(String id, String groupName) {
@@ -174,39 +176,39 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2 updated");
 
-		api.patch("/studio/api/2/groups").json(json).execute().status(401);
+		api.patch("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testGetGroupsByID(String id) {
-		api.get("/studio/api/2/groups/" + id).execute().status(200);
+		api.get("/studio/api/2/groups/" + id).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testGetGroupsByIDNotFound(String id) {
-		api.get("/studio/api/2/groupsnonvalid/" + id).execute().status(404);
+		api.get("/studio/api/2/groupsnonvalid/" + id).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testGetGroupsByIDBadRequest(String id) {
-		api.get("/studio/api/2/groups/" + id + "nonvalid").execute().status(400);
+		api.get("/studio/api/2/groups/" + id + "nonvalid").execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testGetGroupsByIDNonAuthorized(String id) {
-		api.get("/studio/api/2/groups/" + id).execute().status(401);
+		api.get("/studio/api/2/groups/" + id).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testGetGroupsMembers(String id) {
-		api.get("/studio/api/2/groups/" + id + "/members").execute().status(200);
+		api.get("/studio/api/2/groups/" + id + "/members").execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testGetGroupsMembersNotFound(String id) {
-		api.get("/studio/api/2/groups/" + id + "/members" + "nonvalid").execute().status(404);
+		api.get("/studio/api/2/groups/" + id + "/members" + "nonvalid").execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testGetGroupsMembersBadRequest(String id) {
-		api.get("/studio/api/2/groups/" + id + "nonvalid" + "/members").execute().status(400);
+		api.get("/studio/api/2/groups/" + id + "nonvalid" + "/members").execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testGetGroupsMembersNonAuthorized(String id) {
-		api.get("/studio/api/2/groups/" + id + "/members").execute().status(401);
+		api.get("/studio/api/2/groups/" + id + "/members").execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testAddMemberToGroupUsingUsername(String groupId, String userName) {
@@ -217,7 +219,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernames", usernames);
 
-		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(200);
+		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testAddMemberToGroupUsingUsernameNonAuthorized(String groupId, String userName) {
@@ -228,7 +230,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernames", usernames);
 
-		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(401);
+		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 	
 	public void testAddMemberToGroupUsingUsernameBadRequest(String groupId, String userName) {
@@ -239,7 +241,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
 
-		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(400);
+		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 	
 	public void testAddMemberToGroupUsingUsernameNotFound(String groupId, String userName) {
@@ -250,23 +252,23 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
 
-		api.post("/studio/api/2/groups/" + groupId + "/members"+"nonvalid").json(json).execute().status(404);
+		api.post("/studio/api/2/groups/" + groupId + "/members"+"nonvalid").json(json).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 	
 	public void testRemoveMemberFromGroupUsingUsername(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName).execute().status(200);
+		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName).execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testRemoveMemberFromGroupUsingUsernameNonAuthorized(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName).execute().status(401);
+		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 	
 	public void testRemoveMemberFromGroupUsingUsernameBadRequest(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName+"nonvalid").execute().status(404);
+		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName+"nonvalid").execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 	
 	public void testRemoveMemberFromUsingUsernameNotFound(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members"+"nonvalid").urlParam("username",userName).execute().status(405);
+		api.delete("/studio/api/2/groups/" + groupId + "/members"+"nonvalid").urlParam("username",userName).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
 	}
 	
 }
