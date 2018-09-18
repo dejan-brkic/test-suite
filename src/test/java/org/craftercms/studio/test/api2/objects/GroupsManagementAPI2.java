@@ -83,16 +83,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		api.get("/studio/api/2/groups").urlParam("offset", offSet).urlParam("limit", limit)
 				.urlParam("sort", sort).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
-
-	public void testCreateGroups(String groupName) {
-		Map<String, Object> json = new HashMap<>();
-		json.put("id", 0);
-		json.put("name", groupName);
-		json.put("desc", "Testing Group API2");
-
-		api.post("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_OK);
-	}
-
+	
 	public void testCreateGroupsWithGivenID(String id, String groupName) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("id", id);
@@ -263,7 +254,7 @@ public class GroupsManagementAPI2 extends BaseAPI {
 	}
 	
 	public void testRemoveMemberFromGroupUsingUsernameBadRequest(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName+"nonvalid").execute().status(HttpStatus.SC_NOT_FOUND);
+		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username"+"nonvalid",userName).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 	
 	public void testRemoveMemberFromUsingUsernameResourceNotFound(String groupId, String userName) {
