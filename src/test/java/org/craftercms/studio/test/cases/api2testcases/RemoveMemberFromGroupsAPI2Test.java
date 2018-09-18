@@ -42,14 +42,18 @@ public class RemoveMemberFromGroupsAPI2Test {
 	private String groupName;
 	private String groupId;
 	private String userName;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
+
 
 	public RemoveMemberFromGroupsAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager);
+		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
+		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 
 		userName = "tester" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
 		randomID = (int) (((Math.random() * 2) * 5) + Math.random());
@@ -76,8 +80,8 @@ public class RemoveMemberFromGroupsAPI2Test {
 	@Test(
 			priority = 2,
 			groups = { "removeMemberFromGroup" })
-	public void testRemoveMemberFromGroupNotAllowed() {
-		groupsManagementAPI2.testRemoveMemberFromUsingUsernameNotFound(groupId, userName);
+	public void testRemoveMemberFromUsingUsernameResourceNotFound() {
+		groupsManagementAPI2.testRemoveMemberFromUsingUsernameResourceNotFound("0", userName);
 	}
 
 	@Test(

@@ -36,13 +36,16 @@ public class GetUserSitesAPI2Test {
 	private SecurityAPI securityAPI;
 	private UsersManagementAPI2 usersManagementAPI2;
 	private String userId;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public GetUserSitesAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager);
+		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		userId = "1";
 	}
 
@@ -61,8 +64,8 @@ public class GetUserSitesAPI2Test {
 	@Test(
 			priority = 2,
 			groups = { "getUserSitesAPI2" })
-	public void testGetUserSitesNotFound() {
-		usersManagementAPI2.testGetUserSitesNotFound(userId);
+	public void testGetUserSitesResourceNotFound() {
+		usersManagementAPI2.testGetUserSitesResourceNotFound("0");
 	}
 
 

@@ -39,13 +39,16 @@ public class DeleteGroupsAPI2Test {
 	private int randomID;
 	private String groupName;
 	private String groupId;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public DeleteGroupsAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager);
+		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		
 		randomID = (int) (((Math.random() * 2) * 5) + Math.random());
 		groupName = "Test_Groups" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
@@ -63,13 +66,6 @@ public class DeleteGroupsAPI2Test {
 			groups = { "deleteGroups" })
 	public void testDeleteGroups() {
 		groupsManagementAPI2.testDeleteGroups(groupId);
-	}
-
-	@Test(
-			priority = 2,
-			groups = { "deleteGroups" })
-	public void testDeleteGroupsNotFound() {
-		groupsManagementAPI2.testDeleteGroupsNotFound(groupId);
 	}
 
 	@Test(

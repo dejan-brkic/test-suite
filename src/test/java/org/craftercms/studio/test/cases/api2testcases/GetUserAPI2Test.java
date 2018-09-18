@@ -39,13 +39,16 @@ public class GetUserAPI2Test {
 	private int randomID;
 	private String userName;
 	private String userId;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public GetUserAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager);
+		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		randomID = (int) (((Math.random() * 2) * 5) + Math.random());
 		userName = "tester" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
 	}
@@ -67,8 +70,8 @@ public class GetUserAPI2Test {
 	@Test(
 			priority = 2,
 			groups = { "getUserAPI2" })
-	public void testGetUserNotFound() {
-		usersManagementAPI2.testGetUserByIdNotFound(userId);
+	public void testGetUserResourceNotFound() {
+		usersManagementAPI2.testGetUserByIdResourceNotFound("0");
 	}
 
 	@AfterGroups(

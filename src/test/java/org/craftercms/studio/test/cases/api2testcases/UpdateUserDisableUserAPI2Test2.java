@@ -39,13 +39,16 @@ public class UpdateUserDisableUserAPI2Test2 {
 	private int randomID;
 	private String userName;
 	private String userId;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public UpdateUserDisableUserAPI2Test2() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager);
+		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		
 		randomID = (int) (((Math.random() * 2) * 5) + Math.random());
 		userName = "tester"+ RandomStringUtils.randomAlphabetic(5).toLowerCase();
@@ -64,13 +67,6 @@ public class UpdateUserDisableUserAPI2Test2 {
 			groups = { "updateUserDisableUserAPI2" })
 	public void testUpdateUserDisableUser() {
 		usersManagementAPI2.testUpdateUserDisableUserUsingUsername(userName);
-	}
-
-	@Test(
-			priority = 2,
-			groups = { "updateUserDisableUserAPI2" })
-	public void testUpdateUserDisableUserUsingUsernameNotFound() {
-		usersManagementAPI2.testUpdateUserDisableUserUsingUsernameNotFound(userName);
 	}
 
 	@Test(

@@ -26,18 +26,37 @@ import org.craftercms.studio.test.utils.JsonTester;
  * @author luishernandez
  *
  */
-public class UIManagementAPI2 extends BaseAPI {
+public class UserManagementAPI2 extends BaseAPI {
 
-	public UIManagementAPI2(JsonTester api, APIConnectionManager apiConnectionManager) {
+	public UserManagementAPI2(JsonTester api, APIConnectionManager apiConnectionManager) {
 		super(api, apiConnectionManager);
+	
 	}
 
-	public void testGetViewsGlobalMenuItemsForCurrentUser() {
-		api.get("/studio/api/2/ui/views/global_menu").execute().status(HttpStatus.SC_OK);
+	public void testGetCurrentAuthenticatedUser() {
+		api.get("/studio/api/2/user").execute().status(HttpStatus.SC_OK);
+	}
+
+	public void testGetCurrentAuthenticatedUserUnauthorized() {
+		api.get("/studio/api/2/user").execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 	
-	public void testGetViewsGlobalMenuItemsForCurrentUserUnauthorized() {
-		api.get("/studio/api/2/ui/views/global_menu").execute().status(HttpStatus.SC_UNAUTHORIZED);
+	public void testGetCurrentAuthenticatedUserSites() {
+		api.get("/studio/api/2/user/sites").execute().status(HttpStatus.SC_OK);
+	}
+
+	public void testGetCurrentAuthenticatedUserSitesUnauthorized() {
+		api.get("/studio/api/2/user/sites").execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 	
+	public void testGetCurrentAuthenticatedUserSiteRoles(String siteId) {
+		api.get("/studio/api/2/user/roles/" + siteId).execute()
+				.status(HttpStatus.SC_OK);
+	}
+
+	public void testGetCurrentAuthenticatedUserSiteRolesUnauthorized(String siteId) {
+		api.get("/studio/api/2/user/roles/" + siteId).execute()
+				.status(HttpStatus.SC_UNAUTHORIZED);
+	}
+
 }

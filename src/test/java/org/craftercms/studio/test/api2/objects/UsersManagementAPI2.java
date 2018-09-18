@@ -39,28 +39,31 @@ import java.util.Map;
  */
 public class UsersManagementAPI2 extends BaseAPI {
 
-	public UsersManagementAPI2(JsonTester api, APIConnectionManager apiConnectionManager) {
+	private String offSet;
+	private String limit;
+	private String sort;
+
+	public UsersManagementAPI2(JsonTester api, APIConnectionManager apiConnectionManager, String offSet,
+			String limit, String sort) {
 		super(api, apiConnectionManager);
+		this.offSet = offSet;
+		this.limit = limit;
+		this.sort = sort;
 	}
 
 	public void testGetAllUsersNonSiteId() {
-		api.get("/studio/api/2/users").urlParam("offset", "0").urlParam("limit", "10").urlParam("sort", "asc")
-				.execute().status(HttpStatus.SC_OK);
-	}
-
-	public void testGetAllUsersNonSiteIdNotFound() {
-		api.get("/studio/api/2/users" + "nonvalid").urlParam("offset", "0").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(HttpStatus.SC_NOT_FOUND);
+		api.get("/studio/api/2/users").urlParam("offset", offSet).urlParam("limit", limit)
+				.urlParam("sort", sort).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testGetAllUsersNonSiteIdBadRequest() {
-		api.get("/studio/api/2/users").urlParam("offset", "noninteger").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.get("/studio/api/2/users").urlParam("offset", offSet + "noninteger").urlParam("limit", limit)
+				.urlParam("sort", sort).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testGetAllUsersNonSiteIdNonAuthorized() {
-		api.get("/studio/api/2/users").urlParam("offset", "0").urlParam("limit", "10").urlParam("sort", "asc")
-				.execute().status(HttpStatus.SC_UNAUTHORIZED);
+		api.get("/studio/api/2/users").urlParam("offset", offSet).urlParam("limit", limit)
+				.urlParam("sort", sort).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testCreateUser(String id, String userName) {
@@ -74,10 +77,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("enabled", true);
 		json.put("externallyManaged", true);
 
-		api.post("/studio/api/2/users").json(json).execute().status(201);
+		api.post("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_CREATED);
 	}
 
-	public void testCreateUserNotFound(String id, String userName) {
+	public void testCreateUserResourceAlreadyExists(String id, String userName) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("id", id);
 		json.put("username", userName);
@@ -88,7 +91,7 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("enabled", true);
 		json.put("externallyManaged", true);
 
-		api.post("/studio/api/2/users" + "nonvalid").json(json).execute().status(HttpStatus.SC_NOT_FOUND);
+		api.post("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_CONFLICT);
 	}
 
 	public void testCreateUserBadRequest(String id, String userName) {
@@ -122,8 +125,8 @@ public class UsersManagementAPI2 extends BaseAPI {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String getUserIDForUserName(String userName) {
 		String id = "";
-		JsonResponse response = api.get("/studio/api/2/users").urlParam("offset", "0")
-				.urlParam("limit", "1000").urlParam("sort", "asc").execute();
+		JsonResponse response = api.get("/studio/api/2/users").urlParam("offset", offSet)
+				.urlParam("limit", limit).urlParam("sort", sort).execute();
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -154,7 +157,7 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.patch("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testUpdateUserNotFound(String id, String userName) {
+	public void testUpdateUserResourceNotFound(String id, String userName) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("id", id);
 		json.put("username", userName);
@@ -165,7 +168,7 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("enabled", true);
 		json.put("externallyManaged", true);
 
-		api.patch("/studio/api/2/users" + "nonvalid").json(json).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
+		api.patch("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testUpdateUserBadRequest(String id, String userName) {
@@ -200,12 +203,9 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.delete("/studio/api/2/users").urlParam("id", userId).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testDeleteUserByIdMethodNotFound(String userId) {
-		api.delete("/studio/api/2/users" + "nonvalid").urlParam("id", userId).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
-	}
-
 	public void testDeleteUserByIdBadRequest(String userId) {
-		api.delete("/studio/api/2/users").urlParam("idnonvalid", userId).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.delete("/studio/api/2/users").urlParam("idnonvalid", userId).execute()
+				.status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testDeleteUserByIdUnauthorized(String userId) {
@@ -216,24 +216,22 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.delete("/studio/api/2/users").urlParam("username", userName).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testDeleteUserByUserNameMethodNotFound(String userName) {
-		api.delete("/studio/api/2/users" + "nonvalid").urlParam("username", userName).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
-	}
-
 	public void testDeleteUserByUserNameBadRequest(String userName) {
-		api.delete("/studio/api/2/users").urlParam("usernamenonvalid", userName).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.delete("/studio/api/2/users").urlParam("usernamenonvalid", userName).execute()
+				.status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testDeleteUserByUserNameUnauthorized(String userName) {
-		api.delete("/studio/api/2/users").urlParam("username", userName).execute().status(HttpStatus.SC_UNAUTHORIZED);
+		api.delete("/studio/api/2/users").urlParam("username", userName).execute()
+				.status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testGetUserById(String id) {
 		api.get("/studio/api/2/users" + "/" + id).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testGetUserByIdNotFound(String id) {
-		api.get("/studio/api/2/users" + "nonvalid/" + id).execute().status(HttpStatus.SC_NOT_FOUND);
+	public void testGetUserByIdResourceNotFound(String id) {
+		api.get("/studio/api/2/users/" + id).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testGetUserByIdUnauthorized(String id) {
@@ -244,8 +242,8 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.get("/studio/api/2/users" + "/" + id).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testGetUserSitesNotFound(String id) {
-		api.get("/studio/api/2/users" + "nonvalid/" + id).execute().status(HttpStatus.SC_NOT_FOUND);
+	public void testGetUserSitesResourceNotFound(String id) {
+		api.get("/studio/api/2/users/" + id).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testGetUserSitesUnauthorized(String id) {
@@ -253,27 +251,23 @@ public class UsersManagementAPI2 extends BaseAPI {
 	}
 
 	public void testGetUserSiteRole(String id, String siteId) {
-		api.get("/studio/api/2/users/" + id + "/sites/"+siteId+"/roles").execute().status(HttpStatus.SC_OK);
+		api.get("/studio/api/2/users/" + id + "/sites/" + siteId + "/roles").execute()
+				.status(HttpStatus.SC_OK);
 	}
 
-	public void testGetUserSiteRoleNotFound(String id, String siteId) {
-		api.get("/studio/api/2/users/" + id + "/sitesnonvalid/"+siteId+"/roles").execute().status(HttpStatus.SC_NOT_FOUND);
+	public void testGetUserSiteRoleResourceNotFound(String id, String siteId) {
+		api.get("/studio/api/2/users/" + id + "/sites/" + siteId + "/roles").execute()
+				.status(HttpStatus.SC_NOT_FOUND);
+	}
+	
+	public void testGetUserSiteRoleBadRequest(String id, String siteId) {
+		api.get("/studio/api/2/users/" + id + "/sites/" + siteId + "/roles").execute()
+				.status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testGetUserSiteRoleUnauthorized(String id, String siteId) {
-		api.get("/studio/api/2/users/" + id + "/sites/"+siteId+"/roles").execute().status(HttpStatus.SC_UNAUTHORIZED);
-	}
-
-	public void testGetCurrentAuthenticatedUser() {
-		api.get("/studio/api/2/user").execute().status(HttpStatus.SC_OK);
-	}
-
-	public void testGetCurrentAuthenticatedUserNotFound() {
-		api.get("/studio/api/2/user" + "nonvalid").execute().status(HttpStatus.SC_NOT_FOUND);
-	}
-
-	public void testGetCurrentAuthenticatedUserUnauthorized() {
-		api.get("/studio/api/2/user").execute().status(HttpStatus.SC_UNAUTHORIZED);
+		api.get("/studio/api/2/users/" + id + "/sites/" + siteId + "/roles").execute()
+				.status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testUpdateUserEnableUserUsingUsername(String userName) {
@@ -284,16 +278,6 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("usernames", usernames);
 
 		api.patch("/studio/api/2/users/enable").json(json).execute().status(HttpStatus.SC_OK);
-	}
-
-	public void testUpdateUserEnableUserUsingUsernameNotFound(String userName) {
-		JSONArray usernames = new JSONArray();
-		usernames.add(userName);
-
-		JSONObject json = new JSONObject();
-		json.put("usernamesnonvalid", usernames);
-
-		api.patch("/studio/api/2/users/enable" + "nonvalid").json(json).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
 	}
 
 	public void testUpdateUserEnableUserUsingUsernameBadRequest(String userName) {
@@ -324,16 +308,6 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("usernames", usernames);
 
 		api.patch("/studio/api/2/users/disable").json(json).execute().status(HttpStatus.SC_OK);
-	}
-
-	public void testUpdateUserDisableUserUsingUsernameNotFound(String userName) {
-		JSONArray usernames = new JSONArray();
-		usernames.add(userName);
-
-		JSONObject json = new JSONObject();
-		json.put("usernamesnonvalid", usernames);
-
-		api.patch("/studio/api/2/users/disable" + "nonvalid").json(json).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
 	}
 
 	public void testUpdateUserDisableUserUsingUsernameBadRequest(String userName) {

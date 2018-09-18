@@ -36,13 +36,16 @@ public class GetAllGroupsAPI2Test {
 	
 	private SecurityAPI securityAPI;
 	private GroupsManagementAPI2 groupsManagementAPI2;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public GetAllGroupsAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api,apiConnectionManager);
-		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager);
+		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 	}
 
 	@BeforeTest
@@ -55,10 +58,6 @@ public class GetAllGroupsAPI2Test {
 		groupsManagementAPI2.testGetAllGroups();
 	}
 	
-	@Test(priority = 2,groups={"getAllGroups"})
-	public void testGetAllGroupsNotFound() {
-		groupsManagementAPI2.testGetAllGroupsNotFound();
-	}
 	@Test(priority = 3,groups={"getAllGroups"})
 	public void testGetAllGroupsBadRequest() {
 		groupsManagementAPI2.testGetAllGroupsBadRequest();

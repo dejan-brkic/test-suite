@@ -18,7 +18,7 @@
 package org.craftercms.studio.test.cases.api2testcases;
 
 import org.craftercms.studio.test.api.objects.SecurityAPI;
-import org.craftercms.studio.test.api2.objects.UsersManagementAPI2;
+import org.craftercms.studio.test.api2.objects.UserManagementAPI2;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 import org.testng.annotations.AfterGroups;
@@ -34,14 +34,15 @@ import org.testng.annotations.Test;
 public class GetCurrentAuthenticatedUserAPI2Test {
 
 	private SecurityAPI securityAPI;
-	private UsersManagementAPI2 usersManagementAPI2;
+	private UserManagementAPI2 userManagementAPI2;
 
+	
 	public GetCurrentAuthenticatedUserAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager);
+		userManagementAPI2 = new UserManagementAPI2(api, apiConnectionManager);
 	}
 
 	@BeforeTest
@@ -53,14 +54,7 @@ public class GetCurrentAuthenticatedUserAPI2Test {
 			priority = 1,
 			groups = { "getCurrentAuthenticatedUserAPI2" })
 	public void testGetCurrentAuthenticatedUser() {
-		usersManagementAPI2.testGetCurrentAuthenticatedUser();
-	}
-
-	@Test(
-			priority = 2,
-			groups = { "getCurrentAuthenticatedUserAPI2" })
-	public void testGetCurrentAuthenticatedUserNotFound() {
-		usersManagementAPI2.testGetCurrentAuthenticatedUserNotFound();
+		userManagementAPI2.testGetCurrentAuthenticatedUser();
 	}
 
 	@AfterGroups(
@@ -72,6 +66,6 @@ public class GetCurrentAuthenticatedUserAPI2Test {
 	@Test(
 			dependsOnGroups = { "getCurrentAuthenticatedUserAPI2" })
 	public void testGetUserUnauthorized() {
-		usersManagementAPI2.testGetCurrentAuthenticatedUserUnauthorized();
+		userManagementAPI2.testGetCurrentAuthenticatedUserUnauthorized();
 	}
 }

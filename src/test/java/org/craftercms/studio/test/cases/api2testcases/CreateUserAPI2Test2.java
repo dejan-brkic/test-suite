@@ -39,13 +39,16 @@ public class CreateUserAPI2Test2 {
 	private int randomID;
 	private String userName;
 	private String userId;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public CreateUserAPI2Test2() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager);
+		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		
 		randomID = (int) (((Math.random() * 2) * 5) + Math.random());
 		userName = "tester"+ RandomStringUtils.randomAlphabetic(5).toLowerCase();
@@ -67,8 +70,8 @@ public class CreateUserAPI2Test2 {
 	@Test(
 			priority = 2,
 			groups = { "createUserAPI2" })
-	public void testCreateUserNotFound() {
-		usersManagementAPI2.testCreateUserNotFound(String.valueOf(randomID), userName);
+	public void testCreateUserResourceAlreadyExists() {
+		usersManagementAPI2.testCreateUserResourceAlreadyExists("0", userName);
 	}
 
 	@Test(
@@ -78,7 +81,6 @@ public class CreateUserAPI2Test2 {
 		usersManagementAPI2.testCreateUserBadRequest(String.valueOf(randomID), userName);
 	}
 
-	 
 	@AfterGroups(
 			groups = { "createUserAPI2" })
 	public void afterTest() {

@@ -56,13 +56,6 @@ public class GetViewsGlobalMenuItemsForCurrentUserAPI2Test {
 		uiManagementAPI2.testGetViewsGlobalMenuItemsForCurrentUser();
 	}
 
-	@Test(
-			priority = 2,
-			groups = { "getViewsGlobalMenuItemsForCurrentUserAPI2" })
-	public void testGetViewsGlobalMenuItemsForCurrentUserNotFound() {
-		uiManagementAPI2.testGetViewsGlobalMenuItemsForCurrentUserNotFound();
-	}
-
 	@AfterGroups(
 			groups = { "getViewsGlobalMenuItemsForCurrentUserAPI2" })
 	public void afterTest() {
@@ -71,7 +64,7 @@ public class GetViewsGlobalMenuItemsForCurrentUserAPI2Test {
 
 	@Test(
 			dependsOnGroups = { "getViewsGlobalMenuItemsForCurrentUserAPI2" })
-	public void testGetViewsGlobalMenuItemsForCurrentUserUnauthorize() {
+	public void testGetViewsGlobalMenuItemsForCurrentUserUnauthorized() {
 		uiManagementAPI2.testGetViewsGlobalMenuItemsForCurrentUserUnauthorized();
 	}
 }

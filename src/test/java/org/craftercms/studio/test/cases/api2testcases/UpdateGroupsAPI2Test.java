@@ -39,13 +39,16 @@ public class UpdateGroupsAPI2Test {
 	private int randomID;
 	private String groupName;
 	private String groupId;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public UpdateGroupsAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager);
+		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		randomID = (int)(((Math.random() * 2)*5) + Math.random());
 		groupName = "Test_Groups" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
 		
@@ -69,7 +72,7 @@ public class UpdateGroupsAPI2Test {
 			priority = 2,
 			groups = { "updateGroups" })
 	public void testUpdateGroupsNotAllowed() {
-		groupsManagementAPI2.testUpdateGroupsNotAllowed(groupId,groupName);
+		groupsManagementAPI2.testUpdateGroupsResourceNotFound("0",groupName);
 	}
 
 	@Test(

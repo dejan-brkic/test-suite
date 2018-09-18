@@ -40,13 +40,16 @@ public class DeleteUserAPI2Test {
 	private String userName;
 	private String userName2;
 	private String userId;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public DeleteUserAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager);
+		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		
 		randomID = (int) (((Math.random() * 2) * 5) + Math.random());
 		userName = "tester"+ RandomStringUtils.randomAlphabetic(5).toLowerCase();
@@ -67,14 +70,6 @@ public class DeleteUserAPI2Test {
 	public void testDeleteUser() {
 		usersManagementAPI2.testDeleteUserById(userId);
 		usersManagementAPI2.testDeleteUserByUserName(userName2);
-	}
-
-	@Test(
-			priority = 2,
-			groups = { "deleteUserAPI2" })
-	public void testDeleteUserMethodNotFound() {
-		usersManagementAPI2.testDeleteUserByIdMethodNotFound(userId);
-		usersManagementAPI2.testDeleteUserByUserNameMethodNotFound(userName2);
 	}
 
 	@Test(

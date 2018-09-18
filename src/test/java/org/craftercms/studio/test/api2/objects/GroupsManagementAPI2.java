@@ -37,20 +37,27 @@ import net.minidev.json.JSONObject;
  */
 public class GroupsManagementAPI2 extends BaseAPI {
 
-	public GroupsManagementAPI2(JsonTester api, APIConnectionManager apiConnectionManager) {
+	private String offSet;
+	private String limit;
+	private String sort;
+	
+	public GroupsManagementAPI2(JsonTester api, APIConnectionManager apiConnectionManager, String offSet, String limit, String sort) {
 		super(api, apiConnectionManager);
+		this.offSet=offSet;
+		this.limit=limit;
+		this.sort=sort;
 	}
 
 	public void testGetAllGroups() {
-		api.get("/studio/api/2/groups").urlParam("offset", "0").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(HttpStatus.SC_OK);
+		api.get("/studio/api/2/groups").urlParam("offset", offSet).urlParam("limit", limit)
+				.urlParam("sort", sort).execute().status(HttpStatus.SC_OK);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String getGroupIDForGroupName(String groupName) {
 		String id = "";
-		JsonResponse response = api.get("/studio/api/2/groups").urlParam("offset", "0")
-				.urlParam("limit", "1000").urlParam("sort", "asc").execute();
+		JsonResponse response = api.get("/studio/api/2/groups").urlParam("offset", offSet)
+				.urlParam("limit", limit).urlParam("sort", sort).execute();
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -67,19 +74,14 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		return id;
 	}
 
-	public void testGetAllGroupsNotFound() {
-		api.get("/studio/api/2/groups" + "nonvalid").urlParam("offset", "0").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(HttpStatus.SC_NOT_FOUND);
-	}
-
 	public void testGetAllGroupsBadRequest() {
-		api.get("/studio/api/2/groups").urlParam("offset", "noninteger").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.get("/studio/api/2/groups").urlParam("offset", offSet+"nonint").urlParam("limit", limit)
+				.urlParam("sort", sort).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testGetAllGroupsNonAuthorized() {
-		api.get("/studio/api/2/groups").urlParam("offset", "0").urlParam("limit", "10")
-				.urlParam("sort", "asc").execute().status(HttpStatus.SC_UNAUTHORIZED);
+		api.get("/studio/api/2/groups").urlParam("offset", offSet).urlParam("limit", limit)
+				.urlParam("sort", sort).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testCreateGroups(String groupName) {
@@ -97,18 +99,19 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2 with given id");
 
-		api.post("/studio/api/2/groups").json(json).execute().status(201);
+		api.post("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_CREATED);
 	}
 
-	public void testCreateGroupsNotFound() {
+	public void testCreateGroupsResourceAlreadyExists(String id, String groupName) {
 		Map<String, Object> json = new HashMap<>();
-		json.put("id", 0);
-		json.put("name", "Test_Groups");
-		json.put("desc", "Testing Group API2");
+		json.put("id", id);
+		json.put("name", groupName);
+		json.put("desc", "Testing Group API2 with given id");
 
-		api.post("/studio/api/2/groups" + "nonvalid").json(json).execute().status(HttpStatus.SC_NOT_FOUND);
+		api.post("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_CONFLICT);
 	}
 
+	
 	public void testCreateGroupsBadRequest() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("idnonvalid", 0);
@@ -131,10 +134,6 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		api.delete("/studio/api/2/groups").urlParam("id", id).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testDeleteGroupsNotFound(String id) {
-		api.delete("/studio/api/2/groups" + "nonvalid").urlParam("id", id).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
-	}
-
 	public void testDeleteGroupsBadRequest(String id) {
 		api.delete("/studio/api/2/groups").urlParam("idnonvalid", id).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
@@ -152,13 +151,13 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		api.patch("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testUpdateGroupsNotAllowed(String id, String groupName) {
+	public void testUpdateGroupsResourceNotFound(String id, String groupName) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("id", id);
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2 updated");
 
-		api.patch("/studio/api/2/groups" + "nonvalid").json(json).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
+		api.patch("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testUpdateGroupsBadRequest(String id, String groupName) {
@@ -183,8 +182,8 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		api.get("/studio/api/2/groups/" + id).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testGetGroupsByIDNotFound(String id) {
-		api.get("/studio/api/2/groupsnonvalid/" + id).execute().status(HttpStatus.SC_NOT_FOUND);
+	public void testGetGroupsByIDResourceNotFound(String id) {
+		api.get("/studio/api/2/groups/" + id).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testGetGroupsByIDBadRequest(String id) {
@@ -199,8 +198,8 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		api.get("/studio/api/2/groups/" + id + "/members").execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testGetGroupsMembersNotFound(String id) {
-		api.get("/studio/api/2/groups/" + id + "/members" + "nonvalid").execute().status(HttpStatus.SC_NOT_FOUND);
+	public void testGetGroupsMembersResourceNotFound(String id) {
+		api.get("/studio/api/2/groups/" + id + "/members").execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testGetGroupsMembersBadRequest(String id) {
@@ -244,15 +243,15 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 	
-	public void testAddMemberToGroupUsingUsernameNotFound(String groupId, String userName) {
+	public void testAddMemberToGroupUsingUsernameResourceNotFound(String groupId, String userName) {
 
 		JSONArray usernames = new JSONArray();
 		usernames.add(userName);
 
 		JSONObject json = new JSONObject();
-		json.put("usernamesnonvalid", usernames);
+		json.put("usernames", usernames);
 
-		api.post("/studio/api/2/groups/" + groupId + "/members"+"nonvalid").json(json).execute().status(HttpStatus.SC_NOT_FOUND);
+		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 	
 	public void testRemoveMemberFromGroupUsingUsername(String groupId, String userName) {
@@ -267,8 +266,8 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName+"nonvalid").execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 	
-	public void testRemoveMemberFromUsingUsernameNotFound(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members"+"nonvalid").urlParam("username",userName).execute().status(HttpStatus.SC_METHOD_NOT_ALLOWED);
+	public void testRemoveMemberFromUsingUsernameResourceNotFound(String groupId, String userName) {
+		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username",userName).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
 	
 }

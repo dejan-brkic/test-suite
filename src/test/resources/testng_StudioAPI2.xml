@@ -110,6 +110,18 @@
 				name="org.craftercms.studio.test.cases.api2testcases.GetCurrentAuthenticatedUserAPI2Test" />
 		</classes>
 	</test> 
+	<test name="Get User Authenticated Sites Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetCurrentAuthenticatedUserSitesAPI2Test" />
+		</classes>
+	</test> 
+	<test name="Get User Authenticated Site Role Test" preserve-order="true">
+		<classes>
+			<class
+				name="org.craftercms.studio.test.cases.api2testcases.GetCurrentAuthenticatedUserSiteRolesAPI2Test" />
+		</classes>
+	</test> 
 	<test name="Get Global Menu Items for current User Test" preserve-order="true">
 		<classes>
 			<class

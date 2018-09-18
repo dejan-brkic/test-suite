@@ -17,9 +17,9 @@
 
 package org.craftercms.studio.test.cases.api2testcases;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.craftercms.studio.test.api.objects.SecurityAPI;
-import org.craftercms.studio.test.api2.objects.UsersManagementAPI2;
+import org.craftercms.studio.test.api.objects.SiteManagementAPI;
+import org.craftercms.studio.test.api2.objects.UserManagementAPI2;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 import org.testng.annotations.AfterGroups;
@@ -32,59 +32,47 @@ import org.testng.annotations.Test;
  *
  */
 
-public class UpdateUserEnableUserAPI2Test {
+public class GetCurrentAuthenticatedUserSiteRolesAPI2Test {
 
 	private SecurityAPI securityAPI;
-	private UsersManagementAPI2 usersManagementAPI2;
-	private int randomID;
-	private String userName;
-	private String userId;
-	private String offSet = "0";
-	private String limit = "1000";
-	private String sort = "asc";
+	private UserManagementAPI2 userManagementAPI2;
+	private SiteManagementAPI siteManagementAPI;
+	private String siteId="api2testsite";
 
-	public UpdateUserEnableUserAPI2Test() {
+	
+	public GetCurrentAuthenticatedUserSiteRolesAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
-		
-		randomID = (int) (((Math.random() * 2) * 5) + Math.random());
-		userName = "tester"+ RandomStringUtils.randomAlphabetic(5).toLowerCase();
+		userManagementAPI2 = new UserManagementAPI2(api, apiConnectionManager);
+		siteManagementAPI = new SiteManagementAPI(api, apiConnectionManager);
 	}
 
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
-		usersManagementAPI2.testCreateUser(String.valueOf(randomID), userName);
-		userId = usersManagementAPI2.getUserIDForUserName(userName);
+		siteManagementAPI.testCreateSite(siteId);
 	}
 
 	@Test(
 			priority = 1,
-			groups = { "updateUserEnableUserAPI2" })
-	public void testUpdateUserEnableUserUsingUsername() {
-		usersManagementAPI2.testUpdateUserEnableUserUsingUsername(userName);
+			groups = { "getCurrentAuthenticatedUserSiteRolesAPI2" })
+	public void testGetCurrentAuthenticatedUserSiteRoles() {
+		userManagementAPI2.testGetCurrentAuthenticatedUserSiteRoles(siteId);
 	}
 
-	@Test(
-			priority = 3,
-			groups = { "updateUserEnableUserAPI2" })
-	public void testUpdateUserEnableUserUsingUsernameBadRequest() {
-		usersManagementAPI2.testUpdateUserEnableUserUsingUsernameBadRequest(userName);
-	}
 
 	@AfterGroups(
-			groups = { "updateUserEnableUserAPI2" })
+			groups = { "getCurrentAuthenticatedUserSiteRolesAPI2" })
 	public void afterTest() {
-		usersManagementAPI2.testDeleteUserById(userId);
+		siteManagementAPI.testDeleteSite(siteId);
 		securityAPI.logOutFromStudioUsingAPICall();
 	}
 
 	@Test(
-			dependsOnGroups = { "updateUserEnableUserAPI2" })
-	public void testUpdateUserEnableUserUsingUsernameUnauthorized() {
-		usersManagementAPI2.testUpdateUserEnableUserUsingUsernameUnauthorized(userName);
+			dependsOnGroups = { "getCurrentAuthenticatedUserSiteRolesAPI2" })
+	public void testGetUserSitesUnauthorized() {
+		userManagementAPI2.testGetCurrentAuthenticatedUserSiteRolesUnauthorized(siteId);
 	}
 }

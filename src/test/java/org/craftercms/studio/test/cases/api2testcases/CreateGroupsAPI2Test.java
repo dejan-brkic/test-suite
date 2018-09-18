@@ -39,13 +39,16 @@ public class CreateGroupsAPI2Test {
 	private int randomID;
 	private String groupName;
 	private String groupId;
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public CreateGroupsAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager);
+		groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		
 		
 		randomID = (int)(((Math.random() * 2)*5) + Math.random());
@@ -64,12 +67,12 @@ public class CreateGroupsAPI2Test {
 		groupsManagementAPI2.testCreateGroupsWithGivenID(String.valueOf(randomID),groupName);
 		groupId = groupsManagementAPI2.getGroupIDForGroupName(groupName);
 	}
-
+	
 	@Test(
 			priority = 2,
 			groups = { "createGroups" })
-	public void testCreateGroupsNotFound() {
-		groupsManagementAPI2.testCreateGroupsNotFound();
+	public void testCreateGroupsResourceAlreadyExists() {
+		groupsManagementAPI2.testCreateGroupsResourceAlreadyExists(String.valueOf(randomID),groupName);
 	}
 
 	@Test(

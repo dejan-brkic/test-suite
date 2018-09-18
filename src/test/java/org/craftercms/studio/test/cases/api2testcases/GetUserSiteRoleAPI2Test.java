@@ -39,13 +39,16 @@ public class GetUserSiteRoleAPI2Test {
 	private SiteManagementAPI siteManagementAPI;
 	private String userId;
 	private String siteId="api2testsite";
+	private String offSet = "0";
+	private String limit = "1000";
+	private String sort = "asc";
 
 	public GetUserSiteRoleAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager);
+		usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager,offSet,limit,sort);
 		siteManagementAPI = new SiteManagementAPI(api, apiConnectionManager);
 		userId = "1";
 	}
@@ -66,8 +69,15 @@ public class GetUserSiteRoleAPI2Test {
 	@Test(
 			priority = 2,
 			groups = { "getUserSiteRoleAPI2" })
-	public void testGetUserSiteRoleNotFound() {
-		usersManagementAPI2.testGetUserSiteRoleNotFound(userId,siteId);
+	public void testGetUserSiteRoleResourceNotFound() {
+		usersManagementAPI2.testGetUserSiteRoleResourceNotFound("0",siteId);
+	}
+	
+	@Test(
+			priority = 3,
+			groups = { "getUserSiteRoleAPI2" })
+	public void testGetUserSiteRoleBadRequest() {
+		usersManagementAPI2.testGetUserSiteRoleBadRequest(userId+"nonvalid", siteId);
 	}
 
 
