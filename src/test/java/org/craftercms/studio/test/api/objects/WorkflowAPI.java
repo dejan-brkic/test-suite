@@ -20,6 +20,7 @@ package org.craftercms.studio.test.api.objects;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -44,7 +45,7 @@ public class WorkflowAPI extends BaseAPI{
 		.urlParam("site", siteId)
 		.urlParam("user","admin")
 		.json(json)
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 	
@@ -55,7 +56,7 @@ public class WorkflowAPI extends BaseAPI{
 		.urlParam("sort","eventDate")
 		.urlParam("ascending","true")
 		.urlParam("includeInProgress","true")
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 	
@@ -63,7 +64,7 @@ public class WorkflowAPI extends BaseAPI{
 		api.get("/studio/api/1/services/api/1/workflow/get-workflow-affected-paths.json")
 		.urlParam("site", siteId)
 		.urlParam("path","/site/website/index.xml")
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 	
@@ -78,7 +79,7 @@ public class WorkflowAPI extends BaseAPI{
 		.urlParam("site", siteId)
 		.urlParam("user", "admin")
 		.json(json)
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 	
@@ -96,7 +97,7 @@ public class WorkflowAPI extends BaseAPI{
 		api.post("/studio/api/1/services/api/1/workflow/go-live.json")
 		.urlParam("site", siteId)
 		.json(json)
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 	
@@ -113,7 +114,7 @@ public class WorkflowAPI extends BaseAPI{
 		.urlParam("site", siteId)
 		.urlParam("user", "admin")
 		.json(json)
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 }

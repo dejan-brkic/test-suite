@@ -17,6 +17,7 @@
 
 package org.craftercms.studio.test.api.objects;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -32,7 +33,7 @@ public class PreviewAPI extends BaseAPI {
 
 	public void testPreviewSync(String siteId) {
 		api.post("/studio/api/1/services/api/1/preview/sync-site.json").param("site", siteId).execute()
-				.status(200).debug();
+				.status(HttpStatus.SC_OK).debug();
 	}
 
 }

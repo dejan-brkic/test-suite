@@ -60,9 +60,11 @@
 		<file>src/test/resources/testng_StudioPreviewTools.xml</file>
 		<file>src/test/resources/testng_StudioSiteConfig.xml</file>
 		<file>src/test/resources/testng_StudioSites.xml</file>
+		<file>src/test/resources/testng_StudioRemoteReposScenarios.xml</file>
 		<file>src/test/resources/testng_StudioUsers.xml</file>
 		<file>src/test/resources/testng_StudioLoginLogout.xml</file>
 		<file>src/test/resources/testng_StudioAPI.xml</file>
+		<file>src/test/resources/testng_StudioAPI2.xml</file>
 	</properties>
 	<dependencies>
 		<dependency>

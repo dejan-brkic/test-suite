@@ -22,6 +22,7 @@ import static org.hamcrest.Matchers.is;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.ConstantsPropertiesManager;
 import org.craftercms.studio.test.utils.FilesLocations;
@@ -50,35 +51,35 @@ public class SecurityAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", userName);
 		json.put("password", password);
-		api.post("/studio/api/1/services/api/1/security/login.json").json(json).execute().status(200);
+		api.post("/studio/api/1/services/api/1/security/login.json").json(json).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testLogInUnauthorized() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", userName + "nonvalid");
 		json.put("password", password + "nonvalid");
-		api.post("/studio/api/1/services/api/1/security/login.json").json(json).execute().status(401);
+		api.post("/studio/api/1/services/api/1/security/login.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED);
 
 	}
 
 	public void logOutFromStudioUsingAPICall() {
-		api.post("/studio/api/1/services/api/1/security/logout.json").execute().status(200);
+		api.post("/studio/api/1/services/api/1/security/logout.json").execute().status(HttpStatus.SC_OK);
 	}
 
 	public void loginWithOtherUser(String username, String password) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", username);
 		json.put("password", password);
-		api.post("/studio/api/1/services/api/1/security/login.json").json(json).execute().status(200);
+		api.post("/studio/api/1/services/api/1/security/login.json").json(json).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testValidateSession() {
-		api.get("/studio/api/1/services/api/1/security/validate-session.json").execute().status(200)
+		api.get("/studio/api/1/services/api/1/security/validate-session.json").execute().status(HttpStatus.SC_OK)
 				.json("$.message", is("OK")).debug();
 	}
 
 	public void testValidateSessionUnauthorized() {
-		api.get("/studio/api/1/services/api/1/security/validate-session.json").execute().status(401).debug();
+		api.get("/studio/api/1/services/api/1/security/validate-session.json").execute().status(HttpStatus.SC_UNAUTHORIZED).debug();
 	}
 
 	public void testGetUserPermissions(String siteId) {
@@ -87,12 +88,12 @@ public class SecurityAPI extends BaseAPI {
 		json.put("user", userName);
 
 		api.get("/studio/api/1/services/api/1/security/get-user-permissions.json").json(json).execute()
-				.status(200).debug();
+				.status(HttpStatus.SC_OK).debug();
 	}
 
 	public void testGetUserRoles(String siteId) {
 		api.get("/studio/api/1/services/api/1/security/get-user-roles.json").urlParam("site_id", siteId)
-		.urlParam("user", userName).execute().status(200).debug();
+		.urlParam("user", userName).execute().status(HttpStatus.SC_OK).debug();
 	}
 
 	public String getUserName() {

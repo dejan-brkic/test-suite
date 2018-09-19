@@ -18,6 +18,8 @@ package org.craftercms.studio.test.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.apache.commons.lang3.CharSet;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -42,6 +44,9 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -155,8 +160,10 @@ public class JsonRequest {
 			} else {
 				request = new HttpGet();
 			}
-			
-			request.setURI(buildURI());
+
+			URI uri = buildURI();
+
+			request.setURI(uri);
 			CloseableHttpResponse response = httpClient.execute(request);
 			return new JsonResponse(response, this.cookieJar);
 		} catch (Exception ex) {
@@ -227,6 +234,7 @@ public class JsonRequest {
 
 	protected URI buildURI() throws URISyntaxException {
 		URIBuilder builder = new URIBuilder();
+
 		builder.setHost(this.host);
 		builder.setPath(this.path);
 		builder.setPort(this.port);
@@ -234,6 +242,7 @@ public class JsonRequest {
 		for (String key : urlParams.keySet()) {
 			builder.addParameter(key, urlParams.get(key));
 		}
+		
 		return builder.build();
 	}
 

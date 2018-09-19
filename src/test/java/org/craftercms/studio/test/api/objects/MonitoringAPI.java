@@ -18,6 +18,7 @@
 package org.craftercms.studio.test.api.objects;
 
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -33,15 +34,15 @@ public class MonitoringAPI extends BaseAPI {
 	}
 
  	public void testVersion(){
-   		api.get("studio/api/1/services/api/1/monitor/version.json").execute().status(200).debug();
+   		api.get("studio/api/1/services/api/1/monitor/version.json").execute().status(HttpStatus.SC_OK).debug();
  	}
  	
  	public void testStatus(){
-   		api.get("studio/api/1/services/api/1/monitor/status.json").execute().status(200).debug();
+   		api.get("studio/api/1/services/api/1/monitor/status.json").execute().status(HttpStatus.SC_OK).debug();
  	}
 
  	public void testMemory(){
-   		api.get("studio/api/1/services/api/1/monitor/memory.json").execute().status(200).debug();
+   		api.get("studio/api/1/services/api/1/monitor/memory.json").execute().status(HttpStatus.SC_OK).debug();
  	}
  	
 }
