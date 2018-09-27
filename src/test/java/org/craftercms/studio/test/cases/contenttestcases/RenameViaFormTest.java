@@ -66,16 +66,24 @@ public class RenameViaFormTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.contenturl");
 		recentActivityContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.contentname");
-		fooContentXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.foocontent");
-		editURLButton = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("frame1.editurlbutton");
+		fooContentXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.foocontent");
+		editURLButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame1.editurlbutton");
 		warningTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame1.warning.warningtitle");
 		warningOkButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame1.warning.okbutton");
-		filenameInput = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("frame1.filenameinput");
+		filenameInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame1.filenameinput");
 		randomURL = "foo";
 		randomInternalName = "foo";
-		configurationSetUp = "<content-as-folder>false</content-as-folder>";
+		configurationSetUp = "<content-type name=\"/page/entry\" is-wcm-type=\"true\">"
+				+ "<label>Entry</label>" + "<form>/page/entry</form>" + "<form-path>simple</form-path>"
+				+ "<model-instance-path>NOT-USED-BY-SIMPLE-FORM-ENGINE</model-instance-path>"
+				+ "<file-extension>xml</file-extension>" + "<content-as-folder>false</content-as-folder>"
+				+ "<previewable>true</previewable>" + "<noThumbnail>true</noThumbnail>"
+				+ "<image-thumbnail>image.jpg</image-thumbnail>" + "</content-type>";
 
 	}
 
@@ -110,7 +118,8 @@ public class RenameViaFormTest extends StudioBaseTest {
 
 			// save and close
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
@@ -145,7 +154,8 @@ public class RenameViaFormTest extends StudioBaseTest {
 		// click on dashboard
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink)
+				.click();
 
 		// check items on My Recent Activity widget
 		this.driverManager.waitForAnimation();
@@ -153,13 +163,13 @@ public class RenameViaFormTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
-						.getText().contains("foo"));
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName).getText()
+				.contains("foo"));
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
-						.getText().contains("/foo.xml"));
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL).getText()
+				.contains("/foo.xml"));
 	}
 
 	public void step3() {
@@ -179,7 +189,8 @@ public class RenameViaFormTest extends StudioBaseTest {
 		// click on dashboard
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink)
+				.click();
 
 		// check items on My Recent Activity widget
 		this.driverManager.waitForAnimation();
@@ -187,16 +198,17 @@ public class RenameViaFormTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
-						.getText().contains("foo"));
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName).getText()
+				.contains("foo"));
 		this.driverManager.waitForAnimation();
-		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
-						.getText().contains("/bar.xml"));
+		Assert.assertTrue(this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL).getText()
+				.contains("/bar.xml"));
 	}
 
-	@Test(priority = 0)
+	@Test(
+			priority = 0)
 	public void renameViaFormPageXMLMoveNameTest() {
 		this.setup();
 
@@ -216,8 +228,9 @@ public class RenameViaFormTest extends StudioBaseTest {
 			// check that the edit form was opened
 			// step 4
 			this.driverManager.waitForAnimation();
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
-					.getText().equalsIgnoreCase("foo"));
+			Assert.assertTrue(
+					this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
+							.getText().equalsIgnoreCase("foo"));
 
 			// step 5
 			this.driverManager.waitForAnimation();
@@ -225,8 +238,9 @@ public class RenameViaFormTest extends StudioBaseTest {
 
 			this.driverManager.waitForAnimation();
 			this.driverManager.getDriver().switchTo().activeElement();
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
-					.getText().equalsIgnoreCase("Warning"));
+			Assert.assertTrue(
+					this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
+							.getText().equalsIgnoreCase("Warning"));
 
 			// step 6
 			this.driverManager.waitForAnimation();
@@ -239,7 +253,8 @@ public class RenameViaFormTest extends StudioBaseTest {
 			this.driverManager.waitForAnimation();
 
 			// save and close
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 
 		});
@@ -247,7 +262,8 @@ public class RenameViaFormTest extends StudioBaseTest {
 		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("/studio/site-dashboard"));
 
 		// Step 9
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
+				.click();
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilSidebarOpens();
 		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/bar.html"));

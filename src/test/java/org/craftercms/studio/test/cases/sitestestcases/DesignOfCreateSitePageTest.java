@@ -37,8 +37,6 @@ public class DesignOfCreateSitePageTest extends StudioBaseTest {
 	private String crafterLogoXpath;
 	private String sitesTitleXpath;
 	private String createSiteButtonXpath;
-	private String usersOptionId;
-	private String sitesOptionId;
 	private String helpOptionId;
 	private String accountDropdownXpath;
 	private String sitesPerPageLabelXpath;
@@ -55,10 +53,6 @@ public class DesignOfCreateSitePageTest extends StudioBaseTest {
 				.getProperty("sites.pagetitle");
 		createSiteButtonXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsitebutton");
-		usersOptionId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sites.homeusers");
-		sitesOptionId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sites.homesites");
 		helpOptionId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.sites.homehelp");
 		accountDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.accountdropdown");
@@ -94,16 +88,6 @@ public class DesignOfCreateSitePageTest extends StudioBaseTest {
 				createSiteButtonXpath);
 
 		Assert.assertTrue(createButton.isDisplayed(),"Error:  Create site button is not displayed");
-
-		// Assert admin tools is present.
-		WebElement homeUsers = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersOptionId);
-
-		Assert.assertTrue(homeUsers.isDisplayed(), "Error:  admin tools is not displayed");
-
-		// Assert sites option is present.
-		WebElement sitesOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesOptionId);
-
-		Assert.assertTrue(sitesOption.isDisplayed(),"Error:  Sites option is not displayed");
 
 		// Assert Help option is present.
 		WebElement helpOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", helpOptionId);

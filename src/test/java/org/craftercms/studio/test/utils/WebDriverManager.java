@@ -97,6 +97,8 @@ public class WebDriverManager {
 
 	private String newRepoNotificationDialog;
 
+	private String userAddedNotificationModal;
+
 	@SuppressWarnings("deprecation")
 	public void openConnection() {
 
@@ -259,41 +261,43 @@ public class WebDriverManager {
 	public void initializeLocators() {
 		this.sideBarDropDownWrapper = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sidebar.dropdownwrapper");
-		notificationModal= uiElementsPropertiesManager.getSharedUIElementsLocators()
+		notificationModal = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.notificationmodal");
-		createSiteModal=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		userAddedNotificationModal = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.usersaddednotification");
+		createSiteModal = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.createsitemodal");
-		goLiveWidget=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		goLiveWidget = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.golive.container");
-		scheduledItemWidget=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		scheduledItemWidget = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scheduleditems.container");
-		recentlyMadeLiveWidget=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		recentlyMadeLiveWidget = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.recentlymadelive.container");
-		myRecentActivityWidget=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		myRecentActivityWidget = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.container");
-		myRecentActivityLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		myRecentActivityLoading = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.loadinganimation");
-		recentlyMadeLiveLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		recentlyMadeLiveLoading = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.recentlymadelive.loadinganimation");
-		approvedScheduledItemLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		approvedScheduledItemLoading = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scheduleditems.loadinganimation");
-		goLiveLoading=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		goLiveLoading = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.golive.loadinganimation");
-		homeContentsChilds=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		homeContentsChilds = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.homecontent.childsdiv");
-		deleteSiteModal=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		deleteSiteModal = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.modalcontainer");
-		toolTipModal=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		toolTipModal = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.tooltipmodal");
-		toolTipContentType=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		toolTipContentType = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.tooltipmodal.contenttype");
-		toolTipContentName=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		toolTipContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.tooltipmodal.contentname");
-		toolTipContentStatus=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		toolTipContentStatus = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.tooltipmodal.contentstatus");
-		tooTipContentEditeBy=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		tooTipContentEditeBy = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.tooltipmodal.contenteditedby");
-		newRepoNotificationDialog=uiElementsPropertiesManager.getSharedUIElementsLocators()
+		newRepoNotificationDialog = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("remoterepositories.newrepo.push.notificationdialog");
 	}
 
@@ -670,6 +674,19 @@ public class WebDriverManager {
 		}
 	}
 
+	public boolean isLoginDisplayed() {
+		boolean isLoginDisplayed = false;
+		WebElement body = this.driverWaitUntilElementIsPresentAndDisplayed("tagname", "body");
+
+		logger.debug("Checking if login dialog is closed");
+
+		if (body.getAttribute("class").contains("modal-open")) {
+			isLoginDisplayed = true;
+		}
+
+		return isLoginDisplayed;
+	}
+
 	public void waitUntilSidebarOpens() {
 		logger.debug("Waiting for sidebar to open");
 		this.waitUntilAttributeContains("xpath", sideBarDropDownWrapper, "class", "site-dropdown-open");
@@ -683,6 +700,12 @@ public class WebDriverManager {
 	public void waitUntilModalCloses() {
 		logger.debug("Waiting for notification modal to close");
 		WebElement element = this.waitUntilElementIsDisplayed("xpath", notificationModal);
+		waitUntilElementIsRemoved(element);
+	}
+	
+	public void waitUntilAddUserToGroupNotificationCloses() {
+		logger.debug("Waiting for notification modal to close");
+		WebElement element = this.waitUntilElementIsDisplayed("xpath", userAddedNotificationModal);
 		waitUntilElementIsRemoved(element);
 	}
 
@@ -846,8 +869,7 @@ public class WebDriverManager {
 		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
 
 		if (!(toolTip.getAttribute("style").contains("visibility: hidden;"))) {
-			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath",
-					toolTipContentName);
+			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath", toolTipContentName);
 			contentNameInfo = contentTypeInfoLabel.getText();
 		}
 
@@ -863,8 +885,7 @@ public class WebDriverManager {
 		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
 
 		if (!(toolTip.getAttribute("style").contains("visibility: hidden;"))) {
-			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath",
-					toolTipContentStatus);
+			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath", toolTipContentStatus);
 			contentStatusInfo = contentTypeInfoLabel.getText();
 		}
 
@@ -880,8 +901,7 @@ public class WebDriverManager {
 		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
 
 		if (!(toolTip.getAttribute("style").contains("visibility: hidden;"))) {
-			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath",
-					tooTipContentEditeBy);
+			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath", tooTipContentEditeBy);
 			contentEditedByInfo = contentTypeInfoLabel.getText();
 		}
 
@@ -1101,8 +1121,10 @@ public class WebDriverManager {
 	public int goToFolderAndExecuteInitSiteScriptThroughCommandLine(String siteId) {
 		String script;
 		String shell;
-		String folder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
-				+ File.separator + "crafter-delivery" + File.separator + "bin";
+		
+		 String folder = System.getProperty("user.dir") + File.separator + ".." +
+		 File.separator + ".."
+		 + File.separator + "crafter-delivery" + File.separator + "bin";
 
 		if (executionEnvironment.equalsIgnoreCase("unix")) {
 			shell = "/bin/bash";
@@ -1820,8 +1842,7 @@ public class WebDriverManager {
 
 	public void waitUntilNotificationModalIsNotPresent() {
 		logger.debug("Waiting for notification modal to close");
-		WebElement notification = this.waitUntilElementIsDisplayed("xpath",
-				newRepoNotificationDialog);
+		WebElement notification = this.waitUntilElementIsDisplayed("xpath", newRepoNotificationDialog);
 		this.waitUntilElementIsRemoved(notification);
 	}
 
@@ -1831,6 +1852,16 @@ public class WebDriverManager {
 
 	public void setUIElementsPropertiesManager(UIElementsPropertiesManager uiElementsPropertiesManager) {
 		this.uiElementsPropertiesManager = uiElementsPropertiesManager;
+	}
+
+	public void setContentTypeConfiguration(String newConfigurationText) {
+		 String cleanScript = "var editor = ace.edit('editorPreEl');"
+				 +"editor.setValue('cleaning');";	 
+		 ((JavascriptExecutor) driver).executeScript(cleanScript);
+		 
+		 String script = "var editor = ace.edit('editorPreEl');"
+				 +"editor.setValue('"+newConfigurationText+"');";	 
+		 ((JavascriptExecutor) driver).executeScript(script);
 	}
 
 }

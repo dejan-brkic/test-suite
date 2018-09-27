@@ -79,28 +79,6 @@
 				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.ShowAccountManagementTest" />
 		</classes>
 	</test>
-	
-	<test name="Show Users Page Test">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.ShowUsersPageTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-		</classes>
-	</test>
-	<test
-		name="Verify that the application shows the sites page when user clicks on sites contextual navigation bar option">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.ShowSitesPageTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-		</classes>
-	</test>
 	<test
 		name="Verify that application shows the Publish Status dialog when users click on Publishing Status">
 		<classes>

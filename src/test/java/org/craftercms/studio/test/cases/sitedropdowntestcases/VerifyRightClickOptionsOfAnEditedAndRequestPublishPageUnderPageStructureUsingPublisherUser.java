@@ -36,7 +36,7 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-//Test Case Studio- Site Dropdown ID:24
+// Test Case Studio- Site Dropdown ID:24
 public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingPublisherUser
 		extends StudioBaseTest {
 
@@ -55,16 +55,13 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
-	private String adminConsole;
 	private String siteconfigGroupsOption;
-	private String addTouserIframe;
 	private String editAuthorGroupOption;
 	private String editPublisherGroupOption;
 	private String groupsAddNewMembersCheckbox;
 	private String groupsAddNewMembersInput;
 	private String groupsAddNewMembersAutocompleteOption1;
 	private String groupsAddNewMembersButton;
-	private String navigationSitebarNameId;
 	private String userOptions;
 	private String userOptionsLogout;
 	private String rightclickEditOption;
@@ -146,16 +143,14 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
+		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
-		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.adminconsole");
 		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.groups_option");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
-		addTouserIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.adduser.iframe");
 		editAuthorGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.edit_author_group_option");
 		editPublisherGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -168,9 +163,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("groups.add_new_members_autocomplete_option1");
 		groupsAddNewMembersButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.add_new_members_button");
-		navigationSitebarNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.navigation_sitebar_name_id");
-		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("dashboard.user_options");
+		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options_logout");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -185,7 +179,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.waitUntilFolderOpens("xpath", pagesTree);
 		this.driverManager.waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homePageEditedName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				homePageEditedName);
 		dashboardPage.getDriverManager().contextClick("xpath", homePageEditedName, false);
 
 	}
@@ -195,7 +190,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.waitUntilSidebarOpens();
 		this.driverManager.waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menStylesEditedPageName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				menStylesEditedPageName);
 		dashboardPage.getDriverManager().contextClick("xpath", menStylesEditedPageName, false);
 		this.driverManager.waitForAnimation();
 	}
@@ -212,15 +208,15 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	}
 
 	public void verifyEditOptionIsPresent(String section) {
-		WebElement rightclickEditOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				rightclickEditOption);
+		WebElement rightclickEditOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickEditOption);
 		Assert.assertTrue(rightclickEditOptionElement.isDisplayed(),
 				"ERROR: Right click Edit Option is not present on right click of " + section);
 	}
 
 	public void verifyViewOptionIsPresent(String section) {
-		WebElement rightclickViewOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				rightclickViewOption);
+		WebElement rightclickViewOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickViewOption);
 		Assert.assertTrue(rightclickViewOptionElement.isDisplayed(),
 				"ERROR: Right click View Option is not present on right click of " + section);
 	}
@@ -247,15 +243,15 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	}
 
 	public void verifyCutOptionIsPresent(String section) {
-		WebElement rightclickCutOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				rightclickCutOption);
+		WebElement rightclickCutOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickCutOption);
 		Assert.assertTrue(rightclickCutOptionElement.isDisplayed(),
 				"ERROR: Right click Cut Option is not present on right click of " + section);
 	}
 
 	public void verifyCopyOptionIsPresent(String section) {
-		WebElement rightclickCopyOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				rightclickCopyOption);
+		WebElement rightclickCopyOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickCopyOption);
 		Assert.assertTrue(rightclickCopyOptionElement.isDisplayed(),
 				"ERROR: Right click Copy Option is not present on right click of " + section);
 	}
@@ -333,7 +329,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitUntilSidebarOpens();
-		},"Pages");
+		}, "Pages");
 	}
 
 	public void step6() {
@@ -364,7 +360,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				this.driverManager.waitForAnimation();
 				this.driverManager.waitUntilSidebarOpens();
 				Assert.assertTrue(
-						element.getText().equals(rightClickOptionsListInCategoryLandingPage.get(currentIndex)),
+						element.getText()
+								.equals(rightClickOptionsListInCategoryLandingPage.get(currentIndex)),
 						"ERROR: Link Option: " + element.getText()
 								+ " is not in the correct order in the selected category landing page, check that the correct options are listed");
 				currentIndex++;
@@ -386,16 +383,18 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		},"Pages");
+		}, "Pages");
 	}
 
 	public void expandTheArticles2017folder() {
 		// Step 8 Click on the + of folder 2017
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				articlesFolder2017);
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017).click();
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017).click();
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder2017);
 	}
 
@@ -430,7 +429,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				this.driverManager.waitForAnimation();
 				this.driverManager.waitUntilSidebarOpens();
 				Assert.assertTrue(
-						element.getText().equals(rightClickOptionsListInMenStylesForWinterPage.get(currentIndex)),
+						element.getText()
+								.equals(rightClickOptionsListInMenStylesForWinterPage.get(currentIndex)),
 						"ERROR: Link Option: " + element.getText()
 								+ " is not in the correct order in the Men Styles For Winter page, check that the correct options are listed");
 				currentIndex++;
@@ -452,7 +452,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
-		},"Pages");
+		}, "Pages");
 
 	}
 
@@ -514,7 +514,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		});
 
 		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("Xpath", menStylesForWinterEditedPageName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("Xpath",
+				menStylesForWinterEditedPageName);
 
 	}
 
@@ -525,7 +526,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		// Verify if the home tree is already expanded
 		if (!(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homePageEditedName)
 				.getAttribute("class").contains("open"))) {
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homePageEditedExpand)
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homePageEditedExpand)
 					.click();
 		}
 
@@ -554,7 +556,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		driverManager.getDriver().switchTo().defaultContent();
 		this.driverManager.waitForAnimation();
-		
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
@@ -577,39 +578,25 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.isDisplayed()) {
 			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				this.driverManager
+						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 						.click();
-		}else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		} else
+			throw new NoSuchElementException(
+					"Site creation process is taking too long time and the element was not found");
 	}
 
-	
 	public void addUserToRespectiveGroup(String userGroup, String userToAdd) {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				siteconfigGroupsOption);
 
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				adminConsole);
-
-		siteConfigButton.click();
-
-		this.driverManager.waitForAnimation();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
 				.click();
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
 		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -622,73 +609,53 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 				.click();
 
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
-		this.driverManager.getDriver().switchTo().activeElement();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
-
 				.click();
 
-		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
 				.sendKeys(userToAdd);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
 				groupsAddNewMembersAutocompleteOption1);
-
 		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
-						groupsAddNewMembersAutocompleteOption1)
-
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
 				.click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
 				groupsAddNewMembersButton);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				groupsAddNewMembersButton).click();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
+		this.driverManager.waitForAnimation();
+		driverManager.getDriver().switchTo().defaultContent();
+		this.driverManager.getDriver().switchTo().activeElement();
+
+		this.driverManager.waitUntilAddUserModalCloses();
+		this.driverManager.waitForAnimation();
+
+		createSitePage.clickOnSitesOption();
 	}
 
 	private void logoutFromCrafter() {
 		logger.info("logout from Crafter");
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				userOptionsLogout);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout)
+				.click();
 
 	}
-	public void expandPagesTree(){
+
+	public void expandPagesTree() {
 		// Expand the site bar
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
 
@@ -696,22 +663,28 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// Click on Pages tree
 		this.driverManager.clickIfFolderIsNotExpanded(pagesTreeLink);
-		
+
 		this.driverManager.waitUntilFolderOpens("xpath", pagesTreeLink);
 	}
 
-
-	@Test(priority = 0)
+	@Test(
+			priority = 0)
 	public void verifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingPublisherUser() {
 
 		this.login(userName, password);
-		
+
 		logger.info("Add New User Author");
 		this.addNewUser("author");
-		
+
 		logger.info("Add New User Publisher");
 		this.addNewUser("publisher");
-		
+
+		logger.info("Add previous created author user to Author Group");
+		this.addUserToRespectiveGroup(editAuthorGroupOption, "author");
+
+		logger.info("Add previous created publisher user to Publisher Group");
+		this.addUserToRespectiveGroup(editPublisherGroupOption, "publisher");
+
 		logger.info("Go to Site Preview");
 
 		this.goToSiteContentPagesStructure();
@@ -719,12 +692,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandPagesTree);
 
 		this.driverManager.waitUntilSidebarOpens();
-
-		logger.info("Add previous created author user to Author Group");
-		this.addUserToRespectiveGroup(editAuthorGroupOption, "author");
-		
-		logger.info("Add previous created publisher user to Publisher Group");
-		this.addUserToRespectiveGroup(editPublisherGroupOption, "publisher");
 
 		// logout from Crafter
 		this.logoutFromCrafter();
@@ -735,9 +702,9 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
-		
+
 		this.driverManager.waitForAnimation();
-		
+
 		// Expand the site bar and Pages Tree
 		this.expandPagesTree();
 
@@ -766,7 +733,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder)
+				.click();
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder);
 
 		logger.info("Click on the + of folder 2017");
@@ -774,7 +742,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		logger.info(
 				"Click on the + of folder 1 and Edit then article page Men Styles For Winter under articles/2017/1");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder1).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder1)
+				.click();
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder1);
 
 		logger.info("Edit the Men Styles for Winter Pageand Save");
@@ -783,7 +752,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		logger.info("Request Publish for the Men Styles For Winter under articles/2017/1 folders");
 		rightClickArticlesFolderMenStylesForWinter();
 		dashboardPage.requestPublish();
-	
+
 		// logout from Crafter
 		this.logoutFromCrafter();
 
@@ -792,7 +761,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		loginPage.loginToCrafter("publisher", "publisher");
 
 		driverManager.waitUntilLoginCloses();
-		
+
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
@@ -805,7 +774,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.step4();
 
 		this.step6();
-		
+
 		this.step10();
 	}
 }

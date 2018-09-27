@@ -37,6 +37,7 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 	private String password;
 	private String createSiteErrorNotificationWindow;
 	private String menuSitesButton;
+	private String siteDropdownElementXPath;
 
 
 	@BeforeMethod
@@ -47,13 +48,15 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 				.getProperty("general.sites.createsite.errowindow");
 		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("preview.sites.menu.button");
+		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("complexscenarios.general.sitedropdown");
 
 	}
 
 	public void deleteSite() {
 
 		this.driverManager.getDriver().switchTo().defaultContent();
-
+	
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton).click();
 
 		// Click on Delete icon
@@ -99,5 +102,9 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 
 		// Verify No error messages after clicking on the Create button
 		Assert.assertFalse(driverManager.isElementPresentByXpath(createSiteErrorNotificationWindow));
+		
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
 	}
 }

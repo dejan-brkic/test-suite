@@ -142,7 +142,7 @@ public class UsersPerPageTest extends StudioBaseTest{
 		// Create user 3
 		driverManager.getDriver().navigate().refresh();
 		createUserRandom();
-		driverManager.getDriver().navigate().refresh();
+//		driverManager.getDriver().navigate().refresh();
 		
 		// filters
 		filters();	

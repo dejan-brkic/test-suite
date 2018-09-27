@@ -83,7 +83,12 @@ public class CopyPasteToFolderPageCopyToFolderTest extends StudioBaseTest {
 				.getProperty("general.foocontent");
 		randomURL = "foo";
 		randomInternalName = "foo";
-		configurationSetUp = "<content-as-folder>false</content-as-folder>";
+		configurationSetUp = "<content-type name=\"/page/entry\" is-wcm-type=\"true\">"
+				+ "<label>Entry</label>" + "<form>/page/entry</form>" + "<form-path>simple</form-path>"
+				+ "<model-instance-path>NOT-USED-BY-SIMPLE-FORM-ENGINE</model-instance-path>"
+				+ "<file-extension>xml</file-extension>" + "<content-as-folder>false</content-as-folder>"
+				+ "<previewable>true</previewable>" + "<noThumbnail>true</noThumbnail>"
+				+ "<image-thumbnail>image.jpg</image-thumbnail>" + "</content-type>";
 
 	}
 

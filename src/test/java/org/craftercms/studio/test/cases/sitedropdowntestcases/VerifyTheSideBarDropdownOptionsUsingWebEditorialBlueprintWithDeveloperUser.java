@@ -36,8 +36,9 @@ import org.openqa.selenium.WebElement;
  * @author Juan Camacho A
  *
  */
-//Test Case Studio- Site Dropdown ID:4
-public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDeveloperUser extends StudioBaseTest {
+// Test Case Studio- Site Dropdown ID:4
+public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDeveloperUser
+		extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -56,15 +57,12 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
-	private String adminConsole;
 	private String siteconfigGroupsOption;
-	private String addTouserIframe;
 	private String editDeveloperGroupOption;
 	private String groupsAddNewMembersCheckbox;
 	private String groupsAddNewMembersInput;
 	private String groupsAddNewMembersAutocompleteOption1;
 	private String groupsAddNewMembersButton;
-	private String navigationSitebarNameId;
 	private String userOptions;
 	private String userOptionsLogout;
 	private String siteConfigLink;
@@ -100,14 +98,12 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 				.getProperty("home.createsitebutton");
 		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.developerusernamecreated");
-		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
+		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
-		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.adminconsole");
 		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.groups_option");
-		addTouserIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.adduser.iframe");
 		editDeveloperGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.edit_developer_group_option");
 		groupsAddNewMembersCheckbox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -118,13 +114,12 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 				.getProperty("groups.add_new_members_autocomplete_option1");
 		groupsAddNewMembersButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.add_new_members_button");
-		navigationSitebarNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.navigation_sitebar_name_id");
-		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("dashboard.user_options");
+		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options_logout");
 		siteConfigLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
-		.getProperty("general.adminconsole");
+				.getProperty("general.adminconsole");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		siteDropdownItemsInExpectedOrder = new LinkedList<String>();
@@ -135,15 +130,18 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 		siteDropdownItemsInExpectedOrder.add(4, "Static Assets");
 		siteDropdownItemsInExpectedOrder.add(5, "Templates");
 		siteDropdownItemsInExpectedOrder.add(6, "Scripts");
-		siteDropdownItemsInExpectedOrder.add(7,"Site Config");
-
+		siteDropdownItemsInExpectedOrder.add(7, "Site Config");
+		siteDropdownItemsInExpectedOrder.add(8, "here");
+		siteDropdownItemsInExpectedOrder.add(9, "bug");
+		siteDropdownItemsInExpectedOrder.add(10, "Crafter News");
 	}
 
 	public void deleteSite() {
 
 		this.driverManager.getDriver().switchTo().defaultContent();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton)
+				.click();
 
 		// Click on Delete icon
 		homePage.clickOnDeleteSiteIcon();
@@ -161,9 +159,9 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				createSiteButton);
-		
+
 		this.driverManager.waitForAnimation();
-		
+
 		homePage.goToPreviewPage();
 
 		this.driverManager.waitForAnimation();
@@ -171,11 +169,12 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 				.isDisplayed()) {
 			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				this.driverManager
+						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 						.click();
-		}else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		} else
+			throw new NoSuchElementException(
+					"Site creation process is taking too long time and the element was not found");
 	}
 
 	public void login(String user, String loginpassword) {
@@ -211,7 +210,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 		driverManager.getDriver().switchTo().defaultContent();
 
 		this.driverManager.waitForAnimation();
-		
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				crafterLogo);
@@ -223,30 +222,15 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 
 	public void addUserToDeveloperGroup() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				siteconfigGroupsOption);
 
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				adminConsole);
-
-		siteConfigButton.click();
-
-		this.driverManager.waitForAnimation();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
 				.click();
-
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
 		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -259,74 +243,54 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 
 				.click();
 
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
-		this.driverManager.getDriver().switchTo().activeElement();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
-
 				.click();
 
-		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
 				.sendKeys("developer");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
 				groupsAddNewMembersAutocompleteOption1);
-
 		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
-						groupsAddNewMembersAutocompleteOption1)
-
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
 				.click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
 				groupsAddNewMembersButton);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				groupsAddNewMembersButton).click();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
+		this.driverManager.waitForAnimation();
+		driverManager.getDriver().switchTo().defaultContent();
+		this.driverManager.getDriver().switchTo().activeElement();
+
+		this.driverManager.waitUntilAddUserModalCloses();
+		this.driverManager.waitForAnimation();
+
+		createSitePage.clickOnSitesOption();
 
 	}
-	
+
 	private void logoutFromCrafter() {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				userOptionsLogout);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout)
+				.click();
 
 	}
 
-	@Test(priority = 0)
+	@Test(
+			priority = 0)
 	public void verifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithWithDeveloperUser() {
 
 		this.login(userName, password);
@@ -335,6 +299,10 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 
 		this.addNewUser();
 
+		logger.info("Add previous created user to Developer Group");
+
+		this.addUserToDeveloperGroup();
+
 		logger.info("Go to Site Preview");
 
 		this.goToSiteContentPagesStructure();
@@ -342,10 +310,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandPagesTree);
 
 		this.driverManager.waitUntilSidebarOpens();
-
-		logger.info("Add previous created user to Developer Group");
-
-		this.addUserToDeveloperGroup();
 
 		// logout from Crafter
 		logger.info("logout from Crafter");
@@ -356,7 +320,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 		loginPage.loginToCrafter("developer", "developer");
 
 		driverManager.waitUntilLoginCloses();
-		
+
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
 
@@ -364,42 +328,44 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 
 		// Expand the site bar
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-		
+
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-		
+
 		// Check all the section are present;
-		WebElement dashboardLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				dashboardLink);
+		WebElement dashboardLinkElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dashboardLink);
 		Assert.assertTrue(dashboardLinkElement.isDisplayed(), "ERROR: Dashboard link is not present");
 
-		WebElement pagesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				pagesTreeLink);
+		WebElement pagesTreeLinkElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", pagesTreeLink);
 		Assert.assertTrue(pagesTreeLinkElement.isDisplayed(), "ERROR: Pages Tree link is not present");
 
-		WebElement componentsTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				componentsTreeLink);
-		Assert.assertTrue(componentsTreeLinkElement.isDisplayed(), "ERROR: Components Tree link is not present");
+		WebElement componentsTreeLinkElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", componentsTreeLink);
+		Assert.assertTrue(componentsTreeLinkElement.isDisplayed(),
+				"ERROR: Components Tree link is not present");
 
-		WebElement taxonomyTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				taxonomyTreeLink);
+		WebElement taxonomyTreeLinkElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", taxonomyTreeLink);
 		Assert.assertTrue(taxonomyTreeLinkElement.isDisplayed(), "ERROR: Taxonomy Tree link is not present");
 
-		WebElement staticAssetsTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				staticAssetsTreeLink);
-		Assert.assertTrue(staticAssetsTreeLinkElement.isDisplayed(), "ERROR: Static Assets Tree link is not present");
+		WebElement staticAssetsTreeLinkElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", staticAssetsTreeLink);
+		Assert.assertTrue(staticAssetsTreeLinkElement.isDisplayed(),
+				"ERROR: Static Assets Tree link is not present");
 
-		WebElement templatesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				templatesTreeLink);
-		Assert.assertTrue(templatesTreeLinkElement.isDisplayed(), "ERROR: Templates Tree link is not present");
+		WebElement templatesTreeLinkElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", templatesTreeLink);
+		Assert.assertTrue(templatesTreeLinkElement.isDisplayed(),
+				"ERROR: Templates Tree link is not present");
 
-		WebElement scriptsTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				scriptsTreeLink);
+		WebElement scriptsTreeLinkElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", scriptsTreeLink);
 		Assert.assertTrue(scriptsTreeLinkElement.isDisplayed(), "ERROR: Scripts Tree link is not present");
-		
+
 		WebElement siteConfigLinkElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteConfigLink);
-		Assert.assertTrue(siteConfigLinkElement.isDisplayed(),
-				"ERROR: Site Config link is not present");
+		Assert.assertTrue(siteConfigLinkElement.isDisplayed(), "ERROR: Site Config link is not present");
 
 		List<WebElement> siteDropdownItems = this.driverManager.getDriver()
 				.findElements(By.xpath(siteDropdownItemsXpath));

@@ -116,7 +116,15 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
-		configurationSetUp = "<content-as-folder>false</content-as-folder>";
+		configurationSetUp = "<content-type name=\"/page/article\" is-wcm-type=\"true\">"
+				+ "<label>Page - Article</label>" + "<form>/page/article</form>"
+				+ "<form-path>simple</form-path>"
+				+ "<model-instance-path>NOT-USED-BY-SIMPLE-FORM-ENGINE</model-instance-path>"
+				+ "<file-extension>xml</file-extension>" + "<content-as-folder>false</content-as-folder>"
+				+ "<previewable>true</previewable>" + "<noThumbnail>false</noThumbnail>"
+				+ "<image-thumbnail>page-article.png</image-thumbnail>" + "<paths>"
+				+ "<includes><pattern>^/site/website/articles/.*</pattern></includes>" + "</paths>"
+				+ "</content-type>";
 	}
 
 	public void changeBodyToNotRequiredOnEntryContent() {
