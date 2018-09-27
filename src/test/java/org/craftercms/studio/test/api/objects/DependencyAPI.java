@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -37,7 +38,7 @@ public class DependencyAPI extends BaseAPI{
 		api.post("/studio/api/1/services/api/1/dependency/get-dependant.json")
 		.urlParam("site", siteId)
 		.urlParam("path", path)
-		.execute().status(200);
+		.execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testGetDependencies(String siteId) {
@@ -48,13 +49,13 @@ public class DependencyAPI extends BaseAPI{
 		json.add(jsonInner);
 		
 		api.post("/studio/api/1/services/api/1/dependency/get-dependencies.json")
-		.urlParam("site", siteId).json(json).execute().status(200);
+		.urlParam("site", siteId).json(json).execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testGetSimpleDependencies(String siteId) {
 		api.post("/studio/api/1/services/api/1/dependency/get-simple-dependencies.json")
 		.urlParam("site", siteId)
 		.urlParam("path", path)
-		.execute().status(200);
+		.execute().status(HttpStatus.SC_OK);
 	}
 }

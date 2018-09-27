@@ -17,6 +17,7 @@
 
 package org.craftercms.studio.test.api.objects;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -34,7 +35,7 @@ public class ActivityAPI extends BaseAPI{
 		.urlParam("num","10")
 		.urlParam("excludeLive","false")
 		.urlParam("filterType","all")
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 	
@@ -46,7 +47,7 @@ public class ActivityAPI extends BaseAPI{
 		.urlParam("path","/site/website/index.xml")
 		.urlParam("activity","UPDATED")
 		.urlParam("contentTypeClass","pages")
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 }

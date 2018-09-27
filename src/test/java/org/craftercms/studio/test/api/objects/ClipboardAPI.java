@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -35,26 +36,26 @@ public class ClipboardAPI extends BaseAPI {
 				
 		Map<String, Object> json = getItemJson();
 		
-		api.post("studio/api/1/services/api/1/clipboard/copy-item.json").urlParam("site",siteId).json(json).execute().status(200).debug();
+		api.post("studio/api/1/services/api/1/clipboard/copy-item.json").urlParam("site",siteId).json(json).execute().status(HttpStatus.SC_OK).debug();
 	}
 	
 	public void testCutItem(String siteId){
 		
 		Map<String, Object> json = getItemJson();
 		
-		api.post("studio/api/1/services/api/1/clipboard/cut-item.json").urlParam("site",siteId).json(json).execute().status(200).debug();
+		api.post("studio/api/1/services/api/1/clipboard/cut-item.json").urlParam("site",siteId).json(json).execute().status(HttpStatus.SC_OK).debug();
 	}
 	
 	public void testGetItem(String siteId){
 		
-		api.get("studio/api/1/services/api/1/clipboard/get-items.json").urlParam("site",siteId).execute().status(200).debug();
+		api.get("studio/api/1/services/api/1/clipboard/get-items.json").urlParam("site",siteId).execute().status(HttpStatus.SC_OK).debug();
 	}
 	
 	public void testPasteItem(String siteId){
 		
 		api.get("studio/api/1/services/api/1/clipboard/paste-item.json")
 		.urlParam("site",siteId).urlParam("parentPath","/site/website/folder2").
-		execute().status(200).debug();
+		execute().status(HttpStatus.SC_OK).debug();
 	}
 	
 	private Map<String, Object> getItemJson(){

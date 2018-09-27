@@ -15,25 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.test.api.objects;
+package org.craftercms.studio.test.api2.objects;
 
 import org.apache.http.HttpStatus;
+import org.craftercms.studio.test.api.objects.BaseAPI;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
 /**
- * @author chris lim
+ * @author luishernandez
  *
  */
-public class PreviewAPI extends BaseAPI {
+public class UIManagementAPI2 extends BaseAPI {
 
-	public PreviewAPI(JsonTester api, APIConnectionManager apiConnectionManager) {
+	public UIManagementAPI2(JsonTester api, APIConnectionManager apiConnectionManager) {
 		super(api, apiConnectionManager);
 	}
 
-	public void testPreviewSync(String siteId) {
-		api.post("/studio/api/1/services/api/1/preview/sync-site.json").param("site", siteId).execute()
-				.status(HttpStatus.SC_OK).debug();
+	public void testGetViewsGlobalMenuItemsForCurrentUser() {
+		api.get("/studio/api/2/ui/views/global_menu").execute().status(HttpStatus.SC_OK);
 	}
-
+	
+	public void testGetViewsGlobalMenuItemsForCurrentUserUnauthorized() {
+		api.get("/studio/api/2/ui/views/global_menu").execute().status(HttpStatus.SC_UNAUTHORIZED);
+	}
+	
 }

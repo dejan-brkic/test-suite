@@ -22,6 +22,7 @@ import static org.hamcrest.Matchers.is;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -46,7 +47,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("last_name", last_name);
 		json.put("email", email);
 
-		api.post("/studio/api/1/services/api/1/user/create.json").json(json).execute().status(201)
+		api.post("/studio/api/1/services/api/1/user/create.json").json(json).execute().status(HttpStatus.SC_CREATED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?user=" + newusername))
 				.json("$.message", is("OK")).debug();
@@ -61,7 +62,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("last_name", last_name);
 		json.put("email", email);
 
-		api.post("/studio/api/1/services/api/1/user/create.json").json(json).execute().status(409)
+		api.post("/studio/api/1/services/api/1/user/create.json").json(json).execute().status(HttpStatus.SC_CONFLICT)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?user=" + newusername))
 				.json("$.message", is("User already exists")).debug();
@@ -76,7 +77,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("last_namenonvalid", last_name);
 		json.put("emailnonvalid", email);
 
-		api.post("/studio/api/1/services/api/1/user/create.json").json(json).execute().status(400)
+		api.post("/studio/api/1/services/api/1/user/create.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.json("$.message", is("Invalid parameter(s): [username, password, firstname, lastname, email]"))
 				.debug();
 
@@ -90,7 +91,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("last_name", last_name);
 		json.put("email", email);
 
-		api.post("/studio/api/1/services/api/1/user/create.json").json(json).execute().status(401)
+		api.post("/studio/api/1/services/api/1/user/create.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?user=" + newusername))
 				.debug();
@@ -100,13 +101,13 @@ public class UserManagementAPI extends BaseAPI {
 	public void testDeleteUser() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername);
-		api.post("/studio/api/1/services/api/1/user/delete.json").json(json).execute().status(204);
+		api.post("/studio/api/1/services/api/1/user/delete.json").json(json).execute().status(HttpStatus.SC_NO_CONTENT);
 	}
 
 	public void testDeleteUserInvalidParameters() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("usernamenonvalid", newusername);
-		api.post("/studio/api/1/services/api/1/user/delete.json").json(json).execute().status(400).json("$.message",
+		api.post("/studio/api/1/services/api/1/user/delete.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST).json("$.message",
 				is("Invalid parameter: username"));
 
 	}
@@ -115,31 +116,31 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername + "nonvalid");
 
-		api.post("/studio/api/1/services/api/1/user/delete.json").json(json).execute().status(404).json("$.message",
+		api.post("/studio/api/1/services/api/1/user/delete.json").json(json).execute().status(HttpStatus.SC_NOT_FOUND).json("$.message",
 				is("User not found"));
 	}
 
 	public void testDeleteUserUnauthorized() {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername);
-		api.post("/studio/api/1/services/api/1/user/delete.json").json(json).execute().status(401);
+		api.post("/studio/api/1/services/api/1/user/delete.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 	
 	public void testGetUser() {
-		api.get("/studio/api/1/services/api/1/user/get.json").urlParam("username", newusername).execute().status(200)
+		api.get("/studio/api/1/services/api/1/user/get.json").urlParam("username", newusername).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername));
 	}
 	
 	public void testGetUserUnauthorized() {
-		api.get("/studio/api/1/services/api/1/user/get.json").urlParam("username", newusername).execute().status(401)
+		api.get("/studio/api/1/services/api/1/user/get.json").urlParam("username", newusername).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername));
 	}
 
 	public void testGetUserInvalidParameters() {
 		api.get("/studio/api/1/services/api/1/user/get.json").urlParam("usernamenonvalid", newusername).execute()
-				.status(400)
+				.status(HttpStatus.SC_BAD_REQUEST)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("Invalid parameter: username"));
@@ -147,23 +148,23 @@ public class UserManagementAPI extends BaseAPI {
 
 	public void testGetUserUserNotFound() {
 		api.get("/studio/api/1/services/api/1/user/get.json").urlParam("username", "notfound").execute()
-				.status(404);
+				.status(HttpStatus.SC_NOT_FOUND);
 	}
 
 	public void testGetUsers() {
 		api.get("/studio/api/1/services/api/1/user/get-all.json").urlParam("start", "0").urlParam("number", "25")
-				.execute().status(200).header("Location",
+				.execute().status(HttpStatus.SC_OK).header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get-all.json?start=0&number=25"));
 	}
 
 	public void testGetUsersUnauthorized() {
 		api.get("/studio/api/1/services/api/1/user/get-all.json").urlParam("start", "0").urlParam("number", "25")
-				.execute().status(401).header("Location",
+				.execute().status(HttpStatus.SC_UNAUTHORIZED).header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get-all.json?start=0&number=25"));
 	}
 	
 	public void testGetUsersPerSite(String siteId) {
-		api.get("/studio/api/1/services/api/1/user/get-per-site.json").urlParam("site_id", siteId).execute().status(200)
+		api.get("/studio/api/1/services/api/1/user/get-per-site.json").urlParam("site_id", siteId).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get-per-site.json?site_id=" + siteId
 								+ "&start=0&number=25"));
@@ -171,7 +172,7 @@ public class UserManagementAPI extends BaseAPI {
 	}
 	
 	public void testGetUsersPerSiteInvalidParameters() {
-		api.get("/studio/api/1/services/api/1/user/get-per-site.json").urlParam("site_idinvalid", "").execute().status(400)
+		api.get("/studio/api/1/services/api/1/user/get-per-site.json").urlParam("site_idinvalid", "").execute().status(HttpStatus.SC_BAD_REQUEST)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get-per-site.json?site_id=&start=0&number=25"));
 
@@ -179,7 +180,7 @@ public class UserManagementAPI extends BaseAPI {
 	
 	public void testGetUsersPerSiteNotFound() {
 	
-		api.get("/studio/api/1/services/api/1/user/get-per-site.json").urlParam("site_id", "invalid").execute().status(404)
+		api.get("/studio/api/1/services/api/1/user/get-per-site.json").urlParam("site_id", "invalid").execute().status(HttpStatus.SC_NOT_FOUND)
 		.header("Location",
 				is(headerLocationBase + "/studio/api/1/services/api/1/user/get-per-site.json?site_id=invalid&start=0&number=25"));
 
@@ -187,7 +188,7 @@ public class UserManagementAPI extends BaseAPI {
 	
 	public void testGetUsersPerSiteUnauthorized() {
 		
-		api.get("/studio/api/1/services/api/1/user/get-per-site.json").urlParam("site_id", "").execute().status(401)
+		api.get("/studio/api/1/services/api/1/user/get-per-site.json").urlParam("site_id", "").execute().status(HttpStatus.SC_UNAUTHORIZED)
 		.header("Location",
 				is(headerLocationBase + "/studio/api/1/services/api/1/user/get-per-site.json?site_id=invalid&start=0&number=25"));
 
@@ -201,7 +202,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("last_name", last_name);
 		json.put("email", email);
 		json.put("externally_managed", "false");
-		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(200)
+		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("OK")).debug();
@@ -216,7 +217,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("emailnonvalid", email);
 		json.put("externally_managednonvalid", "false");
 
-		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(400)
+		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.json("$.message", is("Invalid parameter: username")).debug();
 
 	}
@@ -229,7 +230,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("last_name", last_name);
 		json.put("email", email);
 		json.put("externally_managed", "true");
-		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(200)
+		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("OK")).debug();
@@ -244,7 +245,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("email", email);
 		json.put("externally_managed", "false");
 
-		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(404)
+		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(HttpStatus.SC_NOT_FOUND)
 				.json("$.message", is("User not found")).debug();
 
 	}
@@ -257,7 +258,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("last_name", last_name);
 		json.put("email", email);
 		json.put("externally_managed", "false");
-		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(401)
+		api.post("/studio/api/1/services/api/1/user/update.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.debug();
@@ -267,7 +268,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername);
 
-		api.post("/studio/api/1/services/api/1/user/enable.json").json(json).execute().status(200)
+		api.post("/studio/api/1/services/api/1/user/enable.json").json(json).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("OK")).debug();
@@ -277,7 +278,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("usernamenonvalid", newusername);
 
-		api.post("/studio/api/1/services/api/1/user/enable.json").json(json).execute().status(400)
+		api.post("/studio/api/1/services/api/1/user/enable.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.json("$.message", is("Invalid parameter: username")).debug();
 
 	}
@@ -286,7 +287,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername + "nonvalid");
 
-		api.post("/studio/api/1/services/api/1/user/enable.json").json(json).execute().status(404)
+		api.post("/studio/api/1/services/api/1/user/enable.json").json(json).execute().status(HttpStatus.SC_NOT_FOUND)
 				.json("$.message", is("User not found")).debug();
 
 	}
@@ -295,7 +296,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername);
 
-		api.post("/studio/api/1/services/api/1/user/enable.json").json(json).execute().status(401)
+		api.post("/studio/api/1/services/api/1/user/enable.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.debug();
@@ -305,7 +306,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername);
 
-		api.post("/studio/api/1/services/api/1/user/disable.json").json(json).execute().status(200)
+		api.post("/studio/api/1/services/api/1/user/disable.json").json(json).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("OK"));
@@ -316,7 +317,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("usernamenonvalid", newusername);
 
-		api.post("/studio/api/1/services/api/1/user/disable.json").json(json).execute().status(400).json("$.message",
+		api.post("/studio/api/1/services/api/1/user/disable.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST).json("$.message",
 				is("Invalid parameter: username"));
 
 	}
@@ -325,7 +326,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername + "nonvalid");
 
-		api.post("/studio/api/1/services/api/1/user/disable.json").json(json).execute().status(404).json("$.message",
+		api.post("/studio/api/1/services/api/1/user/disable.json").json(json).execute().status(HttpStatus.SC_NOT_FOUND).json("$.message",
 				is("User not found"));
 
 	}
@@ -334,7 +335,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("username", newusername);
 
-		api.post("/studio/api/1/services/api/1/user/disable.json").json(json).execute().status(401)
+		api.post("/studio/api/1/services/api/1/user/disable.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.debug();
@@ -343,7 +344,7 @@ public class UserManagementAPI extends BaseAPI {
 	
 	public void testGetUserStatus() {
 
-		api.get("/studio/api/1/services/api/1/user/status.json").urlParam("username", newusername).execute().status(200)
+		api.get("/studio/api/1/services/api/1/user/status.json").urlParam("username", newusername).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername));
 
@@ -353,7 +354,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("usernamenonvalid", newusername);
 
-		api.get("/studio/api/1/services/api/1/user/status.json").json(json).execute().status(400).json("$.message",
+		api.get("/studio/api/1/services/api/1/user/status.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST).json("$.message",
 				is("Invalid parameter: username"));
 
 	}
@@ -361,13 +362,13 @@ public class UserManagementAPI extends BaseAPI {
 	public void testGetUserStatusUserNotFound() {
 
 		api.get("/studio/api/1/services/api/1/user/status.json").urlParam("username", newusername + "nonvalid")
-				.execute().status(404);
+				.execute().status(HttpStatus.SC_NOT_FOUND);
 
 	}
 	
 	public void testGetUserStatusUnauthorized() {
 
-		api.get("/studio/api/1/services/api/1/user/status.json").urlParam("username", newusername).execute().status(401)
+		api.get("/studio/api/1/services/api/1/user/status.json").urlParam("username", newusername).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername)).debug();
 
@@ -375,25 +376,25 @@ public class UserManagementAPI extends BaseAPI {
 
 	public void testForgotPassword() {
 		api.get("/studio/api/1/services/api/1/user/forgot-password.json").urlParam("username", newusername).execute()
-				.status(200)
+				.status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("OK"));
 	}
 
 	public void testForgotPasswordInvalidParameters() {
-		api.get("/studio/api/1/services/api/1/user/forgot-password.json").urlParam("usernamenonvalid", newusername).execute().status(400)
+		api.get("/studio/api/1/services/api/1/user/forgot-password.json").urlParam("usernamenonvalid", newusername).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.json("$.message", is("Invalid parameter: username")).debug();
 	}
 	
 	public void testForgotPasswordUserNotFound() {
 		api.get("/studio/api/1/services/api/1/user/forgot-password.json").urlParam("username", newusername+"nonvalid").execute()
-				.status(404).json("$.message", is("User not found"));
+				.status(HttpStatus.SC_NOT_FOUND).json("$.message", is("User not found"));
 
 	}
 
 	public void testForgotPasswordInternalServerError() {
-		api.get("/studio/api/1/services/api/1/user/forgot-password.json").urlParam("username", newusername).execute().status(500)
+		api.get("/studio/api/1/services/api/1/user/forgot-password.json").urlParam("username", newusername).execute().status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
 				.debug();
 	}
 
@@ -401,7 +402,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("token", token);
 		json.put("new", "new");
-		api.post("/studio/api/1/services/api/1/user/set-password.json").json(json).execute().status(200)
+		api.post("/studio/api/1/services/api/1/user/set-password.json").json(json).execute().status(HttpStatus.SC_OK)
 				.json("$.message", is("OK")).debug();
 	}
 
@@ -409,7 +410,7 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("tokennonvalid", token);
 		json.put("new", "new");
-		api.post("/studio/api/1/services/api/1/user/set-password.json").json(json).execute().status(400)
+		api.post("/studio/api/1/services/api/1/user/set-password.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 		.json("$.message",is("Invalid parameter(s): [token]"));
 	}
 
@@ -417,31 +418,31 @@ public class UserManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("token", token);
 		json.put("new", "new");
-		api.post("/studio/api/1/services/api/1/user/set-password.json").json(json).execute().status(401);
+		api.post("/studio/api/1/services/api/1/user/set-password.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
 	public void testValidateToken() {
-		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("token", token).execute().status(200)
+		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("token", token).execute().status(HttpStatus.SC_OK)
 				.json("$.message", is("OK")).debug();
 	}
 
 	public void testValidateTokenInvalidParameters() {
-		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("tokennonvalid", token).execute().status(400)
+		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("tokennonvalid", token).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.json("$.message", is("Invalid parameter: token")).debug();
 	}
 
 	public void testValidateTokenUnauthorized() {
-		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("token", token).execute().status(401)
+		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("token", token).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.json("$.message", is("Unauthorized")).debug();
 	}
 
 	public void testValidateTokenExternallyManagedUser() {
-		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("token", token).execute().status(403)
+		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("token", token).execute().status(HttpStatus.SC_FORBIDDEN)
 				.json("$.message", is("Externally managed user")).debug();
 	}
 
 	public void testValidateTokenInternalServerError() {
-		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("token", token).execute().status(500)
+		api.get("/studio/api/1/services/api/1/user/validate-token.json").urlParam("token", token).execute().status(HttpStatus.SC_INTERNAL_SERVER_ERROR)
 				.json("$.message", is("Internal server error")).debug();
 	}
 
@@ -451,7 +452,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("current", newpassword);
 		json.put("new", newpassword + "new");
 
-		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(200)
+		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("OK")).debug();
@@ -465,7 +466,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("currentnon-valid", newpassword);
 		json.put("new", newpassword + "#");
 
-		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(400)
+		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.json("$.message", is("Invalid parameter(s): [current]")).debug();
 
 	}
@@ -476,8 +477,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("current", newpassword);
 		json.put("new", newpassword + "#");
 
-		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(401);
-				//.json("$.message", is("Unauthorized")).debug();
+		api.post("/studio/api/1/services/api/1/user/change-password.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED);
 
 	}
 
@@ -486,7 +486,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("username", newusername);
 		json.put("new", newpassword + "#");
 
-		api.post("/studio/api/1/services/api/1/user/reset-password.json").json(json).execute().status(200)
+		api.post("/studio/api/1/services/api/1/user/reset-password.json").json(json).execute().status(HttpStatus.SC_OK)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.json("$.message", is("OK")).debug();
@@ -498,7 +498,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("usernamenonvalid", newusername);
 		json.put("newnonvalid", newpassword + "#");
 
-		api.post("/studio/api/1/services/api/1/user/reset-password.json").json(json).execute().status(400)
+		api.post("/studio/api/1/services/api/1/user/reset-password.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 		.json("$.message", is("Invalid parameter(s): [username, new]")).debug();
 
 	}
@@ -508,7 +508,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("username", newusername + "nonvalid");
 		json.put("new", newpassword + "##");
 
-		api.post("/studio/api/1/services/api/1/user/reset-password.json").json(json).execute().status(404)
+		api.post("/studio/api/1/services/api/1/user/reset-password.json").json(json).execute().status(HttpStatus.SC_NOT_FOUND)
 				.json("$.message", is("User not found")).debug();
 	}
 	
@@ -517,7 +517,7 @@ public class UserManagementAPI extends BaseAPI {
 		json.put("username", newusername);
 		json.put("new", newpassword + "#");
 
-		api.post("/studio/api/1/services/api/1/user/reset-password.json").json(json).execute().status(401)
+		api.post("/studio/api/1/services/api/1/user/reset-password.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/user/get.json?username=" + newusername))
 				.debug();
