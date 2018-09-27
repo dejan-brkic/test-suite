@@ -22,6 +22,7 @@ import static org.hamcrest.Matchers.is;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -40,7 +41,7 @@ public class SiteManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		json.put("description", description);
 		json.put("blueprint", blueprint);
-		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(201)
+		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(HttpStatus.SC_CREATED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
 				.json("$.message", is("OK")).debug();
@@ -53,7 +54,7 @@ public class SiteManagementAPI extends BaseAPI {
 		json.put("description", description);
 		json.put("blueprint", blueprint);
 
-		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(400)
+		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.json("$.message", is("Invalid parameter(s): [site_id]")).debug();
 	}
 
@@ -63,7 +64,7 @@ public class SiteManagementAPI extends BaseAPI {
 		json.put("description", description);
 		json.put("blueprint", blueprint);
 
-		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(409)
+		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(HttpStatus.SC_CONFLICT)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
 				.json("$.message", is("Site already exists")).debug();
@@ -74,7 +75,7 @@ public class SiteManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		json.put("description", description);
 		json.put("blueprint", blueprint);
-		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(401)
+		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
 				.debug();
@@ -84,86 +85,86 @@ public class SiteManagementAPI extends BaseAPI {
 	public void testDeleteSite(String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("siteId", siteId);
-		api.post("/studio/api/1/services/api/1/site/delete-site.json").json(json).execute().status(200);
+		api.post("/studio/api/1/services/api/1/site/delete-site.json").json(json).execute().status(HttpStatus.SC_OK);
 				
 	}
 	
 	public void testDeleteSiteUnauthorized(String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("siteId", siteId);
-		api.post("/studio/api/1/services/api/1/site/delete-site.json").json(json).execute().status(401);
+		api.post("/studio/api/1/services/api/1/site/delete-site.json").json(json).execute().status(HttpStatus.SC_UNAUTHORIZED);
 				
 	}
 
 	public void testClearConfigurationCache() {
 		api.get("/studio/api/1/services/api/1/site/clear-configuration-cache.json").urlParam("site", this.siteId)
-				.execute().status(200);
+				.execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testExistsSite() {
-		api.get("/studio/api/1/services/api/1/site/exists.json").urlParam("site", this.siteId).execute().status(200);
+		api.get("/studio/api/1/services/api/1/site/exists.json").urlParam("site", this.siteId).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testGetAvailableBlueprints() {
-		api.get("/studio/api/1/services/api/1/site/get-available-blueprints.json").execute().status(200);
+		api.get("/studio/api/1/services/api/1/site/get-available-blueprints.json").execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testGetConfigurationOfSite() {
 		api.get("/studio/api/1/services/api/1/site/get-configuration.json")
 		.urlParam("site", this.siteId)
-		.urlParam("path", "/site-config.xml").execute().status(200);
+		.urlParam("path", "/site-config.xml").execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testGetSite() {
 		api.get("/studio/api/1/services/api/1/site/get.json")
 		.urlParam("site_id", siteId).execute()
-		.status(200)
+		.status(HttpStatus.SC_OK)
 		.header("Location", is(headerLocationBase+"/studio/api/1/services/api/1/site/get.json?site_id="+ siteId));
    	}
 	
 	public void testGetSiteUnauthorized() {
 		api.get("/studio/api/1/services/api/1/site/get.json")
 		.urlParam("site_id", siteId).execute()
-		.status(401)
+		.status(HttpStatus.SC_UNAUTHORIZED)
 		.header("Location", is(headerLocationBase+"/studio/api/1/services/api/1/site/get.json?site_id="+ siteId));
    	}
 	
 	public void testGetSiteInvalidParameters() {
 		api.get("/studio/api/1/services/api/1/site/get.json")
 		.urlParam("site_idnonvalid", siteId).execute()
-		.status(400);
+		.status(HttpStatus.SC_BAD_REQUEST);
    	}
 	
 	public void testGetSiteSiteNotFound() {
     		api.get("/studio/api/1/services/api/1/site/get.json")
     		.urlParam("site_id", siteId+"nonvalid").execute()
-		.status(404)
+		.status(HttpStatus.SC_NOT_FOUND)
 		.json("$.message", is("Site not found")).debug();
    	}
 
 	public void testGetSitesPerUser(String userName) {
 		api.get("/studio/api/1/services/api/1/site/get-per-user.json")
 		.urlParam("username", userName).execute()
-		.status(200)
+		.status(HttpStatus.SC_OK)
 		.header("Location", is(headerLocationBase+"/studio/api/1/services/api/1/site/get-per-user.json?username="+ userName+"&start=0&number=25"));
    	}
 	
 	public void testGetSitesPerUserInvalidParameter(String userName) {
 		api.get("/studio/api/1/services/api/1/site/get-per-user.json")
 		.urlParam("usernamenonvalid", userName).execute()
-		.status(400);
+		.status(HttpStatus.SC_BAD_REQUEST);
    	}
 	
 	public void testGetSitesPerUserUserNotFound(String userName) {
 		api.get("/studio/api/1/services/api/1/site/get-per-user.json")
 		.urlParam("username", userName+"nonvalid").execute()
-		.status(404);
+		.status(HttpStatus.SC_NOT_FOUND);
    	}
 	
 	public void testGetSitesPerUserUnauthorized(String userName) {
 		api.get("/studio/api/1/services/api/1/site/get-per-user.json")
 		.urlParam("username", userName).execute()
-		.status(401)
+		.status(HttpStatus.SC_UNAUTHORIZED)
 		.header("Location", is(headerLocationBase+"/studio/api/1/services/api/1/site/get-per-user.json?username="+ userName+"&start=0&number=25"));
    	}
 	
@@ -174,7 +175,7 @@ public class SiteManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		json.put("description", description);
 		json.put("blueprint", blueprint);
-		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(201)
+		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(HttpStatus.SC_CREATED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
 				.json("$.message", is("OK")).debug();

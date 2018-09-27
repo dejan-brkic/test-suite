@@ -17,6 +17,7 @@
 
 package org.craftercms.studio.test.api.objects;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -32,7 +33,7 @@ public class DeploymentAPI extends BaseAPI{
 		.urlParam("site", siteId)
 		.urlParam("path", "/site/website")
 		.urlParam("environment", "Live")
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 	
@@ -40,7 +41,7 @@ public class DeploymentAPI extends BaseAPI{
 		
 		api.get("/studio/api/1/services/api/1/deployment/get-available-publishing-channels.json")
 		.urlParam("site", siteId)
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 
@@ -51,7 +52,7 @@ public class DeploymentAPI extends BaseAPI{
 		.urlParam("days", "30")
 		.urlParam("num", "10")
 		.urlParam("filterType", "all")
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 	
@@ -62,7 +63,7 @@ public class DeploymentAPI extends BaseAPI{
 		.urlParam("sort", "eventDate")
 		.urlParam("ascending", "false")
 		.urlParam("filterType", "all")
-		.execute().status(200)
+		.execute().status(HttpStatus.SC_OK)
 		.debug();
 	}
 

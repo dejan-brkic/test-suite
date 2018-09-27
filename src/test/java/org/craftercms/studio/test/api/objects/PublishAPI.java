@@ -20,6 +20,7 @@ package org.craftercms.studio.test.api.objects;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -39,7 +40,7 @@ public class PublishAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		
 		api.post("/studio/api/1/services/api/1/publish/start.json")
-		.json(json).execute().status(200)
+		.json(json).execute().status(HttpStatus.SC_OK)
 				.debug();
 	}
 	
@@ -48,7 +49,7 @@ public class PublishAPI extends BaseAPI {
 		json.put("site_idnonvalid", siteId);
 		
 		api.post("/studio/api/1/services/api/1/publish/start.json")
-		.json(json).execute().status(400)
+		.json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.debug();
 	}
 
@@ -57,7 +58,7 @@ public class PublishAPI extends BaseAPI {
 		json.put("site_id", "nonvalid");
 		
 		api.post("/studio/api/1/services/api/1/publish/start.json")
-		.json(json).execute().status(404)
+		.json(json).execute().status(HttpStatus.SC_NOT_FOUND)
 		.debug();
 	}
 	
@@ -66,7 +67,7 @@ public class PublishAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		
 		api.post("/studio/api/1/services/api/1/publish/start.json")
-		.json(json).execute().status(401)
+		.json(json).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.debug();
 	}
 	
@@ -75,7 +76,7 @@ public class PublishAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		
 		api.post("/studio/api/1/services/api/1/publish/stop.json")
-		.json(json).execute().status(200)
+		.json(json).execute().status(HttpStatus.SC_OK)
 				.debug();
 	}
 	
@@ -84,7 +85,7 @@ public class PublishAPI extends BaseAPI {
 		json.put("site_idnonvalid", siteId);
 		
 		api.post("/studio/api/1/services/api/1/publish/stop.json")
-		.json(json).execute().status(400)
+		.json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
 				.debug();
 	}
 
@@ -93,7 +94,7 @@ public class PublishAPI extends BaseAPI {
 		json.put("site_id", siteId+"nonvalid");
 		
 		api.post("/studio/api/1/services/api/1/publish/stop.json")
-		.json(json).execute().status(404)
+		.json(json).execute().status(HttpStatus.SC_NOT_FOUND)
 				// .json("$.message", is("site not found"))
 				.debug();
 	}
@@ -103,31 +104,31 @@ public class PublishAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		
 		api.post("/studio/api/1/services/api/1/publish/stop.json")
-		.json(json).execute().status(401)
+		.json(json).execute().status(HttpStatus.SC_UNAUTHORIZED)
 				.debug();
 	}
 	
 	public void testPublishStatus(String siteId) {
 		
 		api.get("/studio/api/1/services/api/1/publish/status.json").urlParam("site_id", siteId)
-		.execute().status(200).debug();
+		.execute().status(HttpStatus.SC_OK).debug();
 	}
 	
 	public void testPublishStatusInvalidParameters(String siteId) {
 		
 		api.get("/studio/api/1/services/api/1/publish/status.json").urlParam("site_idnonvalid", siteId)
-		.execute().status(400).debug();
+		.execute().status(HttpStatus.SC_BAD_REQUEST).debug();
 	}
 	
 	public void testPublishStatusSiteNotFound(String siteId) {
 		
 		api.get("/studio/api/1/services/api/1/publish/status.json").urlParam("site_id", siteId+"nonvalid")
-		.execute().status(404).debug();
+		.execute().status(HttpStatus.SC_NOT_FOUND).debug();
 	}
 	
 	public void testPublishStatusUnauthorized(String siteId) {
 		
 		api.get("/studio/api/1/services/api/1/publish/status.json").urlParam("site_id", siteId)
-		.execute().status(401).debug();
+		.execute().status(HttpStatus.SC_UNAUTHORIZED).debug();
 	}
 }

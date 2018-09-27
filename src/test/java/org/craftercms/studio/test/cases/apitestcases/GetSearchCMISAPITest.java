@@ -17,6 +17,7 @@
 
 package org.craftercms.studio.test.cases.apitestcases;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 import org.testng.annotations.BeforeTest;
@@ -56,7 +57,7 @@ public class GetSearchCMISAPITest {
 		json.put("username", username);
 		json.put("password", password);
 		api.post("/studio/api/1/services/api/1/security/login.json")
-				.json(json).execute().status(200);
+				.json(json).execute().status(HttpStatus.SC_OK);
 	}
 
 	@Test(priority = 1)
@@ -67,7 +68,7 @@ public class GetSearchCMISAPITest {
 		json.put("blueprint", blueprint);
 
 		api.post("/studio/api/1/services/api/1/site/create.json")
-				.json(json).execute().status(201)
+				.json(json).execute().status(HttpStatus.SC_CREATED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
 				.json("$.message", is("OK")).debug();
@@ -81,7 +82,7 @@ public class GetSearchCMISAPITest {
 		json.put("description", description);
 
 		api.post("/studio/api/1/services/api/1/group/create.json")
-				.json(json).execute().status(201)
+				.json(json).execute().status(HttpStatus.SC_CREATED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName1))
 				.json("$.message", is("OK")).debug();
@@ -95,7 +96,7 @@ public class GetSearchCMISAPITest {
 		json.put("description", description);
 
 		api.post("/studio/api/1/services/api/1/group/create.json")
-				.json(json).execute().status(201)
+				.json(json).execute().status(HttpStatus.SC_CREATED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/group/get.json?group_name=" + groupName2))
 				.json("$.message", is("OK")).debug();
@@ -110,7 +111,7 @@ public class GetSearchCMISAPITest {
 		json.put("path", "/assets`");
 
 		api.get("/studio/api/1/services/api/1/cmis/search.json")
-		.json(json).execute().status(200);
+		.json(json).execute().status(HttpStatus.SC_OK);
 
 	}
 
@@ -123,7 +124,7 @@ public class GetSearchCMISAPITest {
 		json.put("path", "/assets`");
 
 		api.get("/studio/api/1/services/api/1/cmis/search.json")
-	    .json(json).execute().status(400).json("$.message", is("Invalid parameter(s): [cmis_repo_id]")).debug();
+	    .json(json).execute().status(HttpStatus.SC_BAD_REQUEST).json("$.message", is("Invalid parameter(s): [cmis_repo_id]")).debug();
 
 	}
 }

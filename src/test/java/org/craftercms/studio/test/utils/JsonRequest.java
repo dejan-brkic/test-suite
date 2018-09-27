@@ -22,7 +22,9 @@ import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
@@ -35,7 +37,6 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
-
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -65,8 +66,8 @@ public class JsonRequest {
 	private Map<String, File> files;
 	private Object jsonParam;
 
-	public JsonRequest(String schema, String host, int port, String path, String type, CloseableHttpClient httpClient,
-			BasicCookieStore cookies) {
+	public JsonRequest(String schema, String host, int port, String path, String type,
+			CloseableHttpClient httpClient, BasicCookieStore cookies) {
 		this.host = host;
 		this.path = path;
 		this.type = type;
@@ -145,10 +146,18 @@ public class JsonRequest {
 			if (this.type.equalsIgnoreCase("POST")) {
 				request = new HttpPost();
 				((HttpPost) request).setEntity(createPostParams(!files.isEmpty()));
+			} else if (this.type.equalsIgnoreCase("DELETE")) {
+				request = new HttpDelete();
+			} else if (this.type.equalsIgnoreCase("PATCH")) {
+				request = new HttpPatch();
+				((HttpPatch) request).setEntity(createPostParams(!files.isEmpty()));
 			} else {
 				request = new HttpGet();
 			}
-			request.setURI(buildURI());
+
+			URI uri = buildURI();
+
+			request.setURI(uri);
 			CloseableHttpResponse response = httpClient.execute(request);
 			return new JsonResponse(response, this.cookieJar);
 		} catch (Exception ex) {
@@ -185,7 +194,8 @@ public class JsonRequest {
 
 	protected StringEntity buildJsonEntity() {
 		try {
-			return new StringEntity(new ObjectMapper().writeValueAsString(jsonParam), ContentType.APPLICATION_JSON);
+			return new StringEntity(new ObjectMapper().writeValueAsString(jsonParam),
+					ContentType.APPLICATION_JSON);
 		} catch (JsonProcessingException e) {
 			fail(e.getMessage());
 			return null;
@@ -204,8 +214,8 @@ public class JsonRequest {
 		}
 		if (jsonParam != null) {
 			FormBodyPartBuilder jsonBodyPartBuilder = FormBodyPartBuilder.create();
-			jsonBodyPartBuilder.setBody(
-					new StringBody(new ObjectMapper().writeValueAsString(jsonParam), ContentType.APPLICATION_JSON));
+			jsonBodyPartBuilder.setBody(new StringBody(new ObjectMapper().writeValueAsString(jsonParam),
+					ContentType.APPLICATION_JSON));
 			builder.addPart(jsonBodyPartBuilder.build());
 		}
 		if (!files.isEmpty()) {
@@ -218,6 +228,7 @@ public class JsonRequest {
 
 	protected URI buildURI() throws URISyntaxException {
 		URIBuilder builder = new URIBuilder();
+
 		builder.setHost(this.host);
 		builder.setPath(this.path);
 		builder.setPort(this.port);
@@ -225,6 +236,7 @@ public class JsonRequest {
 		for (String key : urlParams.keySet()) {
 			builder.addParameter(key, urlParams.get(key));
 		}
+		
 		return builder.build();
 	}
 
