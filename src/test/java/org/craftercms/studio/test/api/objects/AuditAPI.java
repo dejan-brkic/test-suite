@@ -19,6 +19,8 @@ package org.craftercms.studio.test.api.objects;
 
 
 import static org.hamcrest.Matchers.is;
+
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -35,7 +37,7 @@ public class AuditAPI extends BaseAPI {
 
  	public void testGetAuditLog(String siteId) {		
    		api.get("studio/api/1/services/api/1/audit/get.json")
-   		.urlParam("site_id", siteId).execute().status(200)
+   		.urlParam("site_id", siteId).execute().status(HttpStatus.SC_OK)
    				.json("$.message", is("OK")).debug();
 
    	}
@@ -43,18 +45,18 @@ public class AuditAPI extends BaseAPI {
  	
 	public void testGetAuditLogInvalidParameter(String siteId) {
    		api.get("studio/api/1/services/api/1/audit/get.json")
-   		.urlParam("site_idnonvalid", siteId).execute().status(400);
+   		.urlParam("site_idnonvalid", siteId).execute().status(HttpStatus.SC_BAD_REQUEST);
 
    	}
 	
   	public void testGetAuditLogSiteNotFound(String siteId) {
   		api.get("studio/api/1/services/api/1/audit/get.json")
-   		.urlParam("site_id", siteId+"nonvalid").execute().status(404);
+   		.urlParam("site_id", siteId+"nonvalid").execute().status(HttpStatus.SC_NOT_FOUND);
    	}
   	
   	public void testGetAuditLogUnauthorized(String siteId) {
   		api.get("studio/api/1/services/api/1/audit/get.json")
-   		.urlParam("site_id", siteId).execute().status(401);
+   		.urlParam("site_id", siteId).execute().status(HttpStatus.SC_UNAUTHORIZED);
    	}
 
 }

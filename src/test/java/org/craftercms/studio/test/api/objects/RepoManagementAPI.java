@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.is;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -42,7 +43,7 @@ public class RepoManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		
    		api.post("/studio/api/1/services/api/1/repo/sync-from-repo.json")
-   		.json(json).execute().status(200)
+   		.json(json).execute().status(HttpStatus.SC_OK)
    				.json("$.message", is("OK")).debug();
 
    	}
@@ -52,7 +53,7 @@ public class RepoManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		
    		api.post("/studio/api/1/services/api/1/repo/rebuild-database.json")
-   		.json(json).execute().status(200);
+   		.json(json).execute().status(HttpStatus.SC_OK);
    	}
  	
 	public void testSyncFromRepoInvalidParameter(String siteId) {
@@ -60,7 +61,7 @@ public class RepoManagementAPI extends BaseAPI {
 		json.put("site_idnonvalid", siteId);
 		
    		api.post("/studio/api/1/services/api/1/repo/sync-from-repo.json")
-   		.json(json).execute().status(400)
+   		.json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
    				.json("$.message", is("Invalid parameter: site_id")).debug();
 
    	}
@@ -70,7 +71,7 @@ public class RepoManagementAPI extends BaseAPI {
 		json.put("site_idnonvalid", siteId);
 		
    		api.post("/studio/api/1/services/api/1/repo/rebuild-database.json")
-   		.json(json).execute().status(400);
+   		.json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
 
    	}
 	
@@ -79,7 +80,7 @@ public class RepoManagementAPI extends BaseAPI {
 		json.put("site_id", siteId+"nonvalid");
    
 	api.post("/studio/api/1/services/api/1/repo/sync-from-repo.json")
-    	.json(json).execute().status(404)
+    	.json(json).execute().status(HttpStatus.SC_NOT_FOUND)
    	.json("$.message", is("Site not found")).debug();
 
    	}
@@ -89,7 +90,7 @@ public class RepoManagementAPI extends BaseAPI {
 		json.put("site_id", siteId);
 		
    		api.post("/studio/api/1/services/api/1/repo/sync-from-repo.json")
-   		.json(json).execute().status(401).debug();
+   		.json(json).execute().status(HttpStatus.SC_UNAUTHORIZED).debug();
 
    	}
 }
