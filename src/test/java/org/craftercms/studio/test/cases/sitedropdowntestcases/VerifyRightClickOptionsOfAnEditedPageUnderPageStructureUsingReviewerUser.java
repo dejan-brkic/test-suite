@@ -55,18 +55,14 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
-	private String adminConsole;
 	private String siteconfigGroupsOption;
-	private String addTouserIframe;
 	private String editReviewerGroupOption;
 	private String groupsAddNewMembersCheckbox;
 	private String groupsAddNewMembersInput;
 	private String groupsAddNewMembersAutocompleteOption1;
 	private String groupsAddNewMembersButton;
-	private String navigationSitebarNameId;
 	private String userOptions;
 	private String userOptionsLogout;
-
 	private String rightclickViewOption;
 	private String rightclickCopyOption;
 	private String rightclickApproveAndPublishOption;
@@ -103,7 +99,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 				.getProperty("dashboard.new_home_Content_Page_name_edited_expand");
 		menStylesForWinterEditedPageName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.pagestree.articlesfolder.menstylesforwinter.page.edited");
-
 		rightclickViewOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.view.option");
 		rightclickCopyOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -128,16 +123,14 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 				.getProperty("rightclick.list.all.options");
 		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.reviewerusernamecreated");
-		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
+		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
-		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.adminconsole");
 		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.groups_option");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
-		addTouserIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.adduser.iframe");
 		editReviewerGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.edit_reviewer_group_option");
 		groupsAddNewMembersCheckbox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -148,9 +141,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 				.getProperty("groups.add_new_members_autocomplete_option1");
 		groupsAddNewMembersButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.add_new_members_button");
-		navigationSitebarNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.navigation_sitebar_name_id");
-		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("dashboard.user_options");
+		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options_logout");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -164,7 +156,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 		this.driverManager.waitUntilFolderOpens("xpath", pagesTree);
 		this.driverManager.waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homePageEditedName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				homePageEditedName);
 		dashboardPage.getDriverManager().contextClick("xpath", homePageEditedName, false);
 
 	}
@@ -174,7 +167,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 		this.driverManager.waitUntilSidebarOpens();
 		this.driverManager.waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menStylesEditedPageName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				menStylesEditedPageName);
 		dashboardPage.getDriverManager().contextClick("xpath", menStylesEditedPageName, false);
 		this.driverManager.waitForAnimation();
 	}
@@ -191,15 +185,15 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 	}
 
 	public void verifyViewOptionIsPresent(String section) {
-		WebElement rightclickViewOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				rightclickViewOption);
+		WebElement rightclickViewOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickViewOption);
 		Assert.assertTrue(rightclickViewOptionElement.isDisplayed(),
 				"ERROR: Right click View Option is not present on right click of " + section);
 	}
 
 	public void verifyCopyOptionIsPresent(String section) {
-		WebElement rightclickCopyOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				rightclickCopyOption);
+		WebElement rightclickCopyOptionElement = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickCopyOption);
 		Assert.assertTrue(rightclickCopyOptionElement.isDisplayed(),
 				"ERROR: Right click Copy Option is not present on right click of " + section);
 	}
@@ -254,7 +248,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			this.driverManager.waitUntilSidebarOpens();
 			this.driverManager.waitForAnimation();
 
-		},"Pages");
+		}, "Pages");
 	}
 
 	public void step6() {
@@ -277,7 +271,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 				this.driverManager.waitForAnimation();
 				this.driverManager.waitUntilSidebarOpens();
 				Assert.assertTrue(
-						element.getText().equals(rightClickOptionsListInCategoryLandingPage.get(currentIndex)),
+						element.getText()
+								.equals(rightClickOptionsListInCategoryLandingPage.get(currentIndex)),
 						"ERROR: Link Option: " + element.getText()
 								+ " is not in the correct order in the selected category landing page, check that the correct options are listed");
 				currentIndex++;
@@ -293,16 +288,18 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitUntilSidebarOpens();
 			this.driverManager.waitForAnimation();
-		},"Pages");
+		}, "Pages");
 	}
 
 	public void step8() {
 		// Step 8 Click on the + of folder 2017
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				articlesFolder2017);
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017).click();
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017).click();
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder2017);
 	}
 
@@ -329,7 +326,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 				this.driverManager.waitForAnimation();
 				this.driverManager.waitUntilSidebarOpens();
 				Assert.assertTrue(
-						element.getText().equals(rightClickOptionsListInMenStylesForWinterPage.get(currentIndex)),
+						element.getText()
+								.equals(rightClickOptionsListInMenStylesForWinterPage.get(currentIndex)),
 						"ERROR: Link Option: " + element.getText()
 								+ " is not in the correct order in the Men Styles For Winter page, check that the correct options are listed");
 				currentIndex++;
@@ -343,7 +341,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			verifyDependenciesOptionIsPresent(section);
 
 			this.driverManager.getDriver().navigate().refresh();
-		},"Pages");
+		}, "Pages");
 
 	}
 
@@ -407,7 +405,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 		});
 
 		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("Xpath", menStylesForWinterEditedPageName);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("Xpath",
+				menStylesForWinterEditedPageName);
 
 	}
 
@@ -418,7 +417,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 		// Verify if the home tree is already expanded
 		if (!(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homePageEditedName)
 				.getAttribute("class").contains("open"))) {
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homePageEditedExpand)
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homePageEditedExpand)
 					.click();
 		}
 
@@ -477,7 +477,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 				.isDisplayed()) {
 			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				this.driverManager
+						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 						.click();
 		} else
 			throw new NoSuchElementException(
@@ -486,93 +487,54 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 
 	public void addUserToReviewerGroup() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				siteconfigGroupsOption);
 
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				adminConsole);
-
-		siteConfigButton.click();
-
-		this.driverManager.waitForAnimation();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
 				.click();
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
 		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
 				editReviewerGroupOption);
 
 		this.driverManager
-
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editReviewerGroupOption)
-
 				.click();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
-		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
-
 				.click();
 
-		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
 				.sendKeys("reviewer");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
 				groupsAddNewMembersAutocompleteOption1);
-
 		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
-						groupsAddNewMembersAutocompleteOption1)
-
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
 				.click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
 				groupsAddNewMembersButton);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				groupsAddNewMembersButton).click();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
+		this.driverManager.waitForAnimation();
+		driverManager.getDriver().switchTo().defaultContent();
+		this.driverManager.getDriver().switchTo().activeElement();
+
+		this.driverManager.waitUntilAddUserModalCloses();
+		this.driverManager.waitForAnimation();
+
+		createSitePage.clickOnSitesOption();
+
 	}
 
 	private void logoutFromCrafter() {
@@ -581,9 +543,11 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				userOptionsLogout);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout)
+				.click();
 
 	}
 
@@ -599,16 +563,21 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 		this.driverManager.waitUntilFolderOpens("xpath", pagesTreeLink);
 	}
 
-	@Test(priority = 0)
+	@Test(
+			priority = 0)
 	public void verifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewerUser() {
 
 		this.login(userName, password);
 
 		this.driverManager.waitUntilLoginCloses();
-		
+
 		logger.info("Adding New User");
 		this.addNewUser();
 
+		logger.info("Add previous created user to Reviewer Group");
+
+		this.addUserToReviewerGroup();
+		
 		logger.info("Go to Site Preview");
 
 		this.goToSiteContentPagesStructure();
@@ -617,9 +586,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 
 		this.driverManager.waitUntilSidebarOpens();
 
-		logger.info("Add previous created user to Reviewer Group");
-
-		this.addUserToReviewerGroup();
 
 		// Expand the site bar
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
@@ -644,7 +610,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder)
+				.click();
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder);
 
 		logger.info("Click on the + of folder 2017");
@@ -652,7 +619,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 
 		logger.info(
 				"Click on the + of folder 1 and Edit then article page Men Styles For Winter under articles/2017/1");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder1).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder1)
+				.click();
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder1);
 
 		this.editMenStylesForWinterPage();
@@ -675,7 +643,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 		logger.info("Verifications of Step 4 Right Right click on Home and verify options");
 		this.step4();
 
-		logger.info("Verifications of Step 6 Right click on any Category Landing page style and verify options");
+		logger.info(
+				"Verifications of Step 6 Right click on any Category Landing page style and verify options");
 		this.step6();
 
 		logger.info(

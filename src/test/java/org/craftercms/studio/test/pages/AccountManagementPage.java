@@ -97,6 +97,7 @@ public class AccountManagementPage {
 		this.setConfirmNewPassword(strConfNewPassword);
 		// Click Login button
 		this.clickSubmit();
+		
 	}
 
 	public WebDriverManager getDriverManager() {

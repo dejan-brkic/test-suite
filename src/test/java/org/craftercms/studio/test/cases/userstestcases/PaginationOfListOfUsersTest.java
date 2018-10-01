@@ -27,7 +27,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
  *
  */
 
-public class PaginationOfListOfUsersTest extends StudioBaseTest{
+public class PaginationOfListOfUsersTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -42,7 +42,7 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest{
 	private String firstNumberOfPaginationXpath;
 	private String lastArrowOfPaginationXpath;
 	private String firstArrowOfPaginationXpath;
-	
+
 	@BeforeMethod
 	public void beforeTest() {
 
@@ -53,7 +53,8 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest{
 				.getProperty("general.users.firstname");
 		newUserLastNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.lastname");
-		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.users.email");
+		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.users.email");
 		newUserUserNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.username");
 		newUserPasswordId = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -81,45 +82,56 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest{
 		usersPage.clickOnNewUser();
 
 		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("Name");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId).sendKeys("Last Name");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId)
+				.sendKeys("Name");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
+				.sendKeys("Last Name");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
 				.sendKeys("email@email.com");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId)
 				.sendKeys("testuser" + RandomStringUtils.randomAlphabetic(5));
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("password");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId)
+				.sendKeys("password");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
 				.sendKeys("password");
 
 		// Save Button
 		usersPage.clickOnSaveNewUser();
 
-		// Refresh the site
-		driverManager.getDriver().navigate().refresh();
 	}
 
 	public void navigationOfPage() {
 
 		// Show users
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath).clear();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+				.clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath).sendKeys("1");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+				.sendKeys("1");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath).clear();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+				.clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath).sendKeys("2");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+				.sendKeys("2");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastNumberOfPaginationXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastNumberOfPaginationXpath)
+				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstNumberOfPaginationXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstNumberOfPaginationXpath)
+				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastArrowOfPaginationXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastArrowOfPaginationXpath)
+				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstArrowOfPaginationXpath).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstArrowOfPaginationXpath)
+				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath).clear();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+				.clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath).sendKeys("10");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+				.sendKeys("10");
 
 		this.driverManager.waitForAnimation();
 	}
@@ -129,17 +141,26 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest{
 		usersPage.deleteAllUsersExceptAdmin();
 	}
 
-	@Test(priority = 0)
+	@Test(
+			priority = 0)
 	public void verifyThatThePaginationOfTheListOfUsersWorksProperlyTest() {
-		
+
 		// login to application
 		loginPage.loginToCrafter(userName, password);
-		
-		//Wait for login page to close
+
+		// Wait for login page to close
 		driverManager.waitUntilLoginCloses();
 
 		createUserRandom();
+		
+		// Refresh the site
+		driverManager.getDriver().navigate().refresh();
+		
 		createUserRandom();
+		
+		// Refresh the site
+		driverManager.getDriver().navigate().refresh();
+		
 		createUserRandom();
 
 		// filters

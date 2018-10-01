@@ -41,7 +41,6 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 	private String menuSitesButton;
 	private String siteConfigLink;
 	private String contentTypeOption;
-	private String siteconfigGroupsOption;
 	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager
 			.getLogger(VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked.class);
@@ -58,8 +57,6 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 		.getProperty("general.adminconsole");
 		contentTypeOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.content_type_option");
-		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.groups_option");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
@@ -143,12 +140,6 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 		logger.info("Verify Site Config Page is displayed");
 		this.driverManager.waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption);
-		
-		WebElement groupsOptionElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteconfigGroupsOption);
-		Assert.assertTrue(groupsOptionElement.isDisplayed(),
-				"ERROR: Groups Option is not present, verify if Site config Page is displayed");
 		
 		WebElement contentTypesOptionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", contentTypeOption);

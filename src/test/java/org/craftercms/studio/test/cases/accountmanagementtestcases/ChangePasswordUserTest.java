@@ -69,11 +69,14 @@ public class ChangePasswordUserTest extends StudioBaseTest {
 
 		// login to application
 		logger.info("Login into Crafter with the new password");
+		this.driverManager.waitForAnimation();
 		loginPage.loginToCrafter(userName, "123456");
 
 		// wait for login page to close
 		driverManager.waitUntilLoginCloses();
 
+		this.driverManager.waitForAnimation();
+		
 		// click On admin option
 		createSitePage.clickAdmin();
 
@@ -86,6 +89,7 @@ public class ChangePasswordUserTest extends StudioBaseTest {
 
 		// login to application
 		logger.info("Login into Crafter");
+		this.driverManager.waitForAnimation();
 		loginPage.loginToCrafter(userName, password);
 
 		// wait for login page to close

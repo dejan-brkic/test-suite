@@ -63,8 +63,7 @@ public class DeleteUserTest extends StudioBaseTest {
 
 		// Assert new users created is deleted
 		this.driverManager.waitForAnimation();
-		driverManager.getDriver().navigate().refresh();
-		this.driverManager.waitForAnimation();
+		
 		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(usersRowsXpath));
 
 		this.driverManager.waitForAnimation();

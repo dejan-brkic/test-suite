@@ -41,6 +41,7 @@ public class CreateSitePage {
 	private String createSiteButton;
 	private String cancelButton;
 	private String usersOption;
+	private String sitesOption;
 	private String helpOption;
 	private String aboutOption;
 	private String documentationOption;
@@ -73,6 +74,7 @@ public class CreateSitePage {
 				.getProperty("create.create_button");
 		cancelButton = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("create.cancel_button");
 		usersOption = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("create.users_option");
+		sitesOption= UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("create.sites_option");
 		helpOption = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("create_help_option");
 		aboutOption = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("create_about_option");
 		documentationOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -226,6 +228,14 @@ public class CreateSitePage {
 	public void clickOnUsersOption() {
 		// Press on users option
 		this.usersOption();
+	}
+	
+	public void clickOnSitesOption() {
+		// Press on sites option
+		this.driverManager.waitForAnimation();
+		WebElement sites = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				sitesOption);
+		sites.click();
 	}
 
 	// Press on Cancel button of the create site process.
