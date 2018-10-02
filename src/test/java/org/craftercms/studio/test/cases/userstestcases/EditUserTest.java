@@ -156,9 +156,6 @@ public class EditUserTest extends StudioBaseTest {
 		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(usersRowsXpath));
 
 		this.driverManager.waitForAnimation();
-		driverManager.getDriver().navigate().refresh();
-		
-		this.driverManager.waitForAnimation();
 		Assert.assertTrue((this.driverManager.getDriver().findElements(By.xpath(usersRowsXpath))).size() == 1);
 
 	}

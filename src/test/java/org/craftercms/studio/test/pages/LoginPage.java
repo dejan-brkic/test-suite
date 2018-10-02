@@ -38,17 +38,18 @@ public class LoginPage {
 	private String loginXpath;
 	private static Logger logger = LogManager.getLogger(LoginPage.class);
 
-	public LoginPage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
+	public LoginPage(WebDriverManager driverManager,
+			UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
 		this.driverManager.openConnection();
 		this.driver = this.driverManager.getDriver();
-		
+
 		userNameXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("login.username");
 		passwordXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("login.password");
 		loginXpath = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("login.login");
-	
+
 	}
 
 	public LoginPage(WebDriver driver) {
@@ -57,14 +58,16 @@ public class LoginPage {
 
 	// Set user name in textbox
 	public void setUserName(String strUserName) {
-		WebElement userCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", userNameXpath);
+		WebElement userCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				userNameXpath);
 		userCrafter.clear();
 		userCrafter.sendKeys(strUserName);
 	}
 
 	// Set password in password textbox
 	public void setPassword(String strPassword) {
-		WebElement pwdCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", passwordXpath);
+		WebElement pwdCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				passwordXpath);
 		pwdCrafter.clear();
 		pwdCrafter.sendKeys(strPassword);
 
@@ -72,8 +75,16 @@ public class LoginPage {
 
 	// Click on login button
 	public void clickLogin() {
-		WebElement loginButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable( "xpath", loginXpath);
+		WebElement loginButton = this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", loginXpath);
 		loginButton.click();
+
+		this.driverManager.waitForAnimation();
+		if (this.driverManager.isLoginDisplayed()) {
+			loginButton = this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", loginXpath);
+			loginButton.click();
+		}
 	}
 
 	// Login to crafter
@@ -86,8 +97,8 @@ public class LoginPage {
 		// Click Login button
 		this.driverManager.waitForAnimation();
 		this.clickLogin();
-		
-		//Wait for login page to close
+
+		// Wait for login page to close
 		this.driverManager.waitUntilLoginCloses();
 	}
 
@@ -100,7 +111,7 @@ public class LoginPage {
 		// Click Login button
 		this.clickLogin();
 	}
-	
+
 	public WebDriverManager getDriverManager() {
 		return driverManager;
 	}

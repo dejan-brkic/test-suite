@@ -36,8 +36,6 @@ public class DesignOfUsersPageTest extends StudioBaseTest{
 	private String crafterLogoXpath;
 	private String accountTopNavOptionXpath;
 	private String helpTopNavOptionXpath;
-	private String sitesTopNavOptionXpath;
-	private String usersTopNavOptionXpath;
 	private String usersPerPageInputXpath;
 	private String newUserButtonXpath;
 	private String userSearchXpath;
@@ -51,10 +49,6 @@ public class DesignOfUsersPageTest extends StudioBaseTest{
 				.getProperty("general.users.userstitle");
 		crafterLogoXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.crafterlogo");
-		usersTopNavOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sites.homeusers");
-		sitesTopNavOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sites.homesites");
 		helpTopNavOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.homehelp");
 		accountTopNavOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -88,16 +82,6 @@ public class DesignOfUsersPageTest extends StudioBaseTest{
 		WebElement crafterLogo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				crafterLogoXpath);
 		Assert.assertTrue(crafterLogo.isDisplayed());
-
-		// Assert user menu option is present.
-		WebElement userMenuOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				usersTopNavOptionXpath);
-		Assert.assertTrue(userMenuOption.isDisplayed());
-
-		// Assert sites menu option is present.
-		WebElement sitesMenuOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				sitesTopNavOptionXpath);
-		Assert.assertTrue(sitesMenuOption.isDisplayed());
 
 		// Assert help menu option is present.
 		WebElement helpMenuOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",

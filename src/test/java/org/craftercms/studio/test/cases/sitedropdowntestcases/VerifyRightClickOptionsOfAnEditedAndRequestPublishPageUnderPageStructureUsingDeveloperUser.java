@@ -55,19 +55,15 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
-	private String adminConsole;
 	private String siteconfigGroupsOption;
-	private String addTouserIframe;
 	private String editAuthorGroupOption;
 	private String editDeveloperGroupOption;
 	private String groupsAddNewMembersCheckbox;
 	private String groupsAddNewMembersInput;
 	private String groupsAddNewMembersAutocompleteOption1;
 	private String groupsAddNewMembersButton;
-	private String navigationSitebarNameId;
 	private String userOptions;
 	private String userOptionsLogout;
-
 	private String rightclickEditOption;
 	private String rightclickViewOption;
 	private String rightclickNewContentOption;
@@ -112,7 +108,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("dashboard.new_home_Content_Page_name_edited_expand");
 		menStylesForWinterEditedPageName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.pagestree.articlesfolder.menstylesforwinter.page.edited");
-
 		rightclickEditOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.edit.option");
 		rightclickViewOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -154,13 +149,10 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
-		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.adminconsole");
 		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.groups_option");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
-		addTouserIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.adduser.iframe");
 		editAuthorGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.edit_author_group_option");
 		editDeveloperGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -173,8 +165,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("groups.add_new_members_autocomplete_option1");
 		groupsAddNewMembersButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.add_new_members_button");
-		navigationSitebarNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.navigation_sitebar_name_id");
 		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options_logout");
@@ -601,94 +591,57 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 	
 	public void addUserToRespectiveGroup(String userGroup, String userToAdd) {
+		
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					siteconfigGroupsOption);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				adminConsole);
+					.click();
+			this.driverManager.waitForAnimation();
+			driverManager.getDriver().switchTo().defaultContent();
+			this.driverManager.getDriver().switchTo().activeElement();
 
-		siteConfigButton.click();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
-		this.driverManager.waitForAnimation();
+					userGroup);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption);
+			this.driverManager
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userGroup)
 
-				.click();
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().defaultContent();
+					.click();
 
-		this.driverManager.getDriver().switchTo()
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
 
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
+					.click();
 
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
+					.sendKeys(userToAdd);
 
-		this.driverManager.getDriver().switchTo().activeElement();
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+					groupsAddNewMembersAutocompleteOption1);
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
+					.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+					groupsAddNewMembersButton);
 
-				userGroup);
+			this.driverManager
+					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
+					.click();
 
-		this.driverManager
+			this.driverManager.waitForAnimation();
+			driverManager.getDriver().switchTo().defaultContent();
+			this.driverManager.getDriver().switchTo().activeElement();
 
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userGroup)
+			this.driverManager.waitUntilAddUserModalCloses();
+			this.driverManager.waitForAnimation();
 
-				.click();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
-
-				.click();
-
-		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-
-				.sendKeys(userToAdd);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
-				groupsAddNewMembersAutocompleteOption1);
-
-		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
-						groupsAddNewMembersAutocompleteOption1)
-
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				groupsAddNewMembersButton);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				groupsAddNewMembersButton).click();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
+			createSitePage.clickOnSitesOption();
 	}
 
 	private void logoutFromCrafter() {
@@ -726,6 +679,12 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	
 		logger.info("Add New User Developer");
 		this.addNewUser("developer");
+		
+		logger.info("Add previous created author user to Author Group");
+		this.addUserToRespectiveGroup(editAuthorGroupOption, "author");
+		
+		logger.info("Add previous created developer user to Developer Group");
+		this.addUserToRespectiveGroup(editDeveloperGroupOption, "developer");
 
 		logger.info("Go to Site Preview");
 
@@ -734,12 +693,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandPagesTree);
 
 		this.driverManager.waitUntilSidebarOpens();
-
-		logger.info("Add previous created author user to Author Group");
-		this.addUserToRespectiveGroup(editAuthorGroupOption, "author");
-		
-		logger.info("Add previous created developer user to Developer Group");
-		this.addUserToRespectiveGroup(editDeveloperGroupOption, "developer");
 
 		// logout from Crafter
 		this.logoutFromCrafter();

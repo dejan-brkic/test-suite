@@ -365,7 +365,7 @@ public class PreviewPage {
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", searchOption);
 		searchOptionElement.click();
 	}
-	
+
 	public void clickOnPreviewToolsOption() {
 		WebElement previewToolsOptionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", previewToolsOption);
@@ -377,7 +377,7 @@ public class PreviewPage {
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", inContextEditOption);
 		inContextEditOptionElement.click();
 	}
-	
+
 	// Set the new name duplicated
 	public void duplicateName(String strDuplicateName) {
 		WebElement internalName = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
@@ -515,10 +515,8 @@ public class PreviewPage {
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo().activeElement();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//div[@class='CodeMirror-lines']//div[3]").click();
-		this.driverManager.selectAllAndDeleteContentAsFolderValueOnCodeArea(
-				"//div[@class='CodeMirror-lines']//div[3]/pre[7]", configurationSetUp);
+
+		this.driverManager.setContentTypeConfiguration(configurationSetUp);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -528,6 +526,7 @@ public class PreviewPage {
 		this.driverManager.waitForAnimation();
 		siteConfigPage.saveDragAndDropProcess();
 		driverManager.getDriver().switchTo().defaultContent();
+		
 		// go to dashboard
 		this.driverManager.getDriver().navigate().refresh();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
@@ -568,10 +567,9 @@ public class PreviewPage {
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo().activeElement();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				".//div[@class='CodeMirror-lines']//div[3]").click();
-		this.driverManager.selectAllAndDeleteContentAsFolderValueOnCodeArea(
-				"//div[@class='CodeMirror-lines']//div[3]/pre[7]", configurationSetUp);
+		
+		this.driverManager.setContentTypeConfiguration(configurationSetUp);
+
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",

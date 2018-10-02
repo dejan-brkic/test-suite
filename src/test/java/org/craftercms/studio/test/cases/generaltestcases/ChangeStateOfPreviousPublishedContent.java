@@ -58,8 +58,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String groupsAddNewMembersInput;
 	private String groupsAddNewMembersAutocompleteOption1;
 	private String groupsAddNewMembersButton;
-	private String navigationSitebarNameId;
-	private String crafterLogo;
 	private String generalSiteDropdown;
 	private String pageStatus;
 	private String staticAssetsGearImageXpath;
@@ -68,9 +66,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String generalEditOption;
 	private String expandPagesTree;
 	private String editedPageArticleName;
-	private String adminConsole;
 	private String articleTitle;
-	private String addTouserIframe;
 	private String createSiteButton;
 	private String siteDropdownElementXPath;
 	private String newUserFirstNameId;
@@ -131,9 +127,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("groups.add_new_members_autocomplete_option1");
 		groupsAddNewMembersButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.add_new_members_button");
-		navigationSitebarNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.navigation_sitebar_name_id");
-		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		generalSiteDropdown = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		pageStatus = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.pageStatus");
@@ -147,11 +140,8 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("dashboard.expand_Pages_Tree");
 		editedPageArticleName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.editedarticlename");
-		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.adminconsole");
 		articleTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.cssarticletitle");
-		addTouserIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.adduser.iframe");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -220,9 +210,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		driverManager.getDriver().switchTo().defaultContent();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", crafterLogo);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", crafterLogo).click();
 	}
 
 	public void login(String user, String loginpassword) {
@@ -250,11 +237,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articleTitle).sendKeys(pageName);
 
-			// this.driverManager.scrollUp();
-
-			// this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-			// expandAllId).click();
-
 			// save and close
 			this.driverManager.waitForAnimation();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose").click();
@@ -276,68 +258,55 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 	public void addUserToAuthorGroup() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				siteconfigGroupsOption);
 
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				adminConsole);
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 
-		siteConfigButton.click();
-
-		this.driverManager.waitForAnimation();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
 				.click();
-
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
- 
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
 		this.driverManager.getDriver().switchTo().activeElement();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editAuthorGroupOption);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editAuthorGroupOption)
+				editAuthorGroupOption);
+
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editAuthorGroupOption)
 				.click();
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
-		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox).click();
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
+				.click();
+
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
 				.sendKeys("author");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				groupsAddNewMembersAutocompleteOption1);
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton);
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				groupsAddNewMembersButton);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
+		this.driverManager
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
 				.click();
 
+		
+		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
-
 		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
+		
+		this.driverManager.waitUntilAddUserModalCloses();
+		this.driverManager.waitForAnimation();
+		
+		createSitePage.clickOnSitesOption();
 
 	}
 
@@ -424,15 +393,16 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		// Related to the bug:
 		// issue https://github.com/craftercms/craftercms/issues/1557
-
 		this.login(userName, password);
 
 		logger.info("Adding New User");
 
 		this.addNewUser();
 
+		logger.info("Add previous created user to Author Group");
+		this.addUserToAuthorGroup();
+		
 		logger.info("Go to Site Preview");
-
 		this.goToSiteContentPagesStructure();
 
 		// expand pages folder
@@ -442,9 +412,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		this.driverManager.waitUntilSidebarOpens();
 
-		logger.info("Add previous created user to Author Group");
-
-		this.addUserToAuthorGroup();
 
 		// body not required Page-Article
 		logger.info("Change Article Page body content to not required");

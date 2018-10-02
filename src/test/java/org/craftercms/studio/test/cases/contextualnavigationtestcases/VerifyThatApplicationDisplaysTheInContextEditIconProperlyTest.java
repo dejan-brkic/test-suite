@@ -44,15 +44,12 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String createSiteButton;
-	private String adminConsole;
-	private String addTouserIframe;
 	private String editReviewerGroupOption;
 	private String groupsAddNewMembersInput;
 	private String groupsAddNewMembersCheckbox;
 	private String groupsAddNewMembersAutocompleteOption1;
 	private String groupsAddNewMembersButton;
 	private String siteconfigGroupsOption;
-	private String navigationSitebarNameId;
 	private String userOptions;
 	private String userOptionsLogout;
 	private String inContextEditEnabledOnHomeTitle;
@@ -80,10 +77,6 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 				.getProperty("users.crafterlogo");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
-		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.adminconsole");
-		addTouserIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.adduser.iframe");
 		editReviewerGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("groups.edit_reviewer_group_option");
 		groupsAddNewMembersCheckbox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -96,8 +89,6 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 				.getProperty("groups.add_new_members_button");
 		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.groups_option");
-		navigationSitebarNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.navigation_sitebar_name_id");
 		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -148,7 +139,7 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 				.isDisplayed());
 
 		this.driverManager.getDriver().switchTo().defaultContent();
-		
+
 		// logout from Crafter
 		logger.info("logout from Crafter");
 		this.logoutFromCrafter();
@@ -178,24 +169,20 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 		this.driverManager.waitForAnimation();
 
-		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
 		this.driverManager.waitForAnimation();
 
 		// Assertions
-		Assert.assertFalse(this.driverManager
-				.isElementPresentAndClickableByXpath(inContextEditOption));
-		
+		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(inContextEditOption));
+
 		this.driverManager.getDriver().switchTo().defaultContent();
 		this.driverManager.getDriver().switchTo()
 				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "engineWindow"));
-	
-		Assert.assertFalse(this.driverManager
-				.isElementPresentAndClickableByXpath(inContextEditEnabledOnHomeTitle)
-				);
-		Assert.assertFalse(this.driverManager
-				.isElementPresentAndClickableByXpath(inContextEditEnabledOnMainTitle)
-				);
+
+		Assert.assertFalse(
+				this.driverManager.isElementPresentAndClickableByXpath(inContextEditEnabledOnHomeTitle));
+		Assert.assertFalse(
+				this.driverManager.isElementPresentAndClickableByXpath(inContextEditEnabledOnMainTitle));
 
 		this.driverManager.getDriver().switchTo().defaultContent();
 	}
@@ -210,21 +197,15 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 		logger.info("Adding New User");
 		this.addNewUser();
 
+		logger.info("Add previous created user to Reviewer Group");
+		this.addUserToReviewerGroup();
+
 		logger.info("Go to Site Preview");
 		this.goToSiteContentPagesStructure();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandPagesTree);
 
 		this.driverManager.waitUntilSidebarOpens();
-
-		logger.info("Add previous created user to Reviewer Group");
-
-		this.addUserToReviewerGroup();
-
-		// Expand the site bar
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 	}
 
 	public void addNewUser() {
@@ -257,6 +238,8 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 
 				crafterLogo).click();
+
+		createSitePage.clickOnSitesOption();
 	}
 
 	private void goToSiteContentPagesStructure() {
@@ -281,15 +264,6 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 
 	public void addUserToReviewerGroup() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
-
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				adminConsole);
-
-		siteConfigButton.click();
-
-		this.driverManager.waitForAnimation();
-
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteconfigGroupsOption);
 
@@ -299,14 +273,6 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 				.click();
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-						addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
 		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -314,66 +280,39 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 				editReviewerGroupOption);
 
 		this.driverManager
-
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editReviewerGroupOption)
-
 				.click();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo()
-
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-						addTouserIframe));
-
-		this.driverManager.isElementPresentAndClickableByXpath(addTouserIframe);
-
-		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
-
 				.click();
 
-		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
 				.sendKeys("reviewer");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
 				groupsAddNewMembersAutocompleteOption1);
-
 		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-
-						groupsAddNewMembersAutocompleteOption1)
-
+				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
 				.click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
 				groupsAddNewMembersButton);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				groupsAddNewMembersButton).click();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				navigationSitebarNameId);
-
 		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", navigationSitebarNameId)
+				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
+		
+		this.driverManager.waitForAnimation();
+		driverManager.getDriver().switchTo().defaultContent();
+		this.driverManager.getDriver().switchTo().activeElement();
+		
+		this.driverManager.waitUntilAddUserModalCloses();
+		this.driverManager.waitForAnimation();
+		
+		createSitePage.clickOnSitesOption();
 	}
 
 	private void logoutFromCrafter() {
