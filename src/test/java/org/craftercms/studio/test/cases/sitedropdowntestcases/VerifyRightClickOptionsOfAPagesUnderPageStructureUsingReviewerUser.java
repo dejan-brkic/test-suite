@@ -226,6 +226,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 			rightClickOptionsListInHomePage.add(0, "View");
 			rightClickOptionsListInHomePage.add(1, "Copy");
 			rightClickOptionsListInHomePage.add(2, "Dependencies");
+			rightClickOptionsListInHomePage.add(3, "History");
+
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -261,7 +263,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 			rightClickOptionsListInCategoryLandingPage.add(0, "View");
 			rightClickOptionsListInCategoryLandingPage.add(1, "Copy");
 			rightClickOptionsListInCategoryLandingPage.add(2, "Dependencies");
-
+			rightClickOptionsListInCategoryLandingPage.add(3, "History");
+			
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
 			int currentIndex = 0;
@@ -309,7 +312,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 			rightClickOptionsListInMenStylesForWinterPage.add(0, "View");
 			rightClickOptionsListInMenStylesForWinterPage.add(1, "Copy");
 			rightClickOptionsListInMenStylesForWinterPage.add(2, "Dependencies");
-
+			rightClickOptionsListInMenStylesForWinterPage.add(3, "History");
+			
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
 			int currentIndex = 0;

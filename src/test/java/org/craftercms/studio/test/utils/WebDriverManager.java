@@ -94,10 +94,10 @@ public class WebDriverManager {
 	private String toolTipContentName;
 	private String toolTipContentStatus;
 	private String tooTipContentEditeBy;
-
 	private String newRepoNotificationDialog;
-
 	private String userAddedNotificationModal;
+	private String userEditDialog;
+	private String userCreatedNotificationModal;
 
 	@SuppressWarnings("deprecation")
 	public void openConnection() {
@@ -151,7 +151,6 @@ public class WebDriverManager {
 				driver.get(envProperties.getProperty("baseUrl"));
 				this.initializeExecutionValuesForStudio();
 				this.initializeLocators();
-
 				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
 					this.maximizeWindow();
 				}
@@ -265,6 +264,10 @@ public class WebDriverManager {
 				.getProperty("general.notificationmodal");
 		userAddedNotificationModal = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.usersaddednotification");
+		userCreatedNotificationModal = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.usersaddednotification");
+		userEditDialog = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.usersediteddialog");
 		createSiteModal = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.createsitemodal");
 		goLiveWidget = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -706,6 +709,18 @@ public class WebDriverManager {
 	public void waitUntilAddUserToGroupNotificationCloses() {
 		logger.debug("Waiting for notification modal to close");
 		WebElement element = this.waitUntilElementIsDisplayed("xpath", userAddedNotificationModal);
+		waitUntilElementIsRemoved(element);
+	}
+	
+	public void waitUntilAddUserCreatedNotificationCloses() {
+		logger.debug("Waiting for notification modal to close");
+		WebElement element = this.waitUntilElementIsDisplayed("xpath", userCreatedNotificationModal);
+		waitUntilElementIsRemoved(element);
+	}
+	
+	public void waitUntilEditUserDialogCloses() {
+		logger.debug("Waiting for edit user dialog to close");
+		WebElement element = this.waitUntilElementIsDisplayed("xpath", userEditDialog);
 		waitUntilElementIsRemoved(element);
 	}
 

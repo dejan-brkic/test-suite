@@ -46,7 +46,7 @@ public class LoginAPITest {
     	securityAPI.testLogInUnauthorized();
     }
     
-    @Test(priority = 2)
+    @Test(priority = 1)
     public void testLogin(){
     	securityAPI.logInIntoStudioUsingAPICall();
     }

@@ -98,6 +98,7 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest {
 		// Save Button
 		usersPage.clickOnSaveNewUser();
 
+		this.driverManager.waitUntilAddUserCreatedNotificationCloses();
 	}
 
 	public void navigationOfPage() {
