@@ -224,6 +224,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			rightClickOptionsListInHomePage.add(1, "Copy");
 			rightClickOptionsListInHomePage.add(2, "Approve & Publish");
 			rightClickOptionsListInHomePage.add(3, "Dependencies");
+			rightClickOptionsListInHomePage.add(4, "History");
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -263,6 +264,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			rightClickOptionsListInCategoryLandingPage.add(1, "Copy");
 			rightClickOptionsListInCategoryLandingPage.add(2, "Approve & Publish");
 			rightClickOptionsListInCategoryLandingPage.add(3, "Dependencies");
+			rightClickOptionsListInCategoryLandingPage.add(4, "History");
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -318,6 +320,8 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 			rightClickOptionsListInMenStylesForWinterPage.add(1, "Copy");
 			rightClickOptionsListInMenStylesForWinterPage.add(2, "Approve & Publish");
 			rightClickOptionsListInMenStylesForWinterPage.add(3, "Dependencies");
+			rightClickOptionsListInMenStylesForWinterPage.add(4, "History");
+
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));

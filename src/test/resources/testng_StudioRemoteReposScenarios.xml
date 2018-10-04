@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Sites TestSuite"
+<suite name="craftercms - Studio - Site Remote Repos TestSuite"
 	preserve-order="true" verbose="3">
 	<test
 		name="Verify that application allows to create a site based on a blueprint then push to remote git repository">
