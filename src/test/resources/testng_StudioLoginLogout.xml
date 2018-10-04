@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio UI -Login TestSuite"
+<suite name="craftercms - Studio - Login TestSuite"
 	preserve-order="true" verbose="3">
 	<test name="Login Test And Logout Test">
 		<classes>
