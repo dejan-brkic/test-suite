@@ -69,6 +69,7 @@ public class AutomateLoginInToStudio extends StudioBaseTest{
 		Assert.assertTrue(driverManager.isElementPresentAndClickableByXpath(sitesPageTitle));
 		
 		//Assert URL of the page is the correct
+		this.driverManager.waitForAnimation();
 		String siteURL = driverManager.getDriver().getCurrentUrl();
 		Assert.assertTrue(siteURL.contains(sitesPageURL));
 	
