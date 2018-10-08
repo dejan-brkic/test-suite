@@ -230,10 +230,6 @@ public class UsersManagementAPI2 extends BaseAPI {
 		api.get("/studio/api/2/users/" + id).execute().status(HttpStatus.SC_OK);
 	}
 
-	public void testGetUserByIdBadRequest(String id) {
-		api.get("/studio/api/2/users%/" + id).execute().status(HttpStatus.SC_BAD_REQUEST);
-	}
-
 	public void testGetUserByIdResourceNotFound(String id) {
 		api.get("/studio/api/2/users/" + id).execute().status(HttpStatus.SC_NOT_FOUND);
 	}
@@ -248,10 +244,6 @@ public class UsersManagementAPI2 extends BaseAPI {
 
 	public void testGetUserSitesResourceNotFound(String id) {
 		api.get("/studio/api/2/users/" + id + "/sites").execute().status(HttpStatus.SC_NOT_FOUND);
-	}
-
-	public void testGetUserSitesBadRequest(String id) {
-		api.get("/studio/api/2/users%/" + id + "/sites").execute().status(HttpStatus.SC_BAD_REQUEST);
 	}
 
 	public void testGetUserSitesUnauthorized(String id) {
