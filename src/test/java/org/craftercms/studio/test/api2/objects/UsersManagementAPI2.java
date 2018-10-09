@@ -260,10 +260,6 @@ public class UsersManagementAPI2 extends BaseAPI {
 				.status(HttpStatus.SC_NOT_FOUND);
 	}
 
-	public void testGetUserSiteRoleBadRequest(String id, String siteId) {
-		api.get("/studio/api/2/users/" + id + "/sites/" + siteId + "/roles").execute()
-				.status(HttpStatus.SC_BAD_REQUEST);
-	}
 
 	public void testGetUserSiteRoleUnauthorized(String id, String siteId) {
 		api.get("/studio/api/2/users/" + id + "/sites/" + siteId + "/roles").execute()

@@ -50,12 +50,12 @@ public class UserManagementAPI2 extends BaseAPI {
 	}
 	
 	public void testGetCurrentAuthenticatedUserSiteRoles(String siteId) {
-		api.get("/studio/api/2/user/roles/" + siteId).execute()
+		api.get("/studio/api/2/user/sites/" + siteId + "/roles").execute()
 				.status(HttpStatus.SC_OK);
 	}
 
 	public void testGetCurrentAuthenticatedUserSiteRolesUnauthorized(String siteId) {
-		api.get("/studio/api/2/user/roles/" + siteId).execute()
+		api.get("/studio/api/2/user/sites/" + siteId + "/roles").execute()
 				.status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
