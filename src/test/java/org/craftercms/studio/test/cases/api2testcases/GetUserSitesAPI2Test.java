@@ -68,13 +68,6 @@ public class GetUserSitesAPI2Test {
 		usersManagementAPI2.testGetUserSitesResourceNotFound("0");
 	}
 
-	@Test(
-			priority = 3,
-			groups = { "getUserSitesAPI2" })
-	public void testGetUserSitesBadRequest() {
-		usersManagementAPI2.testGetUserSitesBadRequest("nonvalid");
-	}
-
 	@AfterGroups(
 			groups = { "getUserSitesAPI2" })
 	public void afterTest() {

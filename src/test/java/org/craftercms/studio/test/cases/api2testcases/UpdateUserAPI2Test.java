@@ -72,7 +72,7 @@ public class UpdateUserAPI2Test {
 			priority = 2,
 			groups = { "updateUserAPI2" })
 	public void testUpdateUserResourceNotFound() {
-		usersManagementAPI2.testUpdateUserResourceNotFound("0", userName);
+		usersManagementAPI2.testUpdateUserResourceNotFound("0", "nonvalid");
 	}
 
 	@Test(
@@ -81,14 +81,6 @@ public class UpdateUserAPI2Test {
 	public void testUpdateUserBadRequest() {
 		usersManagementAPI2.testUpdateUserBadRequest(userId, userName);
 	}
-
-	// @Test(
-	// priority = 4,
-	// groups = { "createUser" })
-	// public void testCreateUserAlreadyExists() {
-	// usersManagementAPI2.testCreateUserAlreadyExists(String.valueOf(randomID),
-	// "tester");
-	// }
 
 	@AfterGroups(
 			groups = { "updateUserAPI2" })
