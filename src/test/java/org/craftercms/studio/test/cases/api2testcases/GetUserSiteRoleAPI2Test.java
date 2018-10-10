@@ -72,14 +72,6 @@ public class GetUserSiteRoleAPI2Test {
 	public void testGetUserSiteRoleResourceNotFound() {
 		usersManagementAPI2.testGetUserSiteRoleResourceNotFound("0",siteId);
 	}
-	
-	@Test(
-			priority = 3,
-			groups = { "getUserSiteRoleAPI2" })
-	public void testGetUserSiteRoleBadRequest() {
-		usersManagementAPI2.testGetUserSiteRoleBadRequest(userId+"nonvalid", siteId);
-	}
-
 
 	@AfterGroups(
 			groups = { "getUserSiteRoleAPI2" })
