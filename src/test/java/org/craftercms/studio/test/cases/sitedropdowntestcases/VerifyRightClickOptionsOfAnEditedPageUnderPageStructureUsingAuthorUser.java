@@ -431,6 +431,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 
 	public void editHomePage() {
 		// Step 3 Edit the Home Page and Save
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent);
 		dashboardPage.rightClickEditOnAPresentPage(homeContent);
 
 		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
