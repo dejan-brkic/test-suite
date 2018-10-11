@@ -415,7 +415,8 @@ public class PreviewPage {
 	}
 
 	public void expandAuthorsTree() {
-		WebElement expandAuthorsTree = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilContentTooltipIsHidden();
+		WebElement expandAuthorsTree = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				this.authorsTree);
 		expandAuthorsTree.click();
 	}
