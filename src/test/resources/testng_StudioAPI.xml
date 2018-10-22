@@ -87,12 +87,6 @@
 				name="org.craftercms.studio.test.cases.apitestcases.GetGroupAPITest" />
 		</classes>
 	</test> 
-	<test name="Get Groups" preserve-order="true">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.apitestcases.GetGroupsAPITest" />
-		</classes>
-	</test> 
 	<test name="Get Groups Per Site" preserve-order="true">
 		<classes>
 			<class

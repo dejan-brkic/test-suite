@@ -60,16 +60,6 @@ public class GetGroupsPerSiteAPITest {
 		groupManagementAPI.testGetGroupsPerSite(siteManagementAPI.getSiteId());
 	}
 	
-	@Test(priority = 2,groups={"getGroupsPerSite"})
-	public void testGetGroupsPerSiteInvalidParameters() {
-		groupManagementAPI.testGetGroupsPerSiteInvalidParameters(siteManagementAPI.getSiteId());
-	}
-	
-	@Test(priority = 3,groups={"getGroupsPerSite"})
-	public void testGetGroupsPerSiteNotFound() {
-		groupManagementAPI.testGetGroupsPerSiteNotFound(siteManagementAPI.getSiteId());
-	}
-	
 	@AfterGroups(groups={"getGroupsPerSite"})
 	public void afterTest() {
 		siteManagementAPI.testDeleteSite(siteId);
