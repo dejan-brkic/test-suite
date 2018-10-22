@@ -136,7 +136,9 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 		siteDropdownItemsInExpectedOrder.add(5, "Templates");
 		siteDropdownItemsInExpectedOrder.add(6, "Scripts");
 		siteDropdownItemsInExpectedOrder.add(7,"Site Config");
-
+		siteDropdownItemsInExpectedOrder.add(8,"here");
+		siteDropdownItemsInExpectedOrder.add(9,"bug");
+		siteDropdownItemsInExpectedOrder.add(10,"Crafter News");
 	}
 
 	public void deleteSite() {

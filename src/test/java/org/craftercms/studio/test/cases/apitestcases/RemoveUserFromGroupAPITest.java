@@ -56,12 +56,6 @@ public class RemoveUserFromGroupAPITest {
 		groupManagementAPI.testAddUserToGroup01(userManagementAPI.getNewusername(), siteManagementAPI.getSiteId());
 	}
 	
-	@Test(priority=1,groups={"removeUserFromGroup"})
-	public void testRemoveUserFromGroupInvalidParameters() {
-		groupManagementAPI.testRemoveUserFromGroupInvalidParameters(userManagementAPI.getNewusername(),siteManagementAPI.getSiteId());
-	}
-	
-	
 	@Test(priority=2,groups={"removeUserFromGroup"})
 	public void testRemoveUserFromGroupGroupNotFound() {
 		groupManagementAPI.testRemoveUserFromGroupGroupNotFound(userManagementAPI.getNewusername(),siteManagementAPI.getSiteId());
@@ -70,11 +64,6 @@ public class RemoveUserFromGroupAPITest {
 	@Test(priority=3,groups={"removeUserFromGroup"})
 	public void testRemoveUserFromGroupUserNotFound() {
 		groupManagementAPI.testRemoveUserFromGroupUserNotFound(userManagementAPI.getNewusername(),siteManagementAPI.getSiteId());
-	}
-	
-	@Test(priority=4,groups={"removeUserFromGroup"})
-	public void testRemoveUserFromGroupSiteNotFound() {
-		groupManagementAPI.testRemoveUserFromGroupSiteNotFound(userManagementAPI.getNewusername(),siteManagementAPI.getSiteId());
 	}
 	
 	@Test(priority=5,groups={"removeUserFromGroup"})

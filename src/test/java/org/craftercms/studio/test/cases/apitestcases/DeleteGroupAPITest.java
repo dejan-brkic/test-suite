@@ -63,11 +63,6 @@ public class DeleteGroupAPITest {
 		groupManagementAPI.testDeleteGroupGroupNotFound(siteManagementAPI.getSiteId());
 	}
 	
-	@Test(priority = 3,groups={"deleteGroup"})
-	public void testDeleteGroupSiteNotFound() {
-		//not possible scenario, always returns the authorization validation. Same for all that use nonvalid site id
-		groupManagementAPI.testDeleteGroupSiteNotFound(siteManagementAPI.getSiteId());
-	}
 
 	@Test(priority = 4,groups={"deleteGroup"})
 	public void testDeleteGroup() {

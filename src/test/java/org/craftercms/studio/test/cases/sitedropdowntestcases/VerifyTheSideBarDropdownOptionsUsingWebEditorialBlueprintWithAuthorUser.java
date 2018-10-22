@@ -132,6 +132,9 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 		siteDropdownItemsInExpectedOrder.add(4, "Static Assets");
 		siteDropdownItemsInExpectedOrder.add(5, "Templates");
 		siteDropdownItemsInExpectedOrder.add(6, "Scripts");
+		siteDropdownItemsInExpectedOrder.add(7,"here");
+		siteDropdownItemsInExpectedOrder.add(8,"bug");
+		siteDropdownItemsInExpectedOrder.add(9,"Crafter News");
 
 	}
 

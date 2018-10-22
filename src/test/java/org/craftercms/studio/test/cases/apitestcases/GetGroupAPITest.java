@@ -58,19 +58,9 @@ public class GetGroupAPITest {
 		groupManagementAPI.testGetGroup(siteManagementAPI.getSiteId());
 	}
 
-	@Test(priority = 2,groups={"getGroup"})
-	public void testGetGroupInvalidParameter() {
-		groupManagementAPI.testGetGroupInvalidParameter(siteManagementAPI.getSiteId());
-	}
-
 	@Test(priority = 3,groups={"getGroup"})
 	public void testGetGroupGroupNotFound() {
 		groupManagementAPI.testGetGroupGroupNotFound(siteManagementAPI.getSiteId());
-	}
-	
-	@Test(priority = 4,groups={"getGroup"})
-	public void testGetGroupSiteNotFound() {
-		groupManagementAPI.testGetGroupSiteNotFound(siteManagementAPI.getSiteId());
 	}
 
 	@AfterGroups(groups={"getGroup"})

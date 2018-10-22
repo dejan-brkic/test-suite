@@ -56,7 +56,7 @@ public class GetGroupsAPITest {
 	}
 
 	@Test(priority = 1,groups={"getGroups"})
-	public void testGetGroups() {
+	public void x() {
 		groupManagementAPI.testGetGroups();
 	}
 	
