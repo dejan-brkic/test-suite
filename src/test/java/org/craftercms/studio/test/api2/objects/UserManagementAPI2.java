@@ -34,28 +34,28 @@ public class UserManagementAPI2 extends BaseAPI {
 	}
 
 	public void testGetCurrentAuthenticatedUser() {
-		api.get("/studio/api/2/user").execute().status(HttpStatus.SC_OK);
+		api.get("/studio/api/2/users/me").execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testGetCurrentAuthenticatedUserUnauthorized() {
-		api.get("/studio/api/2/user").execute().status(HttpStatus.SC_UNAUTHORIZED);
+		api.get("/studio/api/2/users/me").execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 	
 	public void testGetCurrentAuthenticatedUserSites() {
-		api.get("/studio/api/2/user/sites").execute().status(HttpStatus.SC_OK);
+		api.get("/studio/api/2/users/me/sites").execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testGetCurrentAuthenticatedUserSitesUnauthorized() {
-		api.get("/studio/api/2/user/sites").execute().status(HttpStatus.SC_UNAUTHORIZED);
+		api.get("/studio/api/2/users/me/sites").execute().status(HttpStatus.SC_UNAUTHORIZED);
 	}
 	
 	public void testGetCurrentAuthenticatedUserSiteRoles(String siteId) {
-		api.get("/studio/api/2/user/sites/" + siteId + "/roles").execute()
+		api.get("/studio/api/2/users/me/sites/" + siteId + "/roles").execute()
 				.status(HttpStatus.SC_OK);
 	}
 
 	public void testGetCurrentAuthenticatedUserSiteRolesUnauthorized(String siteId) {
-		api.get("/studio/api/2/user/sites/" + siteId + "/roles").execute()
+		api.get("/studio/api/2/users/me/sites/" + siteId + "/roles").execute()
 				.status(HttpStatus.SC_UNAUTHORIZED);
 	}
 
