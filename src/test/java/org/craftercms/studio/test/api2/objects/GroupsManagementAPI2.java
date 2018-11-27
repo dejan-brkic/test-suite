@@ -62,10 +62,8 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			Map responseMap = mapper.readValue(response.getRaw(), Map.class);
-			Map resultMap = (Map) responseMap.get("result");
-			List<Map> entities = (List<Map>) resultMap.get("entities");
-
-			id = String.valueOf(entities.stream().filter(e -> e.get("name").equals(groupName)).map(e -> e.get("id"))
+			List<Map> groups = (List<Map>) responseMap.get("groups");
+			id = String.valueOf(groups.stream().filter(e -> e.get("name").equals(groupName)).map(e -> e.get("id"))
 					.findFirst().get());
 		} catch (IOException e) {
 			e.printStackTrace();

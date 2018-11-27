@@ -131,10 +131,8 @@ public class UsersManagementAPI2 extends BaseAPI {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			Map responseMap = mapper.readValue(response.getRaw(), Map.class);
-			Map resultMap = (Map) responseMap.get("result");
-			List<Map> entities = (List<Map>) resultMap.get("entities");
-
-			id = String.valueOf(entities.stream().filter(e -> e.get("username").equals(userName))
+			List<Map> users = (List<Map>) responseMap.get("users");
+			id = String.valueOf(users.stream().filter(e -> e.get("username").equals(userName))
 					.map(e -> e.get("id")).findFirst().get());
 		} catch (IOException e) {
 			e.printStackTrace();
