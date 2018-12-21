@@ -82,6 +82,7 @@ public class PreviewPage {
 	private String searchOption;
 	private String previewToolsOption;
 	private String inContextEditOption;
+	private String draftSavedNotification;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager,
@@ -190,6 +191,8 @@ public class PreviewPage {
 				.getProperty("general.sitecontent.itemssubtree");
 		authorsTree = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.authorstree");
+		draftSavedNotification = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("preview.saved_draft_notification");
 	}
 
 	// Click on admin console link
@@ -865,7 +868,8 @@ public class PreviewPage {
 			this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "cstudioSaveAndCloseDraft")
 					.click();
-
+			this.driverManager.waitUntilElementIsDisplayed("xpath", draftSavedNotification);
+			this.driverManager.waitUntilElementIsNotDisplayed("xpath", draftSavedNotification);
 			this.driverManager.waitForFullExpansionOfTree();
 			this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "colExpButtonBtn").click();
@@ -1841,7 +1845,7 @@ public class PreviewPage {
 				Assert.assertTrue(dependeciesItems.size() == 3);
 				break;
 			case "article.ftl":
-				Assert.assertTrue(dependeciesItems.size() == 13);
+				Assert.assertTrue(dependeciesItems.size() == 12);
 				break;
 			case "category-landing.ftl":
 				Assert.assertTrue(dependeciesItems.size() == 13);

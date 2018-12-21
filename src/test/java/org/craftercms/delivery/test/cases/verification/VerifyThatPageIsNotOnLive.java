@@ -35,8 +35,13 @@ public class VerifyThatPageIsNotOnLive extends DeliveryBaseTest {
 	public void beforeTest() {
 		String pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pageurl");
+		String siteURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("delivery.verification.siteurl");
+		String siteId = deliveryExecutionValuesManager.getSharedExecutionConstants()
+				.getProperty("general.currentsiteid");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
+		this.driverManager.getDriver().get(siteURL+siteId);
 		this.driverManager.getDriver().get(pageURL);
 	}
 
