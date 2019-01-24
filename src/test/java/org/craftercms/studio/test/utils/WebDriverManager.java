@@ -101,7 +101,6 @@ public class WebDriverManager {
 
 	@SuppressWarnings("deprecation")
 	public void openConnection() {
-
 		final Properties runtimeProperties = new Properties();
 		try {
 			runtimeProperties.load(WebDriverManager.class.getResourceAsStream("/runtime.properties"));
@@ -924,9 +923,15 @@ public class WebDriverManager {
 	}
 
 	public void sendText(String selectorType, String selectorValue, String text) {
+		sendText(selectorType, selectorValue, text, true);
+	}
+
+	public void sendText(String selectorType, String selectorValue, String text, boolean clearInput) {
 		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
 		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
-		input.clear();
+		if (clearInput) {
+			input.clear();
+		}
 		input.sendKeys(text);
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
 	}
@@ -1879,4 +1884,17 @@ public class WebDriverManager {
 		 ((JavascriptExecutor) driver).executeScript(script);
 	}
 
+	public void clearInputUsingDeleteKeys(String selectorType, String selectorValue) {
+		Actions actions = new Actions(this.driver);
+		int lenText = this.waitUntilElementIsClickable(selectorType, selectorValue).getAttribute("value") .length();
+		this.waitUntilElementIsClickable(selectorType, selectorValue).click();
+		for(int i = 0; i < lenText; i++){
+			actions.sendKeys(Keys.ARROW_LEFT);
+		}
+		actions.build().perform();
+		for(int i = 0; i < lenText; i++){
+			actions.sendKeys(Keys.DELETE);
+		}
+		actions.build().perform();
+	}
 }
