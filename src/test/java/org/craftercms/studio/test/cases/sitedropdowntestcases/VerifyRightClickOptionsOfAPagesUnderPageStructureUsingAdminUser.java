@@ -432,7 +432,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 			rightClickOptionsListInArticlesFolder1.add(3, "Delete");
 			rightClickOptionsListInArticlesFolder1.add(4, "Cut");
 			rightClickOptionsListInArticlesFolder1.add(5, "Copy");
-			rightClickOptionsListInArticlesFolder1.add(6, "History");
 
 			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
 					.findElements(By.xpath(rightClickOptions));
@@ -455,7 +454,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 			verifyDeleteOptionIsPresent(section);
 			verifyCutOptionIsPresent(section);
 			verifyCopyOptionIsPresent(section);
-			verifyHistoryOptionIsPresent(section);
 
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();

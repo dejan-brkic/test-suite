@@ -78,6 +78,9 @@ public class TryToDeleteUserConnectedTest extends StudioBaseTest {
 		// Verify
 		Assert.assertTrue(this.driverManager.isElementPresentByXpath(deleteNotAllowedMessageXpath));
 		Assert.assertTrue(this.driverManager.isElementPresentByXpath(errorMessageXpath));
+		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				deleteNotAllowedMessageXpath).getText().contains("Unable to delete user"));
+
 	}
 
 }

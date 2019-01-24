@@ -143,10 +143,10 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 	public void filtersAndAsserts() {
 
 		// clean filter
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityShowInputXPath).clear();
+		this.driverManager.clearInputUsingDeleteKeys("xpath", myRecentActivityShowInputXPath);
 
 		// Show only 1 item edited
-		driverManager.sendText("xpath", myRecentActivityShowInputXPath, "1");
+		driverManager.sendText("xpath", myRecentActivityShowInputXPath, "1", false);
 		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityShowInputXPath).sendKeys(Keys.ENTER);
 		this.driverManager.waitForAnimation();
 		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityFirstItemURLXPath);
@@ -159,15 +159,15 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 		Assert.assertEquals(edit1, "/aboutus1");
 
 		// clean filter
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityShowInputXPath).clear();
+		this.driverManager.clearInputUsingDeleteKeys("xpath", myRecentActivityShowInputXPath);
 
-		// Show only 1 item edited
-		driverManager.sendText("xpath", myRecentActivityShowInputXPath, "2");
+		// Show only 2 item edited
+		driverManager.sendText("xpath", myRecentActivityShowInputXPath, "2", false);
 		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityShowInputXPath).sendKeys(Keys.ENTER);
 		this.driverManager.waitForAnimation();
 		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivitySecondItemURLXPath);
 
-		// Assert filter 1
+		// Assert filter 2
 		this.driverManager.waitForAnimation();
 		String edit2 = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivitySecondItemURLXPath).getText();
