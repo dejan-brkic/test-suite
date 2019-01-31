@@ -36,6 +36,18 @@ public class SiteManagementAPI extends BaseAPI {
 		super(api, apiConnectionManager);
 	}
 
+	public void testCreateSite(String siteId, String description, String blueprint){
+		Map<String, Object> json = new HashMap<>();
+		json.put("site_id", siteId);
+		json.put("description", description);
+		json.put("blueprint", blueprint);
+		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(HttpStatus.SC_CREATED)
+				.header("Location",
+						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
+				.json("$.message", is("OK")).debug();
+		this.setSiteId(siteId);
+	}
+
 	public void testCreateSite(String siteId) {
 		Map<String, Object> json = new HashMap<>();
 		json.put("site_id", siteId);
