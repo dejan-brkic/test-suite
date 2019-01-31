@@ -65,6 +65,13 @@
 		</classes>
 	</test>
 	<test
+			name="Automate verification that the application allows to create a site with Link to upstream remote git repository (git, gitlab) -Authentication type: basic">
+		<classes>
+			<class
+					name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest" />
+		</classes>
+	</test>
+	<test
 	name="Automate verification that the application allows to create a site with Link to upstream remote git repository (git, gitlab) -Authentication type: Remote Git Repository Private Key">
 		<classes>
 			<class
