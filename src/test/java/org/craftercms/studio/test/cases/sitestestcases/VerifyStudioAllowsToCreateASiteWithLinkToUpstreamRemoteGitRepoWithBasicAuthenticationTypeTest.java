@@ -35,7 +35,6 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithB
 	private String password;
 	private String siteId;
 	private String siteDropdownElementXPath;
-	private String pushToBareRepoInput;
 	private String gitRepoUrl;
 	private String gitRepositoryUserName;
 	private String gitRepositoryPassword;
@@ -52,8 +51,6 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithB
 				.getProperty("crafter.gitrepository.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorypushtoremotebare");
 		siteId = "testingcreatesitelinkremotebasic";
 	}
 
@@ -61,23 +58,22 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithB
 	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest(){
 		loginPage.loginToCrafter(userName, password);
 		homePage.clickOnCreateSiteButton();
-		createSitePage.setSiteId(siteId);
-		homePage.clickOnLinkToUpstreamRemoteGitRepository();
-		createSitePage.setRepositoryName("origin");
-		createSitePage.setRepositoryURL(gitRepoUrl);
-		createSitePage.selectGitRepoBasicAutheticationType();
-		createSitePage.setRepositoryUserName(gitRepositoryUserName);
-		createSitePage.setRepositoryUserPassword(gitRepositoryPassword);
-		driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushToBareRepoInput)
-				.click();
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-		createSitePage.clickOnCreateSiteButton();
-		driverManager.waitForAnimation();
+
+        createSitePage.selectWebSiteEditorialBluePrintOption()
+                .setSiteName(siteId)
+                .clickAdditionalDeveloperOptions()
+                .clickPushSiteToRemoteGitCheckbox()
+                .setPushRepositoryName("origin")
+                .setPushRepositoryURL(gitRepoUrl)
+                .selectPushGitRepoBasicAuthenticationType()
+                .setPushRepositoryUserName(gitRepositoryUserName)
+                .setPushRepositoryUserPassword(gitRepositoryPassword)
+                .clickReviewAndCreate()
+                .clickOnCreateButton();
+
 		driverManager.waitUntilCreateSiteModalCloses();
-		driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteDropdownElementXPath);
 		Assert.assertTrue(driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
 

@@ -35,7 +35,6 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 	private String password;
 	private String siteId;
 	private String siteDropdownElementXPath;
-	private String pushToBareRepoInput;
 	private String gitRepoUrl;
 	private String gitRepositoryUserName;
 	private String gitRepositoryToken;
@@ -52,32 +51,28 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 				.getProperty("crafter.gitrepository.token");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorypushtoremotebare");
 		siteId = "testingcreatesitelinkremotetoken";
 	}
 
 	@Test()
-	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest(){
+	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest(){
 		loginPage.loginToCrafter(userName, password);
 		homePage.clickOnCreateSiteButton();
-		createSitePage.setSiteId(siteId);
-		homePage.clickOnLinkToUpstreamRemoteGitRepository();
-		createSitePage.setRepositoryName("origin");
-		createSitePage.setRepositoryURL(gitRepoUrl);
-		createSitePage.selectGitRepoTokenAutheticationType();
-		createSitePage.setRepositoryUserName(gitRepositoryUserName);
-		createSitePage.setRepositoryToken(gitRepositoryToken);
-		driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushToBareRepoInput)
-				.click();
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-		createSitePage.clickOnCreateSiteButton();
-		driverManager.waitForAnimation();
-		driverManager.waitUntilCreateSiteModalCloses();
-		driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteDropdownElementXPath);
+
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName(siteId)
+				.clickAdditionalDeveloperOptions()
+				.clickPushSiteToRemoteGitCheckbox()
+				.setPushRepositoryName("origin")
+				.setPushRepositoryURL(gitRepoUrl)
+				.selectPushGitRepoTokenAuthenticationType()
+				.setPushRepositoryUserName(gitRepositoryUserName)
+				.setPushRepositoryToken(gitRepositoryToken)
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
+
 		Assert.assertTrue(driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
 

@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -74,90 +73,85 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	}
 
 	public void step2() {
-		this.clickOnCreateSiteButton();
-	}
+		homePage.clickOnCreateSiteButton();	}
 
 	public void step3() {
-		// Filling the name of site
-		createSitePage.setSiteName(siteId);
+		createSitePage.selectWebSiteEditorialBluePrintOption();
 	}
 
 	public void step4() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
+		createSitePage.setSiteName(siteId);
 	}
 
 	public void step5() {
-		createSitePage.setRepositoryName("origin");
+		createSitePage.clickAdditionalDeveloperOptions();
 	}
 
 	public void step6() {
-		createSitePage.setRepositoryURL(this.driverManager.getLocalBareRepoURL(localRepoName));
+		createSitePage.clickPushSiteToRemoteGitCheckbox();
+	}
+
+	public void step7() {
+		createSitePage.setPushRepositoryName("origin");
 	}
 
 	public void step8() {
-		WebElement pushRemoteBareRepoInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushToBareRepoInput);
-		pushRemoteBareRepoInputElement.click();
-	}
-
-	public void step9() {
-		// Select website blueprint
-		createSitePage.selectWebSiteEditorialBluePrintOption();
+		createSitePage.setPushRepositoryURL(this.driverManager.getLocalBareRepoURL(localRepoName));
 	}
 
 	public void step10() {
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-		
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilCreateSiteModalCloses();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
-
-		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
+		createSitePage.clickReviewAndCreate();
 	}
 
 	public void step11() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavSitesOption).click();
+		// Click on Create button
+		createSitePage.clickOnCreateButton();
+
+		this.driverManager.waitUntilCreateSiteModalCloses();
+		Assert.assertTrue(this.driverManager
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
+				.isDisplayed());
 	}
 
 	public void step12() {
-		this.clickOnCreateSiteButton();
+		this.driverManager.waitUntilElementIsClickable("xpath", topNavSitesOption).click();
 	}
 
 	public void step13() {
-		// Filling the name of site
-		createSitePage.setSiteName(siteIdFromLocalRepo);
+		homePage.clickOnCreateSiteButton();
 	}
 
 	public void step14() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
-	}
-
-	public void step15() {
-		createSitePage.setRepositoryName("origin");
-	}
-
-	public void step16() {
-		createSitePage.setRepositoryURL(this.driverManager.getLocalBareRepoURL(localRepoName));
-	}
-
-	public void step18() {
-		WebElement pushRemoteBareRepoInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushToBareRepoInput);
-		pushRemoteBareRepoInputElement.click();
-	}
-
-	public void step19() {
-		// Select website blueprint
 		createSitePage.selectWebSiteEditorialBluePrintOption();
 	}
 
-	public void step20() {
+	public void step15() {
+		createSitePage.setSiteName(siteIdFromLocalRepo);
+	}
+
+	public void step16() {
+		createSitePage.clickAdditionalDeveloperOptions();
+	}
+
+	public void step17() {
+		createSitePage.clickPushSiteToRemoteGitCheckbox();
+	}
+
+	public void step18() {
+		createSitePage.setPushRepositoryName("origin");
+	}
+
+	public void step19() {
+		createSitePage.setPushRepositoryURL(this.driverManager.getLocalBareRepoURL(localRepoName));
+	}
+
+	public void step21() {
+		createSitePage.clickReviewAndCreate();
+	}
+
+	public void step22() {
 		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
+		createSitePage.clickOnCreateButton();
 		this.driverManager.waitForAnimation();
 		
 		String notificationTitleText = this.driverManager
@@ -182,10 +176,6 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		Assert.assertTrue("Error: Remote repository not bare".equals(notificationSecondText));
 	}
 
-	public void clickOnCreateSiteButton() {
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-	}
 
 	@Test(priority = 0)
 	public void verifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRepoTest() {
@@ -213,11 +203,11 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		// Step 6
 		step6();
 
+		// Step 7
+		step7();
+
 		// Step 8
 		step8();
-
-		// Step 9
-		step9();
 
 		// Step 10
 		step10();
@@ -240,6 +230,9 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		// Step 16
 		step16();
 
+		// Step 17
+		step17();
+
 		// Step 18
 		step18();
 
@@ -247,7 +240,10 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		step19();
 
 		// Step 20
-		step20();
+		step21();
+
+		// Step 22
+		step22();
 
 	}
 

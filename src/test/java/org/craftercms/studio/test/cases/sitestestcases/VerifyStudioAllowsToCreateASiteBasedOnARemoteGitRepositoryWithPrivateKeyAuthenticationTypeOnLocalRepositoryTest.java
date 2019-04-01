@@ -18,7 +18,6 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.craftercms.studio.test.utils.FilesLocations;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -30,7 +29,7 @@ import org.testng.annotations.Test;
  *
  */
 
-// Test Case Studio- Sites ID:14
+// Test Case Studio- Sites ID:16
 public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeOnLocalRepositoryTest
 		extends StudioBaseTest {
 
@@ -64,54 +63,53 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	}
 
 	public void step3() {
-		// Filling the name of site
-		createSitePage.setSiteName(siteId);
+		createSitePage.selectWebSiteEditorialBluePrintOption();
 	}
 
 	public void step4() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
+		createSitePage.setSiteName(siteId);
 	}
 
 	public void step5() {
-		createSitePage.setRepositoryName("origin");
+		createSitePage.clickAdditionalDeveloperOptions();
 	}
 
 	public void step6() {
-		createSitePage.setRepositoryURL(gitRepoUrlForSSH);
+		createSitePage.clickPushSiteToRemoteGitCheckbox();
+		createSitePage.setPushRepositoryURL(gitRepoUrlForSSH);
 	}
 
 	public void step7() {
-		createSitePage.selectGitRepoPrivateKeyAutheticationType();
+		createSitePage.setPushRepositoryName("origin");
 	}
 
 	public void step8() {
-		createSitePage
-				.setRepositoryPrivateKey(driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+		createSitePage.setPushRepositoryURL(gitRepoUrlForSSH);
 	}
 
 	public void step9() {
-		WebElement pushRemoteBareRepoInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushToBareRepoInput);
-		pushRemoteBareRepoInputElement.click();
+		createSitePage.selectPushGitRepoPrivateKeyAuthenticationType();
 	}
 
 	public void step10() {
 		// Select website blueprint
-		createSitePage.selectWebSiteEditorialBluePrintOption();
+		createSitePage.setPushRepositoryPrivateKey(driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
 	}
 
 	public void step11() {
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
 
-		this.driverManager.waitForAnimation();
+		createSitePage.clickReviewAndCreate();
+		// Click on Create button
+
+	}
+
+	public void step12() {
+		createSitePage.clickOnCreateButton();
+
 		this.driverManager.waitUntilCreateSiteModalCloses();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteDropdownElementXPath);
-
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
 
@@ -162,6 +160,8 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 		// Step 11
 		step11();
 
+		step12();
+
 	}
 
 	public void setup() {
@@ -172,6 +172,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 
 		//Getting the repository url for local ssh 
 		gitRepoUrlForSSH = gitRepositorySSHPrefix + this.driverManager.getLocalBareRepoURL(localRepoName);
+		System.out.println("dude this is the local repo" + gitRepoUrlForSSH);
 	}
 
 	public void deleteRepositoryFolder() {

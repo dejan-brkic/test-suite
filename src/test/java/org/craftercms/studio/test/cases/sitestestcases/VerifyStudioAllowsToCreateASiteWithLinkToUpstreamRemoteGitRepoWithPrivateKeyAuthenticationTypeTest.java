@@ -18,7 +18,6 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.craftercms.studio.test.utils.FilesLocations;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -29,7 +28,7 @@ import org.testng.annotations.Test;
  *
  */
 
-// Test Case Studio- Sites ID:15
+// Test Case Studio- Sites ID:17
 public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest
 		extends StudioBaseTest {
 
@@ -38,10 +37,8 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	private String siteId;
 	private String siteDropdownElementXPath;
 	private String gitPrivateKey;
-	private String pushToBareRepoInput;
 	private String gitRepoUrl;
 	private String topNavSitesOption;
-	private String basedOnRemoteRepoInput;
 	private String siteIdFromGit;
 
 	@BeforeMethod
@@ -53,10 +50,6 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorypushtoremotebare");
-		basedOnRemoteRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorybasedonremotegitrepo");
 		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.preview.sitesoption");
 		siteId = "testingtargetsiteforpushremotegit";
@@ -64,120 +57,107 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	}
 
 	public void step2() {
-		this.clickOnCreateSiteButton();
+		homePage.clickOnCreateSiteButton();
 	}
 
 	public void step3() {
-		// Filling the name of site
-		createSitePage.setSiteName(siteId);
-	}
-
-	public void step4() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
-	}
-
-	public void step5() {
-		createSitePage.setRepositoryName("origin");
-	}
-
-	public void step6() {
-		createSitePage.setRepositoryURL(gitRepoUrl);
-	}
-
-	public void step7() {
-		createSitePage.selectGitRepoPrivateKeyAutheticationType();
-	}
-
-	public void step8() {
-		createSitePage.setRepositoryPrivateKey(
-				driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
-	}
-
-	public void step9() {
-		WebElement pushRemoteBareRepoInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushToBareRepoInput);
-		pushRemoteBareRepoInputElement.click();
-	}
-
-	public void step10() {
-		// Select website blueprint
 		createSitePage.selectWebSiteEditorialBluePrintOption();
 	}
 
-	public void step11() {
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilCreateSiteModalCloses();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteDropdownElementXPath);
-
-		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
+	public void step4() {
+		createSitePage.setSiteName(siteId);
 	}
 
-	public void step12() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavSitesOption)
-				.click();
+	public void step5() {
+		createSitePage.clickAdditionalDeveloperOptions();
 	}
 
-	public void step13() {
-		this.clickOnCreateSiteButton();
+	public void step6() {
+		createSitePage.clickPushSiteToRemoteGitCheckbox();
 	}
 
-	public void step14() {
-		// Filling the name of site
-		createSitePage.setSiteName(siteIdFromGit);
+	public void step7() {
+		createSitePage.setPushRepositoryName("origin");
 	}
 
-	public void step15() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
+	public void step8() {
+		createSitePage.setPushRepositoryURL(gitRepoUrl);
 	}
 
-	public void step16() {
-		createSitePage.setRepositoryName("origin2");
+	public void step9() {
+		createSitePage.selectPushGitRepoPrivateKeyAuthenticationType();
 	}
 
-	public void step17() {
-		createSitePage.setRepositoryURL(gitRepoUrl);
-	}
-
-	public void step18() {
-		createSitePage.selectGitRepoPrivateKeyAutheticationType();
-	}
-
-	public void step19() {
-		createSitePage.setRepositoryPrivateKey(
+	public void step10() {
+		createSitePage.setPushRepositoryPrivateKey(
 				driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
 	}
 
-	public void step20() {
-		WebElement baseOnRepoInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", basedOnRemoteRepoInput);
-		baseOnRepoInputElement.click();
+	public void step11() {
+		createSitePage.clickReviewAndCreate();
 	}
 
-	public void step21() {
+	public void step12() {
 		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.waitForAnimation();
+		createSitePage.clickOnCreateButton();
 		this.driverManager.waitUntilCreateSiteModalCloses();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteDropdownElementXPath);
-
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
 
-	public void clickOnCreateSiteButton() {
-		// Click on the create site button
+	public void step13() {
+		this.driverManager.waitUntilElementIsClickable("xpath", topNavSitesOption)
+				.click();
+	}
+
+	public void step14() {
 		homePage.clickOnCreateSiteButton();
+	}
+
+	public void step15() {
+		createSitePage.clickUseRemoteGitRepoSiteCheckbox();
+	}
+
+	public void step16() {
+		createSitePage.clickBasicInformation();
+	}
+
+	public void step17() {
+		createSitePage.setSiteName(siteIdFromGit);
+	}
+
+	public void step18() {
+		createSitePage.clickBasicDeveloperOptions();
+	}
+
+	public void step19() {
+		createSitePage.setFromGitRepositoryName("origin");
+	}
+
+	public void step20() {
+		createSitePage.setFromGitRepositoryURL(gitRepoUrl);
+	}
+
+	public void step21() {
+		createSitePage.selectFromGitRepoPrivateKeyAuthenticationType();
+	}
+
+	public void step22() {
+		createSitePage.setFromGitRepositoryPrivateKey(
+				driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+	}
+
+	public void step23() {
+		createSitePage.clickReviewAndCreate();
+	}
+
+	public void step24() {
+		createSitePage.clickOnCreateButton();
+		this.driverManager.waitUntilCreateSiteModalCloses();
+		Assert.assertTrue(this.driverManager
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
+				.isDisplayed());
 	}
 
 	@Test(
@@ -251,5 +231,14 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 
 		// Step 21
 		step21();
+
+		// Step 22
+		step22();
+
+		// Step 23
+		step23();
+
+		// Step 24
+		step24();
 	}
 }

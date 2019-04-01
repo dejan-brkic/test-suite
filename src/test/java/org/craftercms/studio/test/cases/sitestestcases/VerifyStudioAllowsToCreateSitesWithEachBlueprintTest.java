@@ -35,9 +35,10 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 	private String password;
 	private String siteDropdownElementXPath;
 	private String emptyBPSiteId;
-	private String HeadlessBlogBPSiteId;
-	private String HeadlessStoreBPSiteId;
+	private String headlessBlogBPSiteId;
+	private String headlessStoreBPSiteId;
 	private String editorialBPSiteId;
+	private String videoCenterBPSiteId;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -46,113 +47,88 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		emptyBPSiteId = "emptybpsite";
-		HeadlessBlogBPSiteId = "headlessblogbpsite";
-		HeadlessStoreBPSiteId = "headlessstorebpsite";
+		headlessBlogBPSiteId = "headlessblogbpsite";
+		headlessStoreBPSiteId = "headlessstorebpsite";
 		editorialBPSiteId = "editorialbpsite";
+		videoCenterBPSiteId = "videocenterbpsite";
 	}
 
 	public void createSiteUsingEmptyBluePrint() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-
-		createSitePage.fillSiteName(emptyBPSiteId);
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select empty blueprint
-
-		createSitePage.selectEmptyBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectEmptyBluePrintOption()
+				.setSiteName(emptyBPSiteId)
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
-
 	}
 
 	public void createSiteUsingWebSiteEditorialBluePrint() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-
-		createSitePage.fillSiteName(editorialBPSiteId);
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select website blueprint
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName(editorialBPSiteId)
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
-
 	}
 
 	public void createSiteUsingHeadlessBlogBluePrint() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-
-		createSitePage.fillSiteName(HeadlessBlogBPSiteId);
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select empty blueprint
-
-		createSitePage.selectHeadlessBlogBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectHeadlessStoreBluePrintOption()
+				.setSiteName(headlessBlogBPSiteId)
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
 
 	public void createSiteUsingHeadlessStoreBluePrint() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
-
-		// Filling the name of site
-
-		createSitePage.fillSiteName(HeadlessStoreBPSiteId);
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select empty blueprint
-
-		createSitePage.selectHeadlessStoreBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectHeadlessStoreBluePrintOption()
+				.setSiteName(headlessStoreBPSiteId)
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
+				.isDisplayed());
+	}
+
+	public void createSiteUsingVideoCenterBlueprint() {
+		// Click on the create site button
+		homePage.clickOnCreateSiteButton();
+
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectVideoCenterBluePrintOption()
+				.setSiteName(videoCenterBPSiteId)
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
+		//video center takes longer to create, lets wait for more
+		Assert.assertTrue(this.driverManager
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath,80)
 				.isDisplayed());
 
 	}
@@ -169,12 +145,17 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 
 	public void step11() {
 		dashboardPage.clickOnSitesOption();
-		this.homePage.checkIfSiteIsListedOnSitesPage(HeadlessBlogBPSiteId);
+		this.homePage.checkIfSiteIsListedOnSitesPage(headlessBlogBPSiteId);
 	}
 
 	public void step14() {
 		dashboardPage.clickOnSitesOption();
-		this.homePage.checkIfSiteIsListedOnSitesPage(HeadlessStoreBPSiteId);
+		this.homePage.checkIfSiteIsListedOnSitesPage(headlessStoreBPSiteId);
+	}
+
+	public void step17() {
+		dashboardPage.clickOnSitesOption();
+		this.homePage.checkIfSiteIsListedOnSitesPage(videoCenterBPSiteId);
 	}
 
 	@Test(priority = 0)
@@ -185,25 +166,30 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 
 		driverManager.waitUntilLoginCloses();
 
-		// Steps 3 y 4
+		// Steps 3 and 4
 		createSiteUsingEmptyBluePrint();
 
 		step5();
 
-		// Steps 6 y 7
+		// Steps 6 and 7
 		createSiteUsingWebSiteEditorialBluePrint();
 
 		step8();
 
-		// Steps 9 y 10
+		// Steps 9 and 10
 		createSiteUsingHeadlessBlogBluePrint();
 
 		step11();
 
-		// Steps 12 y 13
+		// Steps 12 and 13
 		createSiteUsingHeadlessStoreBluePrint();
 
 		step14();
+
+		// Steps 15 and 16
+		createSiteUsingVideoCenterBlueprint();
+
+		step17();
 
 	}
 

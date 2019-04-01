@@ -51,24 +51,15 @@ public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-
-		createSitePage.fillSiteName();
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select empty blueprints
-		createSitePage.selectEmptyBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectEmptyBluePrintOption()
+				.setSiteName()
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 
 		dashboardPage.clickOnSitesOption();
@@ -86,7 +77,7 @@ public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 		this.createSiteUsingEmptyBluePrint();
 		
 		// Click on Delete icon
-		this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
+		this.driverManager.waitUntilElementIsDisplayed("xpath", createSiteButton);
 
 		this.homePage.deleteAllSites();
 

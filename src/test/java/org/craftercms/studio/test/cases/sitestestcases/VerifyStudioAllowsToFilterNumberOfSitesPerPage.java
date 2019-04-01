@@ -106,70 +106,63 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-		createSitePage.fillSiteName();
-
-		// Filling the description of the site
-		createSitePage.fillDescription("Description");
-
-		// Open blueprint combo
-		createSitePage.openBlueprintCombo();
-
-		// Select empty blueprint
-		createSitePage.selectEmptyBlueprint();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectEmptyBluePrintOption()
+				.setSiteName()
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 		
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
+		this.driverManager.waitUntilElementIsClickable("xpath", siteDropdownElementXPath);
+		this.driverManager.waitUntilElementIsClickable("xpath", topNavDeleteOption);
+		this.driverManager.waitUntilElementIsClickable("xpath", topNavEditOption);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavDeleteOption);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavEditOption);
+		Assert.assertTrue(this.driverManager
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
+				.isDisplayed());
 
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavSitesOption).click();
+		this.driverManager.waitUntilElementIsClickable("xpath", topNavSitesOption).click();
 	}
 
 	public void filters() {
 
 		// Show 1 sites
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).clear();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("1");
 
 		// Assert only 1 sites displayed
-		WebElement page1 = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement page1 = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				firstSiteXpath);
 		Assert.assertTrue(page1.isDisplayed());
 
 		// Show 2 sites
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).clear();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("2");
 
-		// Asser only 2 sites displayed
-		WebElement page2 = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		// Assert only 2 sites displayed
+		WebElement page2 = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				secondSiteXpath);
 		Assert.assertTrue(page2.isDisplayed());
 
 		// Show 3 site
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).clear();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("3");
 
-		// Asser only 3 site displayed
-		WebElement page3 = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		// Assert only 3 site displayed
+		WebElement page3 = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				thirdSiteXpath);
 		Assert.assertTrue(page3.isDisplayed());
 
 		// Show 10 sites
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).clear();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("10");
 		
 		this.driverManager.waitForAnimation();
@@ -187,26 +180,26 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 
 	public void navigationOfPage() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("1");
+		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("1");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("2");
+		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("2");
 
 		// navigation
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastNumberOfPaginationXpath).click();
+		this.driverManager.waitUntilElementIsDisplayed("xpath", lastNumberOfPaginationXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstNumberOfPaginationXpath).click();
+		this.driverManager.waitUntilElementIsDisplayed("xpath", firstNumberOfPaginationXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastArrowOfPaginationXpath).click();
+		this.driverManager.waitUntilElementIsDisplayed("xpath", lastArrowOfPaginationXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstArrowOfPaginationXpath).click();
+		this.driverManager.waitUntilElementIsDisplayed("xpath", firstArrowOfPaginationXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
+		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
 		
 		this.driverManager.waitForAnimation();
 		

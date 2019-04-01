@@ -41,7 +41,6 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 	private String inContextEditOption;
 	private String expandPagesTree;
 	private String siteDropdownElementXPath;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String createSiteButton;
 	private String editReviewerGroupOption;
@@ -71,8 +70,6 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 				.getProperty("dashboard.expand_Pages_Tree");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.reviewerusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("users.crafterlogo");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -215,11 +212,11 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
-		usersPage.addNewUser("reviewer");
+		usersPage.addNewUser("reviewercontextedit");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='reviewercontextedit']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
