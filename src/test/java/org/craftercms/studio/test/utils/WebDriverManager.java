@@ -369,9 +369,13 @@ public class WebDriverManager {
 	}
 
 	public WebElement waitUntilElementIsClickable(String typeOfSelector, String selectorValue) {
+		return waitUntilElementIsClickable(typeOfSelector, selectorValue, defaultTimeOut);
+	}
+
+	public WebElement waitUntilElementIsClickable(String typeOfSelector, String selectorValue, int timeOut) {
 		logger.debug("Waiting for element to be clickable: {}, {}", typeOfSelector, selectorValue);
 		By selector = getSelector(typeOfSelector, selectorValue);
-		new WebDriverWait(driver, defaultTimeOut)
+		new WebDriverWait(driver, timeOut)
 				.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(selector)));
 		try {
 			return driver.findElement(selector);
@@ -1238,7 +1242,8 @@ public class WebDriverManager {
 
 	@SuppressWarnings("deprecation")
 	public int goToFolderAndExecuteGitInitBareRepository(String repositoryName) {
-		String repositoryFolder = System.getProperty("user.home") + File.separator + "craftercms_testrepos"
+		String repositoryFolder = System.getProperty("user.dir") +File.separator + ".." + File.separator + ".."
+				+ File.separator + "crafter-authoring" + File.separator + "data" + File.separator + "craftercms_testrepos"
 				+ File.separator + repositoryName + File.separator;
 
 		try {
@@ -1263,7 +1268,8 @@ public class WebDriverManager {
 
 	public int goToFolderAndExecuteDeleteBareRepositoryFolder(String repositoryName) {
 		try {
-			String repositoryFolder = System.getProperty("user.home") + File.separator
+			String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+					+ File.separator + "crafter-authoring" + File.separator + "data" + File.separator
 					+ "craftercms_testrepos";
 
 			FileUtils.deleteDirectory(new File(repositoryFolder));
@@ -1280,8 +1286,9 @@ public class WebDriverManager {
 	}
 
 	public String getLocalBareRepoURL(String repositoryName) {
-		String repositoryFolder = System.getProperty("user.home") + File.separator + "craftercms_testrepos"
-				+ File.separator + repositoryName + File.separator;
+		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+				+ File.separator + "crafter-authoring" + File.separator + "data" + File.separator
+				+ "craftercms_testrepos" + File.separator + repositoryName + File.separator;
 
 		if ("unix".equalsIgnoreCase(executionEnvironment)) {
 			return repositoryFolder;
