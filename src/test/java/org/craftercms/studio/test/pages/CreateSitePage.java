@@ -250,12 +250,6 @@ public class CreateSitePage {
 		return this;
 	}
 
-	public void openBlueprintCombo() {
-		// Open blueprint combo
-		this.blueprintSelect("");
-		//need to refactor this
-	}
-
 	public CreateSitePage selectEmptyBluePrintOption() {
 		// select blue empty print
 		this.blueprintSelect("Empty Blueprint");
@@ -360,19 +354,6 @@ public class CreateSitePage {
 	public void clickOnSettingsOption() {
 		// Press on settings option
 		this.clickSettings();
-	}
-
-	public void createRandomSite() {
-		// Filling the name of site
-		this.setSiteName();
-		// Filling the description of the site
-		this.setDescription("Description");
-		// Open blueprint combo
-		// this.openBlueprintCombo();
-		// Select empty blueprint
-		this.selectEmptyBluePrintOption();
-		// Click on Create button
-		this.clickOnCreateButton();
 	}
 
 	public WebDriverManager getDriverManager() {
