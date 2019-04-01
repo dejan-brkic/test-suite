@@ -228,20 +228,17 @@ public class UsersPage {
 		clickOnNewUser();
 
 		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys(userName);
+		this.driverManager.sendText("xpath", newUserFirstNameId, "FirstName");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
-				.sendKeys("LastName");
+		this.driverManager.sendText("xpath", newUserLastNameId,"LastName");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
-				.sendKeys("email@email.com");
+		this.driverManager.sendText("xpath", newUserEmailId, "email@email.com");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys(userName);
+		this.driverManager.sendText("xpath", newUserUserNameId, userName);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys(userName);
+		this.driverManager.sendText("xpath", newUserPasswordId, userName);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
-				.sendKeys(userName);
+		this.driverManager.sendText("xpath", newUserPasswordVerificationId, userName);
 
 		// Save Button
 		clickOnSaveNewUser();

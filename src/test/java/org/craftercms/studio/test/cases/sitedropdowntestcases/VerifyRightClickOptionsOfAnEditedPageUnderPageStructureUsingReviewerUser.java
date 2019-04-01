@@ -51,7 +51,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -121,8 +120,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.reviewerusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -444,11 +441,11 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
-		usersPage.addNewUser("reviewer");
+		usersPage.addNewUser("revieweredited");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='revieweredited']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -635,7 +632,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewe
 
 		// login to application with reviewer user
 		logger.info("login to application with reviewer user");
-		loginPage.loginToCrafter("reviewer", "reviewer");
+		loginPage.loginToCrafter("revieweredited", "revieweredited");
 
 		driverManager.waitUntilLoginCloses();
 

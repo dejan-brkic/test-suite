@@ -56,21 +56,12 @@ public class CancelCreateSiteProcessTest extends StudioBaseTest{
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-		createSitePage.fillSiteName();
-
-		// Filling the Id of the site
-		createSitePage.fillIdSite("");
-
-		// Filling the description of the site
-		createSitePage.fillDescription("Description");
-
-		// Open blueprint combo
-
-		createSitePage.openBlueprintCombo();
-
-		// Click on Cancel button
-		createSitePage.clickOnCancelButtonOfTheCreateSiteProcess();
+		//select blueprint, set site name, set description, click review and cancel the create process
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName()
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCancelButtonOfTheCreateSiteProcess();
 
 		// Assert
 		WebElement sitePage = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",

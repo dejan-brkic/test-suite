@@ -38,12 +38,9 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 	private String siteId;
 	private String validationMessageForRepositoryName;
 	private String validationMessageForRepositoryURL;
-	private String basicAuthenticationInput;
 	private String validationMessageForRepositoryUserName;
 	private String validationMessageForRepositoryUserPassword;
-	private String gitTokenAuthenticationInput;
 	private String validationMessageForRepositoryToken;
-	private String privateKeyAuthenticationInput;
 	private String validationMessageForRepositoryPrivateKey;
 
 	@BeforeMethod
@@ -59,12 +56,6 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				.getProperty("home.createsite.repositorynamevalidation");
 		validationMessageForRepositoryURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.repositoryurlvalidation");
-		basicAuthenticationInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorybasicauthenticationtype");
-		gitTokenAuthenticationInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorygittokenauthenticationtype");
-		privateKeyAuthenticationInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorygitprivatekeyauthenticationtype");
 		validationMessageForRepositoryUserName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.repositoryusernamevalidation");
 		validationMessageForRepositoryUserPassword = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -77,13 +68,15 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 	public void step3() {
 		// Click on description to show the validations
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createSiteDescriptionId).click();
+		this.driverManager.waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
 
 		// Assert Id site is required.
-		WebElement siteID = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement siteID = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				validationMessageXpath);
 
 		Assert.assertTrue(siteID.isDisplayed(), "ERROR: site ID is not required");
+		Assert.assertTrue(siteID.getText().contains("Site Id is required."));
+
 	}
 
 	public void step4() {
@@ -93,13 +86,12 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDWithUpperCasesAndSpaces);
 		
 		this.driverManager.waitForAnimation();
-		WebElement siteID = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteId);
+		WebElement siteID = this.driverManager.waitUntilElementIsClickable("xpath", siteId);
 
 		String testingSiteID=((testingSiteIDWithUpperCasesAndSpaces.toLowerCase()).replace(" ", ""));
 		String siteIDText=siteID.getAttribute("value");
 		
-		Assert.assertTrue(
-				siteIDText.equals(testingSiteID));
+		Assert.assertTrue(siteIDText.equals(testingSiteID));
 	}
 
 	public void step5() {
@@ -108,7 +100,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDSpecialCharacters);
 
 		this.driverManager.waitForAnimation();
-		WebElement siteID = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteId);
+		WebElement siteID = this.driverManager.waitUntilElementIsDisplayed("xpath", siteId);
 
 		String testingSiteID=((testingSiteIDSpecialCharacters.toLowerCase()).replace("!!$%", ""));
 		String siteIDText=siteID.getAttribute("value");
@@ -117,16 +109,16 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 	}
 
 	public void step6() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
+		createSitePage.clickAdditionalDeveloperOptions()
+				.clickPushSiteToRemoteGitCheckbox();
 	}
 
 	public void step7() {
+		createSitePage.setPushRepositoryName("");
 
-		createSitePage.setRepositoryName("");
+		createSitePage.setPushRepositoryURL("testurl");
 
-		createSitePage.setRepositoryURL("testurl");
-
-		WebElement validationOnRepoName = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement validationOnRepoName = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryName);
 
 		Assert.assertTrue(validationOnRepoName.isDisplayed());
@@ -134,14 +126,11 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 	}
 
 	public void step8() {
+		createSitePage.setPushRepositoryName("testreponame")
+				.setPushRepositoryURL("")
+				.setPushRepositoryName("testreponame");
 
-		createSitePage.setRepositoryName("testreponame");
-
-		createSitePage.setRepositoryURL("");
-
-		createSitePage.setRepositoryName("testreponame");
-
-		WebElement validationOnRepoURL = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement validationOnRepoURL = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryURL);
 
 		Assert.assertTrue(validationOnRepoURL.isDisplayed());
@@ -149,23 +138,16 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 	}
 
 	public void step9() {
-
-		createSitePage.setRepositoryName("testreponame");
-
-		createSitePage.setRepositoryURL("testrepourl");
-
-		WebElement basicAuthenticationInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", basicAuthenticationInput);
-		basicAuthenticationInputElement.click();
+		createSitePage.setPushRepositoryName("testreponame")
+				.setPushRepositoryURL("testrepourl")
+				.selectPushGitRepoBasicAuthenticationType();
 	}
 
 	public void step10() {
+		createSitePage.setPushRepositoryUserName("")
+				.setPushRepositoryUserPassword("testpassword");
 
-		createSitePage.setRepositoryUserName("");
-
-		createSitePage.setRepositoryUserPassword("testpassword");
-
-		WebElement validationOnRepoUserName = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement validationOnRepoUserName = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryUserName);
 
 		Assert.assertTrue(validationOnRepoUserName.isDisplayed());
@@ -173,15 +155,12 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 	}
 
 	public void step11() {
-
-		createSitePage.setRepositoryUserName("testusername");
-
-		createSitePage.setRepositoryUserPassword("");
-
-		createSitePage.setRepositoryUserName("testusername");
+		createSitePage.setPushRepositoryUserName("testusername")
+				.setPushRepositoryUserPassword("")
+				.setPushRepositoryUserName("testusername");
 
 		WebElement validationOnRepoUserPassword = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", validationMessageForRepositoryUserPassword);
+				.waitUntilElementIsDisplayed("xpath", validationMessageForRepositoryUserPassword);
 
 		Assert.assertTrue(validationOnRepoUserPassword.isDisplayed());
 		Assert.assertTrue(
@@ -189,23 +168,16 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 	}
 
 	public void step12() {
-
-		createSitePage.setRepositoryUserName("testusername");
-
-		createSitePage.setRepositoryUserPassword("testuserpassword");
-
-		WebElement tokenAuthenticationInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", gitTokenAuthenticationInput);
-		tokenAuthenticationInputElement.click();
+		createSitePage.setPushRepositoryUserName("testusername")
+				.setPushRepositoryUserPassword("testuserpassword")
+				.selectPushGitRepoTokenAuthenticationType();
 	}
 
 	public void step13() {
+		createSitePage.setPushRepositoryToken("")
+				.setPushRepositoryUserName("testusername");
 
-		createSitePage.setRepositoryToken("");
-
-		createSitePage.setRepositoryUserName("testusername");
-
-		WebElement validationOnRepoToken = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement validationOnRepoToken = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryToken);
 
 		Assert.assertTrue(validationOnRepoToken.isDisplayed());
@@ -213,28 +185,161 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 	}
 
 	public void step14() {
-
-		createSitePage.setRepositoryUserName("testusername");
-
-		createSitePage.setRepositoryToken("testtoken");
-
-		WebElement privateKeyAuthenticationInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", privateKeyAuthenticationInput);
-		privateKeyAuthenticationInputElement.click();
+		createSitePage.setPushRepositoryUserName("testusername")
+				.setPushRepositoryToken("testtoken")
+				.selectPushGitRepoPrivateKeyAuthenticationType();
 	}
 
 	public void step15() {
+		createSitePage.setPushRepositoryPrivateKey("")
+				.setPushRepositoryName("testreponame");
 
-		createSitePage.setRepositoryPrivateKey("");
-
-		createSitePage.setRepositoryName("testreponame");
-
-		WebElement validationOnRepoPrivateKey = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement validationOnRepoPrivateKey = this.driverManager.waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryPrivateKey);
 
 		Assert.assertTrue(validationOnRepoPrivateKey.isDisplayed());
 		Assert.assertTrue(
 				validationOnRepoPrivateKey.getText().contains("Remote Git Repository Private Key is required."));
+	}
+
+
+	public void step16() {
+		createSitePage.cancelButton();
+		homePage.clickOnCreateSiteButton();
+		createSitePage.clickUseRemoteGitRepoSiteCheckbox()
+				.clickBasicDeveloperOptions();
+		// Click on description to show the validations
+		this.driverManager.waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
+
+		// Assert Id site is required.
+		WebElement siteID = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				validationMessageXpath);
+
+		Assert.assertTrue(siteID.isDisplayed(), "ERROR: site ID is not required");
+		Assert.assertTrue(siteID.getText().contains("Site Id is required."));
+	}
+
+	public void step17() {
+		String testingSiteIDWithUpperCasesAndSpaces = "TestingUPPERCASE SPACE";
+
+		// Filling the name of site
+		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDWithUpperCasesAndSpaces);
+
+		this.driverManager.waitForAnimation();
+		WebElement siteID = this.driverManager.waitUntilElementIsClickable("xpath", siteId);
+
+		String testingSiteID=((testingSiteIDWithUpperCasesAndSpaces.toLowerCase()).replace(" ", ""));
+		String siteIDText=siteID.getAttribute("value");
+
+		Assert.assertTrue(siteIDText.equals(testingSiteID));
+	}
+
+	public void step18() {
+		String testingSiteIDSpecialCharacters = "testing!!$%";
+		// Filling the name of site
+		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDSpecialCharacters);
+
+		this.driverManager.waitForAnimation();
+		WebElement siteID = this.driverManager.waitUntilElementIsDisplayed("xpath", siteId);
+
+		String testingSiteID=((testingSiteIDSpecialCharacters.toLowerCase()).replace("!!$%", ""));
+		String siteIDText=siteID.getAttribute("value");
+
+		Assert.assertTrue(siteIDText.equals(testingSiteID));
+	}
+
+	public void step19(){
+		createSitePage.clickBasicDeveloperOptions();
+	}
+
+	public void step20() {
+		createSitePage.setFromGitRepositoryName("");
+
+		createSitePage.setFromGitRepositoryURL("testurl");
+
+		WebElement validationOnRepoName = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				validationMessageForRepositoryName);
+
+		Assert.assertTrue(validationOnRepoName.isDisplayed());
+		Assert.assertTrue(validationOnRepoName.getText().contains("Remote Git Repository Name is required."));
+	}
+
+	public void step21() {
+		createSitePage.setFromGitRepositoryName("testreponame")
+				.setFromGitRepositoryURL("")
+				.setFromGitRepositoryName("testreponame");
+
+		WebElement validationOnRepoURL = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				validationMessageForRepositoryURL);
+
+		Assert.assertTrue(validationOnRepoURL.isDisplayed());
+		Assert.assertTrue(validationOnRepoURL.getText().contains("Remote Git Repository URL is required."));
+	}
+
+	public void step22() {
+		createSitePage.setFromGitRepositoryName("testreponame")
+				.setFromGitRepositoryURL("testrepourl")
+				.selectFromGitRepoBasicAuthenticationType();
+	}
+
+	public void step23() {
+		createSitePage.setFromGitRepositoryUserName("")
+				.setFromGitRepositoryUserPassword("testpassword");
+
+		WebElement validationOnRepoUserName = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				validationMessageForRepositoryUserName);
+
+		Assert.assertTrue(validationOnRepoUserName.isDisplayed());
+		Assert.assertTrue(validationOnRepoUserName.getText().contains("Remote Git Repository Username is required."));
+	}
+
+	public void step24() {
+		createSitePage.setFromGitRepositoryUserName("testusername")
+				.setFromGitRepositoryUserPassword("")
+				.setFromGitRepositoryUserName("testusername");
+
+		WebElement validationOnRepoUserPassword = this.driverManager
+				.waitUntilElementIsDisplayed("xpath", validationMessageForRepositoryUserPassword);
+
+		Assert.assertTrue(validationOnRepoUserPassword.isDisplayed());
+		Assert.assertTrue(
+				validationOnRepoUserPassword.getText().contains("Remote Git Repository Password is required."));
+	}
+
+	public void step25() {
+		createSitePage.setFromGitRepositoryUserName("testusername")
+				.setFromGitRepositoryUserPassword("testuserpassword")
+				.selectFromGitRepoTokenAuthenticationType();
+	}
+
+	public void step26(){
+		createSitePage.setFromGitRepositoryToken("")
+				.setFromGitRepositoryUserName("testusername");
+
+		WebElement validationOnRepoToken = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				validationMessageForRepositoryToken);
+
+		Assert.assertTrue(validationOnRepoToken.isDisplayed());
+		Assert.assertTrue(validationOnRepoToken.getText().contains("Remote Git Repository Token is required."));
+	}
+
+	public void step27() {
+		createSitePage.setFromGitRepositoryUserName("testusername")
+				.setFromGitRepositoryToken("testtoken")
+				.selectFromGitRepoPrivateKeyAuthenticationType();
+	}
+
+	public void step28() {
+		createSitePage.setFromGitRepositoryPrivateKey("")
+				.setFromGitRepositoryName("testreponame");
+
+		WebElement validationOnRepoPrivateKey = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				validationMessageForRepositoryPrivateKey);
+
+		Assert.assertTrue(validationOnRepoPrivateKey.isDisplayed());
+		Assert.assertTrue(
+				validationOnRepoPrivateKey.getText().contains("Remote Git Repository Private Key is required."));
+
 	}
 
 	@Test(priority = 0)
@@ -247,7 +352,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
-
+		createSitePage.selectEmptyBluePrintOption();
 		// Step 3
 		step3();
 
@@ -286,5 +391,44 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 		// Step 15
 		step15();
+
+		// Step 16
+		step16();
+
+		// Step 17
+		step17();
+
+		// Step 18
+		step18();
+
+		// Step 19
+		step19();
+
+		// Step 20
+		step20();
+
+		// Step 21
+		step21();
+
+		// Step 22
+		step22();
+
+		// Step 23
+		step23();
+
+		// Step 24
+		step24();
+
+		// Step 25
+		step25();
+
+		// Step 26
+		step26();
+
+		// Step 27
+		step27();
+
+		// Step 26
+		step28();
 	}
 }

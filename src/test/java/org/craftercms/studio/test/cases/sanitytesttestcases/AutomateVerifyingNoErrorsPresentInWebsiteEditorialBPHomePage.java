@@ -66,7 +66,7 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 
 		this.driverManager.getDriver().switchTo().defaultContent();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton).click();
+		this.driverManager.waitUntilElementIsClickable("xpath", menuSitesButton).click();
 
 		// Click on Delete icon
 		homePage.clickOnDeleteSiteIcon();
@@ -96,18 +96,12 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-		createSitePage.fillSiteName();
-
-		// Filling the description of the site
-		createSitePage.fillDescription("Description");
-
-		// Open blueprint combo
-		// Select blueprint
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName()
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		// Verify No error messages after clicking on the Create button
 		Assert.assertFalse(driverManager.isElementPresentByXpath(createSiteErrorNotificationWindow));

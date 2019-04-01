@@ -53,7 +53,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublis
 	private LinkedList<String> siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
 	private String createSiteButton;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String siteconfigGroupsOption;
@@ -94,8 +93,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublis
 				.getProperty("dashboard.sitebar.dropdown.items");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.publisherusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -185,11 +182,11 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublis
 
 		createSitePage.clickOnUsersOption();
 
-		usersPage.addNewUser("publisher");
+		usersPage.addNewUser("publishersidebar");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='publishersidebar']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -304,7 +301,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublis
 
 		// login to application with publisher user
 		logger.info("login to application with publisher user");
-		loginPage.loginToCrafter("publisher", "publisher");
+		loginPage.loginToCrafter("publishersidebar", "publishersidebar");
 
 		driverManager.waitUntilLoginCloses();
 		

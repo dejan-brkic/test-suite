@@ -53,7 +53,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 	private LinkedList<String> siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
 	private String createSiteButton;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String siteconfigGroupsOption;
@@ -94,8 +93,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 				.getProperty("dashboard.sitebar.dropdown.items");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.authorusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -186,11 +183,11 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 
 		createSitePage.clickOnUsersOption();
 
-		usersPage.addNewUser("author");
+		usersPage.addNewUser("authorsidebar");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='authorsidebar']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -302,7 +299,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 
 		// login to application with author user
 		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		loginPage.loginToCrafter("authorsidebar", "authorsidebar");
 
 		driverManager.waitUntilLoginCloses();
 

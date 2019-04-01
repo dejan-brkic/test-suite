@@ -46,25 +46,15 @@ public class VerifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest e
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-
-		createSitePage.fillSiteName();
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select empty blueprint
-
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName()
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 
 		dashboardPage.clickOnSitesOption();

@@ -95,20 +95,12 @@ public class VerifyThatPaginationOfSiteListWorksProperlyTest extends StudioBaseT
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-		createSitePage.fillSiteName();
-
-		// Filling the description of the site
-		createSitePage.fillDescription("Description");
-
-		// Open blueprint combo
-		createSitePage.openBlueprintCombo();
-
-		// Select empty blueprint
-		createSitePage.selectEmptyBlueprint();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectEmptyBluePrintOption()
+				.setSiteName()
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
 		

@@ -52,7 +52,6 @@ public class HomePage {
 	private String siteIdLabel;
 	private String siteTableRow;
 	private Object siteIDColumn;
-	private String remoteRepositoryLink;
 	private static Logger logger = LogManager.getLogger(HomePage.class);
 
 	public HomePage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
@@ -79,7 +78,6 @@ public class HomePage {
 		siteIdLabel = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.siteidlabel");
 		siteTableRow = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.general.sitetablerow");
 		siteIDColumn = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.general.siteidtablecolumn");
-		remoteRepositoryLink =  UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.createsite.linktoupstream");
 	}
 
 	// Click on preview link
@@ -128,17 +126,9 @@ public class HomePage {
 		this.driver = driver;
 	}
 
-	// Click on Create Site button
-	public void clickCreateSiteButton() {
-		this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
-		WebElement createSiteOption = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createSiteButton);
-		createSiteOption.click();
-	}
-
 	public void clickOnCreateSiteButton() {
-		// Click on Create Site button
-		this.clickCreateSiteButton();
+		this.driverManager
+				.waitUntilElementIsClickable("xpath", createSiteButton).click();
 	}
 
 	// Click on Delete icon to the site
@@ -274,11 +264,4 @@ public class HomePage {
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", currentSiteIdColumn).isDisplayed());
 	}
-	
-	public void clickOnLinkToUpstreamRemoteGitRepository() {
-		WebElement repositoryLink = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				remoteRepositoryLink);
-		repositoryLink.click();
-	}
-
 }

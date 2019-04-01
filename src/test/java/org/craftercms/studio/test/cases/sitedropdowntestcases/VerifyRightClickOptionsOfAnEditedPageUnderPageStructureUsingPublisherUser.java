@@ -52,7 +52,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -143,8 +142,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.publisherusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -543,11 +540,11 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
-		usersPage.addNewUser("publisher");
+		usersPage.addNewUser("publisheredited");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='publisheredited']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -696,7 +693,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublish
 
 		// login to application with publisher user
 		logger.info("login to application with publisher user");
-		loginPage.loginToCrafter("publisher", "publisher");
+		loginPage.loginToCrafter("publisheredited", "publisheredited");
 
 		driverManager.waitUntilLoginCloses();
 

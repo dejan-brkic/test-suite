@@ -58,24 +58,13 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName(siteId)	// Filling the name of site
+				.setDescription("Description")		// Filling the description of the site
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
-		// Filling the name of site
-		createSitePage.fillSiteName(siteId);
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Open blueprint combo
-		// Select blueprint
-
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-
-		// Click on Create button
-		this.driverManager.waitForAnimation();
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
 		Assert.assertTrue(this.driverManager

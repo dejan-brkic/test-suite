@@ -568,16 +568,16 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		driverManager.waitUntilLoginCloses();
 
 		logger.info("Add New User Author");
-		this.addNewUser("author");
+		this.addNewUser("authorpublishreviewer");
 
 		logger.info("Add New User Reviewer");
-		this.addNewUser("reviewer");
+		this.addNewUser("reviewerpublishreviewer");
 
 		logger.info("Add previous created author user to Author Group");
-		this.addUserToRespectiveGroup(editAuthorGroupOption, "author");
+		this.addUserToRespectiveGroup(editAuthorGroupOption, "authorpublishreviewer");
 
 		logger.info("Add previous created reviewer user to Reviewer Group");
-		this.addUserToRespectiveGroup(editReviewerGroupOption, "reviewer");
+		this.addUserToRespectiveGroup(editReviewerGroupOption, "reviewerpublishreviewer");
 
 		logger.info("Go to Site Preview");
 		this.goToSiteContentPagesStructure();
@@ -591,7 +591,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// login to application with author user
 		logger.info("login to application with Author user");
-		loginPage.loginToCrafter("author", "author");
+		loginPage.loginToCrafter("authorpublishreviewer", "authorpublishreviewer");
 
 		// wait for login page to close
 		driverManager.waitUntilLoginCloses();
@@ -652,7 +652,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// login to application with Reviewer user
 		logger.info("login to application with Reviewer user");
-		loginPage.loginToCrafter("reviewer", "reviewer");
+		loginPage.loginToCrafter("reviewerpublishreviewer", "reviewerpublishreviewer");
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();

@@ -52,7 +52,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingDevelop
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -147,8 +146,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingDevelop
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.developerusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -559,11 +556,11 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingDevelop
 
 		createSitePage.clickOnUsersOption();
 
-		usersPage.addNewUser("developer");
+		usersPage.addNewUser("developeredited");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='developeredited']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -713,7 +710,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingDevelop
 
 		// login to application with developer user
 		logger.info("login to application with developer user");
-		loginPage.loginToCrafter("developer", "developer");
+		loginPage.loginToCrafter("developeredited", "developeredited");
 
 		driverManager.waitUntilLoginCloses();
 

@@ -49,27 +49,18 @@ public class CreateSiteWithHeadlessBlogBluePrintTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
-		
+
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectHeadlessBlogBluePrintOption()
+				.setSiteName()
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
-		createSitePage.fillSiteName();
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select empty blueprint
-		createSitePage.selectHeadlessBlogBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
-
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
+		Assert.assertTrue(this.driverManager.waitUntilElementIsClickable("xpath",siteDropdownElementXPath).isDisplayed());
 	}
 
 }

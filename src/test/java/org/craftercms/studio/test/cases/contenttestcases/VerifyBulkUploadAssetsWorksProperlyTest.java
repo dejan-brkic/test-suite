@@ -114,19 +114,12 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-
-		createSitePage.fillSiteName(editorialBPSiteId);
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select website blueprint
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
+		// Select website blueprint, set site name, set description, click review and create site
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName(editorialBPSiteId)
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteDropdownElementXPath);

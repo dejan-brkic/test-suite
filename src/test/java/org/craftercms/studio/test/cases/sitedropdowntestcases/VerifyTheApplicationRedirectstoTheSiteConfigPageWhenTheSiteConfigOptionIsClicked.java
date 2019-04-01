@@ -85,7 +85,7 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 	}
 
 	@Test(priority = 0)
-	public void verifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked() {
+	public void verifyTheApplicationRedirectsToTheSiteConfigPageWhenTheSiteConfigOptionIsClicked() {
 
 		// login to application
 		logger.info("Login into Crafter");
@@ -99,22 +99,12 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 		logger.info("Creating Web Editorial Site");
 		homePage.clickOnCreateSiteButton();
 
-		// Filling the name of site
-
-		createSitePage.fillSiteName();
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Open blueprint combo
-		// Select blueprint
-
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-
-		// Click on Create button
-
-		createSitePage.clickOnCreateSiteButton();
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName()
+				.setDescription("Description")
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 	
 		//Expand the site bar
 		logger.info("Opening the site bar");

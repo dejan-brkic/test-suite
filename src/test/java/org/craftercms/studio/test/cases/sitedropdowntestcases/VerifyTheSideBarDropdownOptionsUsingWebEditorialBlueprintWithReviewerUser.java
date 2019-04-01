@@ -64,7 +64,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithReview
 	private String userOptions;
 	private String userOptionsLogout;
 	private String crafterLogo;
-	private String newUserUserNameCreatedXpath;
 	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager
 			.getLogger(VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithReviewerUser.class);
@@ -99,8 +98,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithReview
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("users.crafterlogo");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.reviewerusernamecreated");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
 		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -192,11 +189,11 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithReview
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
-		usersPage.addNewUser("reviewer");
+		usersPage.addNewUser("reviewersidebar");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='reviewersidebar']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -311,7 +308,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithReview
 
 		// login to application with reviewer user
 		logger.info("login to application with reviewer user");
-		loginPage.loginToCrafter("reviewer", "reviewer");
+		loginPage.loginToCrafter("reviewersidebar", "reviewersidebar");
 
 		driverManager.waitUntilLoginCloses();
 

@@ -45,21 +45,12 @@ public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest 
 	public void createSite() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
-
-		// Filling the name of site
-
-		createSitePage.fillSiteName();
-
-		// Filling the description of the site
-
-		createSitePage.fillDescription("Description");
-
-		// Select empty blueprint
-
-		createSitePage.selectEmptyBluePrintOption();
-
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
+		//select blueprint, set site name, set description, click review and create site
+		createSitePage.selectEmptyBluePrintOption()
+				.setSiteName()	// Filling the name of site
+				.setDescription("Description")		// Filling the description of the site
+				.clickReviewAndCreate()
+				.clickOnCreateButton();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 

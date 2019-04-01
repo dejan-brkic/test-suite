@@ -675,16 +675,16 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.login(userName, password);
 		
 		logger.info("Add New User Author");
-		this.addNewUser("author");
+		this.addNewUser("authorpublishdeveloper");
 	
 		logger.info("Add New User Developer");
-		this.addNewUser("developer");
+		this.addNewUser("developerpublishdeveloper");
 		
 		logger.info("Add previous created author user to Author Group");
-		this.addUserToRespectiveGroup(editAuthorGroupOption, "author");
+		this.addUserToRespectiveGroup(editAuthorGroupOption, "authorpublishdeveloper");
 		
 		logger.info("Add previous created developer user to Developer Group");
-		this.addUserToRespectiveGroup(editDeveloperGroupOption, "developer");
+		this.addUserToRespectiveGroup(editDeveloperGroupOption, "developerpublishdeveloper");
 
 		logger.info("Go to Site Preview");
 
@@ -699,7 +699,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// login to application with author user
 		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		loginPage.loginToCrafter("authorpublishdeveloper", "authorpublishdeveloper");
 
 		driverManager.waitUntilLoginCloses();
 		
@@ -759,7 +759,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// login to application with developer user
 		logger.info("login to application with Developer user");
-		loginPage.loginToCrafter("developer", "developer");
+		loginPage.loginToCrafter("developerpublishdeveloper", "developerpublishdeveloper");
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();

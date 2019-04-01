@@ -60,6 +60,9 @@ public class ValidationsOfCreateSiteFieldsTest extends StudioBaseTest {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName("");
+
 		// Click on description to show the validations
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createSiteDescriptionId).click();
 

@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -28,15 +27,15 @@ import org.testng.annotations.Test;
  *
  */
 
-// Test Case Studio- Sites ID:13
+// Test Case Studio- Sites ID:14
 public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest
 		extends StudioBaseTest {
 
 	private String userName;
 	private String password;
 	private String siteId;
-	private String createBaseOnGitRepoOption;
 	private String siteDropdownElementXPath;
+	private String gitUsername;
 	private String gitToken;
 	private String gitRepositoryURL;
 
@@ -44,12 +43,12 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
+		gitUsername = constantsPropertiesManager.getSharedExecutionConstants()
+				.getProperty("crafter.gitrepository.username");
 		gitToken = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.token");
 		gitRepositoryURL = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.tokenauth.url");
-		createBaseOnGitRepoOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorybasedonremotegitrepo");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 
@@ -57,62 +56,64 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 	}
 
 	public void step2() {
-		this.clickOnCreateSiteButton();
-	}
-
-	public void step3() {
-		// Filling the name of site
-		createSitePage.setSiteName(siteId);
-	}
-
-	public void step4() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
-	}
-
-	public void step5() {
-		createSitePage.setRepositoryName("origin");
-	}
-
-	public void step6() {
-		createSitePage.setRepositoryURL(gitRepositoryURL);
-	}
-
-	public void step7() {
-		createSitePage.selectGitRepoTokenAutheticationType();
-	}
-
-	public void step8() {
-		createSitePage.setRepositoryToken(gitToken);
-	}
-
-
-	public void step9() {
-		WebElement createUsingRemoteGitRepoOption = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createBaseOnGitRepoOption);
-		createUsingRemoteGitRepoOption.click();
-	}
-
-	public void step10() {
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
-
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilCreateSiteModalCloses();
-		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
-
-		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
-	}
-
-	public void clickOnCreateSiteButton() {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 	}
 
+	public void step3() {
+		createSitePage.clickUseRemoteGitRepoSiteCheckbox();
+
+	}
+
+	public void step4() {
+		createSitePage.clickBasicInformation();
+	}
+
+	public void step5() {
+		createSitePage.setSiteName(siteId);
+	}
+
+	public void step6() {
+		createSitePage.clickBasicDeveloperOptions();
+	}
+
+	public void step7() {
+		createSitePage.setFromGitRepositoryName("origin");
+	}
+
+	public void step8() {
+		createSitePage.setFromGitRepositoryURL(gitRepositoryURL);
+	}
+
+	public void step9() {
+		createSitePage.selectFromGitRepoTokenAuthenticationType();
+	}
+
+	public void step10() {
+		createSitePage.setFromGitRepositoryUserName(gitUsername);
+	}
+
+	public void step11() {
+		createSitePage.setFromGitRepositoryToken(gitToken);
+	}
+
+	public void step12() {
+		createSitePage.clickReviewAndCreate();
+	}
+
+	public void step13() {
+		// Click on Create button
+		createSitePage.clickOnCreateButton();
+
+		this.driverManager.waitUntilCreateSiteModalCloses();
+		
+		Assert.assertTrue(this.driverManager
+				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
+				.isDisplayed());
+	}
+
 	@Test(priority = 0)
-	public void verifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest() {
+	public void verifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest() {
 		this.testScenario();
 	}
 
@@ -149,6 +150,14 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 		// Step 10
 		step10();
 
+		// Step 10
+		step11();
+
+		// Step 10
+		step12();
+
+		// Step 10
+		step13();
 
 	}
 

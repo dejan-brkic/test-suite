@@ -52,7 +52,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -146,8 +145,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.authorusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -556,11 +553,11 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
-		usersPage.addNewUser("author");
+		usersPage.addNewUser("authorpublishadmin");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='authorpublishadmin']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -627,7 +624,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-				.sendKeys("author");
+				.sendKeys("authorpublishadmin");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				groupsAddNewMembersAutocompleteOption1);
@@ -703,7 +700,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// login to application with author user
 		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		loginPage.loginToCrafter("authorpublishadmin", "authorpublishadmin");
 
 		// wait for login page to close
 		driverManager.waitUntilLoginCloses();

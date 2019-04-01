@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -39,7 +38,6 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 	private String gitUserName;
 	private String gitPassword;
 	private String gitRepositoryURL;
-	private String pushToBareRepoInput;
 	private String notificationTitle;
 	private String notificationText;
 	private String notificationError;
@@ -57,8 +55,6 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 				.getProperty("crafter.baregitrepository.url");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorypushtoremotebare");
 		notificationTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.notificationdialog.title");
 		notificationText = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -75,126 +71,117 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 	}
 
 	public void step3() {
-		// Filling the name of site
-		createSitePage.setSiteName(siteId);
+        createSitePage.selectWebSiteEditorialBluePrintOption();
 	}
 
 	public void step4() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
-	}
+	    createSitePage.setSiteName(siteId);
+    }
 
 	public void step5() {
-		createSitePage.setRepositoryName("origin");
+        createSitePage.clickAdditionalDeveloperOptions();
 	}
 
 	public void step6() {
-		createSitePage.setRepositoryURL(gitRepositoryURL + "non-valid");
+        createSitePage.clickPushSiteToRemoteGitCheckbox();
 	}
 
 	public void step7() {
-		createSitePage.selectGitRepoBasicAutheticationType();
-
-		createSitePage.setRepositoryUserName(gitUserName);
-
-		createSitePage.setRepositoryUserPassword(gitPassword);
+	    createSitePage.setPushRepositoryName("origin");
 	}
 
-	public void step8() {
-		WebElement pushRemoteBareRepoInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushToBareRepoInput);
-		pushRemoteBareRepoInputElement.click();
-	}
+    public void step8() {
+	    createSitePage.setPushRepositoryURL(gitRepositoryURL+"incorrect");
+
+    }
 
 	public void step9() {
-		// Select website blueprint
-		createSitePage.selectWebSiteEditorialBluePrintOption();
+	    createSitePage.selectPushGitRepoBasicAuthenticationType()
+                .setPushRepositoryUserName(gitUserName)
+                .setPushRepositoryUserPassword(gitPassword);
 	}
 
 	public void step10() {
+		createSitePage.clickReviewAndCreate();
+	}
+
+	public void step11() {
 		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
+		createSitePage.clickOnCreateButton();
 
 		this.driverManager.waitForAnimation();
 
 		String notificationTitleText = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
+				.waitUntilElementIsDisplayed("xpath", notificationTitle).getText();
 
 		while (!notificationTitleText.equalsIgnoreCase("Notification")) {
 			this.driverManager.waitForAnimation();
 			notificationTitleText = this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
+					.waitUntilElementIsDisplayed("xpath", notificationTitle).getText();
 		}
 
-		notificationTitleText = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
-		String notificationFirstText = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText).getText();
-		String notificationSecondText = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationError).getText();
-
-		Assert.assertTrue("Notification".equals(notificationTitleText));
+		Assert.assertTrue("Notification"
+                .equals(this.driverManager.waitUntilElementIsDisplayed("xpath",notificationTitle).getText()));
 		Assert.assertTrue("Unable to create site. Please contact your system administrator."
-				.equals(notificationFirstText));
-		Assert.assertTrue("Error: Remote repository not found".equals(notificationSecondText));
+				.equals(this.driverManager.waitUntilElementIsDisplayed("xpath", notificationText).getText()));
+		Assert.assertTrue("Error: Remote repository not found"
+                .equals(this.driverManager.waitUntilElementIsDisplayed("xpath", notificationError).getText()));
 	}
 
-	public void step11() {
+	public void step12() {
 		this.clickOnCloseNotificationButton();
 	}
 	
 	private void clickOnCloseNotificationButton() {
-		this.driverManager.isElementPresentAndClickableByXpath(notificationClose);
-		WebElement closeButton = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", notificationClose);
-		closeButton.click();
+		this.driverManager.waitUntilElementIsDisplayed("xpath", notificationClose).click();
 	}
 
-	public void step12() {
+	public void step13() {
 		this.driverManager.waitForAnimation();
 		this.clickOnCreateSiteButton();
 	}
 
-	public void step13() {
-		// Filling the name of site
-		createSitePage.setSiteName(siteId);
-	}
+    public void step14() {
+        createSitePage.selectWebSiteEditorialBluePrintOption();
+    }
 
-	public void step14() {
-		this.homePage.clickOnLinkToUpstreamRemoteGitRepository();
-	}
+    public void step15() {
+        createSitePage.setSiteName(siteId);
+    }
 
-	public void step15() {
-		createSitePage.setRepositoryName("origin");
-	}
+    public void step16() {
+        createSitePage.clickAdditionalDeveloperOptions();
+    }
 
-	public void step16() {
-		createSitePage.setRepositoryURL(gitRepositoryURL);
-	}
+    public void step17() {
+        createSitePage.clickPushSiteToRemoteGitCheckbox();
+    }
 
-	public void step17() {
-		createSitePage.selectGitRepoBasicAutheticationType();
+    public void step18() {
+        createSitePage.setPushRepositoryName("origin");
+    }
 
-		createSitePage.setRepositoryUserName(gitUserName);
+    public void step19() {
+        createSitePage.setPushRepositoryURL(gitRepositoryURL);
 
-		createSitePage.setRepositoryUserPassword(gitPassword);
-	}
+    }
 
-	public void step18() {
-		WebElement pushRemoteBareRepoInputElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushToBareRepoInput);
-		pushRemoteBareRepoInputElement.click();
-	}
+    public void step20() {
+        createSitePage.selectPushGitRepoBasicAuthenticationType()
+                .setPushRepositoryUserName(gitUserName)
+                .setPushRepositoryUserPassword(gitPassword);
+    }
 
-	public void step19() {
-		// Select website blueprint
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-	}
-	
-	public void step20() {
-		// Click on Create button
-		createSitePage.clickOnCreateSiteButton();
+    public void step21() {
+        createSitePage.clickReviewAndCreate();
+    }
 
-		this.driverManager.waitForAnimation();
+    public void step22() {
+        // Click on Create button
+        createSitePage.clickOnCreateButton();
+
+        this.driverManager.waitForAnimation();
+
 		this.driverManager.waitUntilCreateSiteModalCloses();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -210,8 +197,7 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 		homePage.clickOnCreateSiteButton();
 	}
 
-	@Test(
-			priority = 0)
+	@Test(priority = 0)
 	public void verifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest() {
 		this.testScenario();
 	}
@@ -278,6 +264,12 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 		
 		//Step 20
 		step20();
+
+		//Step 21
+        step21();
+
+        //Step 22
+        step22();
 	}
 
 }

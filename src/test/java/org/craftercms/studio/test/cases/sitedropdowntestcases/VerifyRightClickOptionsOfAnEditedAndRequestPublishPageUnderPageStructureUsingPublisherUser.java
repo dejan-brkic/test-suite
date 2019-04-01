@@ -674,16 +674,16 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.login(userName, password);
 
 		logger.info("Add New User Author");
-		this.addNewUser("author");
+		this.addNewUser("authorpublishpublisher");
 
 		logger.info("Add New User Publisher");
-		this.addNewUser("publisher");
+		this.addNewUser("publisherpublishpublisher");
 
 		logger.info("Add previous created author user to Author Group");
-		this.addUserToRespectiveGroup(editAuthorGroupOption, "author");
+		this.addUserToRespectiveGroup(editAuthorGroupOption, "authorpublishpublisher");
 
 		logger.info("Add previous created publisher user to Publisher Group");
-		this.addUserToRespectiveGroup(editPublisherGroupOption, "publisher");
+		this.addUserToRespectiveGroup(editPublisherGroupOption, "publisherpublishpublisher");
 
 		logger.info("Go to Site Preview");
 
@@ -698,7 +698,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// login to application with author user
 		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		loginPage.loginToCrafter("authorpublishpublisher", "authorpublishpublisher");
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
@@ -756,9 +756,9 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		// logout from Crafter
 		this.logoutFromCrafter();
 
-		// login to application with publisher user
+		// login to application with publisher userpublisher
 		logger.info("login to application with Publisher user");
-		loginPage.loginToCrafter("publisher", "publisher");
+		loginPage.loginToCrafter("publisherpublishpublisher", "publisherpublishpublisher");
 
 		driverManager.waitUntilLoginCloses();
 
