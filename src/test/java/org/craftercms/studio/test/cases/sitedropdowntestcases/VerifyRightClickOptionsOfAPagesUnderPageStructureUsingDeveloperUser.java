@@ -45,7 +45,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingDeveloperUser
 	private String pagesTreeLink;
 	private String pagesTree;
 	private String homeContent;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -127,8 +126,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingDeveloperUser
 				.getProperty("dashboard.articles.folder.2017.1");
 		articlesFolderMenStylesForWinter = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articles.folder.2017.1.menstylesforwinter");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.developerusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -456,11 +453,11 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingDeveloperUser
 
 		// click on new user button
 
-		usersPage.addNewUser("developer");
+		usersPage.addNewUser("developerpages");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='developerpages']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -607,7 +604,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingDeveloperUser
 
 		// login to application with developer user
 		logger.info("login to application with developer user");
-		loginPage.loginToCrafter("developer", "developer");
+		loginPage.loginToCrafter("developerpages", "developerpages");
 
 		driverManager.waitUntilLoginCloses();
 

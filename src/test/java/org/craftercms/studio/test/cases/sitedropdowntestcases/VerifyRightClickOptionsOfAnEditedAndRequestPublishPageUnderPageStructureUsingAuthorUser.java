@@ -52,7 +52,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -137,8 +136,6 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.authorusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -509,11 +506,11 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 
 		// click on new user button
 
-		usersPage.addNewUser("author");
+		usersPage.addNewUser("authorpublish");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='authorpublish']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -582,7 +579,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 				.click();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-				.sendKeys("author");
+				.sendKeys("authorpublish");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				groupsAddNewMembersAutocompleteOption1);
@@ -658,8 +655,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.logoutFromCrafter();
 
 		// login to application with author user
-		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		logger.info("login to application with author authorpublish");
+		loginPage.loginToCrafter("authorpublish", "authorpublish");
 		
 		driverManager.waitUntilLoginCloses();
 
@@ -718,8 +715,8 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		this.logoutFromCrafter();
 
 		// login to application with admin user
-		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		logger.info("login to application with admin user");
+		loginPage.loginToCrafter("admin", "admin");
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();

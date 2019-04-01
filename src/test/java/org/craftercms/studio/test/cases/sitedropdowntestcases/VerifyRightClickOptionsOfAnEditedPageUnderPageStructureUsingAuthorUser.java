@@ -51,7 +51,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -140,8 +139,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.authorusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -519,11 +516,11 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 		createSitePage.clickOnUsersOption();
 
 		// click on new user button
-		usersPage.addNewUser("author");
+		usersPage.addNewUser("authoredited");
 		
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='authoredited']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -668,7 +665,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorU
 
 		// login to application with author user
 		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		loginPage.loginToCrafter("authoredited", "authoredited");
 
 		driverManager.waitUntilLoginCloses();
 

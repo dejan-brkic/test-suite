@@ -45,7 +45,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingPublisherUser
 	private String pagesTreeLink;
 	private String pagesTree;
 	private String homeContent;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -123,8 +122,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingPublisherUser
 				.getProperty("dashboard.articles.folder.2017.1");
 		articlesFolderMenStylesForWinter = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articles.folder.2017.1.menstylesforwinter");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.publisherusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -437,11 +434,11 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingPublisherUser
 
 		createSitePage.clickOnUsersOption();
 
-		usersPage.addNewUser("publisher");
+		usersPage.addNewUser("publisherpages");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='publisherpages']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -587,7 +584,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingPublisherUser
 
 		// login to application with publisher user
 		logger.info("login to application with publisher user");
-		loginPage.loginToCrafter("publisher", "publisher");
+		loginPage.loginToCrafter("publisherpages", "publisherpages");
 
 		driverManager.waitUntilLoginCloses();
 

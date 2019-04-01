@@ -46,7 +46,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 	private String pagesTreeLink;
 	private String pagesTree;
 	private String homeContent;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;
@@ -109,8 +108,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 				.getProperty("dashboard.articles.folder.2017.1");
 		articlesFolderMenStylesForWinter = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articles.folder.2017.1.menstylesforwinter");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.reviewerusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -354,11 +351,11 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 
 		createSitePage.clickOnUsersOption();
 
-		usersPage.addNewUser("reviewer");
+		usersPage.addNewUser("reviewerpages");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='reviewerpages']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -502,7 +499,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser
 
 		// login to application with reviewer user
 		logger.info("login to application with reviewer user");
-		loginPage.loginToCrafter("reviewer", "reviewer");
+		loginPage.loginToCrafter("reviewerpages", "reviewerpages");
 
 		driverManager.waitUntilLoginCloses();
 		

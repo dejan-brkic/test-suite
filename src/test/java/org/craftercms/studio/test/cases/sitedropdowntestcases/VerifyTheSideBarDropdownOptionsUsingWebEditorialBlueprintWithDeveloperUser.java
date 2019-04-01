@@ -54,7 +54,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 	private LinkedList<String> siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
 	private String createSiteButton;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String siteconfigGroupsOption;
@@ -96,8 +95,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 				.getProperty("dashboard.sitebar.dropdown.items");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.developerusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -195,11 +192,11 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 
 		createSitePage.clickOnUsersOption();
 
-		usersPage.addNewUser("developer");
+		usersPage.addNewUser("developersidebar");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='developersidebar']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -317,7 +314,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 
 		// login to application with developer user
 		logger.info("login to application with developer user");
-		loginPage.loginToCrafter("developer", "developer");
+		loginPage.loginToCrafter("developersidebar", "developersidebar");
 
 		driverManager.waitUntilLoginCloses();
 

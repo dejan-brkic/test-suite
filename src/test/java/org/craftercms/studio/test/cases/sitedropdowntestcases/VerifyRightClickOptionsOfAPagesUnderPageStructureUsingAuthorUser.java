@@ -45,7 +45,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 	private String pagesTreeLink;
 	private String pagesTree;
 	private String homeContent;
-	private String newUserUserNameCreatedXpath;
 	private String crafterLogo;
 	private String expandPagesTree;
 	private String createSiteButton;	
@@ -128,8 +127,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 				.getProperty("dashboard.articles.folder.2017.1");
 		articlesFolderMenStylesForWinter = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articles.folder.2017.1.menstylesforwinter");
-		newUserUserNameCreatedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.authorusernamecreated");
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -454,11 +451,11 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 
 		// click on new user button
 
-		usersPage.addNewUser("author");
+		usersPage.addNewUser("authorpages");
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
+				".//a[text()='authorpages']");
 
 		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
 
@@ -603,7 +600,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 
 		// login to application with author user
 		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		loginPage.loginToCrafter("authorpages", "authorpages");
 
 		driverManager.waitUntilLoginCloses();
 
