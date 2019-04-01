@@ -38,7 +38,6 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 	private String gitUserName;
 	private String gitPassword;
 	private String gitRepositoryURL;
-	private String pushToBareRepoInput;
 	private String notificationTitle;
 	private String notificationText;
 	private String notificationError;
@@ -56,8 +55,6 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 				.getProperty("crafter.baregitrepository.url");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorypushtoremotebare");
 		notificationTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.notificationdialog.title");
 		notificationText = uiElementsPropertiesManager.getSharedUIElementsLocators()

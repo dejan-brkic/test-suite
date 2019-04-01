@@ -35,7 +35,6 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	private String password;
 	private String localRepoName;
 	private String siteId;
-	private String pushToBareRepoInput;
 	private String siteDropdownElementXPath;
 	private String topNavSitesOption;
 	private String notificationTitle;
@@ -49,8 +48,6 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		localRepoName = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.localrepositoryname");
-		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorypushtoremotebare");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()

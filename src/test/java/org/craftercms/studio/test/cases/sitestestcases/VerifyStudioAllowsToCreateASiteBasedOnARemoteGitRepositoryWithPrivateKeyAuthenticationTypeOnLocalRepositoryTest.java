@@ -39,7 +39,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	private String siteDropdownElementXPath;
 	private String gitPrivateKey;
 	private String localRepoName;
-	private String pushToBareRepoInput;
 	private String gitRepoUrlForSSH;
 
 	@BeforeMethod
@@ -51,8 +50,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		pushToBareRepoInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.repositorypushtoremotebare");
 
 		this.setup();
 		siteId = "testingtargetsiteforprivatekeyauthonlocal";
