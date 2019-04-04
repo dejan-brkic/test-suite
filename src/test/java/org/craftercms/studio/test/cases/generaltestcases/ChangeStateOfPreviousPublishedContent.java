@@ -432,7 +432,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		// login to application with author user
 		logger.info("login to application with author user");
-		loginPage.loginToCrafter("author", "author");
+		loginPage.loginToCrafter("authorchangestate", "authorchangestate");
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();
