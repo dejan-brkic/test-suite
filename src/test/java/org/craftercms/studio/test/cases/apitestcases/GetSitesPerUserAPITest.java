@@ -33,7 +33,7 @@ public class GetSitesPerUserAPITest {
 
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
-	private String siteId="siteGetSitesPerUserAPITest";
+	private String siteId="sitegetsitesperuserapitest";
 	
 	public GetSitesPerUserAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();

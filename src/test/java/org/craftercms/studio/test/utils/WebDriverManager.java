@@ -613,6 +613,23 @@ public class WebDriverManager {
 
 	}
 
+	public void clickWithJS(WebElement element) {
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+	}
+
+	public void clickElement(String selectorType, String selectorValue) {
+		WebElement elementToClick = waitUntilElementIsClickable(selectorType, selectorValue);
+		try {
+			elementToClick.click();
+		} catch (WebDriverException e) {
+			if (e.getMessage().contains("is not clickable at point (")) {
+				logger.info("The element {}, {} is not clickable, clicking with JS...",
+						selectorType, selectorValue);
+				clickWithJS(elementToClick);
+			}
+		}
+	}
+
 	public void scrollUp() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 	}

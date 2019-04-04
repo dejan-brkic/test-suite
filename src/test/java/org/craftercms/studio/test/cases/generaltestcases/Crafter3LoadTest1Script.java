@@ -472,7 +472,6 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// creating multiple content pages
 		for (int count = 0; count < 1; count++) {
 			// reload page
-			driverManager.getDriver().navigate().refresh();
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					bigTree1FolderLocator);
 			this.createPageCategoryLandingPage(bigTree1FolderLocator);

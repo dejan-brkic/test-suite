@@ -116,26 +116,6 @@
 		</classes>
 	</test>
 	
-<!--	 Monitoring -->
-	<test name="Version" preserve-order="true">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.apitestcases.VersionAPITest" />
-		</classes>
-	</test>
-	<test name="Status" preserve-order="true">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.apitestcases.StatusAPITest" />
-		</classes>
-	</test>
-	<test name="Memory" preserve-order="true">
-		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.apitestcases.MemoryAPITest" />
-		</classes>
-	</test>
-	
 <!--	 Publish -->	
 	<test name="Start Publisher" preserve-order="true">
 		<classes>

@@ -34,7 +34,7 @@ public class DeleteSiteAPITest {
 
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
-	private String siteId="siteTestDeleteSiteAPITest";
+	private String siteId="sitetestdeletesiteapitest";
 	
 	public DeleteSiteAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();

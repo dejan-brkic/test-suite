@@ -34,7 +34,7 @@ public class RebuildDataBaseAPITest {
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
 	private RepoManagementAPI repoManagementAPI;
-	private String siteId="siteRebuildDataBaseAPITest";
+	private String siteId="siterebuilddatabaseapitest";
 	
 	public RebuildDataBaseAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();

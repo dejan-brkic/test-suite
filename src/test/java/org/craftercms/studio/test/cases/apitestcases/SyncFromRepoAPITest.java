@@ -34,7 +34,7 @@ public class SyncFromRepoAPITest {
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
 	private RepoManagementAPI repoManagementAPI;
-	private String siteId="siteSyncFromRepoAPITest";
+	private String siteId="sitesyncfomrepoapitest";
 	
 	public SyncFromRepoAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();

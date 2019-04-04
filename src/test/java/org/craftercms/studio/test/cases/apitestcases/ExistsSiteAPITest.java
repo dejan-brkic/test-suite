@@ -33,7 +33,7 @@ public class ExistsSiteAPITest {
 
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
-	private String siteId="siteTestExistsSiteAPITest";
+	private String siteId="sitetestexistssiteapitest";
 	
 	public ExistsSiteAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();

@@ -33,7 +33,7 @@ public class GetConfigurationAPITest {
 
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
-	private String siteId="siteGetConfigurationAPITest";
+	private String siteId="sitegetconfigurationapitest";
 	
 	
 	public GetConfigurationAPITest() {
