@@ -30,7 +30,7 @@ public class SiteManagementAPI extends BaseAPI {
 
 	private String siteId = "mysite";
 	private String description = "Description!";
-	private String blueprint = "empty";
+	private String blueprint = "org.craftercms.blueprint.empty";
 
 	public SiteManagementAPI(JsonTester api, APIConnectionManager apiConnectionManager) {
 		super(api, apiConnectionManager);

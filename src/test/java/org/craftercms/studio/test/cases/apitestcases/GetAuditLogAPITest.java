@@ -35,7 +35,7 @@ public class GetAuditLogAPITest {
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
 	private AuditAPI auditAPI;
-	private String siteId="siteGetAuditLogAPITest";
+	private String siteId="sitegetauditlogapitest";
 	
 	public GetAuditLogAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();

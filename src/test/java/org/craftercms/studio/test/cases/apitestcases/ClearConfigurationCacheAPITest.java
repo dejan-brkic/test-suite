@@ -28,7 +28,7 @@ import org.testng.annotations.Test;
 public class ClearConfigurationCacheAPITest {
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
-	private String siteId="siteTestClearConfigurationCacheAPITest";
+	private String siteId="sitetestclearconfigurationcacheapitest";
 	
 	public ClearConfigurationCacheAPITest() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
