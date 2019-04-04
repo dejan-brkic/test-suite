@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.craftercms.studio.test.cases.apitestcases;
+package org.craftercms.studio.test.cases.api2testcases;
 
-import org.craftercms.studio.test.api.objects.MonitoringAPI;
+import org.craftercms.studio.test.api2.objects.MonitoringAPI2;
 import org.craftercms.studio.test.api.objects.SecurityAPI;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
@@ -28,18 +28,18 @@ import org.testng.annotations.Test;
  * Created by gustavo ortiz
  */
 
-public class StatusAPITest {
+public class StatusAPI2Test {
 
-    private MonitoringAPI monitoringAPI;
+    private MonitoringAPI2 monitoringAPI2;
     private SecurityAPI securityAPI;
     
-    public StatusAPITest(){
+    public StatusAPI2Test(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
     	
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
-    	monitoringAPI = new MonitoringAPI(api, apiConnectionManager);
+		monitoringAPI2 = new MonitoringAPI2(api, apiConnectionManager);
     }
     
     @BeforeTest
@@ -49,7 +49,7 @@ public class StatusAPITest {
 
     @Test(priority=1)
     public void testStatus(){
-    	monitoringAPI.testStatus();
+		monitoringAPI2.testStatus();
     }
     
     @AfterTest

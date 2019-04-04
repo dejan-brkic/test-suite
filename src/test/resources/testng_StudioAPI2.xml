@@ -144,5 +144,24 @@
 			<class
 				name="org.craftercms.studio.test.cases.api2testcases.GetViewsGlobalMenuItemsForCurrentUserAPI2Test" />
 		</classes>
-	</test> 
+	</test>
+	<!--	 Monitoring -->
+	<test name="Version" preserve-order="true">
+		<classes>
+			<class
+					name="org.craftercms.studio.test.cases.api2testcases.VersionAPI2Test" />
+		</classes>
+	</test>
+	<test name="Status" preserve-order="true">
+		<classes>
+			<class
+					name="org.craftercms.studio.test.cases.api2testcases.StatusAPI2Test" />
+		</classes>
+	</test>
+	<test name="Memory" preserve-order="true">
+		<classes>
+			<class
+					name="org.craftercms.studio.test.cases.api2testcases.MemoryAPI2Test" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
