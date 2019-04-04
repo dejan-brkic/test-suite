@@ -508,14 +508,13 @@ public class PreviewPage {
 		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
 		this.driverManager.waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.driverManager.waitUntilElementIsClickable("xpath",
 				".//div[@class='property-label label-configuration']/../input").click();
 
 		// Click on pencil icon
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-						".//div[@class='property-label label-configuration']/../div[@class='options']/div")
-				.click();
+		// on chrome the div id="properties-container" over the pencil doesn't allow to click it
+		// try normal click then with js
+		this.driverManager.clickElement("cssselector", ".edit.fa-pencil");
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo().activeElement();
@@ -1848,13 +1847,13 @@ public class PreviewPage {
 				Assert.assertTrue(dependeciesItems.size() == 12);
 				break;
 			case "category-landing.ftl":
-				Assert.assertTrue(dependeciesItems.size() == 13);
+				Assert.assertTrue(dependeciesItems.size() == 12);
 				break;
 			case "home.ftl":
-				Assert.assertTrue(dependeciesItems.size() == 13);
+				Assert.assertTrue(dependeciesItems.size() == 12);
 				break;
 			case "search-results.ftl":
-				Assert.assertTrue(dependeciesItems.size() == 14);
+				Assert.assertTrue(dependeciesItems.size() == 13);
 				break;
 			default:
 				throw new IllegalArgumentException("No case for provided item name: " + componentName);
