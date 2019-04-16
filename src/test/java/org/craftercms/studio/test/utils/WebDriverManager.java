@@ -424,7 +424,7 @@ public class WebDriverManager {
 		return driver.findElement(selector);
 	}
 
-	public WebElement waitNumberElementsBe(String selectorType, String selectorValue, int numberElements) {
+	public WebElement waitForNumberElementsToBe(String selectorType, String selectorValue, int numberElements) {
 		logger.debug("Waiting for number {} of element: {}, {}", numberElements, selectorType, selectorValue);
 		By selector = getSelector(selectorType, selectorValue);
 		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.refreshed(ExpectedConditions.numberOfElementsToBe(selector, numberElements)));

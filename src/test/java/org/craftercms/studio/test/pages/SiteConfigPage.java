@@ -154,7 +154,7 @@ public class SiteConfigPage {
 		contentTypeSavedNotification = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.contenttype.savednotification");
 		remoteRepositoriesOptionXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.remoterepositories.remotereposoption");
+				.getProperty("adminconsole.remoterepositories_option");
 		suiteConfigIFrame = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.adduser.iframe");
 		addNewRepositoryButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
