@@ -47,9 +47,9 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 	private String siteConfigAuditOption;
 	private String siteConfigPublishOperationsOption;
 	private String siteConfigWorkflowStatesoption;
-	private String siteConfigLoggingLevelsOption;
 	private String siteConfigLogConsoleOption;
-
+	private String siteConfigRemoteRepositoriesOption;
+	private String siteConfigGraphiqlOption;
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
@@ -74,10 +74,12 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 				.getProperty("adminconsole.publish_operations_option");
 		siteConfigWorkflowStatesoption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.workflowstates_option");
-		siteConfigLoggingLevelsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.logginglevels_option");
 		siteConfigLogConsoleOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.logconsole_option");
+		siteConfigRemoteRepositoriesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.remoterepositories_option");
+		siteConfigGraphiqlOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.graphiql_option");
 
 	}
 
@@ -165,12 +167,14 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigWorkflowStatesoption),
 				"ERROR: Workflow States option is not present");
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigLoggingLevelsOption),
-				"ERROR: Logging Levels option is not present");
+		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigRemoteRepositoriesOption),
+				"ERROR: Remote Repositories option is not present");
 
 		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigLogConsoleOption),
 				"ERROR: Log Console option is not present");
 
+		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigGraphiqlOption),
+				"ERROR: GraphiQL option is not present");
 	}
 
 }
