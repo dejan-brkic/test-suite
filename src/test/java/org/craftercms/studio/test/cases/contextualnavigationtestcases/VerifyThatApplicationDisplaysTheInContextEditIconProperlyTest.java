@@ -143,7 +143,7 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 
 		// login to application with reviewer user
 		logger.info("login to application with reviewer user");
-		loginPage.loginToCrafter("reviewer", "reviewer");
+		loginPage.loginToCrafter("reviewercontextedit", "reviewercontextedit");
 
 		driverManager.waitUntilLoginCloses();
 
