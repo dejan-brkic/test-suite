@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.utils;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,12 +30,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -73,7 +68,6 @@ public class WebDriverManager {
 	private int numberOfAttemptsForElementsDisplayed;
 	private int amountOfTestFoldersToGenerateForBulkUploadTest;
 	private String webBrowserProperty;
-	private String executionEnvironment;
 	private int bulkUploadSyncTimeOut;
 	private int numberOfAttemptsForLogFileUpdate;
 	private String sideBarDropDownWrapper;
@@ -109,7 +103,6 @@ public class WebDriverManager {
 			try {
 				envProperties.load(new FileInputStream(enviromentPropertiesPath));
 				webBrowserProperty = envProperties.getProperty("webBrowser");
-				executionEnvironment = envProperties.getProperty("executionenvironment");
 				DesiredCapabilities capabilities;
 				switch (webBrowserProperty.toLowerCase()) {
 				case "phantomjs":
@@ -123,18 +116,6 @@ public class WebDriverManager {
 					System.setProperty("webdriver.gecko.driver",
 							envProperties.getProperty("firefox.driver.path"));
 					driver = new FirefoxDriver(firefoxOptions);
-					break;
-				case "edge":
-					System.setProperty("webdriver.edge.driver",
-							envProperties.getProperty("edge.driver.path"));
-					EdgeOptions options = new EdgeOptions();
-					options.setPageLoadStrategy("eager");
-					driver = new EdgeDriver(options);
-					break;
-				case "ie":
-					InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
-					System.setProperty("webdriver.ie.driver", envProperties.getProperty("ie.driver.path"));
-					driver = new InternetExplorerDriver(internetExplorerOptions);
 					break;
 				case "chrome":
 					ChromeOptions chromeOptions = new ChromeOptions();
@@ -188,7 +169,6 @@ public class WebDriverManager {
 			try {
 				envProperties.load(new FileInputStream(enviromentPropertiesPath));
 				webBrowserProperty = envProperties.getProperty("webBrowser");
-				executionEnvironment = envProperties.getProperty("executionenvironment");
 				DesiredCapabilities capabilities;
 				switch (webBrowserProperty.toLowerCase()) {
 				case "phantomjs":
@@ -202,18 +182,6 @@ public class WebDriverManager {
 					System.setProperty("webdriver.gecko.driver",
 							envProperties.getProperty("firefox.driver.path"));
 					driver = new FirefoxDriver(firefoxOptions);
-					break;
-				case "edge":
-					System.setProperty("webdriver.edge.driver",
-							envProperties.getProperty("edge.driver.path"));
-					EdgeOptions options = new EdgeOptions();
-					options.setPageLoadStrategy("eager");
-					driver = new EdgeDriver(options);
-					break;
-				case "ie":
-					InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
-					System.setProperty("webdriver.ie.driver", envProperties.getProperty("ie.driver.path"));
-					driver = new InternetExplorerDriver(internetExplorerOptions);
 					break;
 				case "chrome":
 					ChromeOptions chromeOptions = new ChromeOptions();
@@ -453,6 +421,13 @@ public class WebDriverManager {
 		By selector = getSelector(selectorType, selectorValue);
 		new WebDriverWait(driver, defaultTimeOut)
 				.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeSelected(selector)));
+		return driver.findElement(selector);
+	}
+
+	public WebElement waitNumberElementsBe(String selectorType, String selectorValue, int numberElements) {
+		logger.debug("Waiting for number {} of element: {}, {}", numberElements, selectorType, selectorValue);
+		By selector = getSelector(selectorType, selectorValue);
+		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.refreshed(ExpectedConditions.numberOfElementsToBe(selector, numberElements)));
 		return driver.findElement(selector);
 	}
 
@@ -1162,99 +1137,53 @@ public class WebDriverManager {
 	public int goToFolderAndExecuteInitSiteScriptThroughCommandLine(String siteId) {
 		String script;
 		String shell;
-		
-		 String folder = System.getProperty("user.dir") + File.separator + ".." +
-		 File.separator + ".."
-		 + File.separator + "crafter-delivery" + File.separator + "bin";
 
-		if (executionEnvironment.equalsIgnoreCase("unix")) {
-			shell = "/bin/bash";
-			script = "init-site.sh";
+		String folder = System.getProperty("user.dir") + File.separator + ".." +
+				File.separator + ".."
+				+ File.separator + "crafter-delivery" + File.separator + "bin";
 
-			try {
-				String[] command = { shell, script, siteId };
+		shell = "/bin/bash";
+		script = "init-site.sh";
 
-				ProcessBuilder processBuilder = new ProcessBuilder(command);
+		try {
+			String[] command = {shell, script, siteId};
 
-				processBuilder.directory(new File(folder));
+			ProcessBuilder processBuilder = new ProcessBuilder(command);
 
-				Process process = processBuilder.start();
+			processBuilder.directory(new File(folder));
 
-				process.waitFor();
+			Process process = processBuilder.start();
 
-				BufferedReader bufferedReader = new BufferedReader(
-						new InputStreamReader(process.getInputStream()));
+			process.waitFor();
 
-				// Read the output from the command
-				String output = "";
-				String lineString = null;
-				while ((lineString = bufferedReader.readLine()) != null) {
-					output = output + lineString;
-				}
+			BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(process.getInputStream()));
 
-				if (!(output.contains("{\"message\":\"Error from server at http://localhost:8695/solr: "
-						+ "Core with name 'testsitefordeliverytest' already exists.\"}"))) {
-					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
-					Assert.assertTrue((occurencesOfCreatingSolrCore == 1),
-							"The init-site result was: " + output);
-					int occurencesOfCreatingTarget = StringUtils.countMatches(output,
-							"Creating Deployer Target");
-					Assert.assertTrue((occurencesOfCreatingTarget == 1),
-							"The init-site result was: " + output);
-					int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
-					Assert.assertTrue((occurencesOfSuccessfully == 2), "The init-site result was: " + output);
-				}
-
-				return process.exitValue();
-			} catch (Exception exception) {
-				exception.printStackTrace();
-				return -1;
+			// Read the output from the command
+			String output = "";
+			String lineString = null;
+			while ((lineString = bufferedReader.readLine()) != null) {
+				output = output + lineString;
 			}
-		} else {
-			String[] command = new String[3];
-			command[0] = "cmd";
-			command[1] = "/C";
-			command[2] = "init-site.bat " + siteId;
 
-			try {
-
-				ProcessBuilder processBuilder = new ProcessBuilder(command);
-
-				processBuilder.directory(new File(folder));
-
-				Process process = processBuilder.start();
-
-				process.waitFor();
-
-				BufferedReader bufferedReader = new BufferedReader(
-						new InputStreamReader(process.getInputStream()));
-
-				// Read the output from the command
-				String output = "";
-				String lineString = null;
-				while ((lineString = bufferedReader.readLine()) != null) {
-					output = output + lineString;
-				}
-				if (!(output.contains("java.io.IOException: Server returned HTTP response code: 500"
-						+ " for URL: http://localhost:9080/crafter-search/api/2/admin/index/create"))) {
-					int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
-					Assert.assertTrue((occurencesOfCreatingSolrCore == 1),
-							"The init-site result was: " + output);
-					int occurencesOfCreatingTarget = StringUtils.countMatches(output,
-							"Creating Deployer Target");
-					Assert.assertTrue((occurencesOfCreatingTarget == 1),
-							"The init-site result was: " + output);
-					int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
-					Assert.assertTrue((occurencesOfSuccessfully == 2), "The init-site result was: " + output);
-				}
-
-				return process.exitValue();
-			} catch (Exception exception) {
-				exception.printStackTrace();
-				return -1;
+			if (!(output.contains("{\"message\":\"Error from server at http://localhost:8695/solr: "
+					+ "Core with name 'testsitefordeliverytest' already exists.\"}"))) {
+				int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
+				Assert.assertTrue((occurencesOfCreatingSolrCore == 1),
+						"The init-site result was: " + output);
+				int occurencesOfCreatingTarget = StringUtils.countMatches(output,
+						"Creating Deployer Target");
+				Assert.assertTrue((occurencesOfCreatingTarget == 1),
+						"The init-site result was: " + output);
+				int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
+				Assert.assertTrue((occurencesOfSuccessfully == 2), "The init-site result was: " + output);
 			}
+
+			return process.exitValue();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			return -1;
 		}
-
 	}
 
 	@SuppressWarnings("deprecation")
@@ -1306,16 +1235,7 @@ public class WebDriverManager {
 		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
 				+ File.separator + "crafter-authoring" + File.separator + "data" + File.separator
 				+ "craftercms_testrepos" + File.separator + repositoryName + File.separator;
-
-		if ("unix".equalsIgnoreCase(executionEnvironment)) {
-			return repositoryFolder;
-		} else {
-			// Remove the drive name and replacing to :/ to convert to openSSH format
-			// Replace \ windows separator to / openSSh path format
-			repositoryFolder = ":/" + FilenameUtils.getPath(repositoryFolder)
-					+ FilenameUtils.getName(repositoryFolder);
-			return repositoryFolder.replace("\\", "/");
-		}
+		return repositoryFolder;
 	}
 
 	public String getAuthoringSiteSandboxRepoURL(String siteID) {
@@ -1730,12 +1650,7 @@ public class WebDriverManager {
 		String tomcatLog = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
 				+ File.separator + "crafter-authoring" + File.separator + "logs" + File.separator + "tomcat"
 				+ File.separator;
-
-		if (executionEnvironment.equalsIgnoreCase("unix")) {
-			return tomcatLog + "catalina.out";
-		} else {
-			return tomcatLog + "studio.log";
-		}
+		return tomcatLog + "catalina.out";
 	}
 
 	public int getAmountOfLinesOnLogFile(File file) {
