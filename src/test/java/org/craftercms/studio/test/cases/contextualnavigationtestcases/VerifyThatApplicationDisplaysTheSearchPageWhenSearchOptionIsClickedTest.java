@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
 /**
- * 
+ *
  * @author luishernandez
  *
  */
@@ -36,6 +36,7 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 	private String siteDropdownListElementXPath;
 	private String searchBoxInput;
 	private String searchPageTitleXpath;
+	private String searchResultsCss;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -52,6 +53,8 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 				.getProperty("general.searchpage.searchbox");
 		searchPageTitleXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.searchpage.title");
+		searchResultsCss= uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.searchpage.results");
 	}
 
 	@Test(priority = 0)
@@ -87,13 +90,11 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 
 		// Assertions	
 		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("/studio/search?"));
-		
-		String searchPageTitle = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				searchPageTitleXpath).getText();
-		
-		Assert.assertTrue("Search".equalsIgnoreCase(searchPageTitle));
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", searchBoxInput).isDisplayed());
-		
+		String searchPlaceholder = this.driverManager.waitUntilElementIsDisplayed("xpath",searchPageTitleXpath).getAttribute("placeholder");
+		Assert.assertTrue("Search".equalsIgnoreCase(searchPlaceholder));
+		this.driverManager.sendText("xpath", searchPageTitleXpath, "entry");
+		this.driverManager.clickElement("xpath", searchBoxInput);
+		Assert.assertTrue("entry.ftl".equals(this.driverManager.waitForNumberElementsToBe(
+				"cssselector", searchResultsCss, 1).getText()));
 	}
-
 }

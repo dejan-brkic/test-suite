@@ -124,8 +124,8 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
                 .equals(this.driverManager.waitUntilElementIsDisplayed("xpath",notificationTitle).getText()));
 		Assert.assertTrue("Unable to create site. Please contact your system administrator."
 				.equals(this.driverManager.waitUntilElementIsDisplayed("xpath", notificationText).getText()));
-		Assert.assertTrue("Error: Remote repository not found"
-                .equals(this.driverManager.waitUntilElementIsDisplayed("xpath", notificationError).getText()));
+		Assert.assertTrue(this.driverManager.waitUntilElementIsDisplayed("xpath", notificationError).getText()
+                .contains("Error while adding remote origin (url:"));
 	}
 
 	public void step12() {

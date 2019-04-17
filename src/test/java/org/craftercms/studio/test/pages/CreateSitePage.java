@@ -426,7 +426,7 @@ public class CreateSitePage {
 	}
 
 	public CreateSitePage clickPushSiteToRemoteGitCheckbox() {
-		this.driverManager.waitUntilElementIsClickable("xpath", pushToRemoteGitCheckbox).click();
+		this.driverManager.clickElement("xpath", pushToRemoteGitCheckbox);
 		return this;
 	}
 

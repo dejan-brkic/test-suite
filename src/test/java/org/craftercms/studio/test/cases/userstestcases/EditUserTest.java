@@ -78,10 +78,10 @@ public class EditUserTest extends StudioBaseTest {
 				.sendKeys("Last Name");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
-				.sendKeys("email@email.com");
+				.sendKeys("emailedit@emailedit.com");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId)
-				.sendKeys("username");
+				.sendKeys("usernameedit");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId)
 				.sendKeys("password");

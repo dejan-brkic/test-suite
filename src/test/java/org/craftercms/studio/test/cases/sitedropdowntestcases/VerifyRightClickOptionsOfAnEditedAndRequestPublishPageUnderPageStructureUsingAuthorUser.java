@@ -710,13 +710,7 @@ public class VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStru
 		logger.info("Request Publish for the Men Styles For Winter under articles/2017/1 folders");
 		rightClickArticlesFolderMenStylesForWinter();
 		dashboardPage.requestPublish();
-	
-		// logout from Crafter
-		this.logoutFromCrafter();
-
-		// login to application with admin user
-		logger.info("login to application with admin user");
-		loginPage.loginToCrafter("admin", "admin");
+		dashboardPage.clickOnSitesOption();
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage();

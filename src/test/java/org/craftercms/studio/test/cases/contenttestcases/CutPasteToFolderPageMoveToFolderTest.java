@@ -51,9 +51,7 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 	private String folderChildContent;
 	private String folderContent;
 	private String recentActivitySecondContentURL;
-	private String recentActivityThirdContentURL;
 	private String recentActivitySecondContentName;
-	private String recentActivityThirdContentName;
 	private String recentlyActivitySelectAll;
 	private static final Logger logger = LogManager.getLogger(CutPasteToFolderPageMoveToFolderTest.class);
 
@@ -74,14 +72,10 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.contenturl");
 		recentActivitySecondContentURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.contentsecondurl");
-		recentActivityThirdContentURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("dashboard.myrecentactivity.contentthirdurl");
-		recentActivityContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
+			recentActivityContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.contentname");
 		recentActivitySecondContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.contentsecondname");
-		recentActivityThirdContentName = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("dashboard.myrecentactivity.contentthirdname");
 		fooContentXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.foocontent");
 		pasteContent = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("rightclick.paste.option");
 		folderContent = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.afolder");
@@ -237,12 +231,6 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 						.getText().contains("foo"));
 		Assert.assertTrue(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
-						.getText().contains("/site/website/foo"));
-		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityThirdContentName)
-						.getText().contains("foo"));
-		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityThirdContentURL)
 						.getText().contains("/foo"));
 	}
 

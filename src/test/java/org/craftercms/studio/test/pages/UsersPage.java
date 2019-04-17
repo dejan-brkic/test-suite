@@ -200,11 +200,10 @@ public class UsersPage {
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitUntilPageLoad();
 
-			// get the delete button element
 			WebElement element = this.driverManager.waitUntilElementIsClickable("xpath",
 					deleteNonAdminUserIconXpath);
 			// click on the delete button
-			element.click();
+			this.driverManager.clickElement("xpath", deleteNonAdminUserIconXpath);
 
 			// confirm and wait
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", deleteYesButtonXpath).click();
