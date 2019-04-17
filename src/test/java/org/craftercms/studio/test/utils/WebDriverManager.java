@@ -1166,17 +1166,11 @@ public class WebDriverManager {
 				output = output + lineString;
 			}
 
-			if (!(output.contains("{\"message\":\"Error from server at http://localhost:8695/solr: "
-					+ "Core with name 'testsitefordeliverytest' already exists.\"}"))) {
-				int occurencesOfCreatingSolrCore = StringUtils.countMatches(output, "Creating Solr Core");
-				Assert.assertTrue((occurencesOfCreatingSolrCore == 1),
-						"The init-site result was: " + output);
-				int occurencesOfCreatingTarget = StringUtils.countMatches(output,
-						"Creating Deployer Target");
-				Assert.assertTrue((occurencesOfCreatingTarget == 1),
-						"The init-site result was: " + output);
+			if (!(output.contains("Error while creating Target: Target already exists"))) {
+				int occurencesOfCreatingTarget = StringUtils.countMatches(output,"Creating Deployer Target");
+				Assert.assertTrue((occurencesOfCreatingTarget == 1),"The init-site result was: " + output);
 				int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
-				Assert.assertTrue((occurencesOfSuccessfully == 2), "The init-site result was: " + output);
+				Assert.assertTrue((occurencesOfSuccessfully == 1), "The init-site result was: " + output);
 			}
 
 			return process.exitValue();
