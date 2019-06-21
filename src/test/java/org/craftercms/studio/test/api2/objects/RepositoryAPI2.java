@@ -46,9 +46,9 @@ public class RepositoryAPI2 extends BaseAPI {
         super(api, apiConnectionManager);
     }
 
-    private Object AddRemotePayload(String siteId, String remoteName, String remoteUrl, String authenticationType,
-                                          String remoteUsername, String remotePassword, String remoteToken,
-                                          String remotePrivateKey, Boolean badRequest) {
+    private Object addRemotePayload(String siteId, String remoteName, String remoteUrl, String authenticationType,
+                                    String remoteUsername, String remotePassword, String remoteToken,
+                                    String remotePrivateKey, Boolean badRequest) {
         Map<String, Object> requestBody = new HashMap<>();
         if (badRequest) {
             requestBody.put("siteBadRequest", siteId);
@@ -72,7 +72,7 @@ public class RepositoryAPI2 extends BaseAPI {
         return requestBody;
     }
 
-    private Object PushToRemotePayload(String siteId, String remoteName, String remoteBranch, boolean force,
+    private Object pushToRemotePayload(String siteId, String remoteName, String remoteBranch, boolean force,
                                        boolean badRequest) {
         Map<String, Object> requestBody = new HashMap<>();
         if (badRequest) {
@@ -87,8 +87,8 @@ public class RepositoryAPI2 extends BaseAPI {
         return requestBody;
     }
 
-    private Object PullFromRemotePayload(String siteId, String remoteName, String remoteBranch, String mergeStrategy,
-                                       boolean badRequest) {
+    private Object pullFromRemotePayload(String siteId, String remoteName, String remoteBranch, String mergeStrategy,
+                                         boolean badRequest) {
         Map<String, Object> requestBody = new HashMap<>();
         if (badRequest) {
             requestBody.put("siteBadRequest", siteId);
@@ -105,7 +105,7 @@ public class RepositoryAPI2 extends BaseAPI {
 
     public void testAddRemote(String siteId, String remoteName, String remoteUrl, String authenticationType,
                                        String remoteUsername, String remotePassword, String remoteToken, String remotePrivateKey){
-        Object requestBody = AddRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
+        Object requestBody = addRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
                 remotePassword, remoteToken, remotePrivateKey, false);
         api.post(ADD_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_CREATED)
                 .json("$.response.message", is("Created"));
@@ -113,7 +113,7 @@ public class RepositoryAPI2 extends BaseAPI {
 
     public void testAddRemoteBadRequest(String siteId, String remoteName, String remoteUrl, String authenticationType,
                                         String remoteUsername, String remotePassword) {
-        Object requestBody = AddRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
+        Object requestBody = addRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
                 remotePassword, "", "", true);
         api.post(ADD_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
                 .json("$.response.message", is("Invalid parameter(s)"));
@@ -121,7 +121,7 @@ public class RepositoryAPI2 extends BaseAPI {
 
     public void testAddRemoteSiteIdInvalid(String siteId, String remoteName, String remoteUrl, String authenticationType,
                                         String remoteUsername, String remotePassword) {
-        Object requestBody = AddRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
+        Object requestBody = addRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
                 remotePassword, "", "", false);
         api.post(ADD_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_NOT_FOUND)
                 .json("$.response.message", is("Project not found"));
@@ -129,54 +129,54 @@ public class RepositoryAPI2 extends BaseAPI {
 
     public void testAddRemoteUnAuthorized(String siteId, String remoteName, String remoteUrl, String authenticationType,
                                            String remoteUsername, String remotePassword) {
-        Object requestBody = AddRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
+        Object requestBody = addRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
                 remotePassword, "", "", false);
         api.post(ADD_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_UNAUTHORIZED);
     }
 
     public void testPullFromRemote(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = PullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
+        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_OK).debug()
                 .json("$.response.message", is("OK"));
     }
 
     public void testPullFromRemoteBadRequest(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = PullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", true);
+        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", true);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
                 .json("$.response.message", is("Invalid parameter(s)"));
     }
 
     public void testPullFromRemoteInvalidSiteId(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = PullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
+        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_NOT_FOUND)
                 .json("$.response.message", is("Project not found"));
     }
 
     public void testPullFromRemoteUnAuthorized(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = PullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
+        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_UNAUTHORIZED);
     }
 
     public void testPushToRemote(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = PushToRemotePayload(siteId, remoteName, remoteBranch, true, false);
+        Object requestBody = pushToRemotePayload(siteId, remoteName, remoteBranch, true, false);
         api.post(PUSH_TO_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_OK)
                 .json("$.response.message", is("OK")).debug();
     }
 
     public void testPushToRemoteBadRequest(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = PushToRemotePayload(siteId, remoteName, remoteBranch, true, true);
+        Object requestBody = pushToRemotePayload(siteId, remoteName, remoteBranch, true, true);
         api.post(PUSH_TO_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
                 .json("$.response.message", is("Invalid parameter(s)"));
     }
 
     public void testPushToRemoteInvalidSiteId(String siteId, String remoteName, String remoteBranch ){
-        Object requestBody = PushToRemotePayload(siteId, remoteName, remoteBranch, true, false);
+        Object requestBody = pushToRemotePayload(siteId, remoteName, remoteBranch, true, false);
         api.post(PUSH_TO_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_NOT_FOUND)
                 .json("$.response.message", is("Project not found"));
     }
 
     public void testPushToRemoteUnAuthorized(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = PushToRemotePayload(siteId, remoteName, remoteBranch, true, false);
+        Object requestBody = pushToRemotePayload(siteId, remoteName, remoteBranch, true, false);
         api.post(PUSH_TO_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_UNAUTHORIZED);
     }
 
