@@ -251,11 +251,11 @@ public class RepositoryAPI2 extends BaseAPI {
     }
 
     public void testListRemoteInvalidSiteId(String siteId){
-        api.post(REMOVE_REMOTE_URL).urlParam("siteId", siteId).execute().status(HttpStatus.SC_NOT_FOUND)
+        api.post(LIST_REMOTE_URL).urlParam("siteId", siteId).execute().status(HttpStatus.SC_NOT_FOUND)
                 .json("$.response.message", is("Project not found"));
     }
 
     public void testListRemoteUnAuthorized(String siteId){
-        api.post(REMOVE_REMOTE_URL).urlParam("siteId", siteId).execute().status(HttpStatus.SC_UNAUTHORIZED);
+        api.post(LIST_REMOTE_URL).urlParam("siteId", siteId).execute().status(HttpStatus.SC_UNAUTHORIZED);
     }
 }
