@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.test.cases.apitestcases;
+package org.craftercms.studio.test.cases.api2testcases;
 
-import org.craftercms.studio.test.api.objects.AuditAPI;
+import org.craftercms.studio.test.api2.objects.AuditAPI2;
 import org.craftercms.studio.test.api.objects.SecurityAPI;
 import org.craftercms.studio.test.api.objects.SiteManagementAPI;
 import org.craftercms.studio.test.utils.APIConnectionManager;
@@ -30,42 +30,46 @@ import org.testng.annotations.Test;
  * Created by Gustavo Ortiz Alfaro
  */
 
-public class GetAuditLogAPITest {
+public class GetAuditLogAPI2Test {
 
 	private SecurityAPI securityAPI;
 	private SiteManagementAPI siteManagementAPI;
-	private AuditAPI auditAPI;
-	private String siteId="sitegetauditlogapitest";
+	private AuditAPI2 auditAPI2;
+	private String siteId="sitegetauditlogapi2test";
 	
-	public GetAuditLogAPITest() {
+	public GetAuditLogAPI2Test() {
 		APIConnectionManager apiConnectionManager = new APIConnectionManager();
 		JsonTester api = new JsonTester(apiConnectionManager.getProtocol(), apiConnectionManager.getHost(),
 				apiConnectionManager.getPort());
 		securityAPI = new SecurityAPI(api, apiConnectionManager);
 		siteManagementAPI = new SiteManagementAPI(api, apiConnectionManager);
-		auditAPI = new AuditAPI(api, apiConnectionManager);
+		auditAPI2 = new AuditAPI2(api, apiConnectionManager);
 	}
 
 	@BeforeTest
 	public void beforeTest() {
 		securityAPI.logInIntoStudioUsingAPICall();
 		siteManagementAPI.testCreateSite(siteId);
-
 	}
 
 	@Test(priority = 1,groups={"getAuditLog"})
 	public void testGetAuditLog() {
-		auditAPI.testGetAuditLog(siteManagementAPI.getSiteId());
+		auditAPI2.testGetAuditLog(siteId);
 	}
 
 	@Test(priority = 2,groups={"getAuditLog"})
-	public void testGetAuditLogInvalidParameters() {
-		auditAPI.testGetAuditLogInvalidParameter(siteManagementAPI.getSiteId());
+	public void testGetAuditLogSiteNotFound() {
+		auditAPI2.testGetAuditLogSiteNotFound(siteId);
 	}
 
-	@Test(priority = 3,groups={"getAuditLog"})
-	public void testGetAuditLogSiteNotFound() {
-		auditAPI.testGetAuditLogSiteNotFound(siteManagementAPI.getSiteId());
+	@Test(priority = 3, groups = {"getAuditLog"})
+	public void testGetAuditLogEntry() {
+		auditAPI2.testGetAuditLogEntry(1);
+	}
+
+	@Test(priority = 3, groups = {"getAuditLog"})
+	public void testGetAuditLogByUser() {
+		auditAPI2.testGetAuditLogByUser("admin");
 	}
 
 	@AfterGroups(groups={"getAuditLog"})
@@ -76,6 +80,6 @@ public class GetAuditLogAPITest {
 
 	@Test(dependsOnGroups={"getAuditLog"})
 	public void testGetAuditLogUnauthorized() {
-		auditAPI.testGetAuditLogUnauthorized(siteManagementAPI.getSiteId());
+		auditAPI2.testGetAuditLogUnauthorized(siteManagementAPI.getSiteId());
 	}
 }
