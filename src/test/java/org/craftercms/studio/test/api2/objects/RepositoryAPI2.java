@@ -111,6 +111,14 @@ public class RepositoryAPI2 extends BaseAPI {
                 .json("$.response.message", is("Created"));
     }
 
+    public void testAddRemoteAlreadyExist(String siteId, String remoteName, String remoteUrl, String authenticationType,
+                              String remoteUsername, String remotePassword, String remoteToken, String remotePrivateKey) {
+        Object requestBody = addRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
+                remotePassword, remoteToken, remotePrivateKey, false);
+        api.post(ADD_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_CONFLICT)
+                .json("$.response.message", is("Remote repository already exists"));
+    }
+
     public void testAddRemoteBadRequest(String siteId, String remoteName, String remoteUrl, String authenticationType,
                                         String remoteUsername, String remotePassword) {
         Object requestBody = addRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
