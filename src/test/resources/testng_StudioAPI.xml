@@ -86,7 +86,7 @@
 	<test name="Get Audit Log" preserve-order="true">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.apitestcases.GetAuditLogAPITest" />
+				name="org.craftercms.studio.test.cases.api2testcases.GetAuditLogAPI2Test" />
 		</classes>
 	</test> 
 	
