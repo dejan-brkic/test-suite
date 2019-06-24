@@ -164,4 +164,35 @@
 					name="org.craftercms.studio.test.cases.api2testcases.MemoryAPI2Test" />
 		</classes>
 	</test>
+	<!-- Repository -->
+	<test name="Add Remote" preserve-order="true">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.api2testcases.AddRemoteAPI2Test" />
+		</classes>
+	</test>
+	<test name="Push To Remote" preserve-order="true">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.api2testcases.PushToRemoteAPI2Test" />
+		</classes>
+	</test>
+	<test name="Push From Remote" preserve-order="true">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.api2testcases.PullFromRemoteAPI2Test" />
+		</classes>
+	</test>
+	<test name="Rebuild DB Remote" preserve-order="true">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.api2testcases.RebuildDBRemoteAPI2Test" />
+		</classes>
+	</test>
+	<test name="Remove Remote" preserve-order="true">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.api2testcases.RemoveRemoteAPI2Test" />
+		</classes>
+	</test>
+	<test name="List Remote" preserve-order="true">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.api2testcases.ListRemotesAPI2Test" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->

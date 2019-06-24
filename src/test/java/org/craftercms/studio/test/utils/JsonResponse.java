@@ -23,9 +23,9 @@ import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hamcrest.Matcher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
@@ -38,7 +38,7 @@ public class JsonResponse {
 	private final JsonAsserter json;
 	private final BasicCookieStore cookieJar;
 	private final ByteArrayInputStream raw;
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private static final Logger logger = LogManager.getLogger(JsonResponse.class);
 
 	public JsonResponse(CloseableHttpResponse response, BasicCookieStore cookieJar) throws IOException {
 		this.httpResponse = response;
@@ -71,9 +71,9 @@ public class JsonResponse {
 	public JsonResponse debug() {
 		try {
 			for (Header header : httpResponse.getAllHeaders()) {
-				log.info("{}={}", header.getName(), header.getValue());
+				logger.info("{}={}", header.getName(), header.getValue());
 			}
-			log.info(IOUtils.toString(raw));
+			logger.info(IOUtils.toString(raw));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
