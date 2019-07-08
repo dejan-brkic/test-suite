@@ -143,25 +143,25 @@ public class RepositoryAPI2 extends BaseAPI {
     }
 
     public void testPullFromRemote(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
+        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "none", false);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_OK).debug()
                 .json("$.response.message", is("OK"));
     }
 
     public void testPullFromRemoteBadRequest(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", true);
+        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "none", true);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
                 .json("$.response.message", is("Invalid parameter(s)"));
     }
 
     public void testPullFromRemoteInvalidSiteId(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
+        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "none", false);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_NOT_FOUND)
                 .json("$.response.message", is("Project not found"));
     }
 
     public void testPullFromRemoteUnAuthorized(String siteId, String remoteName, String remoteBranch){
-        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "recursive", false);
+        Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "none", false);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_UNAUTHORIZED);
     }
 
