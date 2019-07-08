@@ -207,7 +207,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.cancelButton();
 		homePage.clickOnCreateSiteButton();
 		createSitePage.clickUseRemoteGitRepoSiteCheckbox()
-				.clickBasicDeveloperOptions();
+				.clickBasicInformation();
 		// Click on description to show the validations
 		this.driverManager.waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
 
