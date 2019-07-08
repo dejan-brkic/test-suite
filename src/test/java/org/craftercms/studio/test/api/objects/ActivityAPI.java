@@ -21,6 +21,8 @@ import org.apache.http.HttpStatus;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
+import static org.hamcrest.Matchers.is;
+
 public class ActivityAPI extends BaseAPI{
 
 	public ActivityAPI(JsonTester api, APIConnectionManager apiConnectionManager) {
@@ -47,7 +49,8 @@ public class ActivityAPI extends BaseAPI{
 		.urlParam("path","/site/website/index.xml")
 		.urlParam("activity","UPDATED")
 		.urlParam("contentTypeClass","pages")
-		.execute().status(HttpStatus.SC_OK)
+		.execute().status(HttpStatus.SC_GONE)
+		.json("$.message", is("API deprecated."))
 		.debug();
 	}
 }
