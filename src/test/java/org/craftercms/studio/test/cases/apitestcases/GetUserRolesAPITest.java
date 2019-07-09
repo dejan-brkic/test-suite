@@ -33,7 +33,7 @@ public class GetUserRolesAPITest {
 
     private SecurityAPI securityAPI;
     private SiteManagementAPI siteManagementAPI;
-    private String siteId = "getUserrolessitetest";
+    private String siteId = "getuserrolessitetest";
     
     public GetUserRolesAPITest(){
     	APIConnectionManager apiConnectionManager = new APIConnectionManager();

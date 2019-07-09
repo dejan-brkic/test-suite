@@ -127,8 +127,7 @@ public class HomePage {
 	}
 
 	public void clickOnCreateSiteButton() {
-		this.driverManager
-				.waitUntilElementIsClickable("xpath", createSiteButton).click();
+		this.driverManager.clickElement("xpath", createSiteButton);
 	}
 
 	// Click on Delete icon to the site

@@ -89,8 +89,6 @@ public class AddRemoteAPI2Test {
 
     @Test(groups = { "addRemoteAPI2" })
     public void testAddRemoteAlreadyExist() {
-        repositoryAPI2.testAddRemote(siteId, "originbasic", gitRepoUrl, "basic",
-                gitUsername, gitPassword, "", "");
         repositoryAPI2.testAddRemoteAlreadyExist(siteId, "originbasic", gitRepoUrl, "basic",
                 gitUsername, gitPassword, "", "");
     }

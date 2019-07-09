@@ -72,7 +72,6 @@ public class PullFromRemoteAPI2Test {
 
         securityAPI.logInIntoStudioUsingAPICall();
         siteManagementAPI.testCreateSite(siteId);
-        //siteManagementAPI.testCreateSite(siteId, "Test API 2 pull", "org.craftercms.blueprint.editorial");
         repositoryAPI2.testAddRemote(siteId, "originbasic", gitRepoUrl, "basic",
                 gitUsername, gitPassword, "", "");
         repositoryAPI2.testAddRemote(siteId, "origintoken", gitRepoUrl, "token",

@@ -87,7 +87,7 @@ public class ListRemotesAPI2Test {
     }
 
     @Test(groups = {"ListRemoteAPI2"})
-    public void testRebuildDBRemoteInvalidSiteId() {
+    public void testListRemoteInvalidSiteId() {
         repositoryAPI2.testListRemoteInvalidSiteId(siteId + "invalid");
     }
 
