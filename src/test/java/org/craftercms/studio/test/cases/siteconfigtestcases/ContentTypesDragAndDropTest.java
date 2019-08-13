@@ -20,7 +20,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -40,12 +42,12 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 	private String contentFormContentSection;
 	private String siteDropdownListElementXPath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-		
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		controlsSectionFromSection = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -58,18 +60,18 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
-	@Test(priority = 0)
-	public void contentTypesDragAndDropTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void contentTypesDragAndDropTest(String testId) {
 
 		// login to application
-		loginPage.loginToCrafter(
-				userName,password);
+		loginPage.loginToCrafter(userName,password);
 
 		//Wait for login page to closes
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -112,11 +114,16 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 
 		// Save the drag and drop process
 
-		siteConfigPage.saveDragAndDropProcess();
+		siteConfigPage.saveDragAndDropProcess(true);
 		// validate the control added
 
 		Assert.assertTrue(driverManager.isElementPresentByXpath(contentFormContentSection));
 		
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

@@ -19,7 +19,9 @@ package org.craftercms.studio.test.cases.siteconfigtestcases;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -41,9 +43,10 @@ public class ContentTypesAddFileNameTest extends StudioBaseTest{
 	private String siteDropdownListElementXPath;
 	private String lastControlElementCssSelector;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-		
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		this.controlsSectionFormSectionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -99,18 +102,18 @@ public class ContentTypesAddFileNameTest extends StudioBaseTest{
 
 	}
 
-	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddAFileNameControlToExistingContentTypeTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioAllowsToAddAFileNameControlToExistingContentTypeTest(String testId) {
 
 		// login to application
-		loginPage.loginToCrafter(
-				userName,password);
+		loginPage.loginToCrafter(userName,password);
 
 		//Wait for login page to closes
 		driverManager.waitUntilLoginCloses();
 		
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -145,5 +148,11 @@ public class ContentTypesAddFileNameTest extends StudioBaseTest{
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();
 
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

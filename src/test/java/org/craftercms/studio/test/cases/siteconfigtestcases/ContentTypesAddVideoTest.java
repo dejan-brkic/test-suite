@@ -19,7 +19,9 @@ package org.craftercms.studio.test.cases.siteconfigtestcases;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -40,9 +42,10 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 	private String siteDropdownListElementXPath;
 
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		this.controlsSectionFormSectionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -80,7 +83,7 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector);
+		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector, 10);
 		WebElement FromVideo = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionVideoLocator);
 
@@ -97,8 +100,9 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 
 	}
 
-	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddAVideoControlToExistingContentTypeTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioAllowsToAddAVideoControlToExistingContentTypeTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(
@@ -108,7 +112,7 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -142,5 +146,11 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();
 
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }
