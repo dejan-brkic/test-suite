@@ -48,7 +48,6 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 	private String unselectAllCheckBox;
 	private String createFormFrameElementCss;
 	private String createFormSaveAndCloseElement;
-	private String homeExpansorXpath;
 	private String createFormArticleMainTitleElementXPath;
 	private String siteDropdownListElementXPath;
 	private String categoryDrowpdownXpath;
@@ -87,8 +86,6 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 				.getProperty("complexscenarios.general.createformMainTitle");
 		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.saveandclosebutton");
-		homeExpansorXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.homeexpansor");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		categoryDrowpdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()

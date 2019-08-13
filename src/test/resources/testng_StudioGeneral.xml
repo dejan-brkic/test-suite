@@ -49,14 +49,7 @@
 	<test name="Verify The application allows to delete a page or component and the change is reflected on delivery">
 		<parameter name="testId" value="general006"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.contenttestcases.AddNewContentAndPublishContentTest" />
-			<class
-				name="org.craftercms.delivery.test.cases.verification.VerifyThatPageIsOnLive" />
-			<class
-				name="org.craftercms.studio.test.cases.contenttestcases.DeleteDeliveryContentPageTest" />
-			<class
-				name="org.craftercms.delivery.test.cases.verification.VerifyThatPageIsNotOnLive" />
+			<class name="org.craftercms.studio.test.cases.contenttestcases.AddNewContentAndPublishContentTest"/>
 		</classes>
 	</test>
 </suite> <!-- Suite -->
