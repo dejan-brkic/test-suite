@@ -17,97 +17,85 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Sites TestSuite"
-	preserve-order="true" verbose="3">
+<suite name="craftercms - Studio Sites TestSuite" parallel="tests" thread-count="4" verbose="3">
 	<test name="Create Site Using Empty Blueprint">
+        <parameter name="testId" value="sitesid01"/>
+        <parameter name="blueprint" value="empty"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest"/>
 		</classes>
 	</test>
 	<test name="Delete Site Test">
+        <parameter name="testId" value="sitesid02"/>
+        <parameter name="blueprint" value="empty"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest"/>
 		</classes>
 	</test>
 	<test name="Design Of Create Site Page Test">
+        <parameter name="testId" value="sitesid03"/>
+        <parameter name="blueprint" value="empty"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DesignOfCreateSitePageTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.DesignOfCreateSitePageTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application show the sites page complete with or without sites created. (logos, titles, all links, buttons)">
+	<test name="Verify that the application show the sites page complete with sites created. (logos, titles, all links, buttons)">
+        <parameter name="testId" value="sites001"/>
+        <parameter name="blueprint" value="empty"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifySitesPageWithSitesAndWithoutSitesTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifySitesPageWithSitesTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application allows to create a site with each blueprints availables">
+	<test name="Verify that the application allows to create a site with each blueprints availables">
+        <parameter name="testId" value="sites002"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateSitesWithEachBlueprintTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateSitesWithEachBlueprintTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application shows each validations of the fields for the create site process">
+	<test name="Verify that the application shows each validations of the fields for the create site process">
+        <parameter name="testId" value="sites004"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioShowEachValidationOfFieldsForCreateSiteTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioShowEachValidationOfFieldsForCreateSiteTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application allows to cancel the create site process">
+	<test name="Verify that the application allows to cancel the create site process">
+        <parameter name="testId" value="sites003"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CancelCreateSiteProcessTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.CancelCreateSiteProcessTest"/>
 		</classes>
 	</test>
-	<test name="Verify that the application allows to delete the site created">
+		<test name="Verify that the application allows to delete the site created">
+        <parameter name="testId" value="sites005"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToDeleteASiteCreatedTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToDeleteASiteCreatedTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application allows to filter the number of sites displayed per page">
+	<test name="Verify that the application allows to filter the number of sites displayed per page">
+        <parameter name="testId" value="sites006"/>
+        <parameter name="blueprint" value="empty"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToFilterNumberOfSitesPerPage" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToFilterNumberOfSitesPerPage"/>
 		</classes>
 	</test>
 	<test name="Verify that the pagination on the sites list works properly">
+        <parameter name="testId" value="sites007"/>
+        <parameter name="blueprint" value="empty"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyThatPaginationOfSiteListWorksProperlyTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyThatPaginationOfSiteListWorksProperlyTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application allows to go to the preview page for a site when Preview link is clicked">
+	<test name="Verify that the application allows to go to the preview page for a site when Preview link is clicked">
+        <parameter name="testId" value="sites008"/>
+        <parameter name="blueprint" value="editorial"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToGoToPreviewPageWhenClickOnPreviewLinkTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToGoToPreviewPageWhenClickOnPreviewLinkTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application allows to go to the dashboard page for a site when Dashboard link is clicked">
+	<test name="Verify that the application allows to go to the dashboard page for a site when Dashboard link is clicked">
+        <parameter name="testId" value="sites009"/>
+        <parameter name="blueprint" value="editorial"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest"/>
 		</classes>
 	</test>
 </suite> <!-- Suite -->

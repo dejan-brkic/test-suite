@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.sitedropdowntestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -26,7 +27,6 @@ import java.util.List;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -41,7 +41,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String menuSitesButton;
 	private String dashboardLink;
 	private String pagesTreeLink;
 	private String componentsTreeLink;
@@ -52,16 +51,15 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 	private String siteConfigLink;
 	private LinkedList<String> siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
-	private String siteDropdownListElementXPath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		dashboardLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.dashboard_menu_option");
 		pagesTreeLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -80,8 +78,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 				.getProperty("general.adminconsole");
 		siteDropdownItemsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.sitebar.dropdown.items");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		siteDropdownItemsInExpectedOrder = new LinkedList<String>();
 		siteDropdownItemsInExpectedOrder.add(0, "Dashboard");
 		siteDropdownItemsInExpectedOrder.add(1, "Pages");
@@ -97,64 +93,20 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 
 	}
 
-	public void deleteSite() {
-
-		this.driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton)
-				.click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-
-		// Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
-	}
-
-	@Test(
-			priority = 0)
-	public void verifyTheSideBarDropdownOptionsUsingWebEditorialBlueprint() {
-
+	@Parameters({"testId"})
+	@Test()
+	public void verifyTheSideBarDropdownOptionsUsingWebEditorialBlueprint(String testId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
 		driverManager.waitUntilLoginCloses();
 
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
+		// go to preview page
+		homePage.goToPreviewPage(testId);
 
 		// Expand the site bar
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed()) {
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-		} else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
-
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
 
 		// Check all the section are present;
 		WebElement dashboardLinkElement = this.driverManager
@@ -202,5 +154,11 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 					"ERROR: Link Option: " + element.getText() + " is not in the correct order");
 			currentIndex++;
 		}
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

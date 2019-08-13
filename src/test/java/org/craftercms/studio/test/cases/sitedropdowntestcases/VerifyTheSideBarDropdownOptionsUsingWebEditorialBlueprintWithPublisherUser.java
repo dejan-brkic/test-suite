@@ -16,6 +16,8 @@
  */
 package org.craftercms.studio.test.cases.sitedropdowntestcases;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -27,7 +29,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -39,10 +40,7 @@ import org.openqa.selenium.WebElement;
 //Test Case Studio- Site Dropdown ID:5
 public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublisherUser extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String siteDropdownElementXPath;
-	private String menuSitesButton;
 	private String dashboardLink;
 	private String pagesTreeLink;
 	private String componentsTreeLink;
@@ -52,29 +50,16 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublis
 	private String scriptsTreeLink;
 	private LinkedList<String> siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
-	private String createSiteButton;
-	private String crafterLogo;
-	private String expandPagesTree;
-	private String siteconfigGroupsOption;
-	private String editPublisherGroupOption;
-	private String groupsAddNewMembersCheckbox;
-	private String groupsAddNewMembersInput;
-	private String groupsAddNewMembersAutocompleteOption1;
-	private String groupsAddNewMembersButton;
-	private String userOptions;
-	private String userOptionsLogout;
-	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager
 			.getLogger(VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublisherUser.class);
 
+	@Parameters({"testId", "blueprint", "testUser", "testGroup"})
 	@BeforeMethod
-	public void beforeTest() {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
+	public void beforeTest(String testId, String blueprint, String testUser, String testGroup) {
+		apiTestHelper.createSite(testId, "", blueprint);
+		apiTestHelper.createUserAddToGroup(testUser, testGroup);
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		dashboardLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.dashboard_menu_option");
 		pagesTreeLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -91,28 +76,6 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublis
 				.getProperty("dashboard.expand_scripts_tree");
 		siteDropdownItemsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.sitebar.dropdown.items");
-		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsitebutton");
-		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
-		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("dashboard.expand_Pages_Tree");
-		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.groups_option");
-		editPublisherGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.edit_publisher_group_option");
-		groupsAddNewMembersCheckbox = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_checkbox");
-		groupsAddNewMembersInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_input");
-		groupsAddNewMembersAutocompleteOption1 = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_autocomplete_option1");
-		groupsAddNewMembersButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_button");
-		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("dashboard.user_options");
-		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("dashboard.user_options_logout");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		siteDropdownItemsInExpectedOrder = new LinkedList<String>();
 		siteDropdownItemsInExpectedOrder.add(0, "Dashboard");
 		siteDropdownItemsInExpectedOrder.add(1, "Pages");
@@ -126,192 +89,21 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublis
 		siteDropdownItemsInExpectedOrder.add(9, "Crafter News");
 	}
 
-	public void deleteSite() {
-
-		this.driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton).click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-
-		// Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
-	}
-
-	private void goToSiteContentPagesStructure() {
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				createSiteButton);
-		
-		this.driverManager.waitForAnimation();
-		
-		homePage.goToPreviewPage();
-
-		this.driverManager.waitForAnimation();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed()) {
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-		}else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
-	}
-
-	public void login(String user, String loginpassword) {
-
-		// login to application
-
-		loginPage.loginToCrafter(user, loginpassword);
-
-		// Wait for login page to close
+	@Parameters({"testId", "testUser"})
+	@Test()
+	public void verifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublisherUser(String testId, String testUser) {
+		logger.info("login to application with {} user", testUser);
+		loginPage.loginToCrafter(testUser, testUser);
 
 		driverManager.waitUntilLoginCloses();
-
-	}
-
-	public void addNewUser() {
-
-		// click On Users option
-
-		createSitePage.clickOnUsersOption();
-
-		usersPage.addNewUser("publishersidebar");
-
-		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
-				".//a[text()='publishersidebar']");
-
-		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
-
-		// Switch to the form
-
-		driverManager.getDriver().navigate().refresh();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.waitForAnimation();
 		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				crafterLogo);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				crafterLogo).click();
-	}
-
-	public void addUserToPublisherGroup() {
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteconfigGroupsOption);
-
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
-
-				.click();
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				editPublisherGroupOption);
-
-		this.driverManager
-
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editPublisherGroupOption)
-
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-				.sendKeys("publisher");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				groupsAddNewMembersAutocompleteOption1);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				groupsAddNewMembersButton);
-
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
-				.click();
-
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.waitUntilAddUserModalCloses();
-		this.driverManager.waitForAnimation();
-
-		createSitePage.clickOnSitesOption();
-
-	}
-	
-	private void logoutFromCrafter() {
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions).click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout).click();
-
-	}
-
-	@Test(priority = 0)
-	public void verifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublisherUser() {
-
-		this.login(userName, password);
-
-		logger.info("Adding New User");
-
-		this.addNewUser();
-
-		logger.info("Add previous created user to Publisher Group");
-
-		this.addUserToPublisherGroup();
-
-		logger.info("Go to Site Preview");
-
-		this.goToSiteContentPagesStructure();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandPagesTree);
-
-		this.driverManager.waitUntilSidebarOpens();
-
-		// logout from Crafter
-		logger.info("logout from Crafter");
-		this.logoutFromCrafter();
-
-		// login to application with publisher user
-		logger.info("login to application with publisher user");
-		loginPage.loginToCrafter("publishersidebar", "publishersidebar");
-
-		driverManager.waitUntilLoginCloses();
-		
-		logger.info("Go to Preview Page");
-		this.homePage.goToPreviewPage();
+		logger.info("Go to Preview Page {}", testId);
+		this.homePage.goToPreviewPage(testId);
 
 		this.driverManager.waitForAnimation();
 
 		// Expand the site bar
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
+		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
 		
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 		
@@ -354,5 +146,12 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublis
 					"ERROR: Link Option: " + element.getText() + " is not in the correct order");
 			currentIndex++;
 		}
+	}
+
+	@Parameters({"testId", "testUser"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId, String testUser) {
+		apiTestHelper.deleteSite(testId);
+		apiTestHelper.deleteUser(testUser);
 	}
 }

@@ -17,209 +17,133 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Site Config TestSuite"
-	preserve-order="true" verbose="3">
+<suite name="craftercms - Studio Site Config TestSuite" parallel="tests" thread-count="4" verbose="3">
+	<parameter name="blueprint" value="empty"/>
 	<test name="Content Type Drag and Drop">
+		<parameter name="testId" value="siteconfigid01"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesDragAndDropTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesDragAndDropTest"/>
 		</classes>
 	</test>
 	<test name="Add Input Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig026"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddInputTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddInputTest"/>
 		</classes>
 	</test>
 	<test name="Add RepeatingGroup Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig027"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddRepeatingGroupTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddRepeatingGroupTest"/>
 		</classes>
 	</test>
 	<test name="Add TextArea Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig028"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddTextAreaTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddTextAreaTest"/>
 		</classes>
 	</test>
 	<test name="Add RTE Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig029"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddRichTextEditorTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddRichTextEditorTest"/>
 		</classes>
 	</test>
 	<test name="Add Dropdown Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig030"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDropdownTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDropdownTest"/>
 		</classes>
 	</test>
 	<test name="Add DateTime Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig031"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDateTimeTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDateTimeTest"/>
 		</classes>
 	</test>
 	<test name="Add CheckBox Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig032"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddCheckBoxTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddCheckBoxTest"/>
 		</classes>
 	</test>
 	<test name="Add GroupedCheckBoxes Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig033"/>
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddGroupedCheckBoxesTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddGroupedCheckBoxesTest"/>
 		</classes>
 	</test>
 	<test name="Add ItemSelector Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig034"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddItemSelectorTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddItemSelectorTest"/>
 		</classes>
 	</test>
 	<test name="Add Image Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig035"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddImageTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddImageTest"/>
 		</classes>
 	</test>
 	<test name="Add Video Control to an existing Content Type">
+		<parameter name="testId" value="siteconfigfix1"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddVideoTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddVideoTest"/>
 		</classes>
 	</test>
 	<test name="Add Label Control to an existing Content Type">
+		<parameter name="testId" value="siteconfigfix2"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddLabelTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddLabelTest"/>
 		</classes>
 	</test>
 	<test name="Add PageOrder Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig036"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddPageOrderTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddPageOrderTest"/>
 		</classes>
 	</test>
 	<test name="Add FileName Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig037"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddFileNameTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddFileNameTest"/>
 		</classes>
 	</test>
 	<test name="Add AutoFileName Control to an existing Content Type">
+		<parameter name="testId" value="siteconfig038"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddAutoFileNameTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddAutoFileNameTest"/>
 		</classes>
 	</test>
 	<test name="Add DataSource_ChildContent to an existing Content Type">
+		<parameter name="testId" value="siteconfig039"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceChildContentTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceChildContentTest"/>
 		</classes>
 	</test>
-	<test
-		name="Add DataSource_ImageUploadedFromDesktop to an existing Content Type">
+	<test name="Add DataSource_ImageUploadedFromDesktop to an existing Content Type">
+		<parameter name="testId" value="siteconfig040"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromDesktopTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromDesktopTest"/>
 		</classes>
 	</test>
-	<test
-		name="Add DataSource_ImageUploadedFromRepository to an existing Content Type">
+	<test name="Add DataSource_ImageUploadedFromRepository to an existing Content Type">
+		<parameter name="testId" value="siteconfig041"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromRepositoryTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromRepositoryTest"/>
 		</classes>
 	</test>
-	<test
-		name="Add DataSource_ImageUploadedFromCMISRepository to an existing Content Type">
+	<test name="Add DataSource_ImageUploadedFromCMISRepository to an existing Content Type">
+		<parameter name="testId" value="siteconfig042"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest"/>
+		</classes>
+	</test>
+	<test name="Verify that Studio allows to add a remote repository for the site and to push and pull from the remote repo">
+		<parameter name="testId" value="siteconfig58"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
 		</classes>
 	</test>
 </suite> <!-- Suite -->

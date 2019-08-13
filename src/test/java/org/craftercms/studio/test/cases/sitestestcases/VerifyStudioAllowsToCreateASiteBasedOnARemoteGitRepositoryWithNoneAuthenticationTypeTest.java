@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -37,15 +39,16 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 	private String siteDropdownElementXPath;
 	private String emptyBPSiteId;
 
+	@Parameters({"testId"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		
-		emptyBPSiteId = "testingemptysitefornoneauth";
-		siteId = "testingtargetsite";
+		emptyBPSiteId = testId + "emptysitefornoneauth";
+		siteId = testId + "targetsite";
 	}
 
 	public void step2() {
@@ -95,7 +98,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 		homePage.clickOnCreateSiteButton();
 	}
 
-	@Test(priority = 0)
+	@Test()
 	public void verifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneAuthenticationTypeTest() {
 		this.testScenario();
 	}
@@ -166,4 +169,9 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 		this.createSiteUsingEmptyBluePrint(emptyBPSiteId);
 	}
 
+	@AfterMethod(alwaysRun = true)
+	public void afterTest() {
+		apiTestHelper.deleteSite(siteId);
+		apiTestHelper.deleteSite(emptyBPSiteId);
+	}
 }

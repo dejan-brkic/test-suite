@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.generaltestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -76,8 +78,10 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	private String categoryDrowpdownXpath;
 	private static Logger logger = LogManager.getLogger(Crafter3LoadTest1Script.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		this.parentFolderName = "tester-" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
 		this.harnessFolderName = "harness";
 		this.emptyFolderName = "empty-folder";
@@ -164,7 +168,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		dashboardPage.setFolderName(folderName);
 	}
 
-	public void loginAndGoToSiteContentPagesStructure() {
+	public void loginAndGoToSiteContentPagesStructure(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -172,7 +176,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 		this.driverManager.waitForAnimation();
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 				.isDisplayed())
 			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -689,13 +693,10 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 	}
 
-	public void crafter3LoadTest() {
+	public void crafter3LoadTest(String siteId) {
 		// login and go to dashboard page, later open the content site (site
 		// dropdown panel)
-		this.loginAndGoToSiteContentPagesStructure();
-
-		// expand pages folder
-		dashboardPage.expandPagesTree();
+		this.loginAndGoToSiteContentPagesStructure(siteId);
 
 		// create the folders structure according with script
 		this.prepareTestArea();
@@ -747,11 +748,15 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		this.step12();
 	}
 
-	@Test(
-			priority = 0,
-			sequential = true)
-	public void crafter3LoadTestTestUser1() {
-		this.crafter3LoadTest();
+	@Parameters({"testId"})
+	@Test()
+	public void crafter3LoadTestTestUser1(String testId) {
+		this.crafter3LoadTest(testId);
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

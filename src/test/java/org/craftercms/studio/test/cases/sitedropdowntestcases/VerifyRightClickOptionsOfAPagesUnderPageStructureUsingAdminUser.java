@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.sitedropdowntestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -28,7 +29,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -44,7 +44,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String menuSitesButton;
 	private String pagesTreeLink;
 	private String pagesTree;
 	private String homeContent;
@@ -71,19 +70,18 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
 	private LinkedList<String> rightClickOptionsListInArticlesFolder1;
 	private String rightClickOptions;
-	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager.getLogger(
 			VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser.class);
 
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		pagesTreeLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.expandpages");
 		pagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -127,30 +125,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 				.getProperty("dashboard.articles.folder.2017.1.menstylesforwinter");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
-	}
-
-	public void deleteSite() {
-		logger.info("Delete the website Editorial site");
-		this.driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton).click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-
-		// Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
 	}
 
 	public void rightClickHome() {
@@ -280,23 +254,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 				"ERROR: Right click Rename Folder Option is not present on right click of " + section);
 	}
 
-	public void createWebEditorialSite() {
-		
-		logger.info("Create the website Editorial site");
-		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
-
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-	}
-
 	public void step4() {
 		logger.info("Step 4 Right Right click on Home and verify options");
 		// Step 4 Right Right click on "Home" and verify options
@@ -407,7 +364,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017).click();
+		this.driverManager.clickElement("xpath", articlesFolder2017);
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder2017);
 	}
 
@@ -506,37 +463,20 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 			this.driverManager.getDriver().navigate().refresh();
 			this.driverManager.waitForAnimation();
 		},"Pages");
-		
+
 	}
 
-	@Test(priority = 0)
-	public void verifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser() {
-
-		// login to application
+	@Parameters({"testId"})
+	@Test()
+	public void verifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser(String testId) {
 		loginPage.loginToCrafter(userName, password);
 
-		this.createWebEditorialSite();
+		homePage.goToPreviewPage(testId);
 
 		// Expand the site bar Step 2
 		logger.info("Step 2 Expand the site bar ");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed()) {
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-		}else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
-		
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
 
-		// Step 3 Click on Pages tree
-		logger.info("Step 3 Click on Pages tree");
-		WebElement pagesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				pagesTreeLink);
-		pagesTreeLinkElement.click();
 		this.driverManager.waitUntilFolderOpens("xpath", pagesTreeLink);
 
 		// Step 4 Right Right click on "Home" and verify options
@@ -554,7 +494,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder).click();
+		this.driverManager.clickElement("xpath", articlesFolder);
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder);
 
 		// Step 8 Click on the + of folder 2017
@@ -565,9 +505,16 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser
 
 		// Step 10 Click on the + of folder "1"
 		logger.info("Step 10 Click on the + of folder 1");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder1).click();
+		this.driverManager.clickElement("xpath", articlesFolder1);
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder1);
 
 		// Step 11 Right click on any of the article (Men Styles For Winter)
 		this.step11();
-	}}
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
+}

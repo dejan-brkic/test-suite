@@ -20,6 +20,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -40,10 +41,10 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	private String notificationTitle;
 	private String notificationText;
 	private String notificationError;
-	private String siteIdFromLocalRepo;
 
+	@Parameters({"testId"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		localRepoName = constantsPropertiesManager.getSharedExecutionConstants()
@@ -58,15 +59,8 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 				.getProperty("home.createsite.notificationdialog.text");
 		notificationError = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.notificationdialog.error");
-		siteId = "testsitewithremotebarerepositoryforpushlocal";
-		siteIdFromLocalRepo = "testsitefromlocalrepo";
-
+		siteId =  testId + "remotebarerepositoryforpushlocal";
 		this.setup();
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		this.deleteRepositoryFolder();
 	}
 
 	public void step2() {
@@ -122,8 +116,8 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		createSitePage.selectWebSiteEditorialBluePrintOption();
 	}
 
-	public void step15() {
-		createSitePage.setSiteName(siteIdFromLocalRepo);
+	public void step15(String siteId) {
+		createSitePage.setSiteName(siteId);
 	}
 
 	public void step16() {
@@ -174,12 +168,13 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	}
 
 
-	@Test(priority = 0)
-	public void verifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRepoTest() {
-		this.testScenario();
+	@Parameters({"testId"})
+	@Test()
+	public void verifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRepoTest(String testId) {
+		this.testScenario(testId);
 	}
 
-	public void testScenario() {
+	public void testScenario(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -222,7 +217,7 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		step14();
 
 		// Step 15
-		step15();
+		step15(siteId);
 
 		// Step 16
 		step16();
@@ -249,8 +244,12 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		Assert.assertTrue(exitCode == 0, "Init bare repository process failed");
 	}
 
-	public void deleteRepositoryFolder() {
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
 		int exitCode = this.driverManager.goToFolderAndExecuteDeleteBareRepositoryFolder(localRepoName);
 		Assert.assertTrue(exitCode == 0, "Delete bare repository process failed");
+		apiTestHelper.deleteSite(testId);
+		apiTestHelper.deleteSite(siteId);
 	}
 }

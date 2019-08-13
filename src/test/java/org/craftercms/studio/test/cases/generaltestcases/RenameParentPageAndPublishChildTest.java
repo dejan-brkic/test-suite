@@ -16,7 +16,9 @@
  */
 package org.craftercms.studio.test.cases.generaltestcases;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -46,13 +48,14 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 	private String unselectAllCheckBox;
 	private String createFormFrameElementCss;
 	private String createFormSaveAndCloseElement;
-	private String homeExpansorXpath;
 	private String createFormArticleMainTitleElementXPath;
 	private String siteDropdownListElementXPath;
 	private String categoryDrowpdownXpath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		this.parentPageName = "1";
 		this.childPage1Name = "2";
 		this.childPage2Name = "3";
@@ -83,15 +86,13 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 				.getProperty("complexscenarios.general.createformMainTitle");
 		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.saveandclosebutton");
-		homeExpansorXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.homeexpansor");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		categoryDrowpdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformcategorydropdown");
 	}
 
-	public void loginAndGoToSiteContentPagesStructure() {
+	public void loginAndGoToSiteContentPagesStructure(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -99,7 +100,7 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 
 		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath).isDisplayed())
 			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -205,15 +206,7 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 	}
 
 	public void testScenario() {
-		WebElement homeParent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeContent);
 		this.createPageCategoryLandingPage(homeContent, parentPageName);
-
-		homeParent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeContent);
-		if (!homeParent.getAttribute("class").contains("open")) {
-			WebElement expansorElementForHome = this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeExpansorXpath);
-			expansorElementForHome.click();
-		}
 
 		Assert.assertTrue(driverManager.waitUntilElementIsClickable("xpath", parentPageLocator).isDisplayed());
 
@@ -282,16 +275,20 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 		this.editPageArticleContent(newPageName);
 	}
 
+	@Parameters({"testId"})
 	@Test
-	public void renameParentPageAndPublishChildTest() {
+	public void renameParentPageAndPublishChildTest(String testId) {
 		// Related to the bug:
 		// https://github.com/craftercms/craftercms/issues/1248
-		this.loginAndGoToSiteContentPagesStructure();
-
-		// expand pages folder
-		dashboardPage.expandPagesTree();
+		this.loginAndGoToSiteContentPagesStructure(testId);
 
 		// create the folders structure according with script
 		this.testScenario();
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

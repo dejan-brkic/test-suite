@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.userstestcases;
 
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -44,7 +46,6 @@ public class AddNewUserTest extends StudioBaseTest {
 
 	@BeforeMethod
 	public void beforeTest() {
-		
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		newUserFirstNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -62,8 +63,9 @@ public class AddNewUserTest extends StudioBaseTest {
 				.getProperty("general.users.usernamecreated");
 	}
 
-	@Test(priority = 0)
-	public void verifyThatStudioAllowsToCreateANewUser() {
+	@Parameters({"testUser"})
+	@Test()
+	public void verifyThatStudioAllowsToCreateANewUser(String testUser) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -78,28 +80,34 @@ public class AddNewUserTest extends StudioBaseTest {
 		usersPage.clickOnNewUser();
 
 		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("Name");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys(testUser + "N");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId).sendKeys("Last Name");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId).sendKeys(testUser + "LN");
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
-				.sendKeys("email@email.com");
+				.sendKeys(testUser + "@" + testUser);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("username");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys(testUser);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("password");
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys(testUser);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
-				.sendKeys("password");
+				.sendKeys(testUser);
 
 		// Save Button
 		usersPage.clickOnSaveNewUser();
 
 		// Assert new users created is present
 		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				newUserUserNameCreatedXpath);
+				String.format(newUserUserNameCreatedXpath, testUser));
 
 		Assert.assertTrue(newUserCreated.isDisplayed(),"ERROR: Recently created user is not displayed");
 
+	}
+
+	@Parameters({"testUser"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testUser) {
+		apiTestHelper.deleteUser(testUser);
 	}
 }

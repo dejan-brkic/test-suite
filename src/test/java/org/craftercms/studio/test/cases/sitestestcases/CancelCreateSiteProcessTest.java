@@ -68,8 +68,6 @@ public class CancelCreateSiteProcessTest extends StudioBaseTest{
 				sitesPageTitleLocator);
 
 		Assert.assertTrue(sitePage.isDisplayed());
-
-		this.homePage.checkElementsOnSitePageWithoutSites();
 	}
 
 }

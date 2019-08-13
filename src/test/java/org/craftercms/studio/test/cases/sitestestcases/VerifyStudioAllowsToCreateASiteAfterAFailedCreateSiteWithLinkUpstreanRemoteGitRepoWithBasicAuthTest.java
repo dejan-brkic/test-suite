@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -43,8 +45,9 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 	private String notificationError;
 	private String notificationClose;
 
+	@Parameters({"testId"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitUserName = constantsPropertiesManager.getSharedExecutionConstants()
@@ -63,7 +66,7 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 				.getProperty("home.createsite.notificationdialog.error");
 		notificationClose = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.notificationdialog.closebutton");
-		siteId = "testingtargetsiteforbasicauth";
+		siteId =  testId + "targetforbasicauth";
 	}
 
 	public void step2() {
@@ -272,4 +275,9 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
         step22();
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

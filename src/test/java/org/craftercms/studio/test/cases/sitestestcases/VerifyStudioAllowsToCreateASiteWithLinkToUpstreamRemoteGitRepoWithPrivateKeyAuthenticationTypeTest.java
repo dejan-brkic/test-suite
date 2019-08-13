@@ -19,7 +19,9 @@ package org.craftercms.studio.test.cases.sitestestcases;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.craftercms.studio.test.utils.FilesLocations;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -41,8 +43,9 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	private String topNavSitesOption;
 	private String siteIdFromGit;
 
+	@Parameters({"testId"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitRepoUrl = constantsPropertiesManager.getSharedExecutionConstants()
@@ -52,8 +55,8 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 				.getProperty("complexscenarios.general.sitedropdown");
 		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.preview.sitesoption");
-		siteId = "testingtargetsiteforpushremotegit";
-		siteIdFromGit = "testingtargetsitefromremotegit";
+		siteId = testId + "targetpushremotegit";
+		siteIdFromGit = testId + "targetfromremotegit";
 	}
 
 	public void step2() {
@@ -89,8 +92,7 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	}
 
 	public void step10() {
-		createSitePage.setPushRepositoryPrivateKey(
-				driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+		createSitePage.setPushRepositoryPrivateKey(gitPrivateKey);
 	}
 
 	public void step11() {
@@ -144,8 +146,7 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	}
 
 	public void step22() {
-		createSitePage.setFromGitRepositoryPrivateKey(
-				driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+		createSitePage.setFromGitRepositoryPrivateKey(gitPrivateKey);
 	}
 
 	public void step23() {
@@ -160,8 +161,7 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 				.isDisplayed());
 	}
 
-	@Test(
-			priority = 0)
+	@Test()
 	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest() {
 		this.testScenario();
 	}
@@ -240,5 +240,11 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 
 		// Step 24
 		step24();
+	}
+
+	@AfterMethod(alwaysRun = true)
+	public void afterTest() {
+		apiTestHelper.deleteSite(siteId);
+		apiTestHelper.deleteSite(siteIdFromGit);
 	}
 }

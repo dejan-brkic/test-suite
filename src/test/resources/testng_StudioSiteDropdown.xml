@@ -17,255 +17,173 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Site Dropdown TestSuite"
-	preserve-order="true" verbose="3">
-	<test
-		name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Admin User">
+<suite name="craftercms - Studio Site Dropdown TestSuite" parallel="tests" thread-count="8" verbose="3">
+	<parameter name="blueprint" value="editorial"/>
+	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Admin User">
+		<parameter name="testId" value="sitedropdown001"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminUser" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Author User">
+	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Author User">
+		<parameter name="testId" value="sitedropdown002"/>
+		<parameter name="testUser" value="authorsidebar"/>
+		<parameter name="testGroup" value="site_author"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthorUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthorUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Developer User">
+	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Developer User">
+		<parameter name="testId" value="sitedropdown003"/>
+		<parameter name="testUser" value="developersidebar"/>
+		<parameter name="testGroup" value="site_developer"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDeveloperUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDeveloperUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Publisher User">
+	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Publisher User">
+		<parameter name="testId" value="sitedropdown004"/>
+		<parameter name="testUser" value="publishersidebar"/>
+		<parameter name="testGroup" value="site_publisher"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublisherUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublisherUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Reviewer User">
+	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Reviewer User">
+		<parameter name="testId" value="sitedropdown005"/>
+		<parameter name="testUser" value="reviewersidebar"/>
+		<parameter name="testGroup" value="site_reviewer"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithReviewerUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithReviewerUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application redirects to the Site Config page when the Site Config option is clicked">
+	<test name="Verify that the application redirects to the Site Config page when the Site Config option is clicked">
+		<parameter name="testId" value="sitedrowdownfixid01"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with admin user">
+	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with admin user">
+		<parameter name="testId" value="sitedropdown007"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with author user">
+	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with author user">
+		<parameter name="testId" value="sitedropdown008"/>
+		<parameter name="testUser" value="authorpage"/>
+		<parameter name="testGroup" value="site_author"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser" />
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Developer user">
+	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Developer user">
+		<parameter name="testId" value="sitedropdown009"/>
+		<parameter name="testUser" value="developerpage"/>
+		<parameter name="testGroup" value="site_developer"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingDeveloperUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingDeveloperUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Publisher user">
+	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Publisher user">
+		<parameter name="testId" value="sitedropdown010"/>
+		<parameter name="testUser" value="publisherpage"/>
+		<parameter name="testGroup" value="site_publisher"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingPublisherUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingPublisherUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Reviewer user">
+	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Reviewer user">
+		<parameter name="testId" value="sitedropdown011"/>
+		<parameter name="testUser" value="reviewerpage"/>
+		<parameter name="testGroup" value="site_reviewer"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingReviewerUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Admin User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Admin User">
+		<parameter name="testId" value="sitedropdown012"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Author User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Author User">
+		<parameter name="testId" value="sitedropdown013"/>
+		<parameter name="testUser" value="authoredit"/>
+		<parameter name="testGroup" value="site_author"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAuthorUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Developer User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Developer User">
+		<parameter name="testId" value="sitedropdown014"/>
+		<parameter name="testUser" value="developeredit"/>
+		<parameter name="testGroup" value="site_developer"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingDeveloperUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingDeveloperUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Publisher User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Publisher User">
+		<parameter name="testId" value="sitedropdown015"/>
+		<parameter name="testUser" value="publisheredit"/>
+		<parameter name="testGroup" value="site_publisher"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingPublisherUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Reviewer User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Reviewer User">
+		<parameter name="testId" value="sitedropdown016"/>
+		<parameter name="testUser" value="revieweredit"/>
+		<parameter name="testGroup" value="site_reviewer"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewerUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingReviewerUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Admin User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Admin User">
+		<parameter name="testId" value="sitedropdown017"/>
+		<parameter name="testUser" value="adminworkflow"/>
+		<parameter name="testGroup" value="site_author"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingAdminUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingAdminUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Author User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Author User">
+		<parameter name="testId" value="sitedropdown018"/>
+		<parameter name="testUser" value="authorworkflow"/>
+		<parameter name="testGroup" value="site_author"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingAuthorUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class	name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingAuthorUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Developer User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Developer User">
+		<parameter name="testId" value="sitedropdown019"/>
+		<parameter name="testUser" value="developerworkflow"/>
+		<parameter name="testGroup" value="site_developer"/>
+		<parameter name="testUser2" value="authordeveloper"/>
+		<parameter name="testGroup2" value="site_author"/>
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingDeveloperUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+					name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingDeveloperUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Publisher User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Publisher User">
+		<parameter name="testId" value="sitedropdown020"/>
+		<parameter name="testUser" value="publisherworkflow"/>
+		<parameter name="testGroup" value="site_publisher"/>
+		<parameter name="testUser2" value="authorpublisher"/>
+		<parameter name="testGroup2" value="site_author"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingPublisherUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingPublisherUser"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Reviewer User">
+	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Reviewer User">
+		<parameter name="testId" value="sitedropdown021"/>
+		<parameter name="testUser" value="reviewerworkflow"/>
+		<parameter name="testGroup" value="site_reviewer"/>
+		<parameter name="testUser2" value="authorreviewer"/>
+		<parameter name="testGroup2" value="site_author"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingReviewerUser" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedAndRequestPublishPageUnderPageStructureUsingReviewerUser"/>
 		</classes>
 	</test>
 </suite> <!-- Suite -->

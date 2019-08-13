@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.sitedropdowntestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -28,7 +29,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -44,7 +44,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String menuSitesButton;
 	private String pagesTreeLink;
 	private String pagesTree;
 	private String homeContent;
@@ -54,7 +53,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 	private String menStylesEditedPageName;
 	private String menStylesForWinterEditedPageName;
 	private String rightClickOptions;
-
 	private String rightclickEditOption;
 	private String rightclickViewOption;
 	private String rightclickNewContentOption;
@@ -68,7 +66,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 	private String rightclickHistoryOption;
 	private String styleLandingpage;
 	private String rightclickDuplicateOption;
-	private String rightclickRenameFolderOption;
 	private String articlesFolder;
 	private String articlesFolder2017;
 	private String articlesFolder1;
@@ -76,18 +73,17 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 	private LinkedList<String> rightClickOptionsListInHomePage;
 	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
-	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager.getLogger(
 			VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		pagesTreeLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.expandpages");
 		pagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -128,8 +124,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 				.getProperty("dashboard.pagestree.style.landingpage");
 		rightclickDuplicateOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.duplicate.option");
-		rightclickRenameFolderOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("rightclick.rename.folder.option");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
 		articlesFolder2017 = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -142,23 +136,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 				.getProperty("complexscenarios.general.createformframe");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
-
-	}
-
-	public void deleteSite() {
-
-		this.driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton).click();
-
-		this.homePage.deleteAllSites();
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
 	}
 
 	public void rightClickHomePage() {
@@ -278,29 +255,6 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 				"ERROR: Right click Duplicate Option is not present on right click of " + section);
 	}
 
-	public void verifyRenameFolderOptionIsPresent(String section) {
-		WebElement rightclickRenameFolderOptionElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickRenameFolderOption);
-		Assert.assertTrue(rightclickRenameFolderOptionElement.isDisplayed(),
-				"ERROR: Right click Rename Folder Option is not present on right click of " + section);
-	}
-
-	public void createWebEditorialSite() {
-
-		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
-
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-	}
-
 	public void step4() {
 		// Step 4 Right Right click on "Home" and verify options
 		this.rightClickHomePage();
@@ -411,7 +365,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017).click();
+		this.driverManager.clickElement("xpath", articlesFolder2017);
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder2017);
 	}
 
@@ -543,36 +497,21 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homePageEditedExpand)
 					.click();
 		}
-
 	}
 
-	@Test(priority = 0)
-	public void verifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser(String testId) {
 
 		logger.info("login to application");
 
 		loginPage.loginToCrafter(userName, password);
 
-		this.createWebEditorialSite();
+		homePage.goToPreviewPage(testId);
 
 		logger.info("Step 2 Expand the site bar");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath);
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed()) {
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-		}else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
-		
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
 
-		logger.info("Step 3 Click on Pages tree and Edit Home Page");
-		WebElement pagesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				pagesTreeLink);
-		pagesTreeLinkElement.click();
 		this.driverManager.waitUntilFolderOpens("xpath", pagesTreeLink);
 
 		logger.info("Edit the home page");
@@ -594,7 +533,7 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder).click();
+		this.driverManager.clickElement("xpath", articlesFolder);
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder);
 
 		logger.info("Step 8 Click on the + of folder 2017");
@@ -602,12 +541,18 @@ public class VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUs
 
 		logger.info(
 				"Step 9 Click on the + of folder 1 and Edit then article page Men Styles For Winter under articles/2017/1");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder1).click();
+		this.driverManager.clickElement("xpath", articlesFolder1);
 		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder1);
 
 		this.editMenStylesForWinterPage();
 
 		logger.info("Step 10 Right click on any of the article Men Styles For Winter");
 		this.step10();
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

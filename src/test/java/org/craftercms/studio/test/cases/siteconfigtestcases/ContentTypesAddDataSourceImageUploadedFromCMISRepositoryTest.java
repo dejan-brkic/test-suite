@@ -19,7 +19,9 @@ package org.craftercms.studio.test.cases.siteconfigtestcases;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -38,9 +40,12 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 	private String siteDropdownXpath;
 	private String adminConsoleXpath;
 	private String siteDropdownListElementXPath;
+	private String lastDatasourceElementCssSelector;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		this.contentTypeContainerLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -57,10 +62,13 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 				.getProperty("general.adminconsole");
 		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownlielement");
+		lastDatasourceElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.entrycontenttype.controlsdivlastelement");
 	}
 
 	public void dragAndDrop() {
 		this.driverManager.scrollDownPx(3000);
+		this.driverManager.focusAndScrollDownToMiddleInASection("#datasources-container",lastDatasourceElementCssSelector, 6);
 		// Getting the ChildContent for drag and drop action
 		WebElement FromDataSourceImageUploadedFromRepoElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
@@ -70,7 +78,6 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 		// (destination)
 		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
-
 		driverManager.dragAndDropElement(FromDataSourceImageUploadedFromRepoElement, ToContentTypeContainer);
 
 		// Complete the input fields basics
@@ -80,8 +87,9 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 		siteConfigPage.saveDragAndDropProcess();
 	}
 
-	@Test(priority = 0)
-	public void verifyThatStudioAllowsToAddADataSourceImageUploadedFromCMISRepositoryToExistingContentTypeTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioAllowsToAddADataSourceImageUploadedFromCMISRepositoryToExistingContentTypeTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(
@@ -91,7 +99,7 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -129,4 +137,9 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

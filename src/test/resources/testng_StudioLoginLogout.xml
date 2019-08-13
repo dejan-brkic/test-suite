@@ -17,24 +17,16 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio - Login TestSuite"
-	preserve-order="true" verbose="3">
+<suite name="craftercms - Studio - Login TestSuite" parallel="tests" thread-count="4" verbose="3">
 	<test name="Login Test And Logout Test">
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.loginlogouttestcases.LoginTest" />
-			<class
-				name="org.craftercms.studio.test.cases.loginlogouttestcases.LogOutTest" />
+			<class name="org.craftercms.studio.test.cases.loginlogouttestcases.LoginTest"/>
+			<class name="org.craftercms.studio.test.cases.loginlogouttestcases.LogOutTest"/>
 		</classes>
 	</test>
 	<test name="Wrong Login Test">
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.loginlogouttestcases.WrongLoginTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.loginlogouttestcases.WrongLoginTest"/>
 		</classes>
 	</test>
 </suite> <!-- Suite -->

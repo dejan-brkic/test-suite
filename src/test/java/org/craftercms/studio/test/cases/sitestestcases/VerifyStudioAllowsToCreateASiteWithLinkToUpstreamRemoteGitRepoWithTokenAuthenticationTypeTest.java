@@ -17,10 +17,10 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.craftercms.studio.test.utils.APITestHelper;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -33,7 +33,6 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 
 	private String userName;
 	private String password;
-	private String siteId;
 	private String siteDropdownElementXPath;
 	private String gitRepoUrl;
 	private String gitRepositoryUserName;
@@ -51,16 +50,16 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 				.getProperty("crafter.gitrepository.token");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteId = "testingcreatesitelinkremotetoken";
 	}
 
+	@Parameters({"testId"})
 	@Test()
-	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest(){
+	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest(String testId){
 		loginPage.loginToCrafter(userName, password);
 		homePage.clickOnCreateSiteButton();
 
 		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName(siteId)
+				.setSiteName(testId)
 				.clickAdditionalDeveloperOptions()
 				.clickPushSiteToRemoteGitCheckbox()
 				.setPushRepositoryName("origin")
@@ -76,9 +75,9 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 				.isDisplayed());
 	}
 
-	@AfterMethod
-	public void afterTest() {
-		new APITestHelper().deleteSite(siteId);
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
-
 }
