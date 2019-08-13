@@ -698,9 +698,6 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// dropdown panel)
 		this.loginAndGoToSiteContentPagesStructure(siteId);
 
-		// expand pages folder
-		//dashboardPage.expandPagesTree();
-
 		// create the folders structure according with script
 		this.prepareTestArea();
 

@@ -285,9 +285,6 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 		// https://github.com/craftercms/craftercms/issues/1248
 		this.loginAndGoToSiteContentPagesStructure(testId);
 
-		// expand pages folder
-		//dashboardPage.expandPagesTree();
-
 		// create the folders structure according with script
 		this.testScenario();
 	}

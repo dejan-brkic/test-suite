@@ -275,10 +275,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		this.driverManager.clickElement("xpath", articlesFolder);
 
-		//this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sidebarMenuOption).click();
-
-		//this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sidebarMenuOption).click();
-
 		this.driverManager.waitUntilSidebarOpens();
 
 		// Bulk Publish
