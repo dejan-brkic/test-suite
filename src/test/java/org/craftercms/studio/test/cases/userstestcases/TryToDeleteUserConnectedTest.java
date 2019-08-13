@@ -66,7 +66,6 @@ public class TryToDeleteUserConnectedTest extends StudioBaseTest {
 		createSitePage.clickOnUsersOption();
 
 		// Try to delete the user current
-		this.driverManager.waitForAnimation();
 		usersPage.clickOnDeleteUser();
 
 		// Confirmation to delete user connected

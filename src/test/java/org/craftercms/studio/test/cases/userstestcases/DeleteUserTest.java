@@ -16,9 +16,8 @@
  */
 package org.craftercms.studio.test.cases.userstestcases;
 
-import org.openqa.selenium.By;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -28,23 +27,22 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
  *
  */
 
-public class DeleteUserTest extends StudioBaseTest {
+	public class DeleteUserTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
-	private String usersRowsXpath;
 
+	@Parameters({"testUser"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testUser) {
+		apiTestHelper.createUser(testUser);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		usersRowsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.usersrows");
 	}
 
-	@Test(priority = 0)
-	public void verifyThatStudioAllowsToDeleteAnUserTest() {
+	@Parameters({"testUser"})
+	@Test()
+	public void verifyThatStudioAllowsToDeleteAnUserTest(String testUser) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -59,15 +57,9 @@ public class DeleteUserTest extends StudioBaseTest {
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilPageLoad();
 
-		usersPage.deleteAllUsersExceptAdmin();
+		usersPage.deleteUser(testUser);
 
 		// Assert new users created is deleted
 		this.driverManager.waitForAnimation();
-		
-		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(usersRowsXpath));
-
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue((this.driverManager.getDriver().findElements(By.xpath(usersRowsXpath))).size() == 1);
-
 	}
 }
