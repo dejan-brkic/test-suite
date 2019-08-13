@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.generaltestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -53,30 +54,9 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 
 	}
 
-	public void deleteSite() {
-
-		this.driverManager.getDriver().switchTo().defaultContent();
-	
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton).click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-
-		// Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
-	}
-
+	@Parameters({"testId"})
 	@Test(priority = 0)
-	public void verifyThatNoBluePrintErrorsDisplayedWhenCreateSite() {
+	public void verifyThatNoBluePrintErrorsDisplayedWhenCreateSite(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -89,7 +69,7 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 
 		//select blueprint, set site name, set description, click review and create site
 		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
+				.setSiteName(testId)
 				.setDescription("Description")
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
@@ -100,5 +80,11 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

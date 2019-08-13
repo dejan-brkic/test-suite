@@ -16,14 +16,15 @@
  */
 package org.craftercms.studio.test.cases.generaltestcases;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
@@ -41,7 +42,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String password;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
-	private String siteconfigGroupsOption;
 	private String userOptions;
 	private String userOptionsLogout;
 	private String requestPublishButton;
@@ -49,15 +49,9 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String cancelWorkflowContinueButton;
 	private String staticAssetsButton;
 	private String homeTree;
-	private String sidebarMenuOption;
 	private String dependenciesMenuOption;
 	private String staticAssetsChildFolder;
 	private String staticAssetsImagesChildFolder;
-	private String editAuthorGroupOption;
-	private String groupsAddNewMembersCheckbox;
-	private String groupsAddNewMembersInput;
-	private String groupsAddNewMembersAutocompleteOption1;
-	private String groupsAddNewMembersButton;
 	private String generalSiteDropdown;
 	private String pageStatus;
 	private String staticAssetsGearImageXpath;
@@ -67,18 +61,17 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String expandPagesTree;
 	private String editedPageArticleName;
 	private String articleTitle;
-	private String createSiteButton;
 	private String siteDropdownElementXPath;
 	private String articleContentCreatedName;
 	private String gearImageXpath;
-	private String siteDropdownListElementXPath;
 	private int numberOfAttemptsForElementsDisplayed;
 	private static Logger logger = LogManager.getLogger(ChangeStateOfPreviousPublishedContent.class);
 
+	@Parameters({"testId", "blueprint", "testUser", "testGroup"})
 	@BeforeMethod
-
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint, String testUser, String testGroup) {
+		apiTestHelper.createSite(testId, "", blueprint);
+		apiTestHelper.createUserAddToGroup(testUser, testGroup);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -87,8 +80,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("frame2.article_select_all_segments_checkbox");
 		selectAllCategoriesCheckBox = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame2.select_All_Categories_CheckBox");
-		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.groups_option");
 		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options_logout");
@@ -102,24 +93,12 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("preview.static_assets_button");
 		homeTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_GlobalEntry_Tree");
-		sidebarMenuOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
 		dependenciesMenuOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.dependenciestopnavoption");
 		staticAssetsChildFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("preview.static_assets_child_folder");
 		staticAssetsImagesChildFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("preview.static_assets_images_child_folder");
-		editAuthorGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.edit_author_group_option");
-		groupsAddNewMembersCheckbox = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_checkbox");
-		groupsAddNewMembersInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_input");
-		groupsAddNewMembersAutocompleteOption1 = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_autocomplete_option1");
-		groupsAddNewMembersButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_button");
 		generalSiteDropdown = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
 		pageStatus = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.pageStatus");
@@ -135,41 +114,14 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("complexscenarios.general.editedarticlename");
 		articleTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.cssarticletitle");
-		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsitebutton");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		articleContentCreatedName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitem");
 		gearImageXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearimagexpath");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
-		
-	}
-
-	public void addNewUser() {
-
-		// click On Users option
-
-		createSitePage.clickOnUsersOption();
-
-		// click on new user button
-
-		usersPage.addNewUser("authorchangestate");
-
-		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
-				".//a[text()='authorchangestate']");
-
-		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
-
-		// Switch to the form
-		driverManager.getDriver().navigate().refresh();
-
-		driverManager.getDriver().switchTo().defaultContent();
 
 	}
 
@@ -212,82 +164,8 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", generalSiteDropdown).click();
 
 		previewPage.changeBodyOfArticlePageToNotRequired();
-		
+
 		previewPage.changeDateOfArticlePageToNotRequired();
-
-	}
-
-	public void addUserToAuthorGroup() {
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteconfigGroupsOption);
-
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
-
-				.click();
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				editAuthorGroupOption);
-
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editAuthorGroupOption)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-				.sendKeys("author");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				groupsAddNewMembersAutocompleteOption1);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				groupsAddNewMembersButton);
-
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
-				.click();
-
-		
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo().activeElement();
-		
-		this.driverManager.waitUntilAddUserModalCloses();
-		this.driverManager.waitForAnimation();
-		
-		createSitePage.clickOnSitesOption();
-
-	}
-
-	private void goToSiteContentPagesStructure() {
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				createSiteButton);
-
-		homePage.goToPreviewPage();
-
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
 
 	}
 
@@ -350,24 +228,16 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 	}
 
-	public void testScenario() {
+	public void testScenario(String siteId, String testUser) {
 
 		// Related to the bug:
 		// issue https://github.com/craftercms/craftercms/issues/1557
 		this.login(userName, password);
 
-		logger.info("Adding New User");
+		logger.info("Go to Site Preview {}", siteId);
+		homePage.goToPreviewPage(siteId);
 
-		this.addNewUser();
-
-		logger.info("Add previous created user to Author Group");
-		this.addUserToAuthorGroup();
-		
-		logger.info("Go to Site Preview");
-		this.goToSiteContentPagesStructure();
-
-		// expand pages folder
-		this.dashboardPage.expandPagesTree();
+		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
 
 		this.driverManager.waitUntilFolderOpens("xpath", expandPagesTree);
 
@@ -388,7 +258,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		this.dashboardPage.expandHomeTree();
 
-		this.driverManager.getDriver().navigate().refresh();
+		//this.driverManager.getDriver().navigate().refresh();
 
 		logger.info("Create Article Content");
 		this.driverManager.waitForAnimation();
@@ -403,11 +273,11 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		// Open dependencies for the previous created element
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder).click();
+		this.driverManager.clickElement("xpath", articlesFolder);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sidebarMenuOption).click();
+		//this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sidebarMenuOption).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sidebarMenuOption).click();
+		//this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sidebarMenuOption).click();
 
 		this.driverManager.waitUntilSidebarOpens();
 
@@ -431,11 +301,11 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		this.logoutFromCrafter();
 
 		// login to application with author user
-		logger.info("login to application with author user");
-		loginPage.loginToCrafter("authorchangestate", "authorchangestate");
+		logger.info("login to application with {} user", testUser);
+		loginPage.loginToCrafter(testUser, testUser);
 
-		logger.info("Go to Preview Page");
-		this.homePage.goToPreviewPage();
+		logger.info("Go to Preview Page {}", siteId);
+		this.homePage.goToPreviewPage(siteId);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilFolderOpens("xpath", expandPagesTree);
@@ -459,8 +329,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		this.driverManager.waitUntilContentTooltipIsHidden();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleContentCreatedName)
-				.click();
+		this.driverManager.clickElement("xpath", articleContentCreatedName);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articleContentCreatedName);
 
@@ -483,8 +352,7 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
 		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
-				.click();
+		this.driverManager.clickElement("xpath", dependenciesMenuOption);
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
@@ -512,35 +380,26 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		logger.info("Click the Static Assets Button");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton);
+		this.driverManager.clickElement("xpath", staticAssetsButton);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton).click();
+		this.driverManager.clickElement("xpath", staticAssetsChildFolder);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", staticAssetsChildFolder);
+		this.driverManager.clickElement("xpath", staticAssetsImagesChildFolder);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", staticAssetsChildFolder).click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", staticAssetsImagesChildFolder);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", staticAssetsImagesChildFolder).click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsGearImageXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsGearImageXpath)
-				.click();
+		this.driverManager.clickElement("xpath", staticAssetsGearImageXpath);
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
 		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pageStatus).click();
+				this.driverManager.clickElement("xpath", pageStatus);
 				this.driverManager.waitUntilAttributeContains("xpath", pageStatus, "class", "undefined live");
 				break;
 			} catch (TimeoutException e) {
 				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
 				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
 				this.driverManager.waitForAnimation();
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", gearImageXpath)
-						.click();
-				driverManager.getDriver().navigate().refresh();
+				this.driverManager.clickElement("xpath", gearImageXpath);
+				//driverManager.getDriver().navigate().refresh();
 			}
 		}
 
@@ -548,11 +407,17 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.contains("undefined live"));
 	}
 
+	@Parameters({"testId", "testUser"})
 	@Test
-	public void changeStateOfPreviousPublishedContent() {
+	public void changeStateOfPreviousPublishedContent(String testId, String testUser) {
+		this.testScenario(testId, testUser);
+	}
 
-		this.testScenario();
-
+	@Parameters({"testId", "testUser"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId, String testUser) {
+		apiTestHelper.deleteSite(testId);
+		apiTestHelper.deleteUser(testUser);
 	}
 
 }
