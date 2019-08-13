@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.sitedropdowntestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -23,7 +24,6 @@ import org.testng.annotations.BeforeMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -38,88 +38,41 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String menuSitesButton;
 	private String siteConfigLink;
 	private String contentTypeOption;
-	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager
 			.getLogger(VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked.class);
-	
+
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		siteConfigLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 		.getProperty("general.adminconsole");
 		contentTypeOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.content_type_option");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
-	}
-	
-	public void deleteSite() {
-		
-		this.driverManager.getDriver().switchTo().defaultContent();
-		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable(
-				"xpath", menuSitesButton).click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-		
-		//Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
 	}
 
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
-	}
-
-	@Test(priority = 0)
-	public void verifyTheApplicationRedirectsToTheSiteConfigPageWhenTheSiteConfigOptionIsClicked() {
-
-		// login to application
+	@Parameters({"testId"})
+	@Test()
+	public void verifyTheApplicationRedirectsToTheSiteConfigPageWhenTheSiteConfigOptionIsClicked(String testId) {
 		logger.info("Login into Crafter");
-		loginPage.loginToCrafter(
-				userName,password);
-		
+		loginPage.loginToCrafter(userName,password);
 		//Wait for login page to close
 		driverManager.waitUntilLoginCloses();
 
-		// Click on the create site button
-		logger.info("Creating Web Editorial Site");
-		homePage.clickOnCreateSiteButton();
+		homePage.goToPreviewPage(testId);
 
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-	
 		//Expand the site bar
 		logger.info("Opening the site bar");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath);
 		
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed()) {
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-		}else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
-		
+		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
+
 		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 		
 		logger.info("Click on the Site ConFig Page");
@@ -130,11 +83,16 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 		logger.info("Verify Site Config Page is displayed");
 		this.driverManager.waitForAnimation();
 
-		
 		WebElement contentTypesOptionElement = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", contentTypeOption);
 		Assert.assertTrue(contentTypesOptionElement.isDisplayed(),
 				"ERROR: Content Type Option is not present, verify if Site config Page is displayed");
-		}	
 	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
+}
 
