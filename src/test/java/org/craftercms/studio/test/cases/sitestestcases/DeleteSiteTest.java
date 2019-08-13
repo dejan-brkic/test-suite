@@ -19,6 +19,7 @@ package org.craftercms.studio.test.cases.sitestestcases;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -31,21 +32,24 @@ public class DeleteSiteTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
-	private String deletedSiteRow;
+	private String deletedSiteButton;
 	private String createSiteButton;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		deletedSiteRow = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sites.deletedsiterow");
+		deletedSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.deletesite");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsitebutton");
 	}
 
-	@Test(priority = 0)
-	public void deleteSiteTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void deleteSiteTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(
@@ -56,11 +60,10 @@ public class DeleteSiteTest extends StudioBaseTest {
 		// Click on Delete icon
         this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
 		
-        this.homePage.deleteAllSites();
+        this.homePage.deleteSite(testId);
        	
 		// Assert
-		this.driverManager.waitWhileElementIsNotDisplayedByXpath(deletedSiteRow);
-		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(deletedSiteRow));
+		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(String.format(deletedSiteButton, testId)));
 	}
 }
 

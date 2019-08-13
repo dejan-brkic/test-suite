@@ -21,6 +21,7 @@ import org.craftercms.studio.test.utils.FilesLocations;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -41,8 +42,9 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	private String localRepoName;
 	private String gitRepoUrlForSSH;
 
+	@Parameters({"testId"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		localRepoName = constantsPropertiesManager.getSharedExecutionConstants()
@@ -52,7 +54,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 				.getProperty("complexscenarios.general.sitedropdown");
 
 		this.setup();
-		siteId = "testingtargetsiteforprivatekeyauthonlocal";
+		siteId = testId;
 	}
 
 	public void step2() {
@@ -73,7 +75,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 
 	public void step6() {
 		createSitePage.clickPushSiteToRemoteGitCheckbox();
-		createSitePage.setPushRepositoryURL(gitRepoUrlForSSH);
 	}
 
 	public void step7() {
@@ -90,7 +91,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 
 	public void step10() {
 		// Select website blueprint
-		createSitePage.setPushRepositoryPrivateKey(driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+		createSitePage.setPushRepositoryPrivateKey(gitPrivateKey);
 	}
 
 	public void step11() {
@@ -115,8 +116,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 		homePage.clickOnCreateSiteButton();
 	}
 
-	@Test(
-			priority = 0)
+	@Test()
 	public void verifyStudioallowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeOnLocalRepositoryTest() {
 		this.testScenario();
 	}
@@ -164,11 +164,8 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	public void setup() {
 		int exitCode = this.driverManager.goToFolderAndExecuteGitInitBareRepository(localRepoName);
 		Assert.assertTrue(exitCode == 0, "Init bare repository process failed");
-		String gitRepositorySSHPrefix = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.localsshprefix");
-
-		//Getting the repository url for local ssh 
-		gitRepoUrlForSSH = gitRepositorySSHPrefix + this.driverManager.getLocalBareRepoURL(localRepoName);
+		//Getting the repository url for local ssh
+		gitRepoUrlForSSH = this.driverManager.getLocalBareRepoURL(localRepoName);
 		System.out.println("dude this is the local repo" + gitRepoUrlForSSH);
 	}
 
@@ -177,8 +174,10 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 		Assert.assertTrue(exitCode == 0, "Delete bare repository process failed");
 	}
 
-	@AfterMethod
-	public void afterTest() {
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 		this.deleteRepositoryFolder();
 	}
 }

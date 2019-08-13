@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -32,54 +34,28 @@ public class VerifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest e
 
 	private String userName;
 	private String password;
-	private String siteDropdownElementXPath;
 	
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 	}
 
-	public void createSiteUsingWebSiteEditorialBluePrint() {
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-
-		Assert.assertTrue(this.driverManager
-				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
-
-		dashboardPage.clickOnSitesOption();
-	}
-
-	public void setup() {
-		// login to application
+	@Parameters({"testId"})
+	@Test()
+	public void verifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest(String testId) {
 		loginPage.loginToCrafter(userName, password);
-
 		driverManager.waitUntilLoginCloses();
-
-		this.createSiteUsingWebSiteEditorialBluePrint();
-	}
-
-	public void step3() {
-		this.homePage.goToDashboardPage();
-
+		this.homePage.goToDashboardPage(testId);
 		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl()
 				.contains("/studio/site-dashboard"));
 	}
 
-	@Test(priority = 0)
-	public void verifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest() {
-		this.setup();
-
-		this.step3();
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

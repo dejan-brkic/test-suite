@@ -20,6 +20,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -39,20 +40,19 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 	private String secondSiteXpath;
 	private String thirdSiteXpath;
 	private String createSiteButton;
-	private String siteDropdownElementXPath;
-	private String topNavDeleteOption;
-	private String topNavEditOption;
-	private String topNavSitesOption;
 	private String lastNumberOfPaginationXpath;
 	private String firstNumberOfPaginationXpath;
 	private String lastArrowOfPaginationXpath;
 	private String firstArrowOfPaginationXpath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId+"1", "", blueprint);
+		apiTestHelper.createSite(testId+"2", "", blueprint);
+		apiTestHelper.createSite(testId+"3", "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		
 		sitesPerPageInputXpath= uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.sitesperpageinput");
 		firstSiteXpath= uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -63,14 +63,6 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 				.getProperty("general.sites.thirdSiteNameOnList");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsitebutton");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
-		topNavDeleteOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.deletetopnavoption");
-		topNavEditOption= uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.edittopnavoption");
-		topNavSitesOption= uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.preview.sitesoption");
 		lastNumberOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.pagination.lastnumberelement");
 		firstNumberOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -79,49 +71,6 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 				.getProperty("general.sites.pagination.lastarrowelement");
 		firstArrowOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.pagination.firstarrowelement");
-		
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-		
-		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
-		
-		// Create site 1
-		createSitesRandom();
-		// Create site 2
-		createSitesRandom();
-		// Create site 3
-		createSitesRandom();
-
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		// Delete all sites
-		deleteSites();
-	}
-
-	public void createSitesRandom() {
-
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectEmptyBluePrintOption()
-				.setSiteName()
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-		
-		this.driverManager.waitUntilElementIsClickable("xpath", siteDropdownElementXPath);
-		this.driverManager.waitUntilElementIsClickable("xpath", topNavDeleteOption);
-		this.driverManager.waitUntilElementIsClickable("xpath", topNavEditOption);
-
-		Assert.assertTrue(this.driverManager
-				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
-
-		this.driverManager.waitUntilElementIsClickable("xpath", topNavSitesOption).click();
 	}
 
 	public void filters() {
@@ -170,14 +119,6 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 		this.navigationOfPage();
 	}
 
-	public void deleteSites() {
-
-		//delete all the sites present
-		this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
-		this.driverManager.waitForAnimation();
-		homePage.deleteAllSites();
-	}
-
 	public void navigationOfPage() {
 
 		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
@@ -200,13 +141,22 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
 
 		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
-		
+
 		this.driverManager.waitForAnimation();
-		
 	}
-	@Test(priority = 0)
+
+	@Test()
 	public void verifyStudioAllowsToFilterNumberOfSitesPerPage() {
-		// filters
+		loginPage.loginToCrafter(userName, password);
+		driverManager.waitUntilLoginCloses();
 		filters();
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId+"1");
+		apiTestHelper.deleteSite(testId+"2");
+		apiTestHelper.deleteSite(testId+"3");
 	}
 }

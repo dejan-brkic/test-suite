@@ -19,7 +19,9 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -43,8 +45,9 @@ public class CreateSiteEmptyTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdown");
 	}
 
-	@Test(priority = 0)
-	public void createSiteEmpty() {
+	@Parameters({"testId"})
+	@Test()
+	public void createSiteEmpty(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -55,7 +58,7 @@ public class CreateSiteEmptyTest extends StudioBaseTest {
 		homePage.clickOnCreateSiteButton();
 		//select blueprint, set site name, set description, click review and create site
 		createSitePage.selectEmptyBluePrintOption()
-				.setSiteName()
+				.setSiteName(testId)
 				.setDescription("Description")
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
@@ -65,4 +68,9 @@ public class CreateSiteEmptyTest extends StudioBaseTest {
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

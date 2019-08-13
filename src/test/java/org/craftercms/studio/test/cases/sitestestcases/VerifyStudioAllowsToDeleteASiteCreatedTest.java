@@ -19,6 +19,7 @@ package org.craftercms.studio.test.cases.sitestestcases;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -31,7 +32,7 @@ public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
-	private String deletedSiteRow;
+	private String deletedSiteButton;
 	private String createSiteButton;
 	private String siteDropdownElementXPath;
 
@@ -39,21 +40,21 @@ public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		deletedSiteRow = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sites.deletedsiterow");
+		deletedSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.deletesite");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsitebutton");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 	}
 
-	public void createSiteUsingEmptyBluePrint() {
+	public void createSiteUsingEmptyBluePrint(String siteId) {
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
 
 		//select blueprint, set site name, set description, click review and create site
 		createSitePage.selectEmptyBluePrintOption()
-				.setSiteName()
+				.setSiteName(siteId)
 				.setDescription("Description")
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
@@ -65,25 +66,22 @@ public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 		dashboardPage.clickOnSitesOption();
 	}
 
-	@Test(priority = 0)
-	public void verifyStudioAllowsToDeleteASiteCreatedTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyStudioAllowsToDeleteASiteCreatedTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
-		
-		this.createSiteUsingEmptyBluePrint();
-		
-		// Click on Delete icon
+		this.createSiteUsingEmptyBluePrint(testId);
+
 		this.driverManager.waitUntilElementIsDisplayed("xpath", createSiteButton);
 
-		this.homePage.deleteAllSites();
+		this.homePage.deleteSite(testId);
 
 		// Assert
-		this.driverManager.waitWhileElementIsNotDisplayedByXpath(deletedSiteRow);
-		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(deletedSiteRow));
-		this.homePage.checkElementsOnSitePageWithoutSites();
+		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(String.format(deletedSiteButton, testId)));
 	}
 }

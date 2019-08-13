@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -39,8 +41,9 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 	private String gitPassword;
 	private String gitRepositoryURL;
 
+	@Parameters({"testId"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitUserName = constantsPropertiesManager.getSharedExecutionConstants()
@@ -52,7 +55,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 
-		siteId = "testingtargetsiteforbasicauth";
+		siteId = testId;
 	}
 
 	public void step2() {
@@ -111,7 +114,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 				.isDisplayed());
 	}
 
-	@Test(priority = 0)
+	@Test()
 	public void verifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest() {
 		this.testScenario();
 	}
@@ -157,5 +160,11 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 
 		// Step 13
 		step13();
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

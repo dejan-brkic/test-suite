@@ -16,9 +16,9 @@
  */
 package org.craftercms.studio.test.cases.sitestestcases;
 
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 /**
@@ -29,24 +29,21 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 
 //Test Case Studio- Sites ID:7
 public class VerifyThatPaginationOfSiteListWorksProperlyTest extends StudioBaseTest{
-	
+
 	private String userName;
 	private String password;
-
 	private String sitesPerPageInputXpath;
 	private String lastNumberOfPaginationXpath;
 	private String firstNumberOfPaginationXpath;
 	private String lastArrowOfPaginationXpath;
 	private String firstArrowOfPaginationXpath;
-	private String siteDropdownElementXPath;
-	private String topNavDeleteOption;
-	private String topNavEditOption;
-	private String topNavSitesOption;
-	private String createSiteButton;
-	
+
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-		
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId+"1", "", blueprint);
+		apiTestHelper.createSite(testId+"2", "", blueprint);
+		apiTestHelper.createSite(testId+"3", "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		sitesPerPageInputXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -59,57 +56,6 @@ public class VerifyThatPaginationOfSiteListWorksProperlyTest extends StudioBaseT
 				.getProperty("general.sites.pagination.lastarrowelement");
 		firstArrowOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.pagination.firstarrowelement");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
-		topNavDeleteOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.deletetopnavoption");
-		topNavEditOption= uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.edittopnavoption");
-		topNavSitesOption= uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.preview.sitesoption");
-		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sites.createsitebutton");
-		
-		loginPage.loginToCrafter(userName, password);
-		
-		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
-		
-		// Create Site 1
-		createSitesRandom();
-		// Create Site 2
-		createSitesRandom();
-		// Create Site 3
-		createSitesRandom();
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		// Delete All the sites
-		this.driverManager.waitForAnimation();
-		deleteSites();
-	}
-
-	public void createSitesRandom() {
-
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectEmptyBluePrintOption()
-				.setSiteName()
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
-		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavDeleteOption);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavEditOption);
-
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", topNavSitesOption).click();
 	}
 
 	public void navigationOfPage() {
@@ -134,21 +80,22 @@ public class VerifyThatPaginationOfSiteListWorksProperlyTest extends StudioBaseT
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
-		
+
 		this.driverManager.waitForAnimation();
-		
 	}
 
-	public void deleteSites() {
-		//delete all the sites present
-		this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
-		homePage.deleteAllSites();
-
-	}
-
-	@Test(priority = 0)
+	@Test()
 	public void verifyThatThePaginationOnSitesListWorkProperly() {
+		loginPage.loginToCrafter(userName, password);
+		driverManager.waitUntilLoginCloses();
 		navigationOfPage();
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId+"1");
+		apiTestHelper.deleteSite(testId+"2");
+		apiTestHelper.deleteSite(testId+"3");
+	}
 }

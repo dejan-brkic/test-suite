@@ -19,6 +19,7 @@ package org.craftercms.studio.test.cases.sitestestcases;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -62,7 +63,8 @@ public class DesignOfCreateSitePageTest extends StudioBaseTest {
 				.getProperty("general.sites.sitesperpageinput");
 	}
 
-	@Test(priority = 0)
+	@Parameters({"testId"})
+	@Test()
 	public void verifyTheDesignOfSitesPage() {
 
 		// login to application

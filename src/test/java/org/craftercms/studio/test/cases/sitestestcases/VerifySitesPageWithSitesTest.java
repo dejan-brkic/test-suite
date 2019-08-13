@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -30,7 +29,7 @@ import org.testng.annotations.Test;
  */
 
 //Test Case Studio- Sites ID:1
-public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest {
+public class VerifySitesPageWithSitesTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
@@ -48,7 +47,7 @@ public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest 
 	}
 
 	@Test()
-	public void verifySitesPageWithSitesAndWithoutSitesTest() {
+	public void verifySitesPageWithSitesTest() {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 

@@ -20,6 +20,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -40,17 +41,18 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 	private String editorialBPSiteId;
 	private String videoCenterBPSiteId;
 
+	@Parameters({"testId"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		emptyBPSiteId = "emptybpsite";
-		headlessBlogBPSiteId = "headlessblogbpsite";
-		headlessStoreBPSiteId = "headlessstorebpsite";
-		editorialBPSiteId = "editorialbpsite";
-		videoCenterBPSiteId = "videocenterbpsite";
+		emptyBPSiteId = testId + "empty";
+		headlessBlogBPSiteId = testId + "headlessblog";
+		headlessStoreBPSiteId = testId + "headlessstore";
+		editorialBPSiteId = testId + "editorial";
+		videoCenterBPSiteId = testId + "videocenter";
 	}
 
 	public void createSiteUsingEmptyBluePrint() {
@@ -133,32 +135,12 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 
 	}
 
-	public void step5() {
+	public void verifySiteAvailable(String siteId) {
 		dashboardPage.clickOnSitesOption();
-		this.homePage.checkIfSiteIsListedOnSitesPage(emptyBPSiteId);
+		this.homePage.checkIfSiteIsListedOnSitesPage(siteId);
 	}
 
-	public void step8() {
-		dashboardPage.clickOnSitesOption();
-		this.homePage.checkIfSiteIsListedOnSitesPage(editorialBPSiteId);
-	}
-
-	public void step11() {
-		dashboardPage.clickOnSitesOption();
-		this.homePage.checkIfSiteIsListedOnSitesPage(headlessBlogBPSiteId);
-	}
-
-	public void step14() {
-		dashboardPage.clickOnSitesOption();
-		this.homePage.checkIfSiteIsListedOnSitesPage(headlessStoreBPSiteId);
-	}
-
-	public void step17() {
-		dashboardPage.clickOnSitesOption();
-		this.homePage.checkIfSiteIsListedOnSitesPage(videoCenterBPSiteId);
-	}
-
-	@Test(priority = 0)
+	@Test()
 	public void verifyStudioAllowsToCreateSitesWithEachBlueprint() {
 
 		// login to application
@@ -169,32 +151,35 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 		// Steps 3 and 4
 		createSiteUsingEmptyBluePrint();
 
-		step5();
+		verifySiteAvailable(emptyBPSiteId);
 
 		// Steps 6 and 7
 		createSiteUsingWebSiteEditorialBluePrint();
 
-		step8();
+		verifySiteAvailable(editorialBPSiteId);
 
 		// Steps 9 and 10
 		createSiteUsingHeadlessBlogBluePrint();
 
-		step11();
+		verifySiteAvailable(headlessBlogBPSiteId);
 
 		// Steps 12 and 13
 		createSiteUsingHeadlessStoreBluePrint();
 
-		step14();
+		verifySiteAvailable(headlessStoreBPSiteId);
 
 		// Steps 15 and 16
 		createSiteUsingVideoCenterBlueprint();
 
-		step17();
-
+		verifySiteAvailable(videoCenterBPSiteId);
 	}
 
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public void afterTest() {
-		this.homePage.deleteAllSites();
+		apiTestHelper.deleteSite(emptyBPSiteId);
+		apiTestHelper.deleteSite(editorialBPSiteId);
+		apiTestHelper.deleteSite(headlessBlogBPSiteId);
+		apiTestHelper.deleteSite(headlessStoreBPSiteId);
+		apiTestHelper.deleteSite(videoCenterBPSiteId);
 	}
 }
