@@ -17,55 +17,38 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio - General TestCases TestSuite"
-	preserve-order="true" verbose="3">
-	<test name="ChangeStateOfPreviousPublishedContent" preserve-order="true">
+<suite name="craftercms - Studio - General TestCases TestSuite" parallel="tests" thread-count="4" verbose="3">
+	<parameter name="blueprint" value="editorial"/>
+	<test name="ChangeStateOfPreviousPublishedContent">
+		<parameter name="testId" value="general003"/>
+		<parameter name="testUser" value="authorgeneral00333444"/>
+		<parameter name="testGroup" value="site_author"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.generaltestcases.ChangeStateOfPreviousPublishedContent" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.userstestcases.DeleteUserTest" />
+			<class name="org.craftercms.studio.test.cases.generaltestcases.ChangeStateOfPreviousPublishedContent"/>
 		</classes>
 	</test>
-	<test name="Crafter3LoadTest" preserve-order="true">
+	<test name="Crafter3LoadTest">
+		<parameter name="testId" value="general001"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.generaltestcases.Crafter3LoadTest1Script">
-				<methods>
-					<include name="crafter3LoadTestTestUser1" />
-				</methods>
+			<class name="org.craftercms.studio.test.cases.generaltestcases.Crafter3LoadTest1Script">
 			</class>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
-	<test name="RenameParentPageAndPublishChildTest" preserve-order="true">
+	<test name="RenameParentPageAndPublishChildTest">
+		<parameter name="testId" value="general002"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.generaltestcases.RenameParentPageAndPublishChildTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.generaltestcases.RenameParentPageAndPublishChildTest"/>
 		</classes>
 	</test>
-	<test name="Verify that no errors with BluePrints are displayed when create sites" preserve-order="true">
+	<test name="Verify that no errors with BluePrints are displayed when create sites">
+		<parameter name="testId" value="general005"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.generaltestcases.VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite" />
+			<class name="org.craftercms.studio.test.cases.generaltestcases.VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite"/>
 		</classes>
 	</test>
-	<test
-		name="Verify The application allows to delete a page or component and the change is reflected on delivery">
+	<test name="Verify The application allows to delete a page or component and the change is reflected on delivery">
+		<parameter name="testId" value="general006"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck" />
 			<class
 				name="org.craftercms.studio.test.cases.contenttestcases.AddNewContentAndPublishContentTest" />
 			<class
@@ -74,8 +57,6 @@
 				name="org.craftercms.studio.test.cases.contenttestcases.DeleteDeliveryContentPageTest" />
 			<class
 				name="org.craftercms.delivery.test.cases.verification.VerifyThatPageIsNotOnLive" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
 		</classes>
 	</test>
 </suite> <!-- Suite -->

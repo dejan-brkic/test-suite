@@ -17,16 +17,12 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Preview Tools TestSuite"
-	preserve-order="true" verbose="3">
+<suite name="craftercms - Studio Preview Tools TestSuite" parallel="tests" thread-count="4" verbose="3">
 	<test name="Design Of Preview Tools Panel Test">
+		<parameter name="blueprint" value="empty"/>
+		<parameter name="testId" value="preview001"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.previewtoolstestcases.DesignOfPreviewToolsPanelTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.previewtoolstestcases.DesignOfPreviewToolsPanelTest"/>
 		</classes>
 	</test>
 </suite>

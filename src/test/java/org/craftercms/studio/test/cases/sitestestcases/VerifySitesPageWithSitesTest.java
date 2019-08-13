@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -32,64 +34,32 @@ public class VerifySitesPageWithSitesAndWithoutSitesTest extends StudioBaseTest 
 
 	private String userName;
 	private String password;
-	private String siteDropdownElementXPath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
-	}
-
-	public void createSite() {
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectEmptyBluePrintOption()
-				.setSiteName()	// Filling the name of site
-				.setDescription("Description")		// Filling the description of the site
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
-
-		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
-
-		dashboardPage.clickOnSitesOption();
-	}
-
-	public void step3() {
-		this.homePage.checkElementsOnSitePageWithoutSites();
 	}
 
 	public void step6() {
 		this.homePage.checkElementsOnSitePageWithSites();
 	}
 
-	public void step7() {
-		this.homePage.deleteAllSites();
-		this.homePage.checkElementsOnSitePageWithoutSites();
-	}
-
-	@Test(priority = 0)
+	@Test()
 	public void verifySitesPageWithSitesAndWithoutSitesTest() {
-
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
-		step3();
-
-		// Steps 4 y 5
-		createSite();
-
 		step6();
-
-		step7();
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }
