@@ -1057,7 +1057,7 @@
 		name="Verify that the application show the sites page complete with or without sites created. (logos, titles, all links, buttons)">
 		<classes>
 			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.VerifySitesPageWithSitesAndWithoutSitesTest" />
+				name="org.craftercms.studio.test.cases.sitestestcases.VerifySitesPageWithSitesTest" />
 		</classes>
 	</test>
 	<test
