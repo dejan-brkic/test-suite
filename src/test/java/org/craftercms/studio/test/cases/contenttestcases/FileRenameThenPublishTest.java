@@ -27,6 +27,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -66,8 +67,12 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 	private int numberOfAttemptsForElementsDisplayed;
 	private static Logger logger = LogManager.getLogger(FileRenameThenPublishTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
+		int exitCode = this.driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
+		Assert.assertEquals(exitCode, 0, "Init site process failed");
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -149,14 +154,14 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		previewPage.changeDateOfArticlePageToNotRequired();
 	}
 
-	public void setup() {
+	public void setup(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 
 		// body not required
 		this.changeBodyToNotRequiredOnPageArticleContent();
@@ -165,8 +170,6 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		this.modifyPageXMLDefinition();
 
 		this.driverManager.waitUntilSidebarOpens();
-		// expand pages folder
-		dashboardPage.expandPagesTree();
 
 		// Expand Home Tree
 		this.driverManager.waitForAnimation();
@@ -371,9 +374,10 @@ public class FileRenameThenPublishTest extends StudioBaseTest {
 		Assert.assertTrue(elementClassValue.contains("undefined live"));
 	}
 
-	@Test(priority = 0)
-	public void fileRenameFileXMLRenameAndPublishTest() {
-		this.setup();
+	@Parameters({"testId"})
+	@Test()
+	public void fileRenameFileXMLRenameAndPublishTest(String testId) {
+		this.setup(testId);
 
 		this.step3();
 

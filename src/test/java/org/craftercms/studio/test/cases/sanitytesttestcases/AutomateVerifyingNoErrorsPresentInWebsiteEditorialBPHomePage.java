@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.sanitytesttestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -37,7 +38,6 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 	private String password;
 	private String siteDropdownElementXPath;
 	private String createSiteErrorNotificationWindow;
-	private String menuSitesButton;
 	private String dashboardSiteContent;
 	private String siteErrorMessage;
 	private String wesiteEditorialLeftRailIcon;
@@ -51,8 +51,6 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 				.getProperty("complexscenarios.general.sitedropdown");
 		createSiteErrorNotificationWindow = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsite.errowindow");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		dashboardSiteContent = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.site_content");
 		siteErrorMessage = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -62,30 +60,9 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 		
 	}
 
-	public void deleteSite() {
-
-		this.driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.waitUntilElementIsClickable("xpath", menuSitesButton).click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-
-		// Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
-	}
-
-	@Test(priority = 0)
-	public void automateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage() {
+	@Parameters({"testId"})
+	@Test()
+	public void automateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -98,7 +75,7 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 
 		//select blueprint, set site name, set description, click review and create site
 		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
+				.setSiteName(testId)
 				.setDescription("Description")
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
@@ -149,4 +126,9 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 		
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

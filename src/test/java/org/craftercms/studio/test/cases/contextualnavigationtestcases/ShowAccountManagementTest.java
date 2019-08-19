@@ -42,7 +42,7 @@ public class ShowAccountManagementTest extends StudioBaseTest {
 				.getProperty("accountManagement.pageTitle");
 	}
 
-	@Test(priority = 0)
+	@Test()
 	public void verifyThatApplicationShowsAccountManagementPageWhenUserClicksSettingsContextualNavigationOption() {
 
 		// login to application

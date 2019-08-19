@@ -17,11 +17,12 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -40,7 +41,6 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String articles2016Folder;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
@@ -68,14 +68,14 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	private static final Logger logger = LogManager
 			.getLogger(VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.2016folder");
 		selectAllSegmentsCheckBox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -124,24 +124,15 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 				.getProperty("rightclick.dependenciesoption");
 	}
 
-	public void loginAndGoToPreview() {
+	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 
 		this.driverManager.waitUntilSidebarOpens();
 	}
@@ -233,10 +224,6 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 
 	}
 
-	public void setup() {
-		this.loginAndGoToPreview();
-	}
-
 	private void checkDependenciesForFirstCopiedArticleAttachedImage() {
 		this.assertContentImagesOnStaticAssets();
 	}
@@ -250,57 +237,40 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		this.dashboardPage.collapseParentFolder(expandPagesTree);
 
 		logger.info("Click the Static Assets Tree");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				staticAssetsButton);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton).click();
+		this.driverManager.clickElement("xpath",	staticAssetsButton);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				staticAssetsChildFolder);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsChildFolder)
-				.click();
+		this.driverManager.clickElement("xpath",	staticAssetsChildFolder);
 		this.driverManager.waitForAnimation();
 		this.driverManager.scrollDownIntoSideBar();
 
 		logger.info("Click the Static Assets/Page Tree");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.driverManager.clickElement("xpath",
 				staticAssetsItemsChildFolder);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				staticAssetsItemsChildFolder).click();
 
 		logger.info("Click the Static Assets/item/images Tree");
 		this.driverManager.waitUntilContentTooltipIsHidden();
 		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.driverManager.clickElement("xpath",
 				staticAssetsItemsImagesChildFolder);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				staticAssetsItemsImagesChildFolder).click();
 
 		// Expanding Year folder
 		this.driverManager.scrollDownIntoSideBar();
 		String yearFolderXpath = ".//span[text()='" + this.driverManager.getCurrentYear() + "']";
 		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath)
-				.click();
+		this.driverManager.clickElement("xpath", yearFolderXpath);
 
 		// Expanding Month folder
 		String monthFolderXpath = yearFolderXpath
 				+ "/../../../../../div[@class='ygtvchildren']//span[text()='"
 				+ this.driverManager.getCurrentMonth() + "']";
 		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath)
-				.click();
+		this.driverManager.clickElement("xpath", monthFolderXpath);
 
 		// Expanding Day folder
 		String dayFolderXpath = monthFolderXpath + "/../../../../../div[@class='ygtvchildren']//span[text()='"
 				+ this.driverManager.getCurrentDay() + "']";
 		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath)
-				.click();
+		this.driverManager.clickElement("xpath", dayFolderXpath);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitForFullExpansionOfTree();
@@ -331,7 +301,7 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("winter-woman-pic.jpg", true, false);
+		previewPage.checkDependenciesForStaticAssetItem("winter-woman-pic.jpg", false, false);
 
 	}
 
@@ -350,10 +320,10 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		this.driverManager.waitForAnimation();
 	}
 
-	@Test(
-			priority = 0)
-	public void verifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTest() {
-		this.setup();
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTest(String testId) {
+		this.loginAndGoToPreview(testId);
 
 		this.openSidebarAndGotoArticlesChildFolderAndCreatNewArticle();
 
@@ -369,5 +339,11 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 
 		this.checkDependenciesForSecondCopiedArticleAttachedImage();
 
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

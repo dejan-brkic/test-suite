@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,9 +58,11 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 	private static Logger logger = LogManager
 			.getLogger(VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest.class);
 
+	@Parameters({"testId", "blueprint", "testUser", "testGroup"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint, String testUser, String testGroup) {
+		apiTestHelper.createSite(testId, "", blueprint);
+		apiTestHelper.createUserAddToGroup(testUser, testGroup);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -98,11 +102,11 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 				.getProperty("general.incontextedittopnavoption");
 	}
 
-	@Test(
-			priority = 0)
-	public void verifyThatApplicationDisplaysTheInContextEditIconProperlyTest() {
+	@Parameters({"testId", "testUser"})
+	@Test()
+	public void verifyThatApplicationDisplaysTheInContextEditIconProperlyTest(String testId, String testUser) {
 
-		this.setup();
+		this.setup(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -143,12 +147,12 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 
 		// login to application with reviewer user
 		logger.info("login to application with reviewer user");
-		loginPage.loginToCrafter("reviewercontextedit", "reviewercontextedit");
+		loginPage.loginToCrafter(testUser, testUser);
 
 		driverManager.waitUntilLoginCloses();
 
 		logger.info("Go to Preview Page");
-		this.homePage.goToPreviewPage();
+		this.homePage.goToPreviewPage(testId);
 
 		// Expand the site bar
 		this.driverManager.waitForAnimation();
@@ -184,67 +188,27 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 		this.driverManager.getDriver().switchTo().defaultContent();
 	}
 
-	public void setup() {
+	public void setup(String testId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to closes
 		driverManager.waitUntilLoginCloses();
 
-		logger.info("Adding New User");
-		this.addNewUser();
-
-		logger.info("Add previous created user to Reviewer Group");
-		this.addUserToReviewerGroup();
-
 		logger.info("Go to Site Preview");
-		this.goToSiteContentPagesStructure();
+		this.goToSiteContentPagesStructure(testId);
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandPagesTree);
 
 		this.driverManager.waitUntilSidebarOpens();
 	}
 
-	public void addNewUser() {
-
-		// click On Users option
-		this.driverManager.waitForAnimation();
-		createSitePage.clickOnUsersOption();
-
-		// click on new user button
-		usersPage.addNewUser("reviewercontextedit");
-
-		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.waitUntilElementIsDisplayed("xpath",
-				".//a[text()='reviewercontextedit']");
-
-		Assert.assertTrue(newUserCreated.isDisplayed(), "ERROR: Recently created user is not displayed");
-
-		// Switch to the form
-
-		driverManager.getDriver().navigate().refresh();
-
-		driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.waitForAnimation();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				crafterLogo);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				crafterLogo).click();
-
-		createSitePage.clickOnSitesOption();
-	}
-
-	private void goToSiteContentPagesStructure() {
+	private void goToSiteContentPagesStructure(String testId) {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createSiteButton);
 
 		this.driverManager.waitForAnimation();
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		this.driverManager.waitForAnimation();
 		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
@@ -257,59 +221,6 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 		} else
 			throw new NoSuchElementException(
 					"Site creation process is taking too long time and the element was not found");
-	}
-
-	public void addUserToReviewerGroup() {
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteconfigGroupsOption);
-
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteconfigGroupsOption)
-
-				.click();
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo().activeElement();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-
-				editReviewerGroupOption);
-
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editReviewerGroupOption)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersCheckbox)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersInput)
-				.sendKeys("reviewer");
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				groupsAddNewMembersAutocompleteOption1);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", groupsAddNewMembersAutocompleteOption1)
-				.click();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				groupsAddNewMembersButton);
-
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", groupsAddNewMembersButton)
-				.click();
-
-		
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo().activeElement();
-		
-		this.driverManager.waitUntilAddUserModalCloses();
-		this.driverManager.waitForAnimation();
-		
-		createSitePage.clickOnSitesOption();
 	}
 
 	private void logoutFromCrafter() {
@@ -326,4 +237,10 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 
 	}
 
+	@Parameters({"testId", "testUser"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId, String testUser) {
+		apiTestHelper.deleteSite(testId);
+		apiTestHelper.deleteUser(testUser);
+	}
 }

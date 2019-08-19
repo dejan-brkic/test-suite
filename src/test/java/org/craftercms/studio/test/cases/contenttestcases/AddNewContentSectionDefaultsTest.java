@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,11 +42,11 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 	private String sectionDefaultsXpath;
 	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager.getLogger(AddNewContentSectionDefaultsTest.class);
-	
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-			
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -90,8 +92,9 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		driverManager.getDriver().navigate().refresh();
 	}
 
-	@Test(priority = 0)
-	public void addLevelDescriptorItemUsingContextualClickOptionsTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void addLevelDescriptorItemUsingContextualClickOptionsTest(String testId) {
 
 		// login to application
 		logger.info("Login into Crafter");
@@ -101,7 +104,7 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -129,7 +132,11 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		logger.info("Verify Level Descriptor was created");
 		Assert.assertTrue(levelDescriptor.contains("Section Defaults"),
 				"Level descriptors are not the same, check if the level descriptor was succesfully created");
-
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.dashboardtestcases;
 
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -43,8 +45,10 @@ public class DesignOfWorkflowStateSectionTest extends StudioBaseTest {
 	private String deletedStateItem;
 	private String lockedStateItem;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		workflowPanel = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -65,9 +69,9 @@ public class DesignOfWorkflowStateSectionTest extends StudioBaseTest {
 				.getProperty("dashboard.workflowpanel.lockedstate");
 	}
 
-	@Test(priority = 0)
-
-	public void verifyAllWorkflowStatesOnIconGuideTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyAllWorkflowStatesOnIconGuideTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -76,7 +80,7 @@ public class DesignOfWorkflowStateSectionTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to dashboard page
-		homePage.goToDashboardPage();
+		homePage.goToDashboardPage(testId);
 
 		// Assert workflow guide section is present.
 		WebElement workflowSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
@@ -116,4 +120,9 @@ public class DesignOfWorkflowStateSectionTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

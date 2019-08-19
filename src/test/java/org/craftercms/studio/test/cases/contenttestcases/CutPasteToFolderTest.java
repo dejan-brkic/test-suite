@@ -21,7 +21,9 @@ import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -50,8 +52,10 @@ public class CutPasteToFolderTest extends StudioBaseTest {
 	private String folderContent;
 	private static final Logger logger = LogManager.getLogger(CutPasteToFolderTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -122,14 +126,14 @@ public class CutPasteToFolderTest extends StudioBaseTest {
 
 	}
 
-	public void setup() {
+	public void setup(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
@@ -233,9 +237,10 @@ public class CutPasteToFolderTest extends StudioBaseTest {
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderChildContent).isDisplayed());
 	}
 
-	@Test(priority = 0)
-	public void cutPasteToFolderPageXMLMoveToFolderTest() {
-		this.setup();
+	@Parameters({"testId"})
+	@Test()
+	public void cutPasteToFolderPageXMLMoveToFolderTest(String testId) {
+		this.setup(testId);
 
 		this.step3();
 
@@ -247,4 +252,9 @@ public class CutPasteToFolderTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

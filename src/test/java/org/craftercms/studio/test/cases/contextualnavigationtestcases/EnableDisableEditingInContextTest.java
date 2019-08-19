@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -33,10 +35,10 @@ public class EnableDisableEditingInContextTest extends StudioBaseTest {
 	private String password;
 	private String previewToolsInContextualEditingButton;
 
-
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-		
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		previewToolsInContextualEditingButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -44,8 +46,9 @@ public class EnableDisableEditingInContextTest extends StudioBaseTest {
 		
 	}
 
-	@Test(priority = 0)
-	public void verifyThatTheInContextEditingIsEnabledOrDisabledTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatTheInContextEditingIsEnabledOrDisabledTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -54,7 +57,7 @@ public class EnableDisableEditingInContextTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to dashboard page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Click on Preview Tools icon
 		previewPage.clickOnPreviewTools();
@@ -72,4 +75,9 @@ public class EnableDisableEditingInContextTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

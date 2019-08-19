@@ -20,6 +20,7 @@ package org.craftercms.delivery.test.cases.verification;
 import org.craftercms.studio.test.cases.DeliveryBaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -31,21 +32,20 @@ import org.testng.annotations.Test;
 public class VerifyThatPageIsNotOnLive extends DeliveryBaseTest {
 	private String pageTitleXpath;
 
+	@Parameters({"testId"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId) {
 		String pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pageurl");
 		String siteURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.siteurl");
-		String siteId = deliveryExecutionValuesManager.getSharedExecutionConstants()
-				.getProperty("general.currentsiteid");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
-		this.driverManager.getDriver().get(siteURL+siteId);
+		this.driverManager.getDriver().get(siteURL+testId);
 		this.driverManager.getDriver().get(pageURL);
 	}
 
-	@Test(priority = 0)
+	@Test()
 	public void verifyThatPageIsNotOnLive() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);

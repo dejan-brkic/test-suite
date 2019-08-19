@@ -17,9 +17,10 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -36,7 +37,6 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String articles2016Folder;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
@@ -50,14 +50,14 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 	private static final Logger logger = LogManager
 			.getLogger(VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.2016folder");
 		selectAllSegmentsCheckBox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -78,24 +78,15 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 				.getProperty("general.previewcontent.articleimage");
 	}
 
-	public void loginAndGoToPreview() {
+	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 
 		this.driverManager.waitUntilSidebarOpens();
 	}
@@ -171,19 +162,20 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 		this.driverManager.getDriver().switchTo().defaultContent();
 	}
 
-	public void setup() {
-		this.loginAndGoToPreview();
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioDisplaysTheProperPreviewInfoForAContentTest(String testId) {
+		this.loginAndGoToPreview(testId);
 		this.openSidebarAndGotoArticlesChildFolderAndCreatNewArticle();
-	}
-
-	@Test(
-			priority = 0)
-	public void verifyThatStudioDisplaysTheProperPreviewInfoForAContentTest() {
-		this.setup();
 
 		// Checking Testing Article preview info
 		this.checkContentPreviewInfoForTestingArticleContent();
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

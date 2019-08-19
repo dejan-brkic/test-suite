@@ -20,7 +20,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -47,15 +49,13 @@ public class EditOptionTest extends StudioBaseTest {
 	private String siteDropDownXpath;
 	private String crafterLogoId;
 	private String testingItemEditedXpath;
-
 	private String siteDropdownListElementXPath;
-
 	private String lastPropertiesElementCssSelector;
-	
-	
+
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-		
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -169,8 +169,9 @@ public class EditOptionTest extends StudioBaseTest {
 		});
 	}
 
-	@Test(priority = 0)
-	public void verifyTheEditionOfAPageUsingContextualNavigationEditOptionTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyTheEditionOfAPageUsingContextualNavigationEditOptionTest(String testId) {
 		logger.info("Starting test case");
 		// login to application
 
@@ -180,7 +181,7 @@ public class EditOptionTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -216,4 +217,9 @@ public class EditOptionTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

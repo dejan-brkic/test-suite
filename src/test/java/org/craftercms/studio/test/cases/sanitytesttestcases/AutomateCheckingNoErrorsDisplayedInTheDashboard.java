@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.sanitytesttestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -37,7 +38,6 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 	private String password;
 	private String siteDropdownElementXPath;
 	private String createSiteErrorNotificationWindow;
-	private String menuSitesButton;
 	private String dashboardSiteContent;
 	private String dashboardMenuOption;
 	private String dashboardItemsWaitingForApprovalContainer;
@@ -105,8 +105,6 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 				.getProperty("complexscenarios.general.sitedropdown");
 		createSiteErrorNotificationWindow = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsite.errowindow");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		dashboardSiteContent = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.site_content");
 		dashboardMenuOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -220,30 +218,9 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 				.getProperty("dashboard.workflowpanel.lockedstate");
 	}
 
-	public void deleteSite() {
-
-		this.driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.waitUntilElementIsClickable("xpath", menuSitesButton).click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-
-		// Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
-	}
-
-	@Test(priority = 0)
-	public void automateCheckingNoErrorsDisplayedInTheDashboard() {
+	@Parameters({"testId"})
+	@Test()
+	public void automateCheckingNoErrorsDisplayedInTheDashboard(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -256,7 +233,7 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 
 		//select blueprint, set site name, set description, click review and create site
 		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
+				.setSiteName(testId)
 				.setDescription("Description")
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
@@ -542,4 +519,9 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

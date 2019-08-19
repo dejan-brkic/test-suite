@@ -17,9 +17,10 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -39,7 +40,6 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
 	private String articlesFolder;
@@ -55,14 +55,14 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 	private static final Logger logger = LogManager
 			.getLogger(VerifyThatStudioDisplaysProperContentStateTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -87,24 +87,15 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 	}
 
-	public void loginAndGoToPreview() {
+	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
 	}
 
 	public void createNewPageArticle(String folderLocation) {
@@ -125,8 +116,6 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
 		this.driverManager.waitUntilSidebarOpens();
-		// expand pages folder
-		dashboardPage.expandPagesTree();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -262,15 +251,15 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 						.isDisplayed());
 
 	}
-	public void setup() {
-		this.loginAndGoToPreview();
+	public void setup(String siteId) {
+		this.loginAndGoToPreview(siteId);
 		this.openSidebarAndGotoArticlesChildFolderAndCreatNewArticle();
 	}
 
-	@Test(
-			priority = 0)
-	public void verifyThatStudioDisplaysProperContentStateTestWhenContentChangesArePerformed() {
-		this.setup();
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioDisplaysProperContentStateTestWhenContentChangesArePerformed(String testId) {
+		this.setup(testId);
 
 		// Step 3
 		this.checkContentAndProperIconAreDisplayedAfterCreateContent();
@@ -284,4 +273,9 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 		this.checkContentAndProperIconAreDisplayedAfterEditContent();
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

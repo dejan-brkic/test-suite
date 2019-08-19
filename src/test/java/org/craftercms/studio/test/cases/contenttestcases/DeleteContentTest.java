@@ -20,7 +20,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -41,8 +43,10 @@ public class DeleteContentTest extends StudioBaseTest {
 	private String createFormSaveAndCloseElement;
 	private String testingItemURLXpath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -89,9 +93,9 @@ public class DeleteContentTest extends StudioBaseTest {
 
 	}
 
-	@Test(priority = 0)
-
-	public void deletePageUsingContextualClickDeleteOptionTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void deletePageUsingContextualClickDeleteOptionTest(String testId) {
 		logger.info("Starting test case");
 		loginPage.loginToCrafter(userName, password);
 		
@@ -99,7 +103,7 @@ public class DeleteContentTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
@@ -134,7 +138,11 @@ public class DeleteContentTest extends StudioBaseTest {
 		String contentDeleted = this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
 		Assert.assertEquals(contentDeleted, "/test1");
-
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

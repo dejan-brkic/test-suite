@@ -17,9 +17,10 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -37,7 +38,6 @@ public class VerifyThatStudioAllowsToChangeTemplateProperlyTest extends StudioBa
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String createFormFrameElementCss;
 	private String changeTemplateOptionXpath;
 	private String searchResultsContent;
@@ -49,14 +49,14 @@ public class VerifyThatStudioAllowsToChangeTemplateProperlyTest extends StudioBa
 	private static final Logger logger = LogManager
 			.getLogger(VerifyThatStudioAllowsToChangeTemplateProperlyTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		searchResultsContent = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.searchresultscontent");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -74,28 +74,17 @@ public class VerifyThatStudioAllowsToChangeTemplateProperlyTest extends StudioBa
 		
 	}
 
-	public void loginAndGoToPreview() {
+	public void loginAndGoToPreview(String testId) {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
 
 		this.driverManager.waitUntilSidebarOpens();
-		// expand pages folder
-		dashboardPage.expandPagesTree();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -176,11 +165,11 @@ public class VerifyThatStudioAllowsToChangeTemplateProperlyTest extends StudioBa
 		driverManager.getDriver().switchTo().defaultContent();
 	}
 
-	@Test(
-			priority = 0)
-	public void verifyThatStudioAllowsToChangeTemplateProperlyTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioAllowsToChangeTemplateProperlyTest(String testId) {
 		// Step 1
-		this.loginAndGoToPreview();
+		this.loginAndGoToPreview(testId);
 
 		// Steps 2, 3, 4 and 5
 		this.changeTemplateForSearchResultsContent();
@@ -190,4 +179,9 @@ public class VerifyThatStudioAllowsToChangeTemplateProperlyTest extends StudioBa
 		this.checkContentInfoForSearchResultsContent();
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

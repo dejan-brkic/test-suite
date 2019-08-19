@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -36,8 +38,10 @@ public class AddNewFolderTest extends StudioBaseTest {
 	private String homeTree;
 	private String siteDropdownListElementXPath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -50,8 +54,9 @@ public class AddNewFolderTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
-	@Test(priority = 0)
-	public void createANewFolderUsingContextualClickOptionTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void createANewFolderUsingContextualClickOptionTest(String testId) {
 
 		// login to application
 
@@ -61,7 +66,7 @@ public class AddNewFolderTest extends StudioBaseTest {
 
 		// go to dashboard page
 
-		homePage.goToDashboardPage();
+		homePage.goToDashboardPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -96,4 +101,9 @@ public class AddNewFolderTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

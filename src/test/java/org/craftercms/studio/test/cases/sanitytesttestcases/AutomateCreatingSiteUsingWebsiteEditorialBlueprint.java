@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.sanitytesttestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -37,8 +38,7 @@ public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends StudioBa
 	private String siteDropdownElementXPath;
 	private String createSiteErrorNotificationWindow;
 	private String editorialSitePreviewPageTitle;
-	private String menuSitesButton;
-	
+
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
@@ -49,35 +49,11 @@ public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends StudioBa
 				.getProperty("general.sites.createsite.errowindow");
 		editorialSitePreviewPageTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("preview.editorial.site.title");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
-	}
-	
-	public void deleteSite() {
-		
-		this.driverManager.getDriver().switchTo().defaultContent();
-		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable(
-				"xpath", menuSitesButton).click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-		
-		//Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
 	}
 
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
-	}
-
-	@Test(priority = 0)
-	public void automateCreatingSiteUsingWebsiteEditorialBlueprint() {
+	@Parameters({"testId"})
+	@Test()
+	public void automateCreatingSiteUsingWebsiteEditorialBlueprint(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(
@@ -91,7 +67,7 @@ public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends StudioBa
 
 		//select blueprint, set site name, set description, click review and create site
 		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
+				.setSiteName(testId)
 				.setDescription("Description")
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
@@ -117,4 +93,9 @@ public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends StudioBa
 		
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

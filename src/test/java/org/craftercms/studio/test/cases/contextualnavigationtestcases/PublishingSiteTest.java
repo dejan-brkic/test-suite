@@ -18,8 +18,10 @@ package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 import org.testng.Assert;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import org.apache.logging.log4j.LogManager;
@@ -50,9 +52,10 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 	private static Logger logger = LogManager.getLogger(PublishingSiteTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -130,9 +133,9 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 	}
 
-	@Test(priority = 0)
-
-	public void publishingSite() {
+	@Parameters({"testId"})
+	@Test()
+	public void publishingSite(String testId) {
 
 		// login to application
 
@@ -144,15 +147,13 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 		// goto preview page
 
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// select the content type to the test
 
 		changeBodyToNotRequiredOnEntryContent();
 
 		// Switch to the form
-
-		//driverManager.getDriver().navigate().refresh();
 
 		driverManager.getDriver().switchTo().defaultContent();
 
@@ -170,9 +171,6 @@ public class PublishingSiteTest extends StudioBaseTest {
 		// create a new content
 
 		createNewContent();
-
-		// reload page
-		//driverManager.getDriver().navigate().refresh();
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentItem).click();
@@ -204,4 +202,9 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

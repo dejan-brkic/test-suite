@@ -18,12 +18,12 @@ package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 
 /**
@@ -39,7 +39,6 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 	private String password;
 	private String articlesFolder;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String pasteOptionLocator;
 	private String firstChildLocator;
 	private String firstDestinationLocator;
@@ -48,17 +47,18 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 	private String finalChildFolderLocator;
 	private static Logger logger = LogManager.getLogger(CutPasteLargeTreesTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
+		int exitCode = this.driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
+		Assert.assertTrue(exitCode == 0, "Init site process failed");
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		pasteOptionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.paste.option");
 		firstChildLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -125,29 +125,17 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 		},"Pages");
 	}
 
-	public void loginAndGoToPreview() {
+	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
-
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		homePage.goToPreviewPage(siteId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void step1() {
-		// expand pages folder
-		dashboardPage.expandPagesTree();
-
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
 
@@ -375,9 +363,10 @@ public class CutPasteLargeTreesTest extends StudioBaseTest {
 
 	}
 
-	@Test(priority = 0)
-	public void verifyThatStudioAllowsToCutPasteLargeTreesTest() {
-		loginAndGoToPreview();
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioAllowsToCutPasteLargeTreesTest(String testId) {
+		loginAndGoToPreview(testId);
 
 		step1();
 

@@ -19,7 +19,9 @@ package org.craftercms.delivery.test.cases.verification;
 
 import org.craftercms.studio.test.cases.DeliveryBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -37,7 +39,7 @@ public class VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageHT
 				.getProperty("delivery.verification.pagetitle");
 	}
 
-	@Test(priority = 0)
+	@Test()
 	public void verifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageHTML() {
 		//click on entertainment and check the article 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='Entertainment']").click();
@@ -47,7 +49,14 @@ public class VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageHT
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("foo"));
 		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl()
-				.equalsIgnoreCase("http://localhost:9080/articles/2016/12/baz.html"));
+				.equalsIgnoreCase(driverManager.environmentProperties.getProperty("delivery.base.url") + "articles/2016/12/baz.html"));
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+		int exitCode = driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
+		Assert.assertEquals(exitCode, 0, "Remove site process failed");
+	}
 }

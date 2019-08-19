@@ -17,9 +17,10 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -36,7 +37,6 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String articles2016Folder;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
@@ -50,14 +50,14 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 	private static final Logger logger = LogManager
 			.getLogger(VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.2016folder");
 		selectAllSegmentsCheckBox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -78,24 +78,15 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 				.getProperty("dashboard.home.sectiondefaults");
 	}
 
-	public void loginAndGoToPreview() {
+	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 
 		this.driverManager.waitUntilSidebarOpens();
 	}
@@ -143,8 +134,7 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 		this.driverManager.waitUntilSidebarOpens();
 		
 		logger.info("Checking content info for Home page");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent)
-				.click();
+		this.driverManager.clickElement("xpath", homeContent);
 		
 		String contentTypeInfo = this.driverManager.getContentTypeTooltipInfo(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent));
@@ -154,9 +144,9 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent));
 	
 
-		Assert.assertTrue("Home (Page)".equalsIgnoreCase(contentTypeInfo));
-		Assert.assertTrue("Home".equalsIgnoreCase(contentNameInfo));
-		Assert.assertTrue("Live".equalsIgnoreCase(contentStatusInfo));
+		Assert.assertTrue("Home (Page)".equalsIgnoreCase(contentTypeInfo), "Theres is an error, expected Home (PAGE) but found" + contentTypeInfo);
+		Assert.assertTrue("Home".equalsIgnoreCase(contentNameInfo), "Expected HOME but found " + contentNameInfo);
+		Assert.assertTrue("Live".equalsIgnoreCase(contentStatusInfo), "expected Live but found" + contentStatusInfo);
 	}
 	
 	public void checkContentInfoForStyleContent() {
@@ -250,15 +240,11 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 		
 	}
 
-	public void setup() {
-		this.loginAndGoToPreview();
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioDisplaysTheProperInfoOnContentToolTipTest(String testId) {
+		this.loginAndGoToPreview(testId);
 		this.openSidebarAndGotoArticlesChildFolderAndCreatNewArticle();
-	}
-
-	@Test(
-			priority = 0)
-	public void verifyThatStudioDisplaysTheProperInfoOnContentToolTipTest() {
-		this.setup();
 
 		//Checking Page contents
 		//Checking Home tooltip info
@@ -278,4 +264,9 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 		
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.dashboardtestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.By;
@@ -36,8 +38,10 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 	private String adminConsoleXpath;
 	private String siteDropdownListElementXPath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -47,8 +51,9 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 
 	}
 
-	@Test(priority = 0)
-	public void verifyThatTheSiteContentIsDisplayedOrHiddenWhenClicksOnSiteContentTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatTheSiteContentIsDisplayedOrHiddenWhenClicksOnSiteContentTest(String testId) {
 
 		// login to application
 
@@ -59,7 +64,7 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 
 		// go to dashboard page
 
-		homePage.goToDashboardPage();
+		homePage.goToDashboardPage(testId);
 
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open"))) 
@@ -81,4 +86,9 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 		Assert.assertFalse(element.isDisplayed());
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

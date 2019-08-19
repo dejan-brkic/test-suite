@@ -20,7 +20,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -35,21 +37,17 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;
-
 	private String createFormFrameElementCss;
-
 	private String createFormSaveAndCloseElement;
-
 	private String createFormMainTitleElementXPath;
-
 	private String secondCopiedElementXPath;
-
 	private String firstCopiedElementXPath;
-
 	private String myRecentActivityItemsCounterXpath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -100,15 +98,16 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 
 	}
 
-	@Test(priority = 0)
-	public void copyAndPasteIntoFolderUsingContextualClickOptionsTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void copyAndPasteIntoFolderUsingContextualClickOptionsTest(String testId) {
 		logger.info("Starting test case");
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		this.changeBodyToNotRequiredOnEntryContent();
 
@@ -168,4 +167,9 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

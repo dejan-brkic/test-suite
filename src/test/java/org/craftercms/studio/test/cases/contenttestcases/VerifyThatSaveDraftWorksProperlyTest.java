@@ -17,9 +17,10 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -51,8 +52,10 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(VerifyThatSaveDraftWorksProperlyTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -81,24 +84,15 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 				.getProperty("preview.savedraftbar");
 	}
 
-	public void loginAndGoToPreview() {
+	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
 	}
 
 	public void createNewPageArticleAsDraft(String folderLocation) {
@@ -119,8 +113,6 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
 		this.driverManager.waitUntilSidebarOpens();
-		// expand pages folder
-		dashboardPage.expandPagesTree();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -213,11 +205,11 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 				this.driverManager.isElementPresentAndClickableByXpath(previewDraftBar));
 	}
 
-	@Test(
-			priority = 0)
-	public void verifyThatSaveDraftWorksProperlyTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatSaveDraftWorksProperlyTest(String testId) {
 
-		this.loginAndGoToPreview();
+		this.loginAndGoToPreview(testId);
 
 		// Step1, 2, 3, 4, 5, 6 and 7
 		this.openSidebarAndGotoArticlesChildFolderAndCreatNewArticleAsDraft();
@@ -230,4 +222,9 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 		this.checkDraftPreviewBarIsNotDisplayed();
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }
