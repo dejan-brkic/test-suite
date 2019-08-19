@@ -38,9 +38,12 @@ public class HomePage {
 	private WebDriverManager driverManager;
 	private WebDriver driver;
 	private String previewSite;
+	private String previewSiteLink;
 	private String dashboardSite;
+	private String dashboardSiteLink;
 	private String createSiteButton;
 	private String deleteSiteIcon;
+	private String deleteSiteButton;
 	private String yesDeleteButton;
 	private String logOutLink;
 	private String signOutLink;
@@ -59,10 +62,13 @@ public class HomePage {
 		this.driver = this.driverManager.getDriver();
 
 		previewSite = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.previewlink");
+		previewSiteLink = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.previewlink.site");
 		dashboardSite = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.dashboardlink");
+		dashboardSiteLink = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.dashboardlink.site");
 		createSiteButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
 		deleteSiteIcon = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.deletesiteicon");
+		deleteSiteButton = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.deletesite");
 		yesDeleteButton = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.confirmtodelete");
 		logOutLink = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.expandaccount");
 		signOutLink = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.signout");
@@ -90,6 +96,11 @@ public class HomePage {
 		this.driverManager.waitForAnimation();
 	}
 
+	public void goToPreviewPage(String siteId) {
+		logger.info("Going to preview page");
+		driverManager.clickElement("xpath", String.format(previewSiteLink,siteId));
+	}
+
 	public void goToPreviewPage() {
 		// Click on preview link
 		this.clickPreviewOption();
@@ -108,6 +119,11 @@ public class HomePage {
 	public void goToDashboardPage() {
 		logger.debug("Go to Dashboard Page");
 		this.clickDashboardOption();
+	}
+
+	public void goToDashboardPage(String siteId) {
+		logger.info("Going to dashboard page");
+		driverManager.clickElement("xpath", String.format(dashboardSiteLink, siteId));
 	}
 
 	public WebDriverManager getDriverManager() {
@@ -135,6 +151,14 @@ public class HomePage {
 		WebElement deleteIcon = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				deleteSiteIcon);
 		deleteIcon.click();
+	}
+
+	public void clickDeleteSiteIcon(String siteId) {
+		WebElement siteElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				String.format(deleteSiteButton, siteId));
+		siteElement.click();
+		clickYesButton();
+		driverManager.waitUntilElementIsRemoved(siteElement);
 	}
 
 	public void clickOnDeleteSiteIcon() {
@@ -190,6 +214,11 @@ public class HomePage {
 		this.clickOnDeleteSiteIcon();
 		// Click on YES to confirm the delete.
 		this.clickOnYesToDeleteSite();
+	}
+
+	public void deleteSite(String siteId) {
+		// Click on Delete icon
+		this.clickDeleteSiteIcon(siteId);
 	}
 
 	public void deleteAllSites() {

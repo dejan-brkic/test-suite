@@ -451,10 +451,7 @@ public class PreviewPage {
 
 	public void changeBodyOfEntryContentPageToNotRequired() {
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-					siteDropdownElementXPath).click();
+		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
 		// go to admin console page
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath)
 				.click();
@@ -626,12 +623,8 @@ public class PreviewPage {
 	}
 
 	public void changeBodyOfArticlePageToNotRequired() {
-		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
 		// go to admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		this.driverManager.clickElement("xpath", adminConsoleXpath);
 		// Click on Content Types Option
 		siteConfigPage.clickContentTypeOption();
 		// open content types
@@ -890,7 +883,7 @@ public class PreviewPage {
 				dependenciesSelector);
 		Select categoriesDropDown = new Select(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
-		categoriesDropDown.selectByValue("depends-on-me");
+		categoriesDropDown.selectByValue("depends-on");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", gearItemXpath);
 		Assert.assertTrue(this.getDriverManager().isElementPresentByXpath(gearItemXpath));
 		this.driverManager
@@ -1010,12 +1003,14 @@ public class PreviewPage {
 		case "Search Results":
 			if ((dependentItemName.equalsIgnoreCase("search-results.groovy"))
 					|| (dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"))
+					||  (dependentItemName.equalsIgnoreCase("Categories"))
 					|| (dependentItemName.equalsIgnoreCase("search-results.ftl"))) {
 				firstCheckPass = true;
 			}
 			if ((dependentItemLocation.equalsIgnoreCase("/scripts/pages/search-results.groovy"))
 					|| (dependentItemLocation.equalsIgnoreCase(
 							"/site/components/left-rails/left-rail-with-latest-articles.xml"))
+					||  (dependentItemLocation.equalsIgnoreCase("/site/taxonomy/categories.xml"))
 					|| (dependentItemLocation.equalsIgnoreCase("/templates/web/pages/search-results.ftl"))) {
 				secondCheckPass = true;
 			}
@@ -1591,7 +1586,7 @@ public class PreviewPage {
 	}
 
 	public void checkDependentItemsForTemplate(String templateName, WebElement element, boolean dependsOn) {
-		if (dependsOn) {
+		if (!dependsOn) {
 			checkDependsOn(templateName, element);
 		} else {
 			checkDependsOnMe(templateName, element);
@@ -1644,7 +1639,7 @@ public class PreviewPage {
 		boolean firstCheckPass = false;
 		boolean secondCheckPass = false;
 
-		if (dependsOn) {
+		if (!dependsOn) {
 			switch (componentName) {
 			case "Latest Articles Widget":
 				Assert.assertTrue(dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"));
@@ -1764,7 +1759,7 @@ public class PreviewPage {
 
 	public void checkNumberOfItemOnDependencies(String componentName, List<WebElement> dependeciesItems,
 			boolean dependsOn) {
-		if (dependsOn) {
+		if (!dependsOn) {
 			switch (componentName) {
 			case "Latest Articles Widget":
 				Assert.assertTrue(dependeciesItems.size() == 1);
@@ -1829,7 +1824,7 @@ public class PreviewPage {
 				Assert.assertTrue(dependeciesItems.size() == 2);
 				break;
 			case "Search Results":
-				Assert.assertTrue(dependeciesItems.size() == 3);
+				Assert.assertTrue(dependeciesItems.size() == 4);
 				break;
 			case "Latest Articles Widget":
 				Assert.assertTrue(dependeciesItems.size() == 2);
@@ -1854,6 +1849,9 @@ public class PreviewPage {
 				break;
 			case "search-results.ftl":
 				Assert.assertTrue(dependeciesItems.size() == 13);
+				break;
+			case "ie8.css":
+				Assert.assertTrue(dependeciesItems.size() == 0);
 				break;
 			default:
 				throw new IllegalArgumentException("No case for provided item name: " + componentName);
@@ -1931,9 +1929,6 @@ public class PreviewPage {
 				generalEditOption);
 		for (int i = 0; i < driverManager.getNumberOfAttemptsForElementsDisplayed(); i++) {
 			try {
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteStatusIcon)
-						.click();
 				this.driverManager.waitUntilAttributeContains("xpath", siteStatusIcon, "class",
 						"undefined live");
 				break;

@@ -58,7 +58,6 @@ public class DeliveryBaseTest {
 		driverManager.setUIElementsPropertiesManager(uiElementsPropertiesManager);
 		deliveryHome = new DeliveryHomePage(driverManager, testId);
 		apiTestHelper = new APITestHelper();
-		//this.driverManager.openConnectionAndGotoDelivery(testId);
 	}
 
 	@AfterClass

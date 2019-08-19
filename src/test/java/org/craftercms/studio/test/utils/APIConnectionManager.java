@@ -45,7 +45,7 @@ public class APIConnectionManager {
 			final Properties envProperties = new Properties();
 			try {
 				envProperties.load(new FileInputStream(enviromentPropertiesPath));
-				String baseURL = envProperties.getProperty("baseUrl");
+				String baseURL = envProperties.getProperty("studio.base.url");
 
 				this.protocol = StringUtils.substringBefore(baseURL, ":");
 				this.host = StringUtils

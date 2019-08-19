@@ -83,7 +83,7 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 	@Test()
 	public void addNewContentAndPublishContentTest(String testId) {
 		// dropdown panel)
-		this.loginAndGoToSiteContentPagesStructure();
+		this.loginAndGoToSiteContentPagesStructure(testId);
 
 		// expand pages folder
 		dashboardPage.expandPagesTree();
@@ -171,7 +171,7 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 
 	}
 
-	public void loginAndGoToSiteContentPagesStructure() {
+	public void loginAndGoToSiteContentPagesStructure(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -179,15 +179,9 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
-		else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
+		homePage.goToPreviewPage(siteId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
+
 	}
 
 	public void verifyThatPageIsOnLive(String siteId) {

@@ -18,6 +18,8 @@ package org.craftercms.studio.test.utils;
 
 import org.craftercms.studio.test.api.objects.SecurityAPI;
 import org.craftercms.studio.test.api.objects.SiteManagementAPI;
+import org.craftercms.studio.test.api2.objects.GroupsManagementAPI2;
+import org.craftercms.studio.test.api2.objects.UsersManagementAPI2;
 
 /**
  *
@@ -28,6 +30,8 @@ public class APITestHelper {
 
     private SecurityAPI securityAPI;
     private SiteManagementAPI siteManagementAPI;
+    private UsersManagementAPI2 usersManagementAPI2;
+    private GroupsManagementAPI2 groupsManagementAPI2;
 
     public APITestHelper(){
         APIConnectionManager apiConnectionManager = new APIConnectionManager();
@@ -35,6 +39,8 @@ public class APITestHelper {
                 apiConnectionManager.getPort());
         securityAPI = new SecurityAPI(api, apiConnectionManager);
         siteManagementAPI = new SiteManagementAPI(api, apiConnectionManager);
+        usersManagementAPI2 = new UsersManagementAPI2(api, apiConnectionManager, "0" , "100", "asc");
+        groupsManagementAPI2 = new GroupsManagementAPI2(api, apiConnectionManager, "0", "100", "asc");
     }
 
     public void deleteSite(String siteId){
@@ -44,7 +50,33 @@ public class APITestHelper {
 
     public void createSite(String siteId, String description, String blueprint){
         securityAPI.logInIntoStudioUsingAPICall();
+        if (blueprint.equalsIgnoreCase("empty") || blueprint.equalsIgnoreCase("editorial") ||
+                blueprint.equalsIgnoreCase("headless_store") || blueprint.equalsIgnoreCase("videoCenter") ||
+                blueprint.equalsIgnoreCase("headless_blog")
+        ) {
+            blueprint = "org.craftercms.blueprint." + blueprint;
+        }
+        else {
+            blueprint = "org.craftercms.blueprint.editorial";
+        }
         siteManagementAPI.testCreateSite(siteId, description, blueprint);
+    }
+
+    public void deleteUser(String username){
+        securityAPI.logInIntoStudioUsingAPICall();
+        usersManagementAPI2.testDeleteUserByUserName(username);
+    }
+
+    public void createUser(String username){
+        securityAPI.logInIntoStudioUsingAPICall();
+        usersManagementAPI2.testCreateUser("1", username);
+    }
+
+    public void createUserAddToGroup(String username, String groupName){
+        securityAPI.logInIntoStudioUsingAPICall();
+        usersManagementAPI2.testCreateUser("1", username);
+        String groupId = groupsManagementAPI2.getGroupIDForGroupName(groupName);
+        groupsManagementAPI2.testAddMemberToGroupUsingUsername(groupId, username);
     }
 
 }
