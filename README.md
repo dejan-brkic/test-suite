@@ -52,5 +52,5 @@ in the MAC computer should be added.
 
 >127.0.0.1 host.docker.internal
 
-So accesing `host.docker.internal` from the test machine or the browser running in a container will always resolve
+So accessing `host.docker.internal` from the test machine or the browser running in a container will always resolve
 to localhost.
