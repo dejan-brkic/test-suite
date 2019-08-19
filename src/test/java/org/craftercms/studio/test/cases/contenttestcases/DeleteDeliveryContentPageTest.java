@@ -20,6 +20,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -36,7 +37,7 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 	private String siteDropdownElementXPath;
 	private String createdContentXPath;
 	private String siteDropdownListElementXPath;
-	
+
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
@@ -49,10 +50,11 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
-	@Test(priority = 0)
-	public void deleteDeliveryContentPageTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void deleteDeliveryContentPageTest(String testId) {
 		// dropdown panel)
-		this.loginAndGoToSiteContentPagesStructure();
+		this.loginAndGoToSiteContentPagesStructure(testId);
 
 		// expand pages folder
 		dashboardPage.expandPagesTree();
@@ -76,7 +78,7 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 		Assert.assertFalse(this.driverManager.isElementPresentByXpath(createdContentXPath));
 	}
 
-	public void loginAndGoToSiteContentPagesStructure() {
+	public void loginAndGoToSiteContentPagesStructure(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -84,7 +86,7 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToDashboardPage();
+		homePage.goToDashboardPage(siteId);
 		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 				.isDisplayed())
 			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)

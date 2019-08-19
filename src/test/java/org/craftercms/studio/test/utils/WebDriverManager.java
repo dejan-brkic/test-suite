@@ -26,22 +26,21 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Constants;
 import org.openqa.selenium.*;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.TestException;
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -52,7 +51,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -92,59 +95,65 @@ public class WebDriverManager {
 	private String userAddedNotificationModal;
 	private String userEditDialog;
 	private String userCreatedNotificationModal;
+	private String testName;
+	public Properties environmentProperties;
 
-	@SuppressWarnings("deprecation")
-	public void openConnection() {
-		final Properties runtimeProperties = new Properties();
+	public void setTestName(String testName){
+		this.testName = testName;
+	}
+
+	public void initWebDriver() {
+		Properties runtimeProperties = new Properties();
 		try {
 			runtimeProperties.load(WebDriverManager.class.getResourceAsStream("/runtime.properties"));
 			String enviromentPropertiesPath = runtimeProperties.getProperty("crafter.test.location");
-			final Properties envProperties = new Properties();
+			environmentProperties = new Properties();
 			try {
-				envProperties.load(new FileInputStream(enviromentPropertiesPath));
-				webBrowserProperty = envProperties.getProperty("webBrowser");
-				DesiredCapabilities capabilities;
+				environmentProperties.load(new FileInputStream(enviromentPropertiesPath));
+				webBrowserProperty = environmentProperties.getProperty("webBrowser");
 				switch (webBrowserProperty.toLowerCase()) {
-				case "phantomjs":
-					capabilities = DesiredCapabilities.phantomjs();
-					System.setProperty("phantomjs.binary.path",
-							envProperties.getProperty("phantomjs.binary.path"));
-					driver = new PhantomJSDriver(capabilities);
-					break;
-				case "firefox":
-					FirefoxOptions firefoxOptions = new FirefoxOptions();
-					System.setProperty("webdriver.gecko.driver",
-							envProperties.getProperty("firefox.driver.path"));
-					driver = new FirefoxDriver(firefoxOptions);
-					break;
-				case "chrome":
-					ChromeOptions chromeOptions = new ChromeOptions();
-					System.setProperty("webdriver.chrome.driver",
-							envProperties.getProperty("chrome.driver.path"));
-					driver = new ChromeDriver(chromeOptions);
-					break;
-				default:
-					throw new IllegalArgumentException("webBrowser property is needed, valid values are:"
-							+ "chrome,edge,ie,firefox,phantomjs");
+					case "remote":
+						String seleniumHubUrlProperty = environmentProperties.getProperty("selenium.hub.url");
+						String seleniumRemoteBrowserProperty = environmentProperties.getProperty("selenium.remote.browser");
+						DesiredCapabilities capabilities = new DesiredCapabilities();
+						capabilities.setCapability(CapabilityType.BROWSER_NAME, seleniumRemoteBrowserProperty);
+						capabilities.setCapability(CapabilityType.PLATFORM_NAME, Platform.LINUX);
+						driver = new RemoteWebDriver(new URL(seleniumHubUrlProperty), capabilities);
+						((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
+						break;
+					case "firefox":
+						FirefoxOptions firefoxOptions = new FirefoxOptions();
+						System.setProperty("webdriver.gecko.driver",
+								environmentProperties.getProperty("firefox.driver.path"));
+						driver = new FirefoxDriver(firefoxOptions);
+						break;
+					case "chrome":
+						ChromeOptions chromeOptions = new ChromeOptions();
+						System.setProperty("webdriver.chrome.driver",
+								environmentProperties.getProperty("chrome.driver.path"));
+						driver = new ChromeDriver(chromeOptions);
+						break;
+					default:
+						throw new IllegalArgumentException("webBrowser property is needed, valid values are:"
+								+ "chrome,firefox,remote");
 				}
-
-				driver.get(envProperties.getProperty("baseUrl"));
-				this.initializeExecutionValuesForStudio();
+				driver.manage().window().maximize();
+				this.initializeExecutionValues();
 				this.initializeLocators();
-				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
-					this.maximizeWindow();
-				}
-
 			} catch (IOException ex) {
 				throw new FileNotFoundException("Unable to read runtime properties file");
 			}
 		} catch (IOException ex) {
 			throw new TestException("Required Files are not found.");
 		}
-
 	}
 
-	public void initializeExecutionValuesForStudio() {
+	public void openConnection() {
+		initWebDriver();
+		driver.get(environmentProperties.getProperty("studio.base.url"));
+	}
+
+	public void initializeExecutionValues() {
 		this.defaultTimeOut = Integer.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.defaulttimeout"));
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
@@ -158,70 +167,23 @@ public class WebDriverManager {
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforlogfileupdate"));
 	}
 
-	@SuppressWarnings("deprecation")
 	public void openConnectionAndGotoDelivery(String siteId) {
-
-		final Properties runtimeProperties = new Properties();
-		try {
-			runtimeProperties.load(WebDriverManager.class.getResourceAsStream("/runtime.properties"));
-			String enviromentPropertiesPath = runtimeProperties.getProperty("crafter.test.location");
-			final Properties envProperties = new Properties();
-			try {
-				envProperties.load(new FileInputStream(enviromentPropertiesPath));
-				webBrowserProperty = envProperties.getProperty("webBrowser");
-				DesiredCapabilities capabilities;
-				switch (webBrowserProperty.toLowerCase()) {
-				case "phantomjs":
-					capabilities = DesiredCapabilities.phantomjs();
-					System.setProperty("phantomjs.binary.path",
-							envProperties.getProperty("phantomjs.binary.path"));
-					driver = new PhantomJSDriver(capabilities);
-					break;
-				case "firefox":
-					FirefoxOptions firefoxOptions = new FirefoxOptions();
-					System.setProperty("webdriver.gecko.driver",
-							envProperties.getProperty("firefox.driver.path"));
-					driver = new FirefoxDriver(firefoxOptions);
-					break;
-				case "chrome":
-					ChromeOptions chromeOptions = new ChromeOptions();
-					System.setProperty("webdriver.chrome.driver",
-							envProperties.getProperty("chrome.driver.path"));
-					driver = new ChromeDriver(chromeOptions);
-					break;
-				default:
-					throw new IllegalArgumentException("webBrowser property is needed, valid values are:"
-							+ "chrome,edge,ie,firefox,phantomjs");
-				}
-
-				if (!webBrowserProperty.equalsIgnoreCase("firefox")) {
-					this.maximizeWindow();
-				}
-
-				this.waitForDeliveryRefresh();
-				driver.get((envProperties.getProperty("deliverybaseUrl")) + "?crafterSite=" + siteId);
-				this.initializeExecutionValuesForDelivery();
-				this.initializeLocators();
-
-			} catch (IOException ex) {
-				throw new FileNotFoundException("Unable to read runtime properties file");
-			}
-		} catch (IOException ex) {
-			throw new TestException("Required Files are not found.");
-		}
-
+		initWebDriver();
+		waitForDeliveryRefresh();
+		driver.get((environmentProperties.getProperty("delivery.base.url")) + "?crafterSite=" + siteId);
 	}
 
-	public void initializeExecutionValuesForDelivery() {
-		this.defaultTimeOut = Integer.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.defaulttimeout"));
-		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
-				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
-		this.amountOfTestFoldersToGenerateForBulkUploadTest = Integer
-				.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
-						.getProperty("crafter.bulkupload.amountoftestfolderstogenerate"));
-		this.numberOfAttemptsForLogFileUpdate = Integer.parseInt(constantsPropertiesManager
-				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforlogfileupdate"));
+	public void goToDeliveryFromStudio(String siteId) {
+		waitForDeliveryRefresh();
+		driver.get((environmentProperties.getProperty("delivery.base.url")) + "?crafterSite=" + siteId);
+	}
+
+	public void goToDeliveryUrl(String url){
+		driver.get((environmentProperties.getProperty("delivery.base.url")) + url);
+	}
+
+	public void goToUrl(String url){
+		driver.get(url);
 	}
 
 	public void initializeLocators() {
@@ -273,19 +235,6 @@ public class WebDriverManager {
 
 	public void closeConnection() {
 		this.driver.quit();
-	}
-
-	public void maximizeWindow() {
-		// Getting the size width and height
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		int width = (int) toolkit.getScreenSize().getWidth();
-		int height = (int) toolkit.getScreenSize().getHeight();
-		// locating webdriver at coordinate 0,0
-		this.driver.manage().window().setPosition(new Point(0, 0));
-		// maximize the window at normal size
-		// //scaling to full screen
-		this.driver.manage().window().setSize(new Dimension(width, height));
-
 	}
 
 	public WebDriver getDriver() {
@@ -412,7 +361,7 @@ public class WebDriverManager {
 	}
 
 	public void waitUntilElementIsRemoved(WebElement element) {
-		logger.debug("Waiting for element to be removed: {}", element);
+		logger.info("Waiting for element to be removed: {}", element);
 		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.stalenessOf(element));
 	}
 
@@ -567,7 +516,7 @@ public class WebDriverManager {
 							+ "event.initEvent('contextmenu', true, false);"
 							+ "element.dispatchEvent(event);";
 					((JavascriptExecutor) driver).executeScript(script,
-							new Object[] { waitUntilElementIsClickable(selectorType, selectorValue) });
+							waitUntilElementIsClickable(selectorType, selectorValue));
 					break;
 				} else {
 					this.waitForAnimation();
@@ -911,7 +860,7 @@ public class WebDriverManager {
 		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
 
 		if (!(toolTip.getAttribute("style").contains("visibility: hidden;"))) {
-			WebElement contentTypeInfoLabel = this.waitUntilElementIsDisplayed("xpath", tooTipContentEditeBy);
+			WebElement contentTypeInfoLabel = this.waitUntilElementIsPresent("xpath", tooTipContentEditeBy);
 			contentEditedByInfo = contentTypeInfoLabel.getText();
 		}
 
@@ -930,6 +879,36 @@ public class WebDriverManager {
 		}
 		input.sendKeys(text);
 		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
+	}
+
+	public void sendTextByLineJS(String selectorType, String selectorValue, String filePath){
+		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
+		String scrollByJS = "document.getElementById('%s').scrollTop = document.getElementById('%s').scrollHeight;";
+		input.click();
+		List<String> result = new ArrayList<>();
+		try {
+			 result = Files.readAllLines(Paths.get(filePath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		//add \n newline to all lines expect for last one
+		for(int i = 0; i < result.size(); i++){
+			if (i == result.size() - 1) {
+				sendTextByIdJS(selectorValue, result.get(i));
+			}
+			else {
+				sendTextByIdJS(selectorValue, result.get(i) + "\\n");
+			}
+		}
+		((JavascriptExecutor) driver).executeScript(String.format(scrollByJS, selectorValue, selectorValue));
+		//send a char and remove it to enable the text sent by javascript
+		input.sendKeys("a");
+		input.sendKeys(Keys.BACK_SPACE);
+	}
+
+	public void sendTextByIdJS(String selectorValue, String text) {
+		((JavascriptExecutor) driver).executeScript("document.getElementById('"+ selectorValue+ "').value += '" + text + "';");
 	}
 
 	public void sendTextForSiteIDRestrictions(String selectorType, String selectorValue, String text) {
@@ -1134,7 +1113,7 @@ public class WebDriverManager {
 		}
 	}
 
-	public int goToFolderAndExecuteInitSiteScriptThroughCommandLine(String siteId) {
+	public int goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(String siteId, String scriptType) {
 		String script;
 		String shell;
 
@@ -1143,7 +1122,7 @@ public class WebDriverManager {
 				+ File.separator + "crafter-delivery" + File.separator + "bin";
 
 		shell = "/bin/bash";
-		script = "init-site.sh";
+		script = scriptType + "-site.sh";
 
 		try {
 			String[] command = {shell, script, siteId};
@@ -1162,17 +1141,25 @@ public class WebDriverManager {
 			// Read the output from the command
 			String output = "";
 			String lineString = null;
+			int occurencesOfTarget, occurencesOfSuccessfully;
+
 			while ((lineString = bufferedReader.readLine()) != null) {
 				output = output + lineString;
 			}
 
-			if (!(output.contains("Error while creating Target: Target already exists"))) {
-				int occurencesOfCreatingTarget = StringUtils.countMatches(output,"Creating Deployer Target");
-				Assert.assertTrue((occurencesOfCreatingTarget == 1),"The init-site result was: " + output);
-				int occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
-				Assert.assertTrue((occurencesOfSuccessfully == 1), "The init-site result was: " + output);
+			if (!(output.contains("Error while creating Target: Target already exists") ||
+					output.contains("does not exist or cannot be read"))) {
+				if (scriptType.equals("init")){
+					occurencesOfTarget = StringUtils.countMatches(output,"Creating Deployer Target");
+					occurencesOfSuccessfully = StringUtils.countMatches(output, "successfully");
+				}
+				else {
+					occurencesOfTarget = StringUtils.countMatches(output,"Target deleted successfully");
+					occurencesOfSuccessfully = StringUtils.countMatches(output, "Repo folder deleted successfully");
+				}
+				Assert.assertEquals(occurencesOfTarget, 1,"The " + scriptType + "-site result was: " + output);
+				Assert.assertEquals(occurencesOfSuccessfully, 1, "The " + scriptType + "-site result was: " + output);
 			}
-
 			return process.exitValue();
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -1241,21 +1228,18 @@ public class WebDriverManager {
 	}
 
 	public void focusAndScrollDownToBottomInASection(String cssContainer, String cssSelectorValue) {
-		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
-				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
-			((JavascriptExecutor) driver).executeScript("$('" + cssContainer + "').scrollTop($('"
-					+ cssSelectorValue + "').last().offset().top);");
-
-		}
+		((JavascriptExecutor) driver).executeScript("$('" + cssContainer + "').scrollTop($('" +
+				cssSelectorValue + "').last().offset().top);");
 	}
 
-	public void focusAndScrollDownToMiddleInASection(String cssContainer, String cssSelectorValue) {
-		if ((webBrowserProperty.toLowerCase().equalsIgnoreCase("edge"))
-				|| (webBrowserProperty.toLowerCase().equalsIgnoreCase("ie"))) {
-			((JavascriptExecutor) driver).executeScript("$('" + cssContainer + "').scrollTop($('"
-					+ cssSelectorValue + ":first-child').height()*7);");
-
-		}
+	public void focusAndScrollDownToMiddleInASection(String cssContainer, String cssSelectorValue, int timesToScroll) {
+		String script = "$('" + cssContainer +
+				"').scrollTop($('" +
+				cssSelectorValue +
+				":first-child').height()*" +
+				timesToScroll +
+				");";
+		((JavascriptExecutor) driver).executeScript(script);
 	}
 
 	public void scrollDownIntoSideBar() {
@@ -1277,7 +1261,7 @@ public class WebDriverManager {
 	public void clickIfFolderIsNotExpanded(String selectorValue) {
 		if (!(this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue)
 				.getAttribute("class").contains("open")))
-			this.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", selectorValue).click();
+			this.clickElement("xpath", selectorValue);
 	}
 
 	public void fileUploadUsingSendKeys(String locator, String filePath) {

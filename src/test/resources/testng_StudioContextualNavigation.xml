@@ -17,149 +17,94 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Contextual Navigation TestSuite"
-	preserve-order="true" verbose="3">
+<suite name="craftercms - Studio Contextual Navigation TestSuite" parallel="tests" thread-count="4" verbose="3">
+    <parameter name="blueprint" value="empty"/>
 	<test name="Delete Option Test">
+        <parameter name="testId" value="dashboardfix01"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.DeleteOptionTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.DeleteOptionTest"/>
 		</classes>
 	</test>
 	<test name="Duplicate Option Test">
+        <parameter name="testId" value="dashboardfix02"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.DuplicateOptionTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.DuplicateOptionTest"/>
 		</classes>
 	</test>
 	<test name="Edit Option Test">
+        <parameter name="testId" value="dashboardfix03"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.EditOptionTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.EditOptionTest"/>
 		</classes>
 	</test>
 	<test name="Enable Disable Editing In Context Test">
+        <parameter name="testId" value="dashboardfix04"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.EnableDisableEditingInContextTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.EnableDisableEditingInContextTest"/>
 		</classes>
 	</test>
 	<test name="History Option Test">
+        <parameter name="testId" value="dashboardfix05"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.HistoryOptionTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.HistoryOptionTest"/>
 		</classes>
 	</test>
 	<test name="Publishing Site Test">
+        <parameter name="testId" value="dashboardfix06"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.PublishingSiteTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.PublishingSiteTest"/>
 		</classes>
 	</test>
 	<test name="Dependencies Option Test">
+        <parameter name="testId" value="dashboardfix07"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.DependenciesOptionTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.DependenciesOptionTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application shows the account management page when user clicks on settings contextual navigation bar option">
+	<test name="Verify that the application shows the account management page when user clicks on settings contextual navigation bar option">
+        <parameter name="testId" value="dashboardfix08"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.ShowAccountManagementTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.ShowAccountManagementTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that application shows the Publish Status dialog when users click on Publishing Status">
+	<test name="Verify that application shows the Publish Status dialog when users click on Publishing Status">
+        <parameter name="testId" value="dashboardfix09"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysPublishStatusDialogTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysPublishStatusDialogTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that application performs the proper action when a top bar Search option is clicked">
+	<test name="Verify that application performs the proper action when a top bar Search option is clicked">
+        <parameter name="testId" value="dashboardfix10"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClickedTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClickedTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that application displays the Preview Tools icon when in preview and that the Preview Tools panel is displayed when the icon is clicked">
+	<test name="Verify that application displays the Preview Tools icon when in preview and that the Preview Tools panel is displayed when the icon is clicked">
+        <parameter name="testId" value="dashboardfix11"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysThePreviewToolsWhenSearchOptionIsClickedTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysThePreviewToolsWhenSearchOptionIsClickedTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that application displays the In-Context Edit icon when in preview for all users except user Reviewer and that the in-context edit appears in the preview page">
+	<test name="Verify that application displays the In-Context Edit icon when in preview for all users except user Reviewer and that the in-context edit appears in the preview page">
+        <parameter name="testId" value="dashboardfix12"/>
+        <parameter name="testUser" value="reviewercontextedit012"/>
+        <parameter name="groupToAdd" value="site_reviewer"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the compare history works properly">
+	<test name="Verify that the compare history works properly">
+        <parameter name="testId" value="dashboardfix13"/>
+        <parameter name="blueprint" value="editorial"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatCompareHistoryWorksProperly" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatCompareHistoryWorksProperly"/>
 		</classes>
 	</test>
-	<test
-		name="Verify that the application displays the proper set of available options on the top bar for a selected content page">
+	<test name="Verify that the application displays the proper set of available options on the top bar for a selected content page">
+        <parameter name="testId" value="dashboardfix14"/>
+        <parameter name="blueprint" value="editorial"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteWithWebSiteEditorialBluePrintTest" />
-			<class
-				name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysTheProperSetOfAvailableOptionsTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysTheProperSetOfAvailableOptionsTest"/>
 		</classes>
 	</test>
 </suite> <!-- Suite -->

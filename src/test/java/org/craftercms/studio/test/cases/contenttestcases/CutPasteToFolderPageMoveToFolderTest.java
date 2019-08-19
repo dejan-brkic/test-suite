@@ -22,7 +22,9 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -55,8 +57,10 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 	private String recentlyActivitySelectAll;
 	private static final Logger logger = LogManager.getLogger(CutPasteToFolderPageMoveToFolderTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -133,20 +137,17 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 
 	}
 
-	public void setup() {
+	public void setup(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
-
-		// expand pages folder
-		dashboardPage.expandPagesTree();
 
 		// right click to see the the menu
 		logger.info("Creating new folder");
@@ -248,9 +249,10 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderChildContent).isDisplayed());
 	}
 
-	@Test(priority = 0)
-	public void cutPasteToFolderPageMoveToFolderTest() {
-		this.setup();
+	@Parameters({"testId"})
+	@Test()
+	public void cutPasteToFolderPageMoveToFolderTest(String testId) {
+		this.setup(testId);
 
 		this.step3();
 
@@ -262,4 +264,9 @@ public class CutPasteToFolderPageMoveToFolderTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

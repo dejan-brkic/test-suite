@@ -20,7 +20,10 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -42,9 +45,15 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 	private String createdContentXPath;
 	private String siteDropdownListElementXPath;
 	private String categoryDrowpdownXpath;
+	private String pageTitleXpath;
+	private String pageURL;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
+		int exitCode = this.driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
+		Assert.assertEquals(exitCode, 0, "Init site process failed");
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 
@@ -64,12 +73,17 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		categoryDrowpdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformcategorydropdown");
+		pageURL = driverManager.environmentProperties.getProperty("delivery.base.url") +
+				uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("delivery.verification.pageurl");
+		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("delivery.verification.pagetitle");
 	}
 
-	@Test(priority = 0)
-	public void addNewContentAndPublishContentTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void addNewContentAndPublishContentTest(String testId) {
 		// dropdown panel)
-		this.loginAndGoToSiteContentPagesStructure();
+		this.loginAndGoToSiteContentPagesStructure(testId);
 
 		// expand pages folder
 		dashboardPage.expandPagesTree();
@@ -77,6 +91,10 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		// Step2
 		this.createContentAndPublishIt();
 
+		String studioURL = this.driverManager.getDriver().getCurrentUrl();
+		verifyThatPageIsOnLive(testId);
+		deleteDeliveryContentPageTest(studioURL);
+		verifyThatPageIsNotOnLive(testId);
 	}
 
 	public void createContentAndPublishIt() {
@@ -84,11 +102,8 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		// Step 1
 		this.createPageCategoryLandingPage(homeContent);
 
-		driverManager.getDriver().navigate().refresh();
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilSidebarOpens();
-
-		dashboardPage.expandHomeTree();
 
 		this.publishElement(createdContentXPath);
 		this.driverManager.waitUntilElementHasPublishedIcon(createdContentXPath);
@@ -156,7 +171,7 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 
 	}
 
-	public void loginAndGoToSiteContentPagesStructure() {
+	public void loginAndGoToSiteContentPagesStructure(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -164,15 +179,52 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
-		else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
+		homePage.goToPreviewPage(siteId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
+
 	}
 
+	public void verifyThatPageIsOnLive(String siteId) {
+		driverManager.goToDeliveryFromStudio(siteId);
+		driverManager.goToUrl(pageURL);
+		driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
+		Assert.assertTrue(driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
+				.getText().equalsIgnoreCase("testingpage"));
+	}
+
+	public void deleteDeliveryContentPageTest(String url) {
+		driverManager.goToUrl(url);
+
+		// Step2
+		driverManager.waitUntilSidebarOpens();
+
+		// right click to delete
+		dashboardPage.rightClickToDeleteContent(createdContentXPath);
+
+		// confirmation
+		dashboardPage.clicktoDeleteContent();
+
+		// submittal complete ok
+		dashboardPage.clickOKSubmittalComplete();
+
+		driverManager.waitForAnimation();
+		Assert.assertFalse(driverManager.isElementPresentByXpath(createdContentXPath));
+	}
+
+	public void verifyThatPageIsNotOnLive(String siteId) {
+		driverManager.goToDeliveryFromStudio(siteId);
+		driverManager.goToUrl(pageURL);
+		driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
+		Assert.assertTrue(driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
+				.getText().equalsIgnoreCase("The page you are looking for doesn't exist."));
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+		int exitCode = driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
+		Assert.assertEquals(exitCode, 0, "Remove site process failed");
+
+	}
 }

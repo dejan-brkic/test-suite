@@ -17,13 +17,15 @@
 
 package org.craftercms.studio.test.cases;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.craftercms.studio.test.cases.contenttestcases.CopyPasteLargeTreesTest;
 import org.craftercms.studio.test.pages.DeliveryHomePage;
-import org.craftercms.studio.test.utils.ConstantsPropertiesManager;
-import org.craftercms.studio.test.utils.FilesLocations;
-import org.craftercms.studio.test.utils.UIElementsPropertiesManager;
-import org.craftercms.studio.test.utils.WebDriverManager;
+import org.craftercms.studio.test.utils.*;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
 /**
  * All Test Cases should extend this class
@@ -34,25 +36,28 @@ public class DeliveryBaseTest {
 	protected UIElementsPropertiesManager uiElementsPropertiesManager;
 	protected ConstantsPropertiesManager constantsPropertiesManager;
 	protected ConstantsPropertiesManager deliveryExecutionValuesManager;
-
+	protected APITestHelper apiTestHelper;
 	protected DeliveryHomePage deliveryHome;
+	protected static Logger logger = LogManager.getLogger(CopyPasteLargeTreesTest.class);
+	protected String testName;
 
+
+	@Parameters({"testId"})
 	@BeforeClass
-	public void setUp() {
+	public void setUp(String testId, ITestContext ctx) {
 		driverManager = new WebDriverManager();
+		testName = ctx.getCurrentXmlTest().getName();
+		driverManager.setTestName(testName);
 		uiElementsPropertiesManager = new UIElementsPropertiesManager(
 				FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
 		constantsPropertiesManager = new ConstantsPropertiesManager(
 				FilesLocations.CONSTANTSPROPERTIESFILEPATH);
 		deliveryExecutionValuesManager = new ConstantsPropertiesManager(
 				FilesLocations.DELIVERYEXECUTIONVALUESPROPERTIESFILEPATH);
-
 		driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
 		driverManager.setUIElementsPropertiesManager(uiElementsPropertiesManager);
-		
-		String currentSiteId = deliveryExecutionValuesManager.getSharedExecutionConstants()
-				.getProperty("general.currentsiteid");
-		deliveryHome = new DeliveryHomePage(driverManager, currentSiteId);
+		deliveryHome = new DeliveryHomePage(driverManager, testId);
+		apiTestHelper = new APITestHelper();
 	}
 
 	@AfterClass

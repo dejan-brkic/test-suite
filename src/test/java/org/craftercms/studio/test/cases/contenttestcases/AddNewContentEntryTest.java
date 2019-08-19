@@ -18,7 +18,9 @@ package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -38,8 +40,10 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 	private String randomURL;
 	private String randomInternalName;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -50,10 +54,8 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 				.getProperty("general.createformTitle");
 		testingItemRecentActivity = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitem.myrecentactivity");
-
 		randomURL = "Test1";
 		randomInternalName = "Testing1";
-
 	}
 
 	public void changeBodyToNotRequiredOnEntryContent() {
@@ -91,8 +93,9 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 
 	}
 
-	@Test(priority = 0)
-	public void addNewPageUsingEntryContentTypeAndContextualClickOptionTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void addNewPageUsingEntryContentTypeAndContextualClickOptionTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -100,7 +103,7 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
@@ -119,4 +122,9 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 		Assert.assertNotNull(driverManager.waitUntilElementIsDisplayed("xpath", testingItemRecentActivity));
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

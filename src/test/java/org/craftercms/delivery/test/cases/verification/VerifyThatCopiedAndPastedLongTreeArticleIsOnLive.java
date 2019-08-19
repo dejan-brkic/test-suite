@@ -19,7 +19,9 @@ package org.craftercms.delivery.test.cases.verification;
 
 import org.craftercms.studio.test.cases.DeliveryBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -34,19 +36,27 @@ public class VerifyThatCopiedAndPastedLongTreeArticleIsOnLive extends DeliveryBa
 
 	@BeforeMethod
 	public void beforeTest() {
-		String pageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
+		String verificationPageURL = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.longtreearticlepageurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
-		this.driverManager.getDriver().get(pageURL);
+		this.driverManager.goToDeliveryUrl(verificationPageURL);
 	}
 
-	@Test(priority = 0)
+	@Test()
 	public void verifyThatCopiedAndPastedLongTreeArticleIsOnLive() {
 		this.driverManager.waitForAnimation();
 		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
 		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("Men Styles For Winter"));
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+		int exitCode = driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
+		Assert.assertEquals(exitCode, 0, "Remove site process failed");
 	}
 
 }

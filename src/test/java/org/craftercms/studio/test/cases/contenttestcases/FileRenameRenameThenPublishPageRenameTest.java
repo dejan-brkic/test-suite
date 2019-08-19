@@ -26,6 +26,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -64,11 +65,16 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 	private String recentlyPublishedContentName;
 	private String recentlyPublishedContentURL;
 	private String recentlyPublishedSelectAll;
+	private String siteDropDownXpath;
 	private int numberOfAttemptsForElementsDisplayed;
 	private static Logger logger = LogManager.getLogger(FileRenameRenameThenPublishPageRenameTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
+		int exitCode = this.driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
+		Assert.assertEquals(exitCode, 0, "Init site process failed");
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -121,6 +127,8 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.itemurl");
 		recentlyActivityItemConfigurationEditedIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
+		siteDropDownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sitedropdown");
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 	}
@@ -143,21 +151,21 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 		previewPage.changeBodyOfArticlePageToNotRequired();
 	}
 
-	public void setup() {
+	public void setup(String testId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
+		driverManager.clickElement("xpath", siteDropDownXpath);
+		this.driverManager.waitUntilSidebarOpens();
 
 		// body not required
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
 		this.driverManager.waitUntilSidebarOpens();
-		// expand pages folder
-		dashboardPage.expandPagesTree();
 
 		// Expand Home Tree
 		this.driverManager.waitForAnimation();
@@ -472,9 +480,10 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 	}
 
-	@Test(priority = 0)
-	public void fileRenamePageRenameRenameAndPublishTest() {
-		this.setup();
+	@Parameters({"testId"})
+	@Test()
+	public void fileRenamePageRenameRenameAndPublishTest(String testId) {
+		this.setup(testId);
 
 		this.step3();
 

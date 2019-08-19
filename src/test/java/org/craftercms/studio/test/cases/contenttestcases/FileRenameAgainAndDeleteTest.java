@@ -25,7 +25,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -57,7 +59,6 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 	private String recentActivityContentURL;
 	private String recentlyActivityTable;
 	private String folder2016Locator;
-	private String siteDropdownListElementXPath;
 	private String siteContentXpath;
 	private String articlesFolder;
 	private String submittalCompleteOK;
@@ -103,8 +104,6 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.tablebody");
 		folder2016Locator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.2016folder");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		siteContentXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.site_content");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -200,24 +199,18 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 		}
 	}
 
-	public void step16() {
+	public void step16(String testId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
-		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
-				.contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
+		driverManager.clickElement("xpath", siteContentXpath);
 
-		// expand pages folder
 		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
-		dashboardPage.expandPagesTree();
 
 		this.driverManager.waitForAnimation();
 		dashboardPage.expandHomeTree();
@@ -237,10 +230,11 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 				folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='12']");
 	}
 
-	@Test(priority = 0)
-	public void fileRenameFileXMLRenameAgainAndDeleteTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void fileRenameFileXMLRenameAgainAndDeleteTest(String testId) {
 
-		this.step16();
+		this.step16(testId);
 		
 		// step 17,18, 19 and 20
 		logger.info("Editing previously created article");
@@ -314,4 +308,9 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 		this.step25();
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

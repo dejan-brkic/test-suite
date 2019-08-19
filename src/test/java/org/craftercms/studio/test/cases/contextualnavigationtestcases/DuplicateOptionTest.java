@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,9 +46,10 @@ public class DuplicateOptionTest extends StudioBaseTest {
 	private String copyTestItemXpath;
 	private static Logger logger = LogManager.getLogger(DuplicateOptionTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 
@@ -125,13 +128,9 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		driverManager.getDriver().navigate().refresh();
 	}
 
-	public void goToPreviewPage() {
-		// go to preview page
-		homePage.goToPreviewPage();
-	}
-
-	@Test(priority = 0)
-	public void duplicatePageUsingContextualNavigationDuplicateOptionOption() {
+	@Parameters({"testId"})
+	@Test()
+	public void duplicatePageUsingContextualNavigationDuplicateOptionOption(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -140,7 +139,7 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// goto preview page
-		goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// select the content type to the test
 		changeBodyToNotRequiredOnEntryContent();
@@ -173,4 +172,9 @@ public class DuplicateOptionTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

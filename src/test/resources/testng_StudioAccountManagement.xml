@@ -17,12 +17,10 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio - Account Management TestSuite"
-	preserve-order="true" verbose="3">
+<suite name="craftercms - Studio - Account Management TestSuite" verbose="3">
 	<test name="Change Password User Test">
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.accountmanagementtestcases.ChangePasswordUserTest" />
+			<class name="org.craftercms.studio.test.cases.accountmanagementtestcases.ChangePasswordUserTest"/>
 		</classes>
 	</test>
 </suite> <!-- Suite -->

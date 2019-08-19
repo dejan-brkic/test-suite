@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -38,9 +40,10 @@ public class EditContentTest extends StudioBaseTest {
 	private String randomURL;
 	private String randomInternalName;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -102,8 +105,9 @@ public class EditContentTest extends StudioBaseTest {
 
 	}
 
-	@Test(priority = 0)
-	public void verifyTheEditionOfAPageUsingRightClickEditOptionTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyTheEditionOfAPageUsingRightClickEditOptionTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -112,7 +116,7 @@ public class EditContentTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
@@ -135,4 +139,9 @@ public class EditContentTest extends StudioBaseTest {
 				"Content page is not displayed on the My Recent Activity Widget");
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

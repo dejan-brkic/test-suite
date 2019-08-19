@@ -58,7 +58,7 @@ public class LoginPage {
 
 	// Set user name in textbox
 	public void setUserName(String strUserName) {
-		WebElement userCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement userCrafter = this.driverManager.waitUntilElementIsClickable("xpath",
 				userNameXpath);
 		userCrafter.clear();
 		userCrafter.sendKeys(strUserName);
@@ -66,7 +66,7 @@ public class LoginPage {
 
 	// Set password in password textbox
 	public void setPassword(String strPassword) {
-		WebElement pwdCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement pwdCrafter = this.driverManager.waitUntilElementIsClickable("xpath",
 				passwordXpath);
 		pwdCrafter.clear();
 		pwdCrafter.sendKeys(strPassword);

@@ -21,7 +21,9 @@ import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -46,8 +48,10 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 	private String myRecentActivityFirstItemURLXPath;
 	private String myRecentActivitySecondItemURLXPath;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -174,8 +178,9 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 		Assert.assertEquals(edit2, "/aboutus");
 	}
 
-	@Test(priority = 0)
-	public void verifyThatTheShowInputWorksProperlyOnRecentActivityWidgetTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatTheShowInputWorksProperlyOnRecentActivityWidgetTest(String testId) {
 		logger.info("Starting test case");
 
 		// login to application
@@ -185,7 +190,7 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// body not requiered
 		changeBodyToNotRequiredOnEntryContent();
@@ -214,4 +219,9 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

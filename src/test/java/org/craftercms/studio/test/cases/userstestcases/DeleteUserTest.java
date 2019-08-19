@@ -27,7 +27,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
  *
  */
 
-	public class DeleteUserTest extends StudioBaseTest {
+public class DeleteUserTest extends StudioBaseTest {
 
 	private String userName;
 	private String password;

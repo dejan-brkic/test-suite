@@ -24,7 +24,9 @@ import org.openqa.selenium.interactions.Actions;
 
 import org.testng.Assert;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,9 +54,10 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 
 	private static Logger logger = LogManager.getLogger(EditContentThroughDashboardEditOptionTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		controlsSectionFromSection = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -289,8 +292,9 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", crafterLogoId).click();
 	}
 
-	@Test(priority = 0)
-	public void verifyTheEditionOfAPageUsingEditLinkOfRecentActivityTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyTheEditionOfAPageUsingEditLinkOfRecentActivityTest(String testId) {
 
 		// login to application
 
@@ -300,7 +304,7 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -349,4 +353,9 @@ public class EditContentThroughDashboardEditOptionTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

@@ -1292,9 +1292,7 @@ public class DashboardPage {
 	}
 
 	public void clickOnSitesOption() {
-		WebElement siteOptionWebElement = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesOptionXpath);
-		siteOptionWebElement.click();
+		this.driverManager.clickElement("xpath", sitesOptionXpath);
 	}
 
 	public void validateItemsOnRecentActivity(Boolean contentAsFolder) {

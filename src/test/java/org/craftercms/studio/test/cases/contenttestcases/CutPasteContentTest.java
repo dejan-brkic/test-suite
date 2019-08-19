@@ -20,7 +20,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -48,9 +50,10 @@ public class CutPasteContentTest extends StudioBaseTest {
 	private String lastPropertiesElementCssSelector;
 	private static Logger logger = LogManager.getLogger(CutPasteContentTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -81,8 +84,9 @@ public class CutPasteContentTest extends StudioBaseTest {
 
 	}
 
-	@Test(priority = 0)
-	public void cutAndPasteContentUsingContextualClickOptionsTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void cutAndPasteContentUsingContextualClickOptionsTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -91,7 +95,7 @@ public class CutPasteContentTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 
 		// go to dashboard page
-		homePage.goToDashboardPage();
+		homePage.goToDashboardPage(testId);
 
 		// Show site content panel
 		logger.debug("Click on Site Dropdown");
@@ -204,4 +208,9 @@ public class CutPasteContentTest extends StudioBaseTest {
 
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

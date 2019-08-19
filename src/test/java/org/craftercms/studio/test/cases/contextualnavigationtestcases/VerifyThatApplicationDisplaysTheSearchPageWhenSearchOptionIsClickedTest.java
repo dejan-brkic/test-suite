@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.craftercms.studio.test.cases.StudioBaseTest;
 
@@ -38,9 +40,10 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 	private String searchPageTitleXpath;
 	private String searchResultsCss;
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -57,8 +60,9 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 				.getProperty("general.searchpage.results");
 	}
 
-	@Test(priority = 0)
-	public void verifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClickedTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClickedTest(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -67,7 +71,7 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -96,5 +100,11 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 		this.driverManager.clickElement("xpath", searchBoxInput);
 		Assert.assertTrue("entry.ftl".equals(this.driverManager.waitForNumberElementsToBe(
 				"cssselector", searchResultsCss, 1).getText()));
+	}
+
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
 	}
 }

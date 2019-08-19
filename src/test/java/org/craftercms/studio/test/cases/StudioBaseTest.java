@@ -26,10 +26,8 @@ import org.craftercms.studio.test.pages.MyRecentActivityPage;
 import org.craftercms.studio.test.pages.PreviewPage;
 import org.craftercms.studio.test.pages.SiteConfigPage;
 import org.craftercms.studio.test.pages.UsersPage;
-import org.craftercms.studio.test.utils.ConstantsPropertiesManager;
-import org.craftercms.studio.test.utils.FilesLocations;
-import org.craftercms.studio.test.utils.UIElementsPropertiesManager;
-import org.craftercms.studio.test.utils.WebDriverManager;
+import org.craftercms.studio.test.utils.*;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -52,10 +50,14 @@ public class StudioBaseTest {
 	protected SiteConfigPage siteConfigPage;
 	protected MyRecentActivityPage myRecentActivityFramePage1;
 	protected UsersPage usersPage;
+	protected APITestHelper apiTestHelper;
+	protected String testName;
 
 	@BeforeClass
-	public void setUp() {
+	public void setUp(ITestContext ctx) {
 		driverManager = new WebDriverManager();
+		testName = ctx.getCurrentXmlTest().getName();
+		driverManager.setTestName(testName);
 		uiElementsPropertiesManager = new UIElementsPropertiesManager(
 				FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
 		constantsPropertiesManager = new ConstantsPropertiesManager(
@@ -74,7 +76,7 @@ public class StudioBaseTest {
 		siteConfigPage = new SiteConfigPage(driverManager, uiElementsPropertiesManager);
 		myRecentActivityFramePage1 = new MyRecentActivityPage(driverManager, uiElementsPropertiesManager);
 		usersPage = new UsersPage(driverManager, uiElementsPropertiesManager);
-
+		apiTestHelper = new APITestHelper();
 	}
 
 	@AfterClass

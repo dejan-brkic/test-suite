@@ -25,7 +25,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -200,24 +202,21 @@ public class FileRenameAgainAndDeletePageRenameTest extends StudioBaseTest {
 		}
 	}
 
-	public void step16() {
+	public void step16(String siteId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
 
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath).getAttribute("class")
 				.contains("site-dropdown-open")))
 			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
 
-		// expand pages folder
 		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
-		dashboardPage.expandPagesTree();
 
 		this.driverManager.waitForAnimation();
 		dashboardPage.expandHomeTree();
@@ -237,10 +236,11 @@ public class FileRenameAgainAndDeletePageRenameTest extends StudioBaseTest {
 				folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='12']");
 	}
 
-	@Test(priority = 0)
-	public void fileRenamePageRenameAgainAndDeleteTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void fileRenamePageRenameAgainAndDeleteTest(String testId) {
 
-		this.step16();
+		this.step16(testId);
 		
 		// step 17,18, 19 and 20
 		logger.info("Editing previously created article");
@@ -314,4 +314,9 @@ public class FileRenameAgainAndDeletePageRenameTest extends StudioBaseTest {
 		this.step25();
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

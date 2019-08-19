@@ -17,9 +17,10 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -48,8 +49,10 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(VerifyThatImageCropWorksProperlyTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -76,25 +79,12 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 	}
 
-	public void goToPreview() {
-		logger.info("Going to preview page of site: {}", editorialBPSiteId);
+	public void goToPreview(String siteId) {
+		logger.info("Going to preview page of site: {}", siteId);
 		// go to preview page
-		homePage.goToPreviewPage();
+		homePage.goToPreviewPage(siteId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
-	}
-
-	public void step1() {
-		this.goToPreview();
 	}
 
 	public void step2() {
@@ -113,14 +103,14 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 		}, "Pages");
 	}
 
-	@Test(
-			priority = 0)
-	public void verifyThatImageCropWorksProperlyTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatImageCropWorksProperlyTest(String testId) {
 
 		this.login();
 
 		// Step1
-		this.step1();
+		this.goToPreview(testId);
 
 		// Step2
 		this.step2();
@@ -161,7 +151,11 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 					.click();
 		});
 		this.driverManager.waitUntilSidebarOpens();
-
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

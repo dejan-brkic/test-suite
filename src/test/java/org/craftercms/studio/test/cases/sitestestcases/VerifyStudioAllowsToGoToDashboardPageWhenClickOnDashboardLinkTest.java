@@ -34,7 +34,7 @@ public class VerifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest e
 
 	private String userName;
 	private String password;
-	
+
 	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {

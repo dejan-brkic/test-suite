@@ -152,16 +152,9 @@ public class UsersPage {
 	}
 
 	// edit User
-	public void clickEditOptionCreated() {
-		WebElement edit = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				editUserOption);
-		edit.click();
-	}
-
-	// edit User
-	public void clickOnEditUserCreated() {
-		// edit User
-		this.clickEditOptionCreated();
+	public void clickEditUsername(String username) {
+		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				String.format(editUserOption, username)).click();
 	}
 
 	public WebDriverManager getDriverManager() {
@@ -190,29 +183,13 @@ public class UsersPage {
 		crafterLogoWebElement.click();
 	}
 
-	public void deleteAllUsersExceptAdmin() {
-		this.driverManager.waitForAnimation();
-		List<WebElement> usersListitem = this.driverManager.getDriver()
-				.findElements(By.xpath(deleteUsersRowsXpath));
+	public void deleteUser(String username) {
+		// click on the delete button
+		this.driverManager.clickElement("xpath", String.format(deleteNonAdminUserIconXpath, username));
 
-		for (int i = 1; i < usersListitem.size(); i++) {
-
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitUntilPageLoad();
-
-			WebElement element = this.driverManager.waitUntilElementIsClickable("xpath",
-					deleteNonAdminUserIconXpath);
-			// click on the delete button
-			this.driverManager.clickElement("xpath", deleteNonAdminUserIconXpath);
-
-			// confirm and wait
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", deleteYesButtonXpath).click();
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitUntilDeleteSiteModalCloses();
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitUntilElementIsRemoved(element);
-			this.driverManager.waitForAnimation();
-		}
+		// confirm and wait
+		this.driverManager.clickElement("xpath", deleteYesButtonXpath);
+		this.driverManager.waitUntilDeleteSiteModalCloses();
 	}
 
 	public void clickOnSitesOption() {

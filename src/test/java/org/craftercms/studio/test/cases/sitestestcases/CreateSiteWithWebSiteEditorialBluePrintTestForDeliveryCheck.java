@@ -72,7 +72,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 				.isDisplayed());
 
 		// go to delivery folder and init site for test
-		int exitCode = this.driverManager.goToFolderAndExecuteInitSiteScriptThroughCommandLine(siteId);
+		int exitCode = this.driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(siteId, "init");
 
 		Assert.assertTrue(exitCode == 0, "Init site process failed");
 

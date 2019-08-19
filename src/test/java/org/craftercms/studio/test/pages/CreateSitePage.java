@@ -192,7 +192,7 @@ public class CreateSitePage {
 	}
 
 	public CreateSitePage setPushRepositoryPrivateKey(String repositoryPrivateKey) {
-		driverManager.sendText("xpath", this.pushRepositoryPrivateKey, repositoryPrivateKey);
+		driverManager.sendTextByLineJS("id", this.pushRepositoryPrivateKey, repositoryPrivateKey);
 		return this;
 	}
 
@@ -223,7 +223,7 @@ public class CreateSitePage {
 	}
 
 	public CreateSitePage setFromGitRepositoryPrivateKey(String repositoryPrivateKey) {
-		driverManager.sendText("xpath", this.fromGitRepositoryPrivateKey, repositoryPrivateKey);
+		driverManager.sendTextByLineJS("id", this.fromGitRepositoryPrivateKey, repositoryPrivateKey);
 		return this;
 	}
 
@@ -257,8 +257,7 @@ public class CreateSitePage {
 
 	// Press on create site
 	public CreateSitePage clickOnCreateButton() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id",
-				createSiteButton).click();
+		this.driverManager.clickElement("id", createSiteButton);
 		return this;
 	}
 

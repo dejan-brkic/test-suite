@@ -16,6 +16,7 @@
  */
 package org.craftercms.studio.test.cases.sanitytesttestcases;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -38,10 +39,7 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 	private String siteDropdownElementXPath;
 	private String createSiteErrorNotificationWindow;
 	private String adminConsole;
-	private String menuSitesButton;
-
 	private String dashboardSiteContent;
-
 	private String siteConfigcontentTypesOption;
 	private String siteConfigConfigurationOption;
 	private String siteConfigAuditOption;
@@ -50,6 +48,7 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 	private String siteConfigLogConsoleOption;
 	private String siteConfigRemoteRepositoriesOption;
 	private String siteConfigGraphiqlOption;
+
 	@BeforeMethod
 	public void beforeTest() {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
@@ -58,8 +57,6 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdown");
 		createSiteErrorNotificationWindow = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsite.errowindow");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		adminConsole = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
 		dashboardSiteContent = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -83,32 +80,9 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 
 	}
 
-	public void deleteSite() {
-
-		this.driverManager.getDriver().switchTo().defaultContent();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", menuSitesButton)
-				.click();
-
-		// Click on Delete icon
-		homePage.clickOnDeleteSiteIcon();
-
-		// Click on YES to confirm the delete.
-		homePage.clickOnYesToDeleteSite();
-
-		// Refresh the page
-		driverManager.getDriver().navigate().refresh();
-
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		deleteSite();
-	}
-
-	@Test(
-			priority = 0)
-	public void automateCheckItemsInSiteConfig() {
+	@Parameters({"testId"})
+	@Test()
+	public void automateCheckItemsInSiteConfig(String testId) {
 
 		// login to application
 		loginPage.loginToCrafter(userName, password);
@@ -121,7 +95,7 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 
 		//select blueprint, set site name, set description, click review and create site
 		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName()
+				.setSiteName(testId)
 				.setDescription("Description")
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
@@ -177,4 +151,9 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 				"ERROR: GraphiQL option is not present");
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

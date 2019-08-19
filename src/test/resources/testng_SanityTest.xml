@@ -17,23 +17,42 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - SanityTest TestSuite"
-	preserve-order="true" verbose="3">
-	<test name="SanityTest Test">
+<suite name="craftercms - SanityTest TestSuite" parallel="tests" thread-count="4" verbose="3">
+	<test name="Open Studio Test">
+		<parameter name="testId" value="sanity001"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateOpeningStudioInActualBrowser" />
-			<class
-				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateLoginInToStudio" />
-			<class
-				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCreatingSiteUsingWebsiteEditorialBlueprint" />
-			<class
-				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCheckItemsInSiteConfig" />
-			<class
-				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCheckingNoErrorsDisplayedInTheDashboard" />
-			<class
-				name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage" />
+			<class name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateOpeningStudioInActualBrowser"/>
 		</classes>
-	</test> <!-- Test -->
+	</test>
+	<test name="Login into Studio Test">
+		<parameter name="testId" value="sanity002"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateLoginInToStudio"/>
+		</classes>
+	</test>
+	<test name="Create Site Using Editorial BP Test">
+		<parameter name="testId" value="sanity003"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCreatingSiteUsingWebsiteEditorialBlueprint"/>
+		</classes>
+	</test>
+	<test name="Check Items in Site Config Test">
+		<parameter name="testId" value="sanity006"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCheckItemsInSiteConfig" />
+		</classes>
+	</test>
+	<test name="Check Dashboard">
+		<parameter name="testId" value="sanity005"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateCheckingNoErrorsDisplayedInTheDashboard" />
+		</classes>
+	</test>
+	<test name="Check no errors in Editorial BP">
+		<parameter name="testId" value="sanity004"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage"/>
+		</classes>
+	</test>
 </suite> <!-- Suite -->
 

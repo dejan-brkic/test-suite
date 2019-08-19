@@ -17,46 +17,36 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Dashboard TestSuite"
-	preserve-order="true" verbose="3">
+<suite name="craftercms - Studio Dashboard TestSuite" parallel="tests"  thread-count="4" verbose="3">
+	<parameter name="blueprint" value="empty"/>
 	<test name="Design Of Workflow Section Test">
+		<parameter name="testId" value="dashboard027"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.dashboardtestcases.DesignOfWorkflowStateSectionTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.dashboardtestcases.DesignOfWorkflowStateSectionTest"/>
 		</classes>
 	</test>
 	<test name="Edit Content Form Test">
+		<parameter name="testId" value="dashboardid01"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.dashboardtestcases.EditContentThroughDashboardEditOptionTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.dashboardtestcases.EditContentThroughDashboardEditOptionTest"/>
+		</classes>
+	</test>
+	<test name="Filter Activity Item Types Test">
+		<parameter name="testId" value="dashboard024"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.dashboardtestcases.RecentActivityFilterShowTest"/>
 		</classes>
 	</test>
 	<test name="Filter Show Recent Activity Test">
+		<parameter name="testId" value="dashboard025"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.dashboardtestcases.RecentActivityFilterShowTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.dashboardtestcases.RecentActivityFilterShowTest"/>
 		</classes>
 	</test>
 	<test name="Show Hide Site Content Test">
+		<parameter name="testId" value="dashboard001"/>
 		<classes>
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.CreateSiteEmptyTest" />
-			<class
-				name="org.craftercms.studio.test.cases.dashboardtestcases.ShowHideSiteContentTest" />
-			<class
-				name="org.craftercms.studio.test.cases.sitestestcases.DeleteSiteTest" />
+			<class name="org.craftercms.studio.test.cases.dashboardtestcases.ShowHideSiteContentTest"/>
 		</classes>
 	</test>
 </suite> <!-- Suite -->

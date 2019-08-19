@@ -17,7 +17,9 @@
 package org.craftercms.studio.test.cases.contextualnavigationtestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -42,13 +44,13 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	private String createFormFrameElementCss;
 	private String createFormTitleElementXPath;
 	private String actionsHeaderXpath;
-	private String siteDropdownListElementXPath;
 	private String siteDropdownElementXPath;
 	private static Logger logger = LogManager.getLogger(VerifyThatCompareHistoryWorksProperly.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
-
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 
@@ -68,14 +70,12 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 				.getProperty("complexscenarios.crafter3loadtest.differencedialog_addedmark");
 		actionsHeaderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.historydialogactionsheader");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 
 	}
 
-	public void loginAndGoToSiteContentPagesStructure() {
+	public void loginAndGoToSiteContentPagesStructure(String testId) {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
@@ -83,17 +83,8 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 		driverManager.waitUntilLoginCloses();
 		this.driverManager.waitForAnimation();
 		// go to preview page
-		homePage.goToPreviewPage();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		homePage.goToPreviewPage(testId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void editSelectedContent() {
@@ -183,10 +174,10 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 		this.compareTwoVersionsOfAContentPage();
 	}
 
-	public void testScenario() {
+	public void testScenario(String testId) {
 		// login and go to dashboard page, later open the content site (site
 		// dropdown panel)
-		this.loginAndGoToSiteContentPagesStructure();
+		this.loginAndGoToSiteContentPagesStructure(testId);
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 		this.editHome();
@@ -196,11 +187,16 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 
 	}
 
-	@Test(
-			priority = 0,
-			sequential = true)
-	public void verifyThatCompareHistoryWorksProperly() {
-		this.testScenario();
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatCompareHistoryWorksProperly(String testId) {
+		this.testScenario(testId);
 	}
 
+	@Parameters({"testId", "testUser"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId, String testUser) {
+		apiTestHelper.deleteSite(testId);
+		apiTestHelper.deleteUser(testUser);
+	}
 }

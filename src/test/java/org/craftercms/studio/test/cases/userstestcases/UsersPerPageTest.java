@@ -85,7 +85,6 @@ public class UsersPerPageTest extends StudioBaseTest{
 		this.driverManager.waitForAnimation();
 	}
 
-
 	@Test(priority = 0)
 	public void verifyThatTheShowUsersPerPageWorksProperlyTest() {
 		// login to application

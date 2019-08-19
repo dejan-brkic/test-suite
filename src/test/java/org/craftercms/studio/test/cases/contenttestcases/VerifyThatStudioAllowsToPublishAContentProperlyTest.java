@@ -17,9 +17,10 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -39,14 +40,11 @@ public class VerifyThatStudioAllowsToPublishAContentProperlyTest extends StudioB
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
 	private String articlesFolder;
 	private String articles2016Folder;
 	private String testingArticleXpath;
-	private String editRecentlyContentCreated;
-	private String createFormFrameElementCss;
 	private String articles201612Folder;
 	private String testingArticleCompleteXPath;
 	private String publishOptionLocator;
@@ -55,14 +53,14 @@ public class VerifyThatStudioAllowsToPublishAContentProperlyTest extends StudioB
 	private static final Logger logger = LogManager
 			.getLogger(VerifyThatStudioAllowsToPublishAContentProperlyTest.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String siteId, String blueprint) {
+		apiTestHelper.createSite(siteId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -73,10 +71,6 @@ public class VerifyThatStudioAllowsToPublishAContentProperlyTest extends StudioB
 				.getProperty("frame2.select_All_Categories_CheckBox");
 		testingArticleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.page.testpage");
-		editRecentlyContentCreated = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("rightclick.edit.option");
-		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.createformframe");
 		articles201612Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.201612childfolder");
 		testingArticleCompleteXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -87,24 +81,14 @@ public class VerifyThatStudioAllowsToPublishAContentProperlyTest extends StudioB
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 	}
 
-	public void loginAndGoToPreview() {
+	public void loginAndGoToPreview(String testId) {
 		loginPage.loginToCrafter(userName, password);
 
 		driverManager.waitUntilLoginCloses();
 
 		// go to preview page
-		homePage.goToPreviewPage();
-
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		homePage.goToPreviewPage(testId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void createNewPageArticle(String folderLocation) {
@@ -125,8 +109,6 @@ public class VerifyThatStudioAllowsToPublishAContentProperlyTest extends StudioB
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
 		this.driverManager.waitUntilSidebarOpens();
-		// expand pages folder
-		dashboardPage.expandPagesTree();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -142,25 +124,6 @@ public class VerifyThatStudioAllowsToPublishAContentProperlyTest extends StudioB
 
 		dashboardPage.expandParentFolder(articles201612Folder);
 		this.createNewPageArticle(articles201612Folder);
-	}
-
-	public void editArticleAndSaveAndClose() {
-		logger.info("Editing testing article created previously");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				testingArticleXpath);
-		this.driverManager.contextClick("xpath", testingArticleXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-					editRecentlyContentCreated);
-			editOption.click();
-		}, "Pages");
-
-		this.driverManager.waitForAnimation();
-		logger.info("Opening edit form");
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			// edit internal name
-			dashboardPage.editInternalName("Testing");
-		});
 	}
 
 	public void publishArticle() {
@@ -243,23 +206,22 @@ public class VerifyThatStudioAllowsToPublishAContentProperlyTest extends StudioB
 				.getAttribute("class").contains("undefined live"));
 	}
 
-	public void setup() {
-		this.loginAndGoToPreview();
+	@Parameters({"testId"})
+	@Test()
+	public void verifyThatStudioAllowsToPublishAContentProperlyTest(String testId) {
+		this.loginAndGoToPreview(testId);
 		this.openSidebarAndGotoArticlesChildFolderAndCreatNewArticle();
-	}
-
-	@Test(
-			priority = 0)
-	public void verifyThatStudioAllowsToPublishAContentProperlyTest() {
-		this.setup();
-
 		// Step 3
 		this.checkContentAndProperIconAreDisplayedAfterCreateContent();
 
 		// Step 4
 		this.publishArticle();
 		this.checkContentAndProperIconAreDisplayedAfterPublishContent();
-
 	}
 
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
+		apiTestHelper.deleteSite(testId);
+	}
 }

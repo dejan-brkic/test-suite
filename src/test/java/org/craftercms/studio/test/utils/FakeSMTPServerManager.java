@@ -68,7 +68,7 @@ public class FakeSMTPServerManager {
 		String token = "";
 
 		Pattern pattern = Pattern.compile("token=([^\\\"]+)");
-		Matcher matcher = pattern.matcher(this.getMessages().get(0).getBody().toString());
+		Matcher matcher = pattern.matcher(this.getMessages().get(0).getBody());
 		if (matcher.find()) {
 			try {
 				token = URLDecoder.decode(matcher.group(1), "UTF-8");

@@ -268,11 +268,37 @@ public class SiteConfigPage {
 		}
 	}
 
+	public void saveSectionDropped(Boolean oneTime) {
+		this.driverManager.waitForAnimation();
+		try {
+			this.driverManager.waitUntilElementIsClickable("xpath", saveButton).click();
+			WebElement notification = this.driverManager.waitUntilElementIsDisplayed("xpath",
+					contentTypeSavedNotification);
+			this.driverManager.waitUntilContentTypeNotificationIsNotDisplayed("xpath", "div",
+					notification);
+			this.driverManager.waitForAnimation();
+		} catch (TimeoutException e) {
+			logger.warn("Click on Save button didn't work, trying again");
+		} catch (WebDriverException exception) {
+			driverManager.takeScreenshot("ErrorDialogWasDisplayed");
+			WebElement error = this.driverManager.waitUntilElementIsDisplayed("xpath",
+					".//div[@class='bd']");
+			logger.warn("Error dialog was displayed, the error is: {}", error.getText());
+		}
+	}
+
 	public void saveDragAndDropProcess() {
 		// Save the section dropped.
 		logger.debug("Click on Save button");
 		this.driverManager.waitForAnimation();
 		this.saveSectionDropped();
+	}
+
+	public void saveDragAndDropProcess(Boolean one) {
+		// Save the section dropped.
+		logger.debug("Click on Save button");
+		this.driverManager.waitForAnimation();
+		this.saveSectionDropped(one);
 	}
 
 	public void cancelChangesOnContentType() {
@@ -743,8 +769,6 @@ public class SiteConfigPage {
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", suiteConfigIFrame));
 
 		this.checkRepositoriesListHeaders();
-
-		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(remoteRepoRows));
 
 		logger.info("Checking that the new remote repository is on the list");		
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", remoteRepoFirsChildName);

@@ -19,11 +19,10 @@ package org.craftercms.studio.test.cases.contenttestcases;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import java.io.File;
-import java.util.NoSuchElementException;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.cases.StudioBaseTest;
@@ -43,7 +42,6 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	private String password;
 	private int amountOfLastLinesToReadOnLog;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String staticAssetsTreeXpath;
 	private String staticAssetsSubTreeXpath;
 	private String cssFolder;
@@ -58,8 +56,10 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(WebDriverManager.class);
 
+	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String testId, String blueprint) {
+		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		amountOfLastLinesToReadOnLog = Integer
@@ -67,8 +67,6 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 						.getProperty("crafter.bulkupload.amountoflastlinestoreadonlog"));
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		cssFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.staticassets.cssfolder");
 		fontsFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -89,7 +87,7 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 				.getProperty("general.scripts.scriptstree");
 		scriptsSubTreeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.scripts.scriptssubtree");
-		editorialBPSiteId = "editorialbpsite" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
+		editorialBPSiteId = testId;
 	}
 
 	public void createFoldersStructureToTest() {
@@ -99,52 +97,14 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 	public void setup() {
 		loginPage.loginToCrafter(userName, password);
-
-		driverManager.waitUntilLoginCloses();
-
-		this.createSiteUsingWebSiteEditorialBluePrint();
-
-		dashboardPage.clickOnSitesOption();
-
 		createFoldersStructureToTest();
 	}
 
-	public void createSiteUsingWebSiteEditorialBluePrint() {
-		logger.info("Creating site using WebSite Editorial blueprint with name: {}", editorialBPSiteId);
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-
-		// Select website blueprint, set site name, set description, click review and create site
-		createSitePage.selectWebSiteEditorialBluePrintOption()
-				.setSiteName(editorialBPSiteId)
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteDropdownElementXPath);
-
-		Assert.assertTrue(this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
-
-	}
-
-	public void goToPreview() {
-		logger.info("Going to preview page of site: {}", editorialBPSiteId);
+	public void goToPreview(String siteId) {
+		logger.info("Going to preview page of site: {}", siteId);
 		// go to preview page
-		homePage.goToPreviewPage();
-
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		homePage.goToPreviewPage(siteId);
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void expandStaticAssetsTree() {
@@ -325,13 +285,13 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 				amountOfLastLinesToReadOnLog);
 	}
 
-	@Test(
-			priority = 0)
-	public void verifyBulkUploadAssetsWorksProperlyTest() {
+	@Parameters({"testId"})
+	@Test()
+	public void verifyBulkUploadAssetsWorksProperlyTest(String testId) {
 
 		this.setup();
 
-		this.goToPreview();
+		this.goToPreview(testId);
 
 		this.driverManager.waitUntilSidebarOpens();
 
@@ -405,13 +365,11 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 		this.step33();
 	}
 
-	public void deleteFoldersStructureToTest() {
+	@Parameters({"testId"})
+	@AfterMethod(alwaysRun = true)
+	public void afterTest(String testId) {
 		int exitCode = this.driverManager.deleteFoldersStructureForTestingCopiedFromSite();
 		Assert.assertTrue(exitCode == 0, "Delete folders structure process failed");
-	}
-
-	@AfterMethod
-	public void afterTest() {
-		this.deleteFoldersStructureToTest();
+		apiTestHelper.deleteSite(testId);
 	}
 }
