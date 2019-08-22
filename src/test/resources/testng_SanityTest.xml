@@ -17,7 +17,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - SanityTest TestSuite" parallel="tests" thread-count="4" verbose="3">
+<suite name="craftercms - SanityTest TestSuite" parallel="tests" thread-count="4" verbose="3" preserve-order="false">
 	<test name="Open Studio Test">
 		<parameter name="testId" value="sanity001"/>
 		<classes>
@@ -54,5 +54,11 @@
 			<class name="org.craftercms.studio.test.cases.sanitytesttestcases.AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage"/>
 		</classes>
 	</test>
+	<test name="Change Password User Test">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.accountmanagementtestcases.ChangePasswordUserTest"/>
+		</classes>
+	</test>
+
 </suite> <!-- Suite -->
 

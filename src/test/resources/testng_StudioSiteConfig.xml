@@ -17,7 +17,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Site Config TestSuite" parallel="tests" thread-count="4" verbose="3">
+<suite name="craftercms - Studio Site Config TestSuite" parallel="tests" thread-count="4" verbose="3" preserve-order="false">
 	<parameter name="blueprint" value="empty"/>
 	<test name="Content Type Drag and Drop">
 		<parameter name="testId" value="siteconfigid01"/>

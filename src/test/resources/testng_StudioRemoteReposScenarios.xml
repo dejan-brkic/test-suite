@@ -17,7 +17,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio - Site Remote Repos TestSuite" parallel="tests" thread-count="4" verbose="3">
+<suite name="craftercms - Studio - Site Remote Repos TestSuite" parallel="tests" thread-count="4" verbose="3" preserve-order="false">
 	<test name="Verify that application allows to create a site based on a blueprint then push to remote git repository">
         <parameter name="testId" value="sites010"/>
 		<classes>

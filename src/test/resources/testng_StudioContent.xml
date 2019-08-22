@@ -17,7 +17,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Content TestSuite" parallel="tests" thread-count="4" verbose="3">
+<suite name="craftercms - Studio Content TestSuite" parallel="tests" thread-count="4" verbose="3" preserve-order="false" >
 	<test name="Add New Content Entry Test">
 		<parameter name="blueprint" value="empty"/>
 		<parameter name="testId" value="content011"/>
@@ -114,14 +114,14 @@
 	</test>
 	<test name="Verify that studio allows to rename content via Form (page.xml move name)">
 		<parameter name="testId" value="content027"/>
-		<parameter name="blueprint" value="editorial"/>
+		<parameter name="blueprint" value="empty"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contenttestcases.RenameViaFormTest"/>
 		</classes>
 	</test>
 	<test name="Verify that studio allows to cut and paste content to folder (page.xml move to folder)">
 		<parameter name="testId" value="content028"/>
-		<parameter name="blueprint" value="editorial"/>
+		<parameter name="blueprint" value="empty"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contenttestcases.CutPasteToFolderTest"/>
 		</classes>

@@ -17,7 +17,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Sites TestSuite" parallel="tests" thread-count="4" verbose="3">
+<suite name="craftercms - Studio Sites TestSuite" parallel="tests" thread-count="4" verbose="3" preserve-order="false">
 	<test name="Create Site Using Empty Blueprint">
         <parameter name="testId" value="sitesid01"/>
         <parameter name="blueprint" value="empty"/>
