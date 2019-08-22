@@ -204,16 +204,16 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
 
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+		if (this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+			if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 						.click();
 			else
 				throw new NoSuchElementException(
@@ -225,10 +225,10 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 		dashboardPage.clickHomeTree();
 
 		logger.info("Open dependencies for the previous created element");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
 				.click();
 
 		// check dependencies are listed
@@ -238,16 +238,16 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 
 	public void step2() {
 		// Click on Style page
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLocator);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLocator).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLocator);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLocator).click();
 
 		logger.info("Open dependencies for the previous created element");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
 				.click();
 
 		// check dependencies are listed
@@ -257,27 +257,27 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 
 	public void step3() {
 		// Click on Home
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(folder2017Locator);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage
 				.expandParentFolder(folder2017Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='1']");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage);
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage);
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", wommenStylesArticlePage)
 				.click();
 
 		logger.info("Open dependencies for the previous created element");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
 				.click();
 
 		// check dependencies are listed
@@ -286,47 +286,47 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step4() {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(folder2016Locator);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage
 				.expandParentFolder(folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='6']");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testpageXpath);
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testpageXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testpageXpath);
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testpageXpath).click();
 
 		logger.info("Open dependencies for the previous created element");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
 				.click();
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForPageItem("Testing1",true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.collapseParentFolder(articlesFolder);
 	}
 
 	public void step5() {
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", searchResultsPageXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", searchResultsPageXpath)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", searchResultsPageXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", searchResultsPageXpath)
 				.click();
 
 		logger.info("Open dependencies for the previous created element");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", generalEditOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependenciesMenuOption)
 				.click();
 
 		// check dependencies are listed
@@ -335,140 +335,140 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step6() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath)
 				.click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(componentSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(articlesWidgetFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(latestArticlesWidget, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForComponentItem("Latest Articles Widget",true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesWidgetFolder);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesWidgetFolder);
 		dashboardPage.collapseParentFolder(articlesWidgetFolder);
 	}
 
 	public void step7() {
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(headerFolderXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(headerXpath, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForComponentItem("Header",true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", headerFolderXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", headerFolderXpath);
 		dashboardPage.collapseParentFolder(headerFolderXpath);
 	}
 
 	public void step8() {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(featuresFolderXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(fourXpath, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForComponentItem("Four",true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", featuresFolderXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", featuresFolderXpath);
 		dashboardPage.collapseParentFolder(featuresFolderXpath);
 	}
 
 	public void step9() {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(leftrailsfolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(leftrailwithlastestarticles, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForComponentItem("Left Rail with Latest Articles",false);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", leftrailsfolder);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", leftrailsfolder);
 		dashboardPage.collapseParentFolder(leftrailsfolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentSubTreeXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentSubTreeXpath);
 		dashboardPage.collapseParentFolder(componentSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", componentsTreeXpath);
 		dashboardPage.collapseParentFolder(componentsTreeXpath);
 	}
 
 	public void step10() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
 				.click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(staticAssetsSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(staticAssetsimagesFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(bookWomanImage, "Static Assets");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkNoDependenciesForItem("book-woman-pic.jpg",true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsimagesFolder);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsimagesFolder);
 		dashboardPage.collapseParentFolder(staticAssetsimagesFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsSubTreeXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsSubTreeXpath);
 		dashboardPage.collapseParentFolder(staticAssetsSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
 		dashboardPage.collapseParentFolder(staticAssetsTreeXpath);
 
 	}
 
 	public void step11() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath).click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(templatesSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(templatesWebFolder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(templatesPagesFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(articleFTLXpath, "Templates");
 
 		// check dependencies are listed
@@ -478,8 +478,8 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step12() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(categoryLandingFTLXpath, "Templates");
 
 		// check dependencies are listed
@@ -489,8 +489,8 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step13() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(homeFTLXpath, "Templates");
 
 		// check dependencies are listed
@@ -499,44 +499,44 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step14() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(searchResultsFTLXpath, "Templates");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkDependenciesForTemplateItem("search-results.ftl",true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesPagesFolder);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesPagesFolder);
 		dashboardPage.collapseParentFolder(templatesPagesFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesWebFolder);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesWebFolder);
 		dashboardPage.collapseParentFolder(templatesWebFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesSubTreeXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesSubTreeXpath);
 		dashboardPage.collapseParentFolder(templatesSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesTreeXpath);
 		dashboardPage.collapseParentFolder(templatesTreeXpath);
 	}
 
 	public void step15() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath).click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(scriptsSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(scriptsPagesFolderXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(categoryLandingGroovy, "Scripts");
 
 		// check dependencies are listed
@@ -545,8 +545,8 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step16() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(homeGroovy, "Scripts");
 
 		// check dependencies are listed
@@ -555,8 +555,8 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step17() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(searchResultsGroovy, "Scripts");
 
 		// check dependencies are listed
@@ -565,46 +565,46 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step18() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(siteMapGroovy, "Scripts");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkNoDependenciesForItem("site-map.groovy",true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsPagesFolderXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsPagesFolderXpath);
 		dashboardPage.collapseParentFolder(scriptsPagesFolderXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsSubTreeXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsSubTreeXpath);
 		dashboardPage.collapseParentFolder(scriptsSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsTreeXpath);
 		dashboardPage.collapseParentFolder(scriptsTreeXpath);
 	}
 
 	public void step19() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
 				.click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(staticAssetsSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(staticAssetsCssFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(fontAwesomeMinCss, "Static Assets");
 
 		// check dependencies are listed
@@ -613,25 +613,25 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void step20() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(ie8Css, "Static Assets");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
 		previewPage.checkNoDependenciesForItem("ie8.css",true);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsCssFolder);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsCssFolder);
 		dashboardPage.collapseParentFolder(staticAssetsCssFolder);
 	}
 
 	public void step21() {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(staticAssetsJSFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(jqueryjs, "Static Assets");
 
 		// check dependencies are listed
@@ -640,17 +640,17 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 	}
 
 	public void rightClickAndClickOnDependencies(String itemLocator, String menuLocation) {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", itemLocator);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", itemLocator);
 
-		this.driverManager.contextClick("xpath", itemLocator, false);
-		driverManager.usingContextMenu(() -> {
-			this.driverManager.waitUntilContentTooltipIsHidden();
-			WebElement dependenciesOption = this.driverManager
+		this.getWebDriverManager().contextClick("xpath", itemLocator, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+			WebElement dependenciesOption = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependeciesOption);
 			dependenciesOption.click();
 		}, menuLocation);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void changeBodyToNotRequiredOnPageArticleContent() {
@@ -660,12 +660,12 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	@Parameters({"testId"})
@@ -676,34 +676,34 @@ public class DependenciesCalculationItemRefersToTest extends StudioBaseTest {
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
 		// Expand Home Tree
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(folder2016Locator);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage
 				.expandParentFolder(folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='6']");
 		this.createNewPageArticle(folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='6']");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(
 				folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='6']");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(folder2016Locator);
 
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 
 		step1();
 

@@ -63,27 +63,27 @@ public class VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOp
 		logger.info("Login into Crafter");
 		loginPage.loginToCrafter(userName,password);
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		homePage.goToPreviewPage(testId);
 
 		//Expand the site bar
 		logger.info("Opening the site bar");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",siteDropdownElementXPath);
 		
-		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
+		this.getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		Assert.assertTrue(this.getWebDriverManager().isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 		
 		logger.info("Click on the Site ConFig Page");
-		WebElement siteConfigLinkElement = this.driverManager
+		WebElement siteConfigLinkElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteConfigLink);
 		siteConfigLinkElement.click();
 		
 		logger.info("Verify Site Config Page is displayed");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
-		WebElement contentTypesOptionElement = this.driverManager
+		WebElement contentTypesOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", contentTypeOption);
 		Assert.assertTrue(contentTypesOptionElement.isDisplayed(),
 				"ERROR: Content Type Option is not present, verify if Site config Page is displayed");

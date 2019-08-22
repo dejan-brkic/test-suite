@@ -116,8 +116,8 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 
 	public void createContent() {
 		// right click to see the the menu
-		driverManager.waitUntilPageLoad();
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilPageLoad();
+		getWebDriverManager().waitUntilSidebarOpens();
 		dashboardPage.rightClickToSeeMenu();
 
 		// Select Entry Content Type
@@ -126,22 +126,22 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// creating random values for URL field and InternalName field
 
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 	}
 
@@ -149,7 +149,7 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
@@ -171,92 +171,92 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 		dashboardPage.setFolderName("a-folder");
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// create content
 		createContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 	}
 
 	public void goToDashboardAndManageContents() {
 		// click on dashboard
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
 						.getText().contains("foo"));
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
 						.getText().contains("/foo.xml"));
 
 		// expand pages folder
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandPagesTree();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
-		this.driverManager.contextClick("xpath", fooContentXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement copyContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
+		this.getWebDriverManager().contextClick("xpath", fooContentXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement copyContent = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					this.copyContent);
 			copyContent.click();
 		}, "Pages");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderContent);
-		this.driverManager.contextClick("xpath", folderContent, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement pasteContentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderContent);
+		this.getWebDriverManager().contextClick("xpath", folderContent, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement pasteContentElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					pasteContent);
 			pasteContentElement.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderChildContent).isDisplayed());
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooOriginalContent).isDisplayed());
 
 		// click on dashboard
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
 						.getText().contains("foo"));
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
 						.getText().contains("/a-folder/foo.xml"));
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName)
 						.getText().contains("foo"));
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
 						.getText().contains("/foo.xml"));
 	}
 	
@@ -271,79 +271,79 @@ public class CopyPasteToFolderWithCollisionTest extends StudioBaseTest {
 	}
 
 	public void step4() {
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandPagesTree();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
-		this.driverManager.contextClick("xpath", fooContentXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement copyContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
+		this.getWebDriverManager().contextClick("xpath", fooContentXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement copyContent = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					this.copyContent);
 			copyContent.click();
 		}, "Pages");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void step5() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderContent);
-		this.driverManager.contextClick("xpath", folderContent, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement pasteContentElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderContent);
+		this.getWebDriverManager().contextClick("xpath", folderContent, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement pasteContentElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					pasteContent);
 			pasteContentElement.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderSecondChildContent)
 				.isDisplayed());
 
-		this.secondPasteContentText = this.driverManager
+		this.secondPasteContentText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderSecondChildContent).getText();
 	}
 
 	public void step6() {
 		// click on dashboard
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName)
 						.getText().contains(secondPasteContentText));
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		String pageUrl = secondPasteContentText.replace("foo ", "foo-") + ".xml";
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL)
 						.getText().contains("/a-folder/" + pageUrl));
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentName)
 						.getText().contains("foo"));
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivitySecondContentURL)
 						.getText().contains("/a-folder/foo.xml"));
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityThirdContentName)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityThirdContentName)
 						.getText().contains("foo"));
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityThirdContentURL)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityThirdContentURL)
 						.getText().contains("/foo.xml"));
 
 	}

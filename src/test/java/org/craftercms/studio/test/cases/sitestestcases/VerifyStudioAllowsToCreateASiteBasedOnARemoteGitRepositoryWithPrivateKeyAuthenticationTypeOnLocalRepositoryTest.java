@@ -104,9 +104,9 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	public void step12() {
 		createSitePage.clickOnCreateButton();
 
-		this.driverManager.waitUntilCreateSiteModalCloses();
+		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -125,7 +125,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Step 2
 		step2();
@@ -162,15 +162,15 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	}
 
 	public void setup() {
-		int exitCode = this.driverManager.goToFolderAndExecuteGitInitBareRepository(localRepoName);
+		int exitCode = this.getWebDriverManager().goToFolderAndExecuteGitInitBareRepository(localRepoName);
 		Assert.assertTrue(exitCode == 0, "Init bare repository process failed");
 		//Getting the repository url for local ssh
-		gitRepoUrlForSSH = this.driverManager.getLocalBareRepoURL(localRepoName);
+		gitRepoUrlForSSH = this.getWebDriverManager().getLocalBareRepoURL(localRepoName);
 		System.out.println("dude this is the local repo" + gitRepoUrlForSSH);
 	}
 
 	public void deleteRepositoryFolder() {
-		int exitCode = this.driverManager.goToFolderAndExecuteDeleteBareRepositoryFolder(localRepoName);
+		int exitCode = this.getWebDriverManager().goToFolderAndExecuteDeleteBareRepositoryFolder(localRepoName);
 		Assert.assertTrue(exitCode == 0, "Delete bare repository process failed");
 	}
 

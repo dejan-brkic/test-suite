@@ -54,7 +54,7 @@ public class EnableDisableEditingInContextTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to dashboard page
 		homePage.goToPreviewPage(testId);
@@ -69,7 +69,7 @@ public class EnableDisableEditingInContextTest extends StudioBaseTest {
 		previewPage.clickToEnableDisableInContextEditing();
 
 		// Assert
-		String editIconActive = this.driverManager
+		String editIconActive = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", previewToolsInContextualEditingButton).getText();
 		Assert.assertEquals(editIconActive, "In-Context Edit Off");
 

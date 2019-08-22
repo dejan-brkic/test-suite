@@ -72,22 +72,22 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 	public void dragAndDrop() {
 		
 		// Getting the Form Section control input for drag and drop action
-		WebElement FromControlSectionFormSectionElement = this.driverManager
+		WebElement FromControlSectionFormSectionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFormSectionLocator);
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager
+		WebElement ToContentTypeContainer = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
+		getWebDriverManager().dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector, 10);
-		WebElement FromVideo = this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().focusAndScrollDownToMiddleInASection("#widgets-container",lastControlElementCssSelector, 10);
+		WebElement FromVideo = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionVideoLocator);
 
-		WebElement ToDefaultSection =  this.driverManager
+		WebElement ToDefaultSection =  this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerFormSectionContainerLocator);
 
 		siteConfigPage.getDriverManager().dragAndDropElement(FromVideo, ToDefaultSection);
@@ -109,19 +109,19 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 				userName,password);
 
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		 this.driverManager
+		 this.getWebDriverManager()
 			.driverWaitUntilElementIsPresentAndDisplayed( "xpath", siteDropdownXpath).click();
 
 		// Show admin console page
-		this.driverManager
+		this.getWebDriverManager()
 		.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
 
 		// Select the content type to the test
@@ -137,11 +137,11 @@ public class ContentTypesAddVideoTest extends StudioBaseTest{
 		siteConfigPage.confirmContentTypeSelected();
 
 		// Click on input section to can view the properties
-		driverManager.waitUntilPopupIsHidden();
+		getWebDriverManager().waitUntilPopupIsHidden();
 		siteConfigPage.clickVideoSection();
 
 		// Asserts that fields are not empty.
-		String titleText = this.driverManager
+		String titleText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerVideoTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();

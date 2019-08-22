@@ -68,37 +68,37 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
 		// expand pages folder
 		previewPage.expandPagesTree();
 		
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 		
 		// expand home content
 		previewPage.expandHomeTree();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
 		
 		// click on history option
 		previewPage.clickOnSearchOption();
 
 		// Assertions	
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("/studio/search?"));
-		String searchPlaceholder = this.driverManager.waitUntilElementIsDisplayed("xpath",searchPageTitleXpath).getAttribute("placeholder");
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl().contains("/studio/search?"));
+		String searchPlaceholder = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",searchPageTitleXpath).getAttribute("placeholder");
 		Assert.assertTrue("Search".equalsIgnoreCase(searchPlaceholder));
-		this.driverManager.sendText("xpath", searchPageTitleXpath, "entry");
-		this.driverManager.clickElement("xpath", searchBoxInput);
-		Assert.assertTrue("entry.ftl".equals(this.driverManager.waitForNumberElementsToBe(
+		this.getWebDriverManager().sendText("xpath", searchPageTitleXpath, "entry");
+		this.getWebDriverManager().clickElement("xpath", searchBoxInput);
+		Assert.assertTrue("entry.ftl".equals(this.getWebDriverManager().waitForNumberElementsToBe(
 				"cssselector", searchResultsCss, 1).getText()));
 	}
 

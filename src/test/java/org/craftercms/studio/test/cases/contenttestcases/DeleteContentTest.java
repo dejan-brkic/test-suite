@@ -79,16 +79,16 @@ public class DeleteContentTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement).click();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement).click();
 		});
 
 	}
@@ -100,7 +100,7 @@ public class DeleteContentTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
@@ -108,7 +108,7 @@ public class DeleteContentTest extends StudioBaseTest {
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
 
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilSidebarOpens();
 
 		// expand pages folder
 		dashboardPage.expandPagesTree();
@@ -117,7 +117,7 @@ public class DeleteContentTest extends StudioBaseTest {
 
 		createContent();
 
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -133,9 +133,9 @@ public class DeleteContentTest extends StudioBaseTest {
 		// submittal complete ok
 		dashboardPage.clickOKSubmittalComplete();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		String contentDeleted = this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		String contentDeleted = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
 		Assert.assertEquals(contentDeleted, "/test1");
 	}

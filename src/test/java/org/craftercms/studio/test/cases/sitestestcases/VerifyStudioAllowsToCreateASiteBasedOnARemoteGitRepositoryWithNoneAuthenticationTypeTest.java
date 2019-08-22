@@ -76,7 +76,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 	}
 
 	public void step8() {
-		createSitePage.setFromGitRepositoryURL(this.driverManager.getAuthoringSiteSandboxRepoURL(emptyBPSiteId));
+		createSitePage.setFromGitRepositoryURL(this.getWebDriverManager().getAuthoringSiteSandboxRepoURL(emptyBPSiteId));
 	}
 
 	public void step10() {
@@ -85,10 +85,10 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 
 	public void step11() {
 		createSitePage.clickOnCreateButton();
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilCreateSiteModalCloses();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -150,9 +150,9 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 		
@@ -164,7 +164,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		this.createSiteUsingEmptyBluePrint(emptyBPSiteId);
 	}

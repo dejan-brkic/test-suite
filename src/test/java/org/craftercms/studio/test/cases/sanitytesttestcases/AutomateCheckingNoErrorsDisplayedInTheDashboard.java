@@ -226,7 +226,7 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -239,75 +239,75 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 				.clickOnCreateButton();
 
 		// Verify No error messages after clicking on the Create button
-		Assert.assertFalse(driverManager.isElementPresentByXpath(createSiteErrorNotificationWindow));
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(createSiteErrorNotificationWindow));
+		this.getWebDriverManager().waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
 
-		WebElement sidebar = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement sidebar = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				dashboardSiteContent);
 
 		sidebar.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardMenuOption);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardMenuOption);
 
-		WebElement dashboardMenu = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		WebElement dashboardMenu = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				dashboardMenuOption);
 
 		dashboardMenu.click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				dashboardItemsWaitingForApprovalContainer);
 
 		// Verify Items Waiting For Approval Section is listed with all of its
 		// items
 
-		WebElement itemsWaitingForApprovalContainerElement = this.driverManager
+		WebElement itemsWaitingForApprovalContainerElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalContainer);
 		Assert.assertTrue(itemsWaitingForApprovalContainerElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval container is not present");
 		
-		WebElement itemsWaitingForApprovalCollapseAllButtonElement = this.driverManager
+		WebElement itemsWaitingForApprovalCollapseAllButtonElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalCollapseAllButton);
 		Assert.assertTrue(itemsWaitingForApprovalCollapseAllButtonElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Collapse Button is not present");
 		
-		WebElement itemsWaitingForApprovalShowInProgressItemsButtonElement = this.driverManager
+		WebElement itemsWaitingForApprovalShowInProgressItemsButtonElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalShowInProgressItemsButton);
 		Assert.assertTrue(itemsWaitingForApprovalShowInProgressItemsButtonElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Show In Progress button is not present");
 		
-		WebElement itemsWaitingForApprovalItemsCheckboxElement = this.driverManager
+		WebElement itemsWaitingForApprovalItemsCheckboxElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalItemsCheckbox);
 		Assert.assertTrue(itemsWaitingForApprovalItemsCheckboxElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Select items checkbox is not present");
 
-		WebElement itemsWaitingForApprovalItemNameTitleElement = this.driverManager
+		WebElement itemsWaitingForApprovalItemNameTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalItemNameTitle);
 		Assert.assertTrue(itemsWaitingForApprovalItemNameTitleElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Iten Name title is not present");
 
-		WebElement itemsWaitingForApprovalEdittitleElement = this.driverManager
+		WebElement itemsWaitingForApprovalEdittitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalEdittitle);
 		Assert.assertTrue(itemsWaitingForApprovalEdittitleElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Edit title is not present");
 			
-		WebElement itemsWaitingForApprovalUrlTitleElement = this.driverManager
+		WebElement itemsWaitingForApprovalUrlTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalUrlTitle);
 		Assert.assertTrue(itemsWaitingForApprovalUrlTitleElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval URL title is not present");
 
-		WebElement itemsWaitingForApprovalPublishDateTimeTitleElement = this.driverManager
+		WebElement itemsWaitingForApprovalPublishDateTimeTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalPublishDateTimeTitle);
 		Assert.assertTrue(itemsWaitingForApprovalPublishDateTimeTitleElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Approval Publish Date Time title is not present");
 
-		WebElement itemsWaitingForApprovalLastEditedByTitleElement = this.driverManager
+		WebElement itemsWaitingForApprovalLastEditedByTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalLastEditedByTitle);
 		Assert.assertTrue(itemsWaitingForApprovalLastEditedByTitleElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Approval Last Edited By title is not present");
 				
-		WebElement itemsWaitingForApprovalLastEditedTitleElement = this.driverManager
+		WebElement itemsWaitingForApprovalLastEditedTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", itemsWaitingForApprovalLastEditedTitle);
 		Assert.assertTrue(itemsWaitingForApprovalLastEditedTitleElement.isDisplayed(),
 				"ERROR: Items Waiting for Approval Approval Last Edited title is not present");
@@ -315,166 +315,166 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 		// Verify Approved Scheduled Items Section is listed with all of its
 		// items
 		
-		WebElement approvedScheduledItemsContainerElement = this.driverManager
+		WebElement approvedScheduledItemsContainerElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", approvedScheduledItemsContainer);
 		Assert.assertTrue(approvedScheduledItemsContainerElement.isDisplayed(),
 				"ERROR: Approved Scheduled Items container is not present");
 
-		WebElement approvedScheduledItemsCollapseAllButtonElement = this.driverManager
+		WebElement approvedScheduledItemsCollapseAllButtonElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", approvedScheduledItemsCollapseAllButton);
 		Assert.assertTrue(approvedScheduledItemsCollapseAllButtonElement.isDisplayed(),
 				"ERROR: Approved Scheduled Items Collapse All Button is not present");	
 
-		WebElement approvedScheduledItemsFilterSelectorElement = this.driverManager
+		WebElement approvedScheduledItemsFilterSelectorElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", approvedScheduledItemsFilterSelector);
 		Assert.assertTrue(approvedScheduledItemsFilterSelectorElement.isDisplayed(),
 				"ERROR: Approved Scheduled Items Filter Selector is not present");
 				
-		WebElement approvedScheduledItemsItemsCheckBoxElement = this.driverManager
+		WebElement approvedScheduledItemsItemsCheckBoxElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", approvedScheduledItemsItemsCheckBox);
 		Assert.assertTrue(approvedScheduledItemsItemsCheckBoxElement.isDisplayed(),
 				"ERROR: Approved Scheduled Items Select items checkbox is not present");
 		
-		WebElement approvedScheduledItemsGoToLiveDateTitleElement = this.driverManager
+		WebElement approvedScheduledItemsGoToLiveDateTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", approvedScheduledItemsGoToLiveDateTitle);
 		Assert.assertTrue(approvedScheduledItemsGoToLiveDateTitleElement.isDisplayed(),
 				"ERROR: Approved Scheduled Items Go To Live Date title is not present");	
 				
-		WebElement approvedScheduledItemsEdittitleElement = this.driverManager
+		WebElement approvedScheduledItemsEdittitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", approvedScheduledItemsEdittitle);
 		Assert.assertTrue(approvedScheduledItemsEdittitleElement.isDisplayed(),
 				"ERROR: Approved Scheduled Items Edit Title is not present");
 		
-		WebElement approvedScheduledItemsUrlTitleElement = this.driverManager
+		WebElement approvedScheduledItemsUrlTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", approvedScheduledItemsUrlTitle);
 		Assert.assertTrue(approvedScheduledItemsUrlTitleElement.isDisplayed(),
 				"ERROR: Approved Scheduled Items URL title is not present");	
 				
-		WebElement aapprovedScheduledLastEditedTitleElement = this.driverManager
+		WebElement aapprovedScheduledLastEditedTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", approvedScheduledLastEditedTitle);
 		Assert.assertTrue(aapprovedScheduledLastEditedTitleElement.isDisplayed(),
 				"ERROR: Approved Scheduled Items Last Edited title is not present");	
 		
 		// Verify Recently Published Section is listed with all of its items
 
-		WebElement recentlyPublishedContainerElement = this.driverManager
+		WebElement recentlyPublishedContainerElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedContainer);
 		Assert.assertTrue(recentlyPublishedContainerElement.isDisplayed(),
 				"ERROR: Recently Published container is not present");
 		
-		WebElement recentlyPublishedShowLabelElement = this.driverManager
+		WebElement recentlyPublishedShowLabelElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedShowLabel);
 		Assert.assertTrue(recentlyPublishedShowLabelElement.isDisplayed(),
 				"ERROR: Recently Published Show label is not present");
 
-		WebElement recentlyPublishedShowLabelInputElement = this.driverManager
+		WebElement recentlyPublishedShowLabelInputElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedShowLabelInput);
 		Assert.assertTrue(recentlyPublishedShowLabelInputElement.isDisplayed(),
 				"ERROR: Recently Published Show label Input is not present");
 			
-		WebElement recentlyPublishedCollapseAllButtonElement = this.driverManager
+		WebElement recentlyPublishedCollapseAllButtonElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedCollapseAllButton);
 		Assert.assertTrue(recentlyPublishedCollapseAllButtonElement.isDisplayed(),
 				"ERROR: Recently Published Collapse button is not present");
 
-		WebElement recentlyPublishedFilterSelectorElement = this.driverManager
+		WebElement recentlyPublishedFilterSelectorElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedFilterSelector);
 		Assert.assertTrue(recentlyPublishedFilterSelectorElement.isDisplayed(),
 				"ERROR: Recently Published Filter Selector is not present");
 		
-		WebElement recentlyPublishedItemsCheckBoxElement = this.driverManager
+		WebElement recentlyPublishedItemsCheckBoxElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedItemsCheckBox);
 		Assert.assertTrue(recentlyPublishedItemsCheckBoxElement.isDisplayed(),
 				"ERROR: Recently Published Select items checkbox is not present");
 		
-		WebElement recentlyPublishedItemNameTitleElement = this.driverManager
+		WebElement recentlyPublishedItemNameTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedItemNameTitle);
 		Assert.assertTrue(recentlyPublishedItemNameTitleElement.isDisplayed(),
 				"ERROR: Recently Published Item Name is not present");
 
-		WebElement recentlyPublishedEdittitleElement = this.driverManager
+		WebElement recentlyPublishedEdittitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedEdittitle);
 		Assert.assertTrue(recentlyPublishedEdittitleElement.isDisplayed(),
 				"ERROR: Recently Published Edit label is not present");
 		
-		WebElement recentlyPublishedUrlTitleElement = this.driverManager
+		WebElement recentlyPublishedUrlTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedUrlTitle);
 		Assert.assertTrue(recentlyPublishedUrlTitleElement.isDisplayed(),
 				"ERROR: Recently Published URL title is not present");
 	
-		WebElement recentlyPublishedServerTitleElement = this.driverManager
+		WebElement recentlyPublishedServerTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedServerTitle);
 		Assert.assertTrue(recentlyPublishedServerTitleElement.isDisplayed(),
 				"ERROR: Recently Published Server Title is not present");
 
-		WebElement recentlyPublishedPublishDateTitleElement = this.driverManager
+		WebElement recentlyPublishedPublishDateTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedPublishDateTitle);
 		Assert.assertTrue(recentlyPublishedPublishDateTitleElement.isDisplayed(),
 				"ERROR: Recently Published Publish Date Title is not present");
 		
-		WebElement recentlyPublishedPublishedByTitleElement = this.driverManager
+		WebElement recentlyPublishedPublishedByTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyPublishedPublishedByTitle);
 		Assert.assertTrue(recentlyPublishedPublishedByTitleElement.isDisplayed(),
 				"ERROR: Recently Published Publish By title is not present");	
 		
 		// Verify My Recent Activity Section is listed with all of its items
 		
-		WebElement myRecentActivityContainerElement = this.driverManager
+		WebElement myRecentActivityContainerElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityContainer);
 		Assert.assertTrue(myRecentActivityContainerElement.isDisplayed(),
 				"ERROR: My Recent Activity Section container is not present");
 
-		WebElement myRecentActivityShowLabelElement = this.driverManager
+		WebElement myRecentActivityShowLabelElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityShowLabel);
 		Assert.assertTrue(myRecentActivityShowLabelElement.isDisplayed(),
 				"ERROR: My Recent Activity Section Show label is not present");
 		
-		WebElement myRecentActivityShowLabelInputElement = this.driverManager
+		WebElement myRecentActivityShowLabelInputElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityShowLabelInput);
 		Assert.assertTrue(myRecentActivityShowLabelInputElement.isDisplayed(),
 				"ERROR: My Recent Activity Section Show label input is not present");
 		
-		WebElement myRecentActivityHideLiveItemsButtonElement = this.driverManager
+		WebElement myRecentActivityHideLiveItemsButtonElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityHideLiveItemsButton);
 		Assert.assertTrue(myRecentActivityHideLiveItemsButtonElement.isDisplayed(),
 				"ERROR: My Recent Activity Section hide Live Items button is not present");
 
-		WebElement myRecentActivityFilterSelectorButtonElement = this.driverManager
+		WebElement myRecentActivityFilterSelectorButtonElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityFilterSelector);
 		Assert.assertTrue(myRecentActivityFilterSelectorButtonElement.isDisplayed(),
 				"ERROR: My Recent Activity Section Filter Selector is not present");
 
-		WebElement myRecentActivityItemsCheckboxElement = this.driverManager
+		WebElement myRecentActivityItemsCheckboxElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityItemsCheckbox);
 		Assert.assertTrue(myRecentActivityItemsCheckboxElement.isDisplayed(),
 				"ERROR: My Recent Activity Section Items Checkbox is not present");
 				
-		WebElement myRecentActivityItemNameTitleElement = this.driverManager
+		WebElement myRecentActivityItemNameTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityItemNameTitle);
 		Assert.assertTrue(myRecentActivityItemNameTitleElement.isDisplayed(),
 				"ERROR: My Recent Activity Section Item Name Title is not present");
 				
-		WebElement myRecentActivityEdittitleElement = this.driverManager
+		WebElement myRecentActivityEdittitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityEdittitle);
 		Assert.assertTrue(myRecentActivityEdittitleElement.isDisplayed(),
 				"ERROR: My Recent Activity Section Edit Title is not present");
 	
-		WebElement myRecentActivityUrlTitleElement = this.driverManager
+		WebElement myRecentActivityUrlTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityUrlTitle);
 		Assert.assertTrue(myRecentActivityUrlTitleElement.isDisplayed(),
 				"ERROR: My Recent Activity Section URL Title is not present");
 		
-		WebElement myRecentActivityPublishDateTitleElement = this.driverManager
+		WebElement myRecentActivityPublishDateTitleElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityPublishDateTitle);
 		Assert.assertTrue(myRecentActivityPublishDateTitleElement.isDisplayed(),
 				"ERROR: My Recent Activity Section Publish Date title is not present");
 		
-		WebElement myRecentActivityLastEditedBytitleElement  = this.driverManager
+		WebElement myRecentActivityLastEditedBytitleElement  = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityLastEditedBytitle);
 		Assert.assertTrue(myRecentActivityLastEditedBytitleElement.isDisplayed(),
 				"ERROR: My Recent Activity Section Last Edited By Title is not present");
 
-		WebElement myRecentActivityMyLastEditTitleElement  = this.driverManager
+		WebElement myRecentActivityMyLastEditTitleElement  = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityMyLastEditTitle);
 		Assert.assertTrue(myRecentActivityMyLastEditTitleElement.isDisplayed(),
 				"ERROR: My Recent Activity Section My Last Edit Title is not present");
@@ -482,39 +482,39 @@ public class AutomateCheckingNoErrorsDisplayedInTheDashboard extends StudioBaseT
 		// Verify Icon Guide Section is listed with all of its items
 
 		// Assert workflow guide section is present.
-		WebElement workflowSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement workflowSection = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				workflowPanel);
 		Assert.assertTrue(workflowSection.isDisplayed(), "Error: Workflow section is not displayed");
 
 		// Assert neverpub is present.
-		WebElement neverPublished = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement neverPublished = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				neverPublishedItem);
 		Assert.assertTrue(neverPublished.isDisplayed(), "Error: Never published item is not present");
 
 		// Assert edited is present.
-		WebElement edited = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", editedStateItem);
+		WebElement edited = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", editedStateItem);
 		Assert.assertTrue(edited.isDisplayed(), "Error: Edited item is not present");
 
 		// Assert in workflow is present.
-		WebElement inWorkflow = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", inWorkFlowItem);
+		WebElement inWorkflow = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", inWorkFlowItem);
 		Assert.assertTrue(inWorkflow.isDisplayed(), "Error: Workflow item is not present");
 
 		// Assert scheduled is present.
-		WebElement scheduled = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement scheduled = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				scheduledStateItem);
 		Assert.assertTrue(scheduled.isDisplayed(), "Error: Scheduled item is not present");
 
 		// Assert processing is present.
-		WebElement processing = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement processing = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				processingStateItem);
 		Assert.assertTrue(processing.isDisplayed(), "Error: Processing item is not present");
 
 		// Assert deleted for edit is present.
-		WebElement deleted = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", deletedStateItem);
+		WebElement deleted = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", deletedStateItem);
 		Assert.assertTrue(deleted.isDisplayed(), "Error: Never publisehd item is not present");
 
 		// Assert Locked for edit is present.
-		WebElement locked = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lockedStateItem);
+		WebElement locked = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", lockedStateItem);
 		Assert.assertTrue(locked.isDisplayed(), "Error: Locked item is not present");
 
 	}

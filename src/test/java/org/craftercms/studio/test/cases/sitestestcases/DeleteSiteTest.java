@@ -55,15 +55,15 @@ public class DeleteSiteTest extends StudioBaseTest {
 		loginPage.loginToCrafter(
 				userName,password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on Delete icon
-        this.driverManager.isElementPresentAndClickableByXpath(createSiteButton);
+        this.getWebDriverManager().isElementPresentAndClickableByXpath(createSiteButton);
 		
         this.homePage.deleteSite(testId);
        	
 		// Assert
-		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(String.format(deletedSiteButton, testId)));
+		Assert.assertFalse(this.getWebDriverManager().isElementPresentAndClickableByXpath(String.format(deletedSiteButton, testId)));
 	}
 }
 

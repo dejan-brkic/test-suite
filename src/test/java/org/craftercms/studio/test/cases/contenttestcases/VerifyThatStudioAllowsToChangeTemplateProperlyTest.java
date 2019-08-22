@@ -77,14 +77,14 @@ public class VerifyThatStudioAllowsToChangeTemplateProperlyTest extends StudioBa
 	public void loginAndGoToPreview(String testId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
-		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
+		this.getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -92,31 +92,31 @@ public class VerifyThatStudioAllowsToChangeTemplateProperlyTest extends StudioBa
 
 	public void editSearchResultAfterChangeTemplate() {
 		logger.info("Editing search results content after change template");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		logger.info("Opening edit form");
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// set Article title
 			dashboardPage.setArticlesTitleWhenChangeTemplate("SearchResultsArticleTitle");
 			// select the Articles category
 			dashboardPage.selectFirstCategoryOfPagArticle();
 
 			// save and close
-			this.driverManager
+			this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.getDriver().navigate().refresh();
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().getDriver().navigate().refresh();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void changeTemplateForSearchResultsContent() {
 		logger.info("Publish testing article created previously");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				searchResultsContent);
-		this.driverManager.contextClick("xpath", searchResultsContent, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement changeTemplateOption = this.driverManager
+		this.getWebDriverManager().contextClick("xpath", searchResultsContent, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement changeTemplateOption = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 							changeTemplateOptionXpath);
 			changeTemplateOption.click();
@@ -129,40 +129,40 @@ public class VerifyThatStudioAllowsToChangeTemplateProperlyTest extends StudioBa
 
 	public void checkContentInfoForSearchResultsContent() {
 		logger.info("Checking content type for Search Results page");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				searchResultsContent);
-		this.driverManager.contextClick("xpath", searchResultsContent, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().contextClick("xpath", searchResultsContent, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		logger.info("Opening edit form");
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal name
-			Assert.assertTrue("Page - Category Landing".equalsIgnoreCase(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",editPageContentType).getText()));
-			Assert.assertTrue("search-results".equalsIgnoreCase(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",editPageContentPageName).getText()));
+			Assert.assertTrue("Page - Category Landing".equalsIgnoreCase(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",editPageContentType).getText()));
+			Assert.assertTrue("search-results".equalsIgnoreCase(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",editPageContentPageName).getText()));
 		});
 	}
 
 	public void confirmChangeTemplateAction() {
 		// Switch to the form
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 		// Click on Publish button
 		dashboardPage.clickChangeTemplateSubmitButton();
 		// switch to default content
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	public void acceptChangeTemplateAction() {
 		// Switch to the form
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 		// Click on Publish button
 		dashboardPage.clickOnChangeTemplateYesButton();
 		// switch to default content
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	@Parameters({"testId"})

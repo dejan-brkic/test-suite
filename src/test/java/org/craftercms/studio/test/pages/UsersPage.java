@@ -37,7 +37,6 @@ public class UsersPage {
 	private static final Logger logger = LogManager.getLogger(UsersPage.class);
 
 	private WebDriverManager driverManager;
-	private WebDriver driver;
 	private String deleteUserOption;
 	private String newUserOption;
 	private String saveNewUserOption;
@@ -59,7 +58,6 @@ public class UsersPage {
 
 	public UsersPage(WebDriverManager driverManager, UIElementsPropertiesManager uiElementsPropertiesManager) {
 		this.driverManager = driverManager;
-		this.driver = this.driverManager.getDriver();
 
 		deleteUserOption = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.delete_option");
 		newUserOption = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.new_user");
@@ -92,9 +90,6 @@ public class UsersPage {
 
 	}
 
-	public UsersPage(WebDriver driver) {
-		this.driver = driver;
-	}
 
 	// Try to delete the user connected
 
@@ -163,14 +158,6 @@ public class UsersPage {
 
 	public void setDriverManager(WebDriverManager driverManager) {
 		this.driverManager = driverManager;
-	}
-
-	public WebDriver getDriver() {
-		return driver;
-	}
-
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
 	}
 
 	public Boolean isUsersPageTitlePresent() {

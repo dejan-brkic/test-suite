@@ -60,34 +60,34 @@ public class VerifyThatPaginationOfSiteListWorksProperlyTest extends StudioBaseT
 
 	public void navigationOfPage() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("1");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("1");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("2");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("2");
 
 		// navigation
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastNumberOfPaginationXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", lastNumberOfPaginationXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstNumberOfPaginationXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", firstNumberOfPaginationXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastArrowOfPaginationXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", lastArrowOfPaginationXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstArrowOfPaginationXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", firstArrowOfPaginationXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	@Test()
 	public void verifyThatThePaginationOnSitesListWorkProperly() {
 		loginPage.loginToCrafter(userName, password);
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		navigationOfPage();
 	}
 

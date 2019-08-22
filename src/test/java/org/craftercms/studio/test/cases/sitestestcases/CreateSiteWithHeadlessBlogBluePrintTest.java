@@ -48,7 +48,7 @@ public class CreateSiteWithHeadlessBlogBluePrintTest extends StudioBaseTest {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -60,7 +60,7 @@ public class CreateSiteWithHeadlessBlogBluePrintTest extends StudioBaseTest {
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 
-		Assert.assertTrue(this.driverManager.waitUntilElementIsClickable("xpath",siteDropdownElementXPath).isDisplayed());
+		Assert.assertTrue(this.getWebDriverManager().waitUntilElementIsClickable("xpath",siteDropdownElementXPath).isDisplayed());
 	}
 
 }

@@ -71,44 +71,44 @@ public class DesignOfCreateSitePageTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Assert crafter studio logo is present.
-		WebElement logoCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement logoCrafter = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				crafterLogoXpath);
 
 		Assert.assertTrue(logoCrafter.isDisplayed(),"Error: Crafter Logo is not displayed");
 
 		// Assert sites title is present.
-		WebElement sitesLabel = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement sitesLabel = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				sitesTitleXpath);
 
 		Assert.assertTrue(sitesLabel.isDisplayed(),"Error:  Sites title is not displayed");
 
 		// Assert create button is present.
-		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement createButton = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				createSiteButtonXpath);
 
 		Assert.assertTrue(createButton.isDisplayed(),"Error:  Create site button is not displayed");
 
 		// Assert Help option is present.
-		WebElement helpOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", helpOptionId);
+		WebElement helpOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", helpOptionId);
 
 		Assert.assertTrue(helpOption.isDisplayed(), "Error:  Help option is not displayed");
 
 		// Assert account option is present.
-		WebElement accountOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement accountOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				accountDropdownXpath);
 		Assert.assertTrue(accountOption.isDisplayed(), "Error:  Account option is not displayed");
 
 		// Assert all sites option is present.
-		WebElement sitesPerPage = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement sitesPerPage = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				sitesPerPageLabelXpath);
 
 		Assert.assertTrue(sitesPerPage.isDisplayed(),"Error:  All sites option is not displayed");
 
 		// Assert site name is present.
-		WebElement sitesPerPageCombo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement sitesPerPageCombo = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				sitesPerPageInputXpath);
 		Assert.assertTrue(sitesPerPageCombo.isDisplayed(),"Error:  Site name is not displayed");
 

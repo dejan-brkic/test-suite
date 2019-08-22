@@ -62,37 +62,37 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest {
 	public void navigationOfPage() {
 
 		// Show users
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
 				.clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
 				.sendKeys("1");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
 				.clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
 				.sendKeys("2");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastNumberOfPaginationXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", lastNumberOfPaginationXpath)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstNumberOfPaginationXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", firstNumberOfPaginationXpath)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lastArrowOfPaginationXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", lastArrowOfPaginationXpath)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstArrowOfPaginationXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", firstArrowOfPaginationXpath)
 				.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
 				.clear();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath)
 				.sendKeys("10");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	@Test()
@@ -102,7 +102,7 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		createSitePage.clickOnUsersOption();
 
@@ -110,7 +110,7 @@ public class PaginationOfListOfUsersTest extends StudioBaseTest {
 		navigationOfPage();
 
 		// Delete users
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	@Parameters({"testUser"})

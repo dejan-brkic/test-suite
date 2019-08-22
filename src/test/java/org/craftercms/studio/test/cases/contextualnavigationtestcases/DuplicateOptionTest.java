@@ -86,7 +86,7 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 
 			// Set basics fields of the new content created
 			logger.info("Set the fields of the new content");
@@ -94,11 +94,11 @@ public class DuplicateOptionTest extends StudioBaseTest {
 
 			// Set the title of main content
 
-			this.driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			this.getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 			logger.info("Click on Save and close button");
-			this.driverManager
+			this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElementId)
 					.click();
 
@@ -110,22 +110,22 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		dashboardPage.clickOnDuplicateOption();
 
 		// click on duplicate in the popup
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", duplicateButtonXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", duplicateButtonXpath)
 				.click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal name
 			dashboardPage.editInternalName("COPY");
 		});
 
 		// Switch back to the dashboard page
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 	}
 
 	@Parameters({"testId"})
@@ -136,7 +136,7 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// goto preview page
 		homePage.goToPreviewPage(testId);
@@ -148,26 +148,26 @@ public class DuplicateOptionTest extends StudioBaseTest {
 		dashboardPage.expandPagesTree();
 
 		// expand home content
-		this.driverManager.waitUntilPageLoad();
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilPageLoad();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// create a new content
 		createNewContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// Select the content to duplicate.
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", testItemXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", testItemXpath).click();
 
 		// Duplicate content created
 		duplicateContentCreated();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", copyTestItemXpath).click();
-		Assert.assertTrue(driverManager.isElementPresentByXpath(copyTestItemXpath),
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", copyTestItemXpath).click();
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(copyTestItemXpath),
 				"Duplicated Option is not displayed");
 
 	}

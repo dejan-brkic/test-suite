@@ -106,10 +106,10 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilCreateSiteModalCloses();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -123,7 +123,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Step 2
 		step2();

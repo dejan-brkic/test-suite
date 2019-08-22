@@ -73,24 +73,24 @@ public class ContentTypesAddPageOrderTest extends StudioBaseTest{
 
 
 		// Getting the Form Section control input for drag and drop action
-		WebElement FromControlSectionFormSectionElement = this.driverManager
+		WebElement FromControlSectionFormSectionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFormSectionLocator);
 		
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement ToContentTypeContainer = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
+		getWebDriverManager().dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToBottomInASection("#widgets-container",lastControlElementCssSelector);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().focusAndScrollDownToBottomInASection("#widgets-container",lastControlElementCssSelector);
 		
-		WebElement FromLabel = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement FromLabel = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				controlsSectionPageOrderLocator);
 
-		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement ToDefaultSection = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerFormSectionContainerLocator);
 
 		siteConfigPage.getDriverManager().dragAndDropElement(FromLabel, ToDefaultSection);
@@ -112,19 +112,19 @@ public class ContentTypesAddPageOrderTest extends StudioBaseTest{
 				userName,password);
 
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
 		// Show admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
 
 		// Select the content type to the test
 		siteConfigPage.selectEntryContentTypeFromAdminConsole();
@@ -139,11 +139,11 @@ public class ContentTypesAddPageOrderTest extends StudioBaseTest{
 		siteConfigPage.confirmContentTypeSelected();
 
 		// Click on input section to can view the properties
-		driverManager.waitUntilPopupIsHidden();
+		getWebDriverManager().waitUntilPopupIsHidden();
 		siteConfigPage.clickPageOrderSection();
 
 		// Asserts that fields are not empty.
-		String titleText = this.driverManager
+		String titleText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentTypeContainerPageOrderTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));

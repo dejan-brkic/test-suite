@@ -30,19 +30,14 @@ import org.openqa.selenium.WebDriver;
 public class DeliveryHomePage {
 
 	private WebDriverManager driverManager;
-	private WebDriver driver;
 	private static Logger logger = LogManager.getLogger(DeliveryHomePage.class);
 
 	public DeliveryHomePage(WebDriverManager driverManager,String siteId) {
 		this.driverManager = driverManager;
 		logger.info("Go to delivery site");
 		this.driverManager.openConnectionAndGotoDelivery(siteId);
-		this.driver = this.driverManager.getDriver();
 	}
 
-	public DeliveryHomePage(WebDriver driver) {
-		this.driver = driver;
-	}
 
 	public WebDriverManager getDriverManager() {
 		return driverManager;
@@ -52,11 +47,4 @@ public class DeliveryHomePage {
 		this.driverManager = driverManager;
 	}
 
-	public WebDriver getDriver() {
-		return driver;
-	}
-
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
-	}
 }

@@ -30,7 +30,6 @@ import org.openqa.selenium.WebElement;
 public class AccountManagementPage {
 
 	private WebDriverManager driverManager;
-	private WebDriver driver;
 	private String currentPassword;
 	private String newPassword;
 	private String confirmPassword;
@@ -41,7 +40,6 @@ public class AccountManagementPage {
 			UIElementsPropertiesManager UIElementsPropertiesManager) {
 
 		this.driverManager = driverManager;
-		this.driver = this.driverManager.getDriver();
 		currentPassword = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("accountManagement.currentPass");
 		newPassword = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -52,11 +50,6 @@ public class AccountManagementPage {
 				.getProperty("accountManagement.submitButton");
 		accountManagementTitle = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("accountManagement.pageTitle");
-	}
-
-	public AccountManagementPage(WebDriver driver) {
-		this.driver = driver;
-
 	}
 
 	// Set the current pass
@@ -106,14 +99,6 @@ public class AccountManagementPage {
 
 	public void setDriverManager(WebDriverManager driverManager) {
 		this.driverManager = driverManager;
-	}
-
-	public WebDriver getDriver() {
-		return driver;
-	}
-
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
 	}
 	
 	public boolean isAccountManagementTitlePresent() {

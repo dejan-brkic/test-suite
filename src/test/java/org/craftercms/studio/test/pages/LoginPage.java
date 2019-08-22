@@ -32,7 +32,6 @@ import org.openqa.selenium.WebElement;
 public class LoginPage {
 
 	private WebDriverManager driverManager;
-	private WebDriver driver;
 	private String userNameXpath;
 	private String passwordXpath;
 	private String loginXpath;
@@ -42,7 +41,6 @@ public class LoginPage {
 			UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
 		this.driverManager.openConnection();
-		this.driver = this.driverManager.getDriver();
 
 		userNameXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("login.username");
@@ -51,11 +49,6 @@ public class LoginPage {
 		loginXpath = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("login.login");
 
 	}
-
-	public LoginPage(WebDriver driver) {
-		this.driver = driver;
-	}
-
 	// Set user name in textbox
 	public void setUserName(String strUserName) {
 		WebElement userCrafter = this.driverManager.waitUntilElementIsClickable("xpath",
@@ -81,9 +74,7 @@ public class LoginPage {
 
 		this.driverManager.waitForAnimation();
 		if (this.driverManager.isLoginDisplayed()) {
-			loginButton = this.driverManager
-					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", loginXpath);
-			loginButton.click();
+			driverManager.clickElement("xpath", loginXpath);
 		}
 	}
 
@@ -118,14 +109,6 @@ public class LoginPage {
 
 	public void setDriverManager(WebDriverManager driverManager) {
 		this.driverManager = driverManager;
-	}
-
-	public WebDriver getDriver() {
-		return driver;
-	}
-
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
 	}
 
 }

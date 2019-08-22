@@ -123,23 +123,23 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 
 	public void goToDashboardAndCheck(boolean checkingBeforeDeleteContent) {
 		// click on dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
-		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", recentlyActivitySelectAll);
+		this.getWebDriverManager().waitUntilDashboardWidgetsAreLoaded();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", recentlyActivitySelectAll);
 		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyActivitySelectAll));
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyActivitySelectAll));
 
 		categoriesDropDown.selectByValue("all");
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.getWebDriverManager().waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
-		this.driverManager.waitForFullExpansionOfTree();
-		List<WebElement> recentActivityItems = this.driverManager
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		List<WebElement> recentActivityItems = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyActivityTable)
 				.findElements(By.tagName("tr"));
 
@@ -150,7 +150,7 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 	}
 
 	public void checkRecentActivityItems(WebElement element, boolean checkingBeforeDeleteContent) {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		String itemName = element.findElement(By.xpath(recentlyActivityItemName)).getText();
 		String itemIconClass = element.findElement(By.xpath(recentlyActivityItemIcon)).getAttribute("class");
 		String itemURL = element.findElement(By.xpath(recentlyActivityItemURL)).getText();
@@ -203,25 +203,25 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
-		driverManager.clickElement("xpath", siteContentXpath);
+		getWebDriverManager().clickElement("xpath", siteContentXpath);
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
-		this.driverManager.waitUntilHomeIsOpened();
+		getWebDriverManager().getDriver().navigate().refresh();
+		this.getWebDriverManager().waitUntilHomeIsOpened();
 
 		// expand Articles folder
 		logger.info("Expanding articles folder and editing previoulsy created article");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		dashboardPage.expandParentFolder(folder2016Locator);
@@ -238,69 +238,69 @@ public class FileRenameAgainAndDeleteTest extends StudioBaseTest {
 		
 		// step 17,18, 19 and 20
 		logger.info("Editing previously created article");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
-		this.driverManager.contextClick("xpath", fooContentXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
+		this.getWebDriverManager().contextClick("xpath", fooContentXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// check that the edit form was opened
 			// step 17
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
+			Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
 					.getText().equalsIgnoreCase("foo"));
 
 			// step 18
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editURLButton).click();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editURLButton).click();
 
-			this.driverManager.getDriver().switchTo().activeElement();
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
+			this.getWebDriverManager().getDriver().switchTo().activeElement();
+			Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
 					.getText().equalsIgnoreCase("Warning"));
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", warningOkButton)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", warningOkButton)
 					.click();
 
 			// step 19
-			this.driverManager.waitForAnimation();
-			this.driverManager.getDriver().switchTo().activeElement();
-			this.driverManager.sendText("xpath", filenameInput, "baz");
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().getDriver().switchTo().activeElement();
+			this.getWebDriverManager().sendText("xpath", filenameInput, "baz");
+			this.getWebDriverManager().waitForAnimation();
 
 			// Step20 Click on Save and close
-			this.driverManager
+			this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElement)
 					.click();
 
 		});
 
 		// Step 21
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
+		this.getWebDriverManager().waitForAnimation();
 		logger.info("Checking article update on the current url");
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/articles/2016/12/baz.html"));
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl().contains("page=/articles/2016/12/baz.html"));
 
 		// Step 22
 		this.step22();
 
 		// Step 23 and 24
 		logger.info("Deleting article content");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
-		this.driverManager.contextClick("xpath", fooContentXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement delContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
+		this.getWebDriverManager().contextClick("xpath", fooContentXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement delContent = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					deleteContent);
 			delContent.click();
 		}, "Pages");
 
-		WebElement confirmDelete = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement confirmDelete = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				deleteContentOK);
 		confirmDelete.click();
 
-		WebElement submittalComplete = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement submittalComplete = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				submittalCompleteOK);
 		submittalComplete.click();
 

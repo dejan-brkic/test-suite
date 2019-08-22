@@ -48,18 +48,18 @@ public class DeleteUserTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// click On Users option
 		createSitePage.clickOnUsersOption();
 
 		// Deleting user
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilPageLoad();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilPageLoad();
 
 		usersPage.deleteUser(testUser);
 
 		// Assert new users created is deleted
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 }

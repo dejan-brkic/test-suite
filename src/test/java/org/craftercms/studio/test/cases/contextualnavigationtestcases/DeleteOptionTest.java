@@ -74,7 +74,7 @@ public class DeleteOptionTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
@@ -82,22 +82,22 @@ public class DeleteOptionTest extends StudioBaseTest {
 		// body not required
 		this.changeBodyToNotRequiredOnEntryContent();
 
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
 		this.createContent();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
 
 		// wait for element is clickeable
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// Select the content to delete.
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", testItemXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", testItemXpath).click();
 
 		// click on delete option
 		previewPage.clickOnDeleteOption();
@@ -110,15 +110,15 @@ public class DeleteOptionTest extends StudioBaseTest {
 
 		previewPage.clickOnOKDeleteDependencies();
 
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		
-		this.driverManager.waitForAnimation();
-		String contentDelete = this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		String contentDelete = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
 		Assert.assertEquals(contentDelete, "/test1");
 	}
@@ -129,8 +129,8 @@ public class DeleteOptionTest extends StudioBaseTest {
 
 	public void createContent() {
 		logger.info("Creating new content");
-		driverManager.waitUntilPageLoad();
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilPageLoad();
+		getWebDriverManager().waitUntilSidebarOpens();
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenu();
 
@@ -141,19 +141,19 @@ public class DeleteOptionTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Set basics fields of the new content created
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().waitForAnimation();
 			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
 
 			// Set the title of main content
-			this.driverManager.waitForAnimation();
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			this.getWebDriverManager().waitForAnimation();
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitForAnimation();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 
 		});

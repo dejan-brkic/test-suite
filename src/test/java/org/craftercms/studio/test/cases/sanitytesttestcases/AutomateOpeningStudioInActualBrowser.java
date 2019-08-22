@@ -54,21 +54,21 @@ public class AutomateOpeningStudioInActualBrowser extends StudioBaseTest {
 		// Verfy Login page is displayed when URL 'localhost:8080/studio' is load in a browser
 		
 		//Verify Crafter Logo Image is displayed
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLoginImage);
-		Assert.assertTrue(driverManager.isElementPresentByXpath(crafterLoginImage),
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLoginImage);
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(crafterLoginImage),
 				"ERROR:  Crafter Logo image is not displayed, check localhost:8080/studio open the login page");
 
 		//Verify Fields are displayed
-		Assert.assertTrue(driverManager.isElementPresentByXpath(userNameXpath),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(userNameXpath),
 				"ERROR: User name field is not displayed");
 				
-		Assert.assertTrue(driverManager.isElementPresentByXpath(passwordXpath),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(passwordXpath),
 				"ERROR: Password field is not displayed");
 				
-		Assert.assertTrue(driverManager.isElementPresentByXpath(loginXpath),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(loginXpath),
 				"ERROR: Login submit button is not displayed");
 		
-		Assert.assertTrue(driverManager.isElementPresentByXpath(loginLanguageSelector),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(loginLanguageSelector),
 				"ERROR: Login language Selector is not displayed");
 
 	}

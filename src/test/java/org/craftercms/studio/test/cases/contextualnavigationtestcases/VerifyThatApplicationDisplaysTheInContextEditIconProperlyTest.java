@@ -37,20 +37,11 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 
 	private String userName;
 	private String password;
-	private String siteDropdownXpath;
 	private String homeXpath;
-	private String siteDropdownListElementXPath;
 	private String inContextEditOption;
 	private String expandPagesTree;
 	private String siteDropdownElementXPath;
-	private String crafterLogo;
 	private String createSiteButton;
-	private String editReviewerGroupOption;
-	private String groupsAddNewMembersInput;
-	private String groupsAddNewMembersCheckbox;
-	private String groupsAddNewMembersAutocompleteOption1;
-	private String groupsAddNewMembersButton;
-	private String siteconfigGroupsOption;
 	private String userOptions;
 	private String userOptionsLogout;
 	private String inContextEditEnabledOnHomeTitle;
@@ -65,31 +56,13 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 		apiTestHelper.createUserAddToGroup(testUser, testGroup);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
 		homeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.home");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		expandPagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
-		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("users.crafterlogo");
 		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsitebutton");
-		editReviewerGroupOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.edit_reviewer_group_option");
-		groupsAddNewMembersCheckbox = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_checkbox");
-		groupsAddNewMembersInput = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_input");
-		groupsAddNewMembersAutocompleteOption1 = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_autocomplete_option1");
-		groupsAddNewMembersButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("groups.add_new_members_button");
-		siteconfigGroupsOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("adminconsole.groups_option");
 		userOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.user_options");
 		userOptionsLogout = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -108,84 +81,62 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 
 		this.setup(testId);
 
-		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath)
-					.click();
-
-		// expand pages folder
-		previewPage.expandPagesTree();
-
-		driverManager.getDriver().navigate().refresh();
-
 		// expand home content
 		previewPage.expandHomeTree();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
 
 		// click on history option
 		previewPage.clickOnInContextEditOption();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo()
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "engineWindow"));
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().getDriver().switchTo()
+				.frame(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("id", "engineWindow"));
 		// Assertions
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", inContextEditEnabledOnHomeTitle)
 				.isDisplayed());
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", inContextEditEnabledOnMainTitle)
 				.isDisplayed());
 
-		this.driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// logout from Crafter
 		logger.info("logout from Crafter");
 		this.logoutFromCrafter();
 
 		// login to application with reviewer user
-		logger.info("login to application with reviewer user");
+		logger.info("login to application with {} user", testUser);
 		loginPage.loginToCrafter(testUser, testUser);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		logger.info("Go to Preview Page");
 		this.homePage.goToPreviewPage(testId);
 
 		// Expand the site bar
-		this.driverManager.waitForAnimation();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed()) {
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-		} else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager().isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		this.getWebDriverManager().waitForAnimation();
 
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-		this.driverManager.waitForAnimation();
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
+		this.getWebDriverManager().waitForAnimation();
 
 		// Assertions
-		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(inContextEditOption));
+		Assert.assertFalse(this.getWebDriverManager().isElementPresentAndClickableByXpath(inContextEditOption));
 
-		this.driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo()
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "engineWindow"));
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().getDriver().switchTo()
+				.frame(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("id", "engineWindow"));
 
 		Assert.assertFalse(
-				this.driverManager.isElementPresentAndClickableByXpath(inContextEditEnabledOnHomeTitle));
+				this.getWebDriverManager().isElementPresentAndClickableByXpath(inContextEditEnabledOnHomeTitle));
 		Assert.assertFalse(
-				this.driverManager.isElementPresentAndClickableByXpath(inContextEditEnabledOnMainTitle));
+				this.getWebDriverManager().isElementPresentAndClickableByXpath(inContextEditEnabledOnMainTitle));
 
-		this.driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	public void setup(String testId) {
@@ -193,46 +144,37 @@ public class VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest exten
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		logger.info("Go to Site Preview");
 		this.goToSiteContentPagesStructure(testId);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", expandPagesTree);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", expandPagesTree);
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	private void goToSiteContentPagesStructure(String testId) {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createSiteButton);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createSiteButton);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		homePage.goToPreviewPage(testId);
 
-		this.driverManager.waitForAnimation();
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed()) {
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
-						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-		} else
-			throw new NoSuchElementException(
-					"Site creation process is taking too long time and the element was not found");
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	private void logoutFromCrafter() {
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", userOptions).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				userOptionsLogout);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", userOptionsLogout)
 				.click();
 
 	}

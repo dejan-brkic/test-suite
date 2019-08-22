@@ -127,19 +127,19 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
 
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
@@ -147,7 +147,7 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 
 	public void createSecondPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingWinterWomanPicture("test2", "Testing2", "test2",
 				folderLocation, selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject",
 				"ArticleAuthor", "ArticleSummary");
@@ -162,7 +162,7 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
@@ -170,22 +170,22 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		// expand Articles/2016/12 folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articles2016Folder);
 		dashboardPage.expandParentFolder(articles2016Folder);
 
 		dashboardPage.expandParentFolder(articles201612Folder);
 		this.createNewPageArticle(articles201612Folder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void createNewArticleOn2017Folder() {
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
@@ -193,31 +193,31 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		dashboardPage.expandHomeTree();
 
 		// expand Articles/2017/1 folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articles2017Folder);
 		dashboardPage.expandParentFolder(articles2017Folder);
 
 		dashboardPage.expandParentFolder(articles20171Folder);
 		this.createSecondPageArticle(articles20171Folder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void copyArticleToNewFolder(String pageXpath, String folderXpath) {
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		logger.info("Editing testing article created previously");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pageXpath);
-		this.driverManager.contextClick("xpath", pageXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement copyContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pageXpath);
+		this.getWebDriverManager().contextClick("xpath", pageXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement copyContent = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					this.copyContent);
 			copyContent.click();
 		}, "Pages");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderXpath);
-		this.driverManager.contextClick("xpath", folderXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement pasteContentElement = this.driverManager
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderXpath);
+		this.getWebDriverManager().contextClick("xpath", folderXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement pasteContentElement = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", pasteContent);
 			pasteContentElement.click();
 		}, "Pages");
@@ -231,54 +231,54 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	public void assertContentImagesOnStaticAssets() {
 		// Collapse Home tree
 		logger.info("Collapse Home tree");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
-		this.driverManager.waitUntilFolderOpens("xpath", expandPagesTree);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
+		this.getWebDriverManager().waitUntilFolderOpens("xpath", expandPagesTree);
 		this.dashboardPage.collapseParentFolder(homeTree);
 		this.dashboardPage.collapseParentFolder(expandPagesTree);
 
 		logger.info("Click the Static Assets Tree");
-		this.driverManager.clickElement("xpath",	staticAssetsButton);
+		this.getWebDriverManager().clickElement("xpath",	staticAssetsButton);
 
-		this.driverManager.clickElement("xpath",	staticAssetsChildFolder);
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().clickElement("xpath",	staticAssetsChildFolder);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 
 		logger.info("Click the Static Assets/Page Tree");
-		this.driverManager.clickElement("xpath",
+		this.getWebDriverManager().clickElement("xpath",
 				staticAssetsItemsChildFolder);
 
 		logger.info("Click the Static Assets/item/images Tree");
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.clickElement("xpath",
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().clickElement("xpath",
 				staticAssetsItemsImagesChildFolder);
 
 		// Expanding Year folder
-		this.driverManager.scrollDownIntoSideBar();
-		String yearFolderXpath = ".//span[text()='" + this.driverManager.getCurrentYear() + "']";
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.clickElement("xpath", yearFolderXpath);
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		String yearFolderXpath = ".//span[text()='" + this.getWebDriverManager().getCurrentYear() + "']";
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().clickElement("xpath", yearFolderXpath);
 
 		// Expanding Month folder
 		String monthFolderXpath = yearFolderXpath
 				+ "/../../../../../div[@class='ygtvchildren']//span[text()='"
-				+ this.driverManager.getCurrentMonth() + "']";
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.clickElement("xpath", monthFolderXpath);
+				+ this.getWebDriverManager().getCurrentMonth() + "']";
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().clickElement("xpath", monthFolderXpath);
 
 		// Expanding Day folder
 		String dayFolderXpath = monthFolderXpath + "/../../../../../div[@class='ygtvchildren']//span[text()='"
-				+ this.driverManager.getCurrentDay() + "']";
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.clickElement("xpath", dayFolderXpath);
+				+ this.getWebDriverManager().getCurrentDay() + "']";
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().clickElement("xpath", dayFolderXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
 
 		String ImageItemsXpath = dayFolderXpath + staticAssetsItemImagesTestImagesChilds;
-		List<WebElement> testimagesitems = this.driverManager.getDriver()
+		List<WebElement> testimagesitems = this.getWebDriverManager().getDriver()
 				.findElements(By.xpath(ImageItemsXpath));
 		Assert.assertTrue((testimagesitems.size() == 2),
 				"There are not the correct amount of items for static asset/page/images/testimage.jpg , expected 2 items");
@@ -286,17 +286,17 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 
 	private void checkDependenciesForSecondCopiedArticleAttachedImage() {
 		logger.info("Click the Static Assets/Item Tree to expand it");
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				staticAssetsItemsChildFolder);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				staticAssetsItemsChildFolder).click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(staticAssetsimagesFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		this.rightClickAndClickOnDependencies(winterWomanImage, "Static Assets");
 
 		// check dependencies are listed
@@ -306,18 +306,18 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	}
 
 	public void rightClickAndClickOnDependencies(String itemLocator, String menuLocation) {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				itemLocator);
 
-		this.driverManager.contextClick("xpath", itemLocator, false);
-		driverManager.usingContextMenu(() -> {
-			this.driverManager.waitUntilContentTooltipIsHidden();
-			WebElement dependenciesOption = this.driverManager
+		this.getWebDriverManager().contextClick("xpath", itemLocator, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+			WebElement dependenciesOption = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dependeciesOption);
 			dependenciesOption.click();
 		}, menuLocation);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	@Parameters({"testId"})

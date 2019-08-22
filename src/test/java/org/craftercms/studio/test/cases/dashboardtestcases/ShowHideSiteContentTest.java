@@ -60,18 +60,18 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to dashboard page
 
 		homePage.goToDashboardPage(testId);
 
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open"))) 
 		dashboardPage.clickOnSiteContentOption();
 
 		// Assert that the site content is expanded
-		String siteContentExpanded = this.driverManager
+		String siteContentExpanded = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).getText();
 
 		Assert.assertEquals(siteContentExpanded, "Site Config");
@@ -79,10 +79,10 @@ public class ShowHideSiteContentTest extends StudioBaseTest {
 		// Collapse the site content panel
 		dashboardPage.clickOnSiteContentOption();
 
-		driverManager.waitUntilSidebarCloses();
+		getWebDriverManager().waitUntilSidebarCloses();
 
 		// Assertion
-		WebElement element = driverManager.getDriver().findElement(By.xpath(adminConsoleXpath));
+		WebElement element = getWebDriverManager().getDriver().findElement(By.xpath(adminConsoleXpath));
 		Assert.assertFalse(element.isDisplayed());
 	}
 

@@ -87,7 +87,7 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	}
 
 	public void step8() {
-		createSitePage.setPushRepositoryURL(this.driverManager.getLocalBareRepoURL(localRepoName));
+		createSitePage.setPushRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName));
 	}
 
 	public void step10() {
@@ -98,14 +98,14 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
 
-		this.driverManager.waitUntilCreateSiteModalCloses();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
 
 	public void step12() {
-		this.driverManager.waitUntilElementIsClickable("xpath", topNavSitesOption).click();
+		this.getWebDriverManager().waitUntilElementIsClickable("xpath", topNavSitesOption).click();
 	}
 
 	public void step13() {
@@ -133,7 +133,7 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	}
 
 	public void step19() {
-		createSitePage.setPushRepositoryURL(this.driverManager.getLocalBareRepoURL(localRepoName));
+		createSitePage.setPushRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName));
 	}
 
 	public void step21() {
@@ -143,22 +143,22 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	public void step22() {
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		
-		String notificationTitleText = this.driverManager
+		String notificationTitleText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
 
 		while (!notificationTitleText.equalsIgnoreCase("Notification")) {
-			this.driverManager.waitForAnimation();
-			notificationTitleText = this.driverManager
+			this.getWebDriverManager().waitForAnimation();
+			notificationTitleText = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
 		}
 
-		notificationTitleText = this.driverManager
+		notificationTitleText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
-		String notificationFirstText = this.driverManager
+		String notificationFirstText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText).getText();
-		String notificationSecondText = this.driverManager
+		String notificationSecondText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationError).getText();
 
 		Assert.assertTrue("Notification".equals(notificationTitleText));
@@ -178,7 +178,7 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Step 2
 		step2();
@@ -240,14 +240,14 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	}
 
 	public void setup() {
-		int exitCode = this.driverManager.goToFolderAndExecuteGitInitBareRepository(localRepoName);
+		int exitCode = this.getWebDriverManager().goToFolderAndExecuteGitInitBareRepository(localRepoName);
 		Assert.assertTrue(exitCode == 0, "Init bare repository process failed");
 	}
 
 	@Parameters({"testId"})
 	@AfterMethod(alwaysRun = true)
 	public void afterTest(String testId) {
-		int exitCode = this.driverManager.goToFolderAndExecuteDeleteBareRepositoryFolder(localRepoName);
+		int exitCode = this.getWebDriverManager().goToFolderAndExecuteDeleteBareRepositoryFolder(localRepoName);
 		Assert.assertTrue(exitCode == 0, "Delete bare repository process failed");
 		apiTestHelper.deleteSite(testId);
 		apiTestHelper.deleteSite(siteId);

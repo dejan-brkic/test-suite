@@ -62,7 +62,7 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -75,11 +75,11 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 				.clickOnCreateButton();
 
 		// Verify No error messages after clicking on the Create button
-		Assert.assertFalse(driverManager.isElementPresentByXpath(createSiteErrorNotificationWindow));
-		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(createSiteErrorNotificationWindow));
 
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
+
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",siteDropdownElementXPath).isDisplayed());
 	}
 
 	@Parameters({"testId"})

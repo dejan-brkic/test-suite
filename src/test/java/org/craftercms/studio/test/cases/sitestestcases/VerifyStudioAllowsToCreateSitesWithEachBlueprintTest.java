@@ -66,7 +66,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -82,7 +82,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -98,7 +98,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -113,7 +113,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -129,7 +129,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 		//video center takes longer to create, lets wait for more
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath,80)
 				.isDisplayed());
 
@@ -146,7 +146,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Steps 3 and 4
 		createSiteUsingEmptyBluePrint();

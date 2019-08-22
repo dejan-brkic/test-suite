@@ -89,75 +89,75 @@ public class VerifyThatApplicationDisplaysTheProperSetOfAvailableOptionsTest ext
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath)
 					.click();
 
 		// expand pages folder
 		previewPage.expandPagesTree();
 
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// expand home content
 		previewPage.expandHomeTree();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						editOption)
 				.isDisplayed());
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						deleteOption)
 				.isDisplayed());
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						historyOption)
 				.isDisplayed());
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						dependenciesOption)
 				.isDisplayed());
 
 		this.editHome();
 
-		this.driverManager.getDriver().navigate().refresh();
+		this.getWebDriverManager().getDriver().navigate().refresh();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
 
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				approveAndPublishOption)
 				.isDisplayed());
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						scheduleOption)
 				.isDisplayed());
 
-		this.driverManager
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLandingPage)
 				.click();
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLandingPage)
 				.click();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						duplicateOption)
 				.isDisplayed());
 	}
 
 	public void editHome() {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		dashboardPage.clickHomeTree();
 
@@ -169,9 +169,9 @@ public class VerifyThatApplicationDisplaysTheProperSetOfAvailableOptionsTest ext
 
 	public void editSelectedContent() {
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Typing new text on title text field
-			driverManager.sendText("xpath", createFormTitleElementXPath,
+			getWebDriverManager().sendText("xpath", createFormTitleElementXPath,
 					RandomStringUtils.randomAlphabetic(5).toLowerCase());
 
 			// Save and close button.

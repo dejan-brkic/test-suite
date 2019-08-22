@@ -91,7 +91,7 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	}
 
 	public void createFoldersStructureToTest() {
-		int exitCode = this.driverManager.createFoldersStructureForTestingCopiedFromSite(editorialBPSiteId);
+		int exitCode = this.getWebDriverManager().createFoldersStructureForTestingCopiedFromSite(editorialBPSiteId);
 		Assert.assertTrue(exitCode == 0, "Create folders structure process failed");
 	}
 
@@ -104,30 +104,30 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 		logger.info("Going to preview page of site: {}", siteId);
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void expandStaticAssetsTree() {
 		logger.info("Expanding Static Assets option on sidebar");
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				staticAssetsTreeXpath);
-		this.driverManager
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsTreeXpath)
 				.click();
 	}
 
 	public void expandStaticAssetsSubTree() {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(staticAssetsSubTreeXpath);
 	}
 
 	public void step4() {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(cssFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 	}
 
 	public void bulkUploadFolderToCssFolder() {
@@ -138,30 +138,30 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	public void bulkUploadFolderContainingNestedFolders(String folderPath, String targetPath) {
 		// Performing bulkUpload process from api calls
 		logger.info("Executing bulk upload proccess for folder: {} to path: {}", folderPath, targetPath);
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().activeElement();
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 
 		File directoryFile = new File(folderPath);
 
-		this.driverManager.uploadFilesOnADirectoryUsingAPICalls(directoryFile, editorialBPSiteId, targetPath);
-		this.driverManager.getDriver().navigate().refresh();
+		this.getWebDriverManager().uploadFilesOnADirectoryUsingAPICalls(directoryFile, editorialBPSiteId, targetPath);
+		this.getWebDriverManager().getDriver().navigate().refresh();
 	}
 
 	public void step7() {
 
-		this.driverManager.checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
+		this.getWebDriverManager().checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
 				amountOfLastLinesToReadOnLog);
 	}
 
 	public void step8() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", cssFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", cssFolder);
 		dashboardPage.collapseParentFolder(cssFolder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(fontsFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 	}
 
 	public void bulkUploadFolderToFontsFolder() {
@@ -170,19 +170,19 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	}
 
 	public void step11() {
-		this.driverManager.checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
+		this.getWebDriverManager().checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
 				amountOfLastLinesToReadOnLog);
 	}
 
 	public void step12() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fontsFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fontsFolder);
 		dashboardPage.collapseParentFolder(fontsFolder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(imagesFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 	}
 
 	public void bulkUploadFolderToImagesFolder() {
@@ -192,19 +192,19 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 	public void step15() {
 
-		this.driverManager.checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
+		this.getWebDriverManager().checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
 				amountOfLastLinesToReadOnLog);
 	}
 
 	public void step16() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", imagesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", imagesFolder);
 		dashboardPage.collapseParentFolder(imagesFolder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(jsFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 	}
 
 	public void bulkUploadFolderToJSFolder() {
@@ -214,16 +214,16 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 	public void step19() {
 
-		this.driverManager.checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
+		this.getWebDriverManager().checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
 				amountOfLastLinesToReadOnLog);
 	}
 
 	public void step20() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", jsFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", jsFolder);
 		dashboardPage.collapseParentFolder(jsFolder);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 	}
 
 	public void bulkUploadFolderToStaticAssetsFolder() {
@@ -232,23 +232,23 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 	public void step23() {
 
-		this.driverManager.checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
+		this.getWebDriverManager().checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
 				amountOfLastLinesToReadOnLog);
 	}
 
 	public void step24() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				staticAssetsTreeXpath);
 		dashboardPage.collapseParentFolder(staticAssetsTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(templatesTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(templatesSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 	}
 
 	public void bulkUploadFolderToTemplatesFolder() {
@@ -257,23 +257,23 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 	public void step28() {
 
-		this.driverManager.checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
+		this.getWebDriverManager().checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
 				amountOfLastLinesToReadOnLog);
 	}
 
 	public void step29() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				templatesTreeXpath);
 		dashboardPage.collapseParentFolder(templatesTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(scriptsTreeXpath);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(scriptsSubTreeXpath);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 	}
 
 	public void bulkUploadFolderToScriptsFolder() {
@@ -281,7 +281,7 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	}
 
 	public void step33() {
-		this.driverManager.checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
+		this.getWebDriverManager().checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
 				amountOfLastLinesToReadOnLog);
 	}
 
@@ -293,7 +293,7 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 
 		this.goToPreview(testId);
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Step2
 		this.expandStaticAssetsTree();
@@ -368,7 +368,7 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	@Parameters({"testId"})
 	@AfterMethod(alwaysRun = true)
 	public void afterTest(String testId) {
-		int exitCode = this.driverManager.deleteFoldersStructureForTestingCopiedFromSite();
+		int exitCode = this.getWebDriverManager().deleteFoldersStructureForTestingCopiedFromSite();
 		Assert.assertTrue(exitCode == 0, "Delete folders structure process failed");
 		apiTestHelper.deleteSite(testId);
 	}

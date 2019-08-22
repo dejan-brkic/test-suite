@@ -89,78 +89,78 @@ public class DesignOfPreviewPageTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage();
 
 		// Assert crafter studio logo is present.
-		WebElement logoCrafter = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLogoId);
+		WebElement logoCrafter = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLogoId);
 		Assert.assertTrue(logoCrafter.isDisplayed(), "ERROR: Crafter logo is not displayed");
 
 		// Assert site content option is present.
-		WebElement siteContent = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement siteContent = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				siteDropDownXpath);
 
 		Assert.assertTrue(siteContent.isDisplayed(), "ERROR: Site content option is not displayed");
 
 		// Assert search field is present.
-		WebElement searchField = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement searchField = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				searchTopBarOptionId);
 
 		Assert.assertTrue(searchField.isDisplayed(), "ERROR: Search Field is not displayed");
 
 		// Assert account option is present.
-		WebElement signUp = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement signUp = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				accountDropdownTopBarOptionId);
 
 		Assert.assertTrue(signUp.isDisplayed(), "ERROR: Account option is not displayed");
 
 		// Assert Edit option is present.
-		WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				topNavEditOption);
 
 		Assert.assertTrue(editOption.isDisplayed(), "ERROR: Edit option is not displayed");
 
 		// Assert delete option is present.
-		WebElement deleteOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement deleteOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				topNavDeleteOption);
 
 		Assert.assertTrue(deleteOption.isDisplayed(), "ERROR: Delete option is not displayed");
 
 		// Assert history option is present.
-		WebElement historyOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement historyOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				topNavHistoryOption);
 		Assert.assertTrue(historyOption.isDisplayed(), "ERROR: history option is not displayed");
 
 		// Assert history option is present.
-		WebElement dependencies = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement dependencies = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				topNavDependenciesOption);
 		Assert.assertTrue(dependencies.isDisplayed(), "ERROR: Dependencies option is not displayed");
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				siteDropDownXpath).click();
 
 		// Assert all Sites Dropdown option is present.
-		WebElement dashboard = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement dashboard = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				dashboardOptionXpath);
 		Assert.assertTrue(dashboard.isDisplayed(), "ERROR: All sites option is not displayed");
 
 		// Assert Users option is present.
-		WebElement usersOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement usersOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				topNavUsersOption);
 		Assert.assertTrue(usersOption.isDisplayed(), "ERROR: Users option is not displayed");
 
 		// Assert sites option is present.
-		WebElement sitesOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement sitesOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				topNavSitesOption);
 		Assert.assertTrue(sitesOption.isDisplayed(), "ERROR: All sites option is not displayed");
 
 		// Assert admin console option is present.
-		WebElement adminConsoleOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement adminConsoleOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				adminConsoleXpath);
 		Assert.assertTrue(adminConsoleOption.isDisplayed(), "ERROR: Admin Console option is not displayed");
 

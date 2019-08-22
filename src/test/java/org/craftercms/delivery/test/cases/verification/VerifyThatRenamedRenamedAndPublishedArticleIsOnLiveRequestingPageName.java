@@ -42,21 +42,21 @@ public class VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageNa
 	@Test()
 	public void verifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageHTML() {
 		//click on entertainment and check the article 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='Entertainment']").click();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='foo']").click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='Entertainment']").click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",".//a[text()='foo']").click();
 		
-		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", pageTitleXpath);
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("foo"));
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl()
-				.equalsIgnoreCase(driverManager.environmentProperties.getProperty("delivery.base.url") + "articles/2016/12/baz"));
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl()
+				.equalsIgnoreCase(getWebDriverManager().environmentProperties.getProperty("delivery.base.url") + "articles/2016/12/baz"));
 	}
 
 	@Parameters({"testId"})
 	@AfterMethod(alwaysRun = true)
 	public void afterTest(String testId) {
 		apiTestHelper.deleteSite(testId);
-		int exitCode = driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
+		int exitCode = getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
 		Assert.assertEquals(exitCode, 0, "Remove site process failed");
 	}
 }

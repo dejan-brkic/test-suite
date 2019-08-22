@@ -173,15 +173,15 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
-		this.driverManager.waitForAnimation();
+		getWebDriverManager().waitUntilLoginCloses();
+		this.getWebDriverManager().waitForAnimation();
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+		if (this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+			if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 					.getAttribute("class").contains("site-dropdown-open")))
-				this.driverManager
+				this.getWebDriverManager()
 						.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 						.click();
 			else
@@ -194,76 +194,76 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		this.createFolderOnHome(parentFolderName);
 
 		// Checking if parent folder is present
-		driverManager.waitUntilElementIsDisplayed("xpath", parentFolderLocator);
-		Assert.assertTrue(driverManager.isElementPresentByXpath(parentFolderLocator));
+		getWebDriverManager().waitUntilElementIsDisplayed("xpath", parentFolderLocator);
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(parentFolderLocator));
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				parentFolderLocator);
 		// creating a new folder on a given parentFolder
 		this.createFolderOnAPresentFolder(harnessFolderName, parentFolderLocator);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				harnessFolderLocator);
 		// creating a new folder on a given parentFolder
 		this.createFolderOnAPresentFolder(emptyFolderName, harnessFolderLocator);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				emptyFolderLocator);
 		// creating a new folder on a given parentFolder
 		this.createFolderOnAPresentFolder(bigTree1FolderName, harnessFolderLocator);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree1FolderLocator);
 		// creating a new folder on a given parentFolder
 		this.createFolderOnAPresentFolder(bigTree2FolderName, harnessFolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLocator);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleLocator);
 		dashboardPage.rightClickCopyContentPage(styleLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree1FolderLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				entertainmentLocator);
 		dashboardPage.rightClickCopyContentPage(entertainmentLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree1FolderLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", healthLocator);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", healthLocator);
 		dashboardPage.rightClickCopyContentPage(healthLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree1FolderLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				technologyLocator);
 		dashboardPage.rightClickCopyContentPage(technologyLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree1FolderLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree1FolderLocator);
 
 	}
 
 	public void createNewPageArticleContent() {
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// creating random values for URL field and InternalName field
 			String randomURL = "newPageURL" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
 			String randomInternalName = "newPageInternalName"
@@ -274,21 +274,21 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 					"newPageArticlesTitle");
 
 			// Set the title of main content
-			this.driverManager.scrollDown();
-			driverManager.sendText("xpath", createFormArticleMainTitleElementXPath, "MainTitle");
+			this.getWebDriverManager().scrollDown();
+			getWebDriverManager().sendText("xpath", createFormArticleMainTitleElementXPath, "MainTitle");
 
-			WebElement categoryDropdown = this.driverManager
+			WebElement categoryDropdown = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", categoryDrowpdownXpath);
 			Select select = new Select(categoryDropdown);
 			select.selectByValue("style");
 
 			// save and close
-			this.driverManager
+			this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 	}
 
@@ -300,15 +300,15 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// click on the Ok button to confirm the select content type above
 		dashboardPage.clickOKButton();
 		// creating new Page Article into the empty folder
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 		this.createNewPageArticleContent();
 	}
 
 	public void editSelectedContent() {
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Typing new text on title text field
-			driverManager.sendText("xpath", createFormTitleElementXPath,
+			getWebDriverManager().sendText("xpath", createFormTitleElementXPath,
 					RandomStringUtils.randomAlphabetic(5).toLowerCase());
 
 			// Save and close button.
@@ -319,44 +319,44 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	public void compareTwoVersionsOfAContentPage() {
 
 		// Switch to the iframe
-		driverManager.getDriver().switchTo().defaultContent();
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilPageLoad();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilPageLoad();
 
 		try {
-			this.driverManager.waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
+			this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
 		} catch (TimeoutException e) {
-			this.driverManager.takeScreenshot("HistoryDialogNotCompletedRendered");
+			this.getWebDriverManager().takeScreenshot("HistoryDialogNotCompletedRendered");
 			logger.warn("History dialog is not completely rendered, and the buttons can't be clicked");
 		}
 
 		// Checking the first row version
-		this.driverManager.waitForAnimation();
-		this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", historyFirstItemCheckbBox)
 				.click();
 
 		// Checking the second row version
-		this.driverManager.waitForAnimation();
-		this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", historySecondItemCheckbBox)
 				.click();
 
 		// click on Compare button
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.clickCompareButton();
 
 		// switching to the compare frame
-		this.driverManager.waitForAnimation();
-		driverManager.usingCrafterDialog("cssSelector", differencesDialogId, () -> {
-			this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().usingCrafterDialog("cssSelector", differencesDialogId, () -> {
+			this.getWebDriverManager().waitForAnimation();
 			// checkin if is present the removed-red-highlight text
-			Assert.assertTrue(driverManager.isElementPresentByXpath(differencesDialogRemovedMarkXpath));
+			Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(differencesDialogRemovedMarkXpath));
 
 			// checkin if is present the added-green-highlight text
-			Assert.assertTrue(driverManager.isElementPresentByXpath(differencesDialogAddedMarkXpath));
+			Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(differencesDialogAddedMarkXpath));
 
 			// click on close button
 			dashboardPage.clickCloseButton();
@@ -367,12 +367,12 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	public void revertLastVersionChanges() {
 
 		// Switch to the iframe
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 
-		this.driverManager.scrollDown();
+		this.getWebDriverManager().scrollDown();
 
 		// Clickin the revert changes option for the initial version
-		this.driverManager
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", historyInitialCommitRevertButton)
 				.click();
 
@@ -382,93 +382,93 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// Click on close button
 		dashboardPage.clickHistoryCloseButton();
 
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilSidebarOpens();
 
 		// switch to default content
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	public void confirmPublishAction() {
 		// Switch to the form
-		driverManager.usingYuiContainer(() -> {
+		getWebDriverManager().usingYuiContainer(() -> {
 
 			// Click on Publish button
 			dashboardPage.clickApproveAndPublishSubmitButton();
 		});
 
 		// switch to default content
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void publishAllPagesOnAFolder(String folderLocator) {
 		// getting the entire list of content pages on a folder
 		// The xpath bellow is a dynamic xpath according with folder name of the
 		// folderLocator
-		driverManager
+		getWebDriverManager()
 				.elementHasChildsByXPath(folderLocator + "/../../../../../div/div/table/tbody/tr/td/span");
 
 		// Switch to the form
 
-		this.driverManager.waitForAnimation();
-		driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// The xpath bellow is a dynamic xpath according with folder name of the
 		// folderLocator
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		String firstChild = folderLocator + "/../../../../../div/div[1]/table/tbody/tr/td/span";
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChild);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChild);
 		dashboardPage.rightClickOnAContentPageByJavascript(firstChild);
 		// selecting the Publish option
-		driverManager.usingContextMenu(() -> {
+		getWebDriverManager().usingContextMenu(() -> {
 			dashboardPage.clickOnPublishOption();
 		}, "Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
 		this.confirmPublishAction();
-		this.driverManager.waitUntilPublishMaskedModalCloses();
-		this.driverManager.waitUntilElementHasPublishedIcon(firstChild + "//span/span[2]");
-		driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitUntilPublishMaskedModalCloses();
+		this.getWebDriverManager().waitUntilElementHasPublishedIcon(firstChild + "//span/span[2]");
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// The xpath bellow is a dynamic xpath according with folder name of the
 		// folderLocator
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		String secondChild = folderLocator + "/../../../../../div/div[2]/table/tbody/tr/td/span";
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", secondChild);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", secondChild);
 		dashboardPage.rightClickOnAContentPageByJavascript(secondChild);
 		// selecting the Publish option
-		driverManager.usingContextMenu(() -> {
+		getWebDriverManager().usingContextMenu(() -> {
 			dashboardPage.clickOnPublishOption();
 		}, "Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
 		this.confirmPublishAction();
-		this.driverManager.waitUntilPublishMaskedModalCloses();
-		this.driverManager.waitUntilElementHasPublishedIcon(secondChild + "//span/span[2]");
-		driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitUntilPublishMaskedModalCloses();
+		this.getWebDriverManager().waitUntilElementHasPublishedIcon(secondChild + "//span/span[2]");
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// The xpath bellow is a dynamic xpath according with folder name of the
 		// folderLocator
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		String thirdChild = folderLocator + "/../../../../../div/div[3]/table/tbody/tr/td/span";
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", thirdChild);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", thirdChild);
 		dashboardPage.rightClickOnAContentPageByJavascript(thirdChild);
 		// selecting the Publish option
-		driverManager.usingContextMenu(() -> {
+		getWebDriverManager().usingContextMenu(() -> {
 			dashboardPage.clickOnPublishOption();
 		}, "Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
 		this.confirmPublishAction();
-		this.driverManager.waitUntilPublishMaskedModalCloses();
-		this.driverManager.waitUntilElementHasPublishedIcon(thirdChild + "//span/span[2]");
-		driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitUntilPublishMaskedModalCloses();
+		this.getWebDriverManager().waitUntilElementHasPublishedIcon(thirdChild + "//span/span[2]");
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 	}
 
 	public void confirmDeleteAction() {
 		// Switch to the form
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 		// Click on delete button
 		dashboardPage.clickDeleteDeleteSubmitButton();
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	public void createMultipleContentPagesOnFolder() {
@@ -476,27 +476,27 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// creating multiple content pages
 		for (int count = 0; count < 1; count++) {
 			// reload page
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					bigTree1FolderLocator);
 			this.createPageCategoryLandingPage(bigTree1FolderLocator);
 		}
 	}
 
 	public void step1() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				emptyFolderLocator);
 		// Step 1
 		this.createPageCategoryLandingPage(emptyFolderLocator);
 
 		// creating multiple content pages on bigtree1
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree1FolderLocator);
 		this.createMultipleContentPagesOnFolder();
 	}
 
 	public void step2() {
 		// Step2 a)
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree1FolderLocator);
 		dashboardPage.rightClickCopyFolder(bigTree1FolderLocator);
 
@@ -507,11 +507,11 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		dashboardPage.clickCopyButtonOnTreeSelector();
 
 		// Step2 c)
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree2FolderLocator);
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(bigTree2FolderLocator);
 
 		bigTree2BigTree1ChildFolderLocator = bigTree2FolderLocator + uiElementsPropertiesManager
@@ -520,8 +520,8 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	}
 
 	public void step3() {
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				harnessFolderLocator);
 		this.createFolderOnAPresentFolder(myTestFolderName, harnessFolderLocator);
 
@@ -529,17 +529,17 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 	public void step4() {
 		// Step4
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree1FolderLocator);
 		dashboardPage.rightClickCopyFolder(bigTree1FolderLocator);
 
 		dashboardPage.selectAllTreeOnSelector(bigTree1FolderDivOnSelectorXPath);
 		dashboardPage.clickCopyButtonOnTreeSelector();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				mytestFolderLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(mytestFolderLocator);
 
 		myTestBigTreeChildFolderLocator = mytestFolderLocator + uiElementsPropertiesManager
@@ -548,8 +548,8 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	}
 
 	public void step5() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				harnessFolderLocator);
 		this.createFolderOnAPresentFolder(anotherTestFolderName, harnessFolderLocator);
 	}
@@ -557,19 +557,19 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 	public void step6() {
 
 		// Step6
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				mytestFolderLocator);
 		dashboardPage.expandParentFolder(mytestFolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				myTestBigTreeChildFolderLocator);
 		dashboardPage.rightClickCutAFolder(myTestBigTreeChildFolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				anotherTestFolderLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickPasteOnAFolder(anotherTestFolderLocator);
 
 		anotherTestBigTreeChildFolderLocator = anotherTestFolderLocator + uiElementsPropertiesManager
@@ -579,7 +579,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 	public void step7() {
 		// Step7 a)
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		dashboardPage.clickHomeTree();
 
@@ -592,13 +592,13 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 	public void step8() {
 		// Step8
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilSidebarOpens();
 
 		dashboardPage.clickHomeTree();
 
 		dashboardPage.clickOnContextualNavigationHistoryOption();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void step9() {
@@ -613,35 +613,35 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 
 	public void step11() {
 		// Step11
-		driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				anotherTestFolderLocator);
 		dashboardPage.expandParentFolder(anotherTestFolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				anotherTestBigTreeChildFolderLocator);
 		dashboardPage.expandParentFolder(anotherTestBigTreeChildFolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				anotherTestBigTreeChildFolderLocator + "/../../../../../div/div[5]/table/tbody/tr/td/span");
 		this.publishAllPagesOnAFolder(anotherTestBigTreeChildFolderLocator);
 
-		driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree2FolderLocator);
 		dashboardPage.expandParentFolder(bigTree2FolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree2BigTree1ChildFolderLocator);
 		dashboardPage.expandParentFolder(bigTree2BigTree1ChildFolderLocator);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree2BigTree1ChildFolderLocator + "/../../../../../div/div[5]/table/tbody/tr/td/span");
 		this.publishAllPagesOnAFolder(bigTree2BigTree1ChildFolderLocator);
 
@@ -651,42 +651,42 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		// Step12
 		// Wait for a while until harness folder is opened after publish actions
 		try {
-			driverManager.waitUntilSidebarOpens();
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitUntilFolderOpens("xpath", harnessFolderLocator);
+			getWebDriverManager().waitUntilSidebarOpens();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().waitUntilFolderOpens("xpath", harnessFolderLocator);
 		} catch (TimeoutException e) {
-			this.driverManager.takeScreenshot("FolderIconMissed");
+			this.getWebDriverManager().takeScreenshot("FolderIconMissed");
 			logger.warn("Something went wrong, the folder is not opened or the icon is missing");
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				mytestFolderLocator);
 		dashboardPage.rightClickDeleteAFolder(mytestFolderLocator);
 		this.confirmDeleteAction();
 
 		// Wait for a while until harness folder is opened after publish actions
 		try {
-			driverManager.waitUntilSidebarOpens();
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitUntilFolderOpens("xpath", harnessFolderLocator);
+			getWebDriverManager().waitUntilSidebarOpens();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().waitUntilFolderOpens("xpath", harnessFolderLocator);
 		} catch (TimeoutException e) {
-			this.driverManager.takeScreenshot("FolderIconMissed");
+			this.getWebDriverManager().takeScreenshot("FolderIconMissed");
 			logger.warn("Something went wrong, the folder is not opened or the icon is missing");
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				anotherTestFolderLocator);
 		dashboardPage.rightClickDeleteAFolder(anotherTestFolderLocator);
 		this.confirmDeleteAction();
 
 		// Wait for a while until harness folder is opened after publish actions
 		try {
-			driverManager.waitUntilSidebarOpens();
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitUntilFolderOpens("xpath", harnessFolderLocator);
+			getWebDriverManager().waitUntilSidebarOpens();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().waitUntilFolderOpens("xpath", harnessFolderLocator);
 		} catch (TimeoutException e) {
-			this.driverManager.takeScreenshot("FolderIconMissed");
+			this.getWebDriverManager().takeScreenshot("FolderIconMissed");
 			logger.warn("Something went wrong, the folder is not opened or the icon is missing");
 		}
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				bigTree2BigTree1ChildFolderLocator);
 		dashboardPage.rightClickDeleteAFolder(bigTree2BigTree1ChildFolderLocator);
 		this.confirmDeleteAction();
@@ -702,7 +702,7 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		this.prepareTestArea();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// Step1
 		this.step1();
@@ -723,12 +723,12 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		this.step6();
 
 		// go to dashboard
-		this.driverManager.getDriver().navigate().refresh();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
+		this.getWebDriverManager().getDriver().navigate().refresh();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
 
 		// Step7
 		this.step7();
-		this.driverManager.getDriver().navigate().refresh();
+		this.getWebDriverManager().getDriver().navigate().refresh();
 
 		// Step8
 		this.step8();
@@ -740,11 +740,11 @@ public class Crafter3LoadTest1Script extends StudioBaseTest {
 		this.step10();
 
 		// Step11
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 		this.step11();
 
 		// Step12
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 		this.step12();
 	}
 

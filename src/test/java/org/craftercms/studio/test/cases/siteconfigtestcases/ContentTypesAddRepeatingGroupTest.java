@@ -68,20 +68,20 @@ public class ContentTypesAddRepeatingGroupTest extends StudioBaseTest{
 	public void dragAndDrop() {
 
 		// Getting the Form Section control input for drag and drop action
-		WebElement FromControlSectionFormSectionElement = this.driverManager
+		WebElement FromControlSectionFormSectionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", controlsSectionFormSectionLocator);
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement ToContentTypeContainer = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
+		getWebDriverManager().dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
-		WebElement FromRepeatingGroup = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement FromRepeatingGroup = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				controlsSectionRepeatingGroupLocator);
 
-		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement ToDefaultSection = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				contentTypeContainerFormSectionContainerLocator);
 
 		siteConfigPage.getDriverManager().dragAndDropElement(FromRepeatingGroup, ToDefaultSection);
@@ -102,18 +102,18 @@ public class ContentTypesAddRepeatingGroupTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				siteDropdownXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
 
 		// Select the content type to the test
 		siteConfigPage.selectEntryContentTypeFromAdminConsole();
@@ -128,11 +128,11 @@ public class ContentTypesAddRepeatingGroupTest extends StudioBaseTest{
 		siteConfigPage.confirmContentTypeSelected();
 
 		// Click on input section to can view the properties
-		driverManager.waitUntilPopupIsHidden();
+		getWebDriverManager().waitUntilPopupIsHidden();
 		siteConfigPage.clickRepeatingGroupSection();
 
 		// Asserts that fields are not empty.
-		String titleText = this.driverManager
+		String titleText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", contentTypeContainerRepeatingGroupTitleLocator)
 				.getText();
 

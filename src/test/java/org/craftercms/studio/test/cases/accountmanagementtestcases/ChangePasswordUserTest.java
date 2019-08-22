@@ -55,7 +55,7 @@ public class ChangePasswordUserTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// wait for element is clickable
 		createSitePage.clickAdmin();
@@ -69,13 +69,13 @@ public class ChangePasswordUserTest extends StudioBaseTest {
 
 		// login to application
 		logger.info("Login into Crafter with the new password");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		loginPage.loginToCrafter(userName, "123456");
 
 		// wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		
 		// click On admin option
 		createSitePage.clickAdmin();
@@ -89,15 +89,15 @@ public class ChangePasswordUserTest extends StudioBaseTest {
 
 		// login to application
 		logger.info("Login into Crafter");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		loginPage.loginToCrafter(userName, password);
 
 		// wait for login page to close
-		driverManager.waitUntilLoginCloses();
-		this.driverManager.waitForAnimation();
+		getWebDriverManager().waitUntilLoginCloses();
+		this.getWebDriverManager().waitForAnimation();
 		// Assert create button is present.
 		logger.info("Verify login is correct and Create Site page is displayed");
-		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement createButton = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				createSiteButtonXpath);
 		Assert.assertTrue(createButton.isDisplayed(), "Create Site Button is not displayed");
 

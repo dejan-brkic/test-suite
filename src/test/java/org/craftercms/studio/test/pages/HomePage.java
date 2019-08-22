@@ -36,7 +36,6 @@ import org.testng.Assert;
 public class HomePage {
 
 	private WebDriverManager driverManager;
-	private WebDriver driver;
 	private String previewSite;
 	private String previewSiteLink;
 	private String dashboardSite;
@@ -59,7 +58,6 @@ public class HomePage {
 
 	public HomePage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
-		this.driver = this.driverManager.getDriver();
 
 		previewSite = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.previewlink");
 		previewSiteLink = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.previewlink.site");
@@ -132,14 +130,6 @@ public class HomePage {
 
 	public void setDriverManager(WebDriverManager driverManager) {
 		this.driverManager = driverManager;
-	}
-
-	public WebDriver getDriver() {
-		return driver;
-	}
-
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
 	}
 
 	public void clickOnCreateSiteButton() {

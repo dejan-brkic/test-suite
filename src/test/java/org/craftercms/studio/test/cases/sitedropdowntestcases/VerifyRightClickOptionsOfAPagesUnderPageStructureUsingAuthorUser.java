@@ -123,117 +123,117 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 	}
 
 	public void rightClickHome() {
-		this.driverManager.waitUntilPageLoad();
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilPageLoad();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
-		this.driverManager.waitUntilFolderOpens("xpath", pagesTree);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilFolderOpens("xpath", pagesTree);
+		this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent);
 		dashboardPage.getDriverManager().contextClick("xpath", homeContent, false);
 
 	}
 
 	public void rightClickCategoryLandingPage() {
-		this.driverManager.waitUntilPageLoad();
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilPageLoad();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", technologyLandingpage);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", technologyLandingpage);
 		dashboardPage.getDriverManager().contextClick("xpath", technologyLandingpage, false);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void rightClickArticlesFolderMenStylesForWinter() {
-		this.driverManager.waitUntilPageLoad();
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilPageLoad();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articlesFolderMenStylesForWinter);
 		dashboardPage.getDriverManager().contextClick("xpath", articlesFolderMenStylesForWinter, false);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void verifyEditOptionIsPresent(String section) {
-		WebElement rightclickEditOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement rightclickEditOptionElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				rightclickEditOption);
 		Assert.assertTrue(rightclickEditOptionElement.isDisplayed(),
 				"ERROR: Right click Edit Option is not present on right click of " + section);
 	}
 
 	public void verifyViewOptionIsPresent(String section) {
-		WebElement rightclickViewOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement rightclickViewOptionElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				rightclickViewOption);
 		Assert.assertTrue(rightclickViewOptionElement.isDisplayed(),
 				"ERROR: Right click View Option is not present on right click of " + section);
 	}
 
 	public void verifyNewContentOptionIsPresent(String section) {
-		WebElement rightclickNewContentOptionElement = this.driverManager
+		WebElement rightclickNewContentOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickNewContentOption);
 		Assert.assertTrue(rightclickNewContentOptionElement.isDisplayed(),
 				"ERROR: Right click New Content Option is not present on right click of " + section);
 	}
 
 	public void verifyNewFolderOptionIsPresent(String section) {
-		WebElement rightclickNewFolderOptionElement = this.driverManager
+		WebElement rightclickNewFolderOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickNewFolderOption);
 		Assert.assertTrue(rightclickNewFolderOptionElement.isDisplayed(),
 				"ERROR: Right click New Folder Option is not present on right click of " + section);
 	}
 
 	public void verifyDeleteOptionIsPresent(String section) {
-		WebElement rightclickDeleteOptionElement = this.driverManager
+		WebElement rightclickDeleteOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickDeleteOption);
 		Assert.assertTrue(rightclickDeleteOptionElement.isDisplayed(),
 				"ERROR: Right click Delete Option is not present on right click of " + section);
 	}
 
 	public void verifyChangeTemplateOptionIsPresent(String section) {
-		WebElement rightclickChangeTemplateOptionElement = this.driverManager
+		WebElement rightclickChangeTemplateOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickChangeTemplateOption);
 		Assert.assertTrue(rightclickChangeTemplateOptionElement.isDisplayed(),
 				"ERROR: Right click Change Template Option is not present on right click of " + section);
 	}
 
 	public void verifyCutOptionIsPresent(String section) {
-		WebElement rightclickCutOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement rightclickCutOptionElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				rightclickCutOption);
 		Assert.assertTrue(rightclickCutOptionElement.isDisplayed(),
 				"ERROR: Right click Cut Option is not present on right click of " + section);
 	}
 
 	public void verifyCopyOptionIsPresent(String section) {
-		WebElement rightclickCopyOptionElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement rightclickCopyOptionElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				rightclickCopyOption);
 		Assert.assertTrue(rightclickCopyOptionElement.isDisplayed(),
 				"ERROR: Right click Copy Option is not present on right click of " + section);
 	}
 
 	public void verifyDependenciesOptionIsPresent(String section) {
-		WebElement rightclickDependenciesOptionElement = this.driverManager
+		WebElement rightclickDependenciesOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickDependenciesOption);
 		Assert.assertTrue(rightclickDependenciesOptionElement.isDisplayed(),
 				"ERROR: Right click Dependencies Option is not present on right click of " + section);
 	}
 
 	public void verifyHistoryOptionIsPresent(String section) {
-		WebElement rightclickHistoryOptionElement = this.driverManager
+		WebElement rightclickHistoryOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickHistoryOption);
 		Assert.assertTrue(rightclickHistoryOptionElement.isDisplayed(),
 				"ERROR: Right click History Option is not present on right click of " + section);
 	}
 
 	public void verifyDuplicateOptionIsPresent(String section) {
-		WebElement rightclickDuplicateOptionElement = this.driverManager
+		WebElement rightclickDuplicateOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickDuplicateOption);
 		Assert.assertTrue(rightclickDuplicateOptionElement.isDisplayed(),
 				"ERROR: Right click Duplicate Option is not present on right click of " + section);
 	}
 
 	public void verifyRenameFolderOptionIsPresent(String section) {
-		WebElement rightclickRenameFolderOptionElement = this.driverManager
+		WebElement rightclickRenameFolderOptionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", rightclickRenameFolderOption);
 		Assert.assertTrue(rightclickRenameFolderOptionElement.isDisplayed(),
 				"ERROR: Right click Rename Folder Option is not present on right click of " + section);
@@ -243,7 +243,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 		// Step 4 Right Right click on "Home" and verify options
 		this.rightClickHome();
 
-		driverManager.usingContextMenu(() -> {
+		getWebDriverManager().usingContextMenu(() -> {
 
 			logger.info("Checking that only the expected options are listed");
 			rightClickOptionsListInHomePage = new LinkedList<String>();
@@ -256,12 +256,12 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 			rightClickOptionsListInHomePage.add(6, "Dependencies");
 			rightClickOptionsListInHomePage.add(7, "History");
 
-			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
+			List<WebElement> rightClickOptionsList = this.getWebDriverManager().getDriver()
 					.findElements(By.xpath(rightClickOptions));
 			int currentIndex = 0;
 			for (WebElement element : rightClickOptionsList) {
-				this.driverManager.waitForAnimation();
-				this.driverManager.waitUntilSidebarOpens();
+				this.getWebDriverManager().waitForAnimation();
+				this.getWebDriverManager().waitUntilSidebarOpens();
 				Assert.assertTrue(element.getText().equals(rightClickOptionsListInHomePage.get(currentIndex)),
 						"ERROR: Link Option: " + element.getText()
 								+ " is not in the correct order in the HomePage, check that the correct options are listed");
@@ -279,8 +279,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
-			this.driverManager.getDriver().navigate().refresh();
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().getDriver().navigate().refresh();
+			this.getWebDriverManager().waitForAnimation();
 		},"Pages");
 	}
 
@@ -288,7 +288,7 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 		// Step 6 Right click on any Category Landing page and verify options
 		this.rightClickCategoryLandingPage();
 
-		driverManager.usingContextMenu(() -> {
+		getWebDriverManager().usingContextMenu(() -> {
 
 			logger.info("Checking that only the expected options are listed");
 			rightClickOptionsListInCategoryLandingPage = new LinkedList<String>();
@@ -302,12 +302,12 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 			rightClickOptionsListInCategoryLandingPage.add(7, "Dependencies");
 			rightClickOptionsListInCategoryLandingPage.add(8, "History");
 
-			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
+			List<WebElement> rightClickOptionsList = this.getWebDriverManager().getDriver()
 					.findElements(By.xpath(rightClickOptions));
 			int currentIndex = 0;
 			for (WebElement element : rightClickOptionsList) {
-				this.driverManager.waitForAnimation();
-				this.driverManager.waitUntilSidebarOpens();
+				this.getWebDriverManager().waitForAnimation();
+				this.getWebDriverManager().waitUntilSidebarOpens();
 				Assert.assertTrue(
 						element.getText().equals(rightClickOptionsListInCategoryLandingPage.get(currentIndex)),
 						"ERROR: Link Option: " + element.getText()
@@ -327,28 +327,28 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
-			this.driverManager.getDriver().navigate().refresh();
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().getDriver().navigate().refresh();
+			this.getWebDriverManager().waitForAnimation();
 		},"Pages");
 	}
 
 	public void step8() {
 		// Step 8 Click on the + of folder 2017
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder2017);
 
-		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
 
-		this.driverManager.clickElement("xpath", articlesFolder2017);
-		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder2017);
+		this.getWebDriverManager().clickElement("xpath", articlesFolder2017);
+		this.getWebDriverManager().waitUntilFolderOpens("xpath", articlesFolder2017);
 	}
 
 	public void step10() {
 		// Step 11 Right click on any of the article (Men Styles For Winter)
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		this.rightClickArticlesFolderMenStylesForWinter();
 
-		driverManager.usingContextMenu(() -> {
+		getWebDriverManager().usingContextMenu(() -> {
 
 			logger.info("Checking that only the expected options are listed");
 			rightClickOptionsListInMenStylesForWinterPage = new LinkedList<String>();
@@ -362,12 +362,12 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 			rightClickOptionsListInMenStylesForWinterPage.add(7, "Dependencies");
 			rightClickOptionsListInMenStylesForWinterPage.add(8, "History");
 
-			List<WebElement> rightClickOptionsList = this.driverManager.getDriver()
+			List<WebElement> rightClickOptionsList = this.getWebDriverManager().getDriver()
 					.findElements(By.xpath(rightClickOptions));
 			int currentIndex = 0;
 			for (WebElement element : rightClickOptionsList) {
-				this.driverManager.waitForAnimation();
-				this.driverManager.waitUntilSidebarOpens();
+				this.getWebDriverManager().waitForAnimation();
+				this.getWebDriverManager().waitUntilSidebarOpens();
 				Assert.assertTrue(
 						element.getText().equals(rightClickOptionsListInMenStylesForWinterPage.get(currentIndex)),
 						"ERROR: Link Option: " + element.getText()
@@ -387,8 +387,8 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 			verifyDependenciesOptionIsPresent(section);
 			verifyHistoryOptionIsPresent(section);
 
-			this.driverManager.getDriver().navigate().refresh();
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().getDriver().navigate().refresh();
+			this.getWebDriverManager().waitForAnimation();
 		},"Pages");
 
 	}
@@ -401,12 +401,12 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 		logger.info("login to application with {} user", testUser);
 		loginPage.loginToCrafter(testUser, testUser);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		logger.info("Go to Preview Page {}", testId);
 		this.homePage.goToPreviewPage(testId);
 
-		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
+		this.getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
 		// Step 4 Right Right click on "Home" and verify options
 		this.step4();
@@ -418,19 +418,19 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 		this.step6();
 
 		// Step 7 Click on the + of Articles tree
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 
-		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
 
-		this.driverManager.clickElement("xpath", articlesFolder);
-		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder);
+		this.getWebDriverManager().clickElement("xpath", articlesFolder);
+		this.getWebDriverManager().waitUntilFolderOpens("xpath", articlesFolder);
 
 		// Step 8 Click on the + of folder 2017
 		this.step8();
 
 		// Step 9 Click on the + of folder "1"
-		this.driverManager.clickElement("xpath", articlesFolder1);
-		this.driverManager.waitUntilFolderOpens("xpath", articlesFolder1);
+		this.getWebDriverManager().clickElement("xpath", articlesFolder1);
+		this.getWebDriverManager().waitUntilFolderOpens("xpath", articlesFolder1);
 
 		// Step 10 Right click on any of the article (Men Styles For Winter)
 		this.step10();

@@ -77,19 +77,19 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.getDriver().switchTo().defaultContent();
-		driverManager.getDriver().switchTo().frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		getWebDriverManager().getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().frame(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 				"cssSelector", createFormFrameElementCss));
 
 		// save and close
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormSaveAndCloseElement).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormSaveAndCloseElement).click();
 
 	
 		// Switch back to the dashboard page
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 	}
 
 	@Parameters({"testId"})
@@ -101,15 +101,15 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", siteDropDownXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", siteDropDownXpath)
 				.click();
 
 		// expand pages folder
@@ -118,7 +118,7 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		
 		// Expand Home Tree
 		logger.info("Expanding Home Tree");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// Create level descriptor content
@@ -126,7 +126,7 @@ public class AddNewContentSectionDefaultsTest extends StudioBaseTest {
 		createLevelDescriptorContent();
 
 		// Assert of the test case is fine
-		String levelDescriptor = this.driverManager
+		String levelDescriptor = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", sectionDefaultsXpath).getText();
 
 		logger.info("Verify Level Descriptor was created");

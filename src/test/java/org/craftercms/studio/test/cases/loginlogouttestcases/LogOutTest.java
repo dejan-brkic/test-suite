@@ -53,13 +53,13 @@ public class LogOutTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		
 		// LogOut
 		homePage.clickLogoutOutCrafter();
 
 		// Verify login is fine
-		WebElement signInButtom = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement signInButtom = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				loginButtonLocator);
 
 		Assert.assertTrue(signInButtom.isDisplayed());

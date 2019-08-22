@@ -64,18 +64,18 @@ public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends St
 	}
 
 	public void dragAndDrop() {
-		this.driverManager.scrollDownPx(3000);
+		this.getWebDriverManager().scrollDownPx(3000);
 		// Getting the ChildContent for drag and drop action
-		WebElement FromDataSourceImageUploadedFromRepoElement = this.driverManager
+		WebElement FromDataSourceImageUploadedFromRepoElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 						dataSourceSectionImageUploadedFromRepositoryLocator);
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement ToContentTypeContainer = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromDataSourceImageUploadedFromRepoElement, ToContentTypeContainer);
+		getWebDriverManager().dragAndDropElement(FromDataSourceImageUploadedFromRepoElement, ToContentTypeContainer);
 		
 		// Complete the input fields basics
 		siteConfigPage.completeDataSourceFieldsBasics("TestTitle");
@@ -93,19 +93,19 @@ public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends St
 				userName,password);
 
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		
 		//Go to Preview Page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
 		// Show admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
 
 		// Select the content type to the test
 		siteConfigPage.selectEntryContentTypeFromAdminConsole();
@@ -120,14 +120,14 @@ public class ContentTypesAddDataSourceImageUploadedFromRepositoryTest extends St
 		siteConfigPage.confirmContentTypeSelected();
 
 		// Click on input section to can view the properties
-		driverManager.waitUntilPopupIsHidden();
+		getWebDriverManager().waitUntilPopupIsHidden();
 		siteConfigPage.clickDataSourceImageUploadedFromRepositorySection();
 
 		// Asserts that fields are not empty.
-		this.driverManager.isElementPresentAndClickableByXpath(contentTypeContainerLocator);
-		this.driverManager.isElementPresentByXpath(contentTypeContainerImageUploadedFromRepositoryTitleLocator);
+		this.getWebDriverManager().isElementPresentAndClickableByXpath(contentTypeContainerLocator);
+		this.getWebDriverManager().isElementPresentByXpath(contentTypeContainerImageUploadedFromRepositoryTitleLocator);
 		
-		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		String titleText = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerImageUploadedFromRepositoryTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();

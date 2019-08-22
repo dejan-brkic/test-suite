@@ -37,7 +37,6 @@ import org.testng.Assert;
 public class DashboardPage {
 
 	private WebDriverManager driverManager;
-	private WebDriver driver;
 
 	private String pagesTree;
 	private String homeContent;
@@ -123,7 +122,6 @@ public class DashboardPage {
 	public DashboardPage(WebDriverManager driverManager,
 			UIElementsPropertiesManager uiElementsPropertiesManager) {
 		this.driverManager = driverManager;
-		this.driver = this.driverManager.getDriver();
 
 		pagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
@@ -278,9 +276,6 @@ public class DashboardPage {
 				.getProperty("frame2.author.replaceimage");
 	}
 
-	public DashboardPage(WebDriver driver) {
-		this.driver = driver;
-	}
 
 	// Expand pages tree
 	public void clickPagesTree() {
@@ -884,14 +879,6 @@ public class DashboardPage {
 
 	public void setDriverManager(WebDriverManager driverManager) {
 		this.driverManager = driverManager;
-	}
-
-	public WebDriver getDriver() {
-		return driver;
-	}
-
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
 	}
 
 	public void clickUsersContextualNavigationOption() {

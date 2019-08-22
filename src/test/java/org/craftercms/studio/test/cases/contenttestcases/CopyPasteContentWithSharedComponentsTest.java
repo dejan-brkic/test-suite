@@ -71,7 +71,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		int exitCode = this.driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
+		int exitCode = this.getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
 		Assert.assertEquals(exitCode, 0, "Init site process failed");
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
@@ -112,23 +112,23 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 	}
 
 	public void copyAndPasteLongTreeIntoExistentFolder(String childLocator, String destinationFolderLocator) {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", childLocator);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", childLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", childLocator);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", childLocator);
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickCopyFolder(childLocator);
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		dashboardPage.clickCopyButtonOnTreeSelector();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", destinationFolderLocator);
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.contextClick("xpath", destinationFolderLocator, false);
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		driverManager.usingContextMenu(() -> {
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", destinationFolderLocator);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().contextClick("xpath", destinationFolderLocator, false);
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		getWebDriverManager().usingContextMenu(() -> {
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pasteOptionLocator)
 					.click();
 		}, "Pages");
 
@@ -137,21 +137,21 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void changeBodyToNotRequiredOnPageArticleContent() {
@@ -163,126 +163,126 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(firstChildLocator);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage
 				.expandParentFolder(firstChildLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='3']");
 		this.createNewPageArticle(firstChildLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='3']");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(
 				firstChildLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='3']");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(firstChildLocator);
 
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, firstDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstDestinationLocator + childFolder)
 				.isDisplayed());
 	}
 
 	public void step2() {
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		secondDestinationLocator = firstDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, secondDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017");
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				secondDestinationLocator + childFolder).isDisplayed());
 
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		thirdDestinationLocator = secondDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, thirdDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", thirdDestinationLocator + childFolder)
 				.isDisplayed());
 
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		fourthDestinationLocator = thirdDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, fourthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017");
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				fourthDestinationLocator + childFolder).isDisplayed());
 
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		fifthDestinationLocator = fourthDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, fifthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success", "/articles/2016/2017/2017/2017/2017/2017");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fifthDestinationLocator + childFolder)
 				.isDisplayed());
 
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		sixthDestinationLocator = fifthDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, sixthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", sixthDestinationLocator + childFolder)
 				.isDisplayed());
 
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		seventhDestinationLocator = sixthDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, seventhDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017");
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				seventhDestinationLocator + childFolder).isDisplayed());
 
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		eighthDestinationLocator = seventhDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, eighthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017");
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				eighthDestinationLocator + childFolder).isDisplayed());
 
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		ninthDestinationLocator = eighthDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, ninthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017/2017");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", ninthDestinationLocator + childFolder)
 				.isDisplayed());
 
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		tenthDestinationLocator = ninthDestinationLocator + childFolder;
 		copyAndPasteLongTreeIntoExistentFolder(firstChildLocator, tenthDestinationLocator);
 		logger.info("Checking if the element {} was pasted with success",
 				"/articles/2016/2017/2017/2017/2017/2017/2017/2017/2017/2017/2017");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", tenthDestinationLocator + childFolder)
 				.isDisplayed());
 
 		this.collapseFolders();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		copyAndPasteLongTreeIntoExistentFolder(firstDestinationLocator, firstChildLocator);
 
 		String elementClassValue = "";
 		while (!(elementClassValue.contains("open"))) {
-			elementClassValue = this.driverManager
+			elementClassValue = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator)
 					.getAttribute("class");
 		}
@@ -293,114 +293,114 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 	public void assertContentImagesOnStaticAssets() {
 		// Collapse Home tree
 		logger.info("Collapse Home tree");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
-		this.driverManager.waitUntilFolderOpens("xpath", expandPagesTree);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
+		this.getWebDriverManager().waitUntilFolderOpens("xpath", expandPagesTree);
 		this.dashboardPage.expandHomeTree();
 
 		logger.info("Click the Static Assets Tree");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsChildFolder);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsChildFolder)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsChildFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsChildFolder)
 				.click();
 
 		logger.info("Click the Static Assets/Page Tree");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				staticAssetsItemsChildFolder);
-		this.driverManager
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsItemsChildFolder).click();
 
 		logger.info("Click the Static Assets/item/images Tree");
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				staticAssetsItemsImagesChildFolder);
-		this.driverManager
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 						 staticAssetsItemsImagesChildFolder)
 				.click();
 
 		// Expanding Year folder
-		String yearFolderXpath = ".//span[text()='" + this.driverManager.getCurrentYear() + "']";
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath).click();
+		String yearFolderXpath = ".//span[text()='" + this.getWebDriverManager().getCurrentYear() + "']";
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", yearFolderXpath).click();
 
 		// Expanding Month folder
-		String monthFolderXpath = yearFolderXpath + "/../../../../../div[@class='ygtvchildren']//span[text()='" + this.driverManager.getCurrentMonth() + "']";
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath).click();
+		String monthFolderXpath = yearFolderXpath + "/../../../../../div[@class='ygtvchildren']//span[text()='" + this.getWebDriverManager().getCurrentMonth() + "']";
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", monthFolderXpath).click();
 
 		// Expanding Day folder
-		String dayFolderXpath = monthFolderXpath + "/../../../../../div[@class='ygtvchildren']//span[text()='"+ this.driverManager.getCurrentDay()+"']";
-		this.driverManager.waitUntilContentTooltipIsHidden();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath).click();
+		String dayFolderXpath = monthFolderXpath + "/../../../../../div[@class='ygtvchildren']//span[text()='"+ this.getWebDriverManager().getCurrentDay()+"']";
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dayFolderXpath).click();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
 
 		String ImageItemsXpath = dayFolderXpath + staticAssetsItemImagesTestImagesChilds;
-		List<WebElement> testimagesitems = this.driverManager.getDriver().findElements(By.xpath(ImageItemsXpath));
+		List<WebElement> testimagesitems = this.getWebDriverManager().getDriver().findElements(By.xpath(ImageItemsXpath));
 		Assert.assertTrue((testimagesitems.size() == 21),
 				"There are not the correct amount of items for static asset/page/images/testimage.jpg , expected 21 items");
 	}
 
 	public void collapseFolders() {
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 		dashboardPage.collapseParentFolder(tenthDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(ninthDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(eighthDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(seventhDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(sixthDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(fifthDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(fourthDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(thirdDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(secondDestinationLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.collapseParentFolder(firstDestinationLocator);
 	}
 
 	public void expandAllCutTrees() {
 		// expand 2016 parent
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				firstChildLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='2016']");
 		dashboardPage.expandParentFolder(
 				firstChildLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='2016']");
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 
 		// expand the all folder tree
 		for (int i = 0; i < 10; i++) {
 			// append the last opened 2017 folder
 			finalChildFolderLocator = finalChildFolderLocator + childFolder;
 
-			this.driverManager.scrollDownIntoSideBar();
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitForFullExpansionOfTree();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+			this.getWebDriverManager().scrollDownIntoSideBar();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().waitForFullExpansionOfTree();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 					finalChildFolderLocator);
 
 			// at first time expand the 2016 child on 2017 folder
@@ -410,86 +410,86 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 	public void step3() {
 		logger.info("Executing bulk publish");
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
 
 		previewPage.bulkPublish("/site/website/articles", 50000);
 
-		driverManager.getDriver().navigate().refresh();
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
+		getWebDriverManager().getDriver().navigate().refresh();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 
 		logger.info("Collapse the Static Assets Tree");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsButton).click();
 
 		logger.info("Expand Home tree");
 		this.dashboardPage.expandPagesTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
-		this.driverManager.waitUntilFolderOpens("xpath", expandPagesTree);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeTree);
+		this.getWebDriverManager().waitUntilFolderOpens("xpath", expandPagesTree);
 		this.dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator);
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", firstChildLocator);
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(firstChildLocator);
 		this.expandAllCutTrees();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.scrollDownIntoSideBar();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().scrollDownIntoSideBar();
+		this.getWebDriverManager().waitForAnimation();
 		String articleXpath = finalChildFolderLocator
 				+ "/../../../../../div[@class='ygtvchildren']/div//span[contains(text(),'Men Styles For Winter')]";
 
 		logger.info("Verify Article is published");
 		for (int i = 0; i < 2; i++) {
-			this.driverManager.waitForAnimation();
-			this.driverManager.waitForFullExpansionOfTree();
-			this.driverManager.scrollDownIntoSideBar();
-			this.driverManager.waitForFullExpansionOfTree();
-			this.driverManager.waitUntilSidebarOpens();
-			this.driverManager.scrollRightIntoSideBar(
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().waitForFullExpansionOfTree();
+			this.getWebDriverManager().scrollDownIntoSideBar();
+			this.getWebDriverManager().waitForFullExpansionOfTree();
+			this.getWebDriverManager().waitUntilSidebarOpens();
+			this.getWebDriverManager().scrollRightIntoSideBar(
 					finalChildFolderLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='1']");
 
 			// if the folder is not expanded do a click on it
-			if (!(this.driverManager
+			if (!(this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 							finalChildFolderLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='1']")
 					.getAttribute("class").contains("open"))) {
-				this.driverManager.waitUntilContentTooltipIsHidden();
-				this.driverManager.waitForAnimation();
-				this.driverManager.waitForFullExpansionOfTree();
-				this.driverManager.waitForAnimation();
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				this.getWebDriverManager().waitUntilContentTooltipIsHidden();
+				this.getWebDriverManager().waitForAnimation();
+				this.getWebDriverManager().waitForFullExpansionOfTree();
+				this.getWebDriverManager().waitForAnimation();
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 						finalChildFolderLocator + "/../../../../../div[@class='ygtvchildren']//span[text()='1']")
 						.click();
 			}
 
 			try {
 				// Wait for the article and click it.
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath);
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath);
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articleXpath)
 						.click();
-				this.driverManager.waitForAnimation();
-				this.driverManager.waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
+				this.getWebDriverManager().waitForAnimation();
+				this.getWebDriverManager().waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
 				break;
 
 			} catch (TimeoutException e) {
-				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
+				this.getWebDriverManager().takeScreenshot("PageNotPublishedOnTopNavBar");
 				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
-				driverManager.getDriver().navigate().refresh();
+				getWebDriverManager().getDriver().navigate().refresh();
 			}
 		}
 
-		String elementClassValueTopNav = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
+		String elementClassValueTopNav = this.getWebDriverManager().getDriver().findElement(By.xpath(topNavStatusIcon))
 				.getAttribute("class");
 		Assert.assertTrue(elementClassValueTopNav.contains("undefined live"));
 

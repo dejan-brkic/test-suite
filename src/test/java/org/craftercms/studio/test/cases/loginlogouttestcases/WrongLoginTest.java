@@ -52,7 +52,7 @@ public class WrongLoginTest extends StudioBaseTest{
 		loginPage.loginToCrafterWithWrongCredentials(userName+"wrong", password);
 		
 		// Assert No login for invalid user.
-		WebElement signInWrongUser = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement signInWrongUser = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				alertWrongUserOrPasswordXpath);
 
 		Assert.assertTrue(signInWrongUser.isDisplayed());
@@ -61,7 +61,7 @@ public class WrongLoginTest extends StudioBaseTest{
 		loginPage.loginToCrafterWithWrongCredentials(userName, password+"wrong");
 
 		// Assert No login for invalid password.
-		WebElement signInWrongPwd = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement signInWrongPwd = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				alertWrongUserOrPasswordXpath);
 
 		Assert.assertTrue(signInWrongPwd.isDisplayed());

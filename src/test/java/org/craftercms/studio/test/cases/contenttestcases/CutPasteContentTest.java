@@ -92,20 +92,20 @@ public class CutPasteContentTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for loging page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to dashboard page
 		homePage.goToDashboardPage(testId);
 
 		// Show site content panel
 		logger.debug("Click on Site Dropdown");
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 
 		// go to admin console page
 		logger.debug("Click on Admin Console");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
 
 		// select content types
 		siteConfigPage.selectContentTypeOption();
@@ -118,26 +118,26 @@ public class CutPasteContentTest extends StudioBaseTest {
 
 		// select main content
 		logger.debug("Select Main content");
-		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath).click();
+		this.getWebDriverManager().waitUntilSiteConfigMaskedModalCloses();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath).click();
 
 		// Body not required
 		logger.debug("Disable RTE for the selected content");
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckCss)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckCss)
 				.click();
 
 		// save
 		siteConfigPage.saveDragAndDropProcess();
 
 		// Switch to the form
-		driverManager.getDriver().navigate().refresh();
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		logger.debug("Return to preview page.");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo).click();
 
 		// expand pages folder
 		dashboardPage.expandPagesTree();
@@ -154,7 +154,7 @@ public class CutPasteContentTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 
 			// Set basics fields of the new content created
 			logger.info("Set the fields of the new content");
@@ -162,11 +162,11 @@ public class CutPasteContentTest extends StudioBaseTest {
 
 			// Set the title of main content
 
-			this.driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			this.getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 			logger.info("Click on Save and close button");
-			this.driverManager
+			this.getWebDriverManager()
 
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElement)
 					.click();
@@ -174,7 +174,7 @@ public class CutPasteContentTest extends StudioBaseTest {
 		});
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// expand home content
 		dashboardPage.expandHomeTree();
@@ -185,10 +185,10 @@ public class CutPasteContentTest extends StudioBaseTest {
 		// Set the name of the folder
 		dashboardPage.setFolderName("addnewfolder");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newFolderCreated);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newFolderCreated);
 
 		// Right click and cut content.
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickToCutOption();
 
 		// Right click and paste content.
@@ -196,13 +196,13 @@ public class CutPasteContentTest extends StudioBaseTest {
 		dashboardPage.rightClickToPasteIntoFolder();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", newFolderSpanXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", newFolderSpanXpath).click();
 
 		// Assert of the content copied
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(testingItemURLXpath);
-		String contentCopied = this.driverManager
+		this.getWebDriverManager().waitWhileElementIsDisplayedAndClickableByXpath(testingItemURLXpath);
+		String contentCopied = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
 		Assert.assertTrue(contentCopied.contains("Testing1"), "New folder does not contain the cut/paste content");
 

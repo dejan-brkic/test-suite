@@ -62,16 +62,16 @@ public class AddNewFolderTest extends StudioBaseTest {
 
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to dashboard page
 
 		homePage.goToDashboardPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 
 		// expand pages folder
 		dashboardPage.expandPagesTree();
@@ -83,21 +83,21 @@ public class AddNewFolderTest extends StudioBaseTest {
 		// Set the name of the folder
 		dashboardPage.setFolderName("addnewfolder");
 
-		this.driverManager.waitUntilPageLoad();
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilPageLoad();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		
 		dashboardPage.expandHomeTree();
 		
 	
-		this.driverManager.waitUntilFolderOpens("xpath", homeTree);
+		this.getWebDriverManager().waitUntilFolderOpens("xpath", homeTree);
 		
-		driverManager.getDriver().navigate().refresh();
-		this.driverManager.waitUntilHomeIsOpened();
+		getWebDriverManager().getDriver().navigate().refresh();
+		this.getWebDriverManager().waitUntilHomeIsOpened();
 		
 		// Assert find the new folder created	
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", newFolderXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", newFolderXpath);
 		
-		Assert.assertTrue(this.driverManager.isElementPresentByXpath(newFolderXpath));
+		Assert.assertTrue(this.getWebDriverManager().isElementPresentByXpath(newFolderXpath));
 
 	}
 

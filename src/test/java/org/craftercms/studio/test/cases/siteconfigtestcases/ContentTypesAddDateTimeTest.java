@@ -73,23 +73,23 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 	public void dragAndDrop() {
 
 		// Getting the Form Section control input for drag and drop action
-		WebElement FromControlSectionFormSectionElement = this.driverManager
+		WebElement FromControlSectionFormSectionElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFormSectionLocator);
 		
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement ToContentTypeContainer = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
+		getWebDriverManager().dragAndDropElement(FromControlSectionFormSectionElement, ToContentTypeContainer);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToMiddleInASection("#widgets-container", lastControlElementCssSelector, 5);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().focusAndScrollDownToMiddleInASection("#widgets-container", lastControlElementCssSelector, 5);
 		
-		WebElement FromDateTime = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement FromDateTime = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				controlsSectionDateTimeLocator);
 	
-		WebElement ToDefaultSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement ToDefaultSection = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerFormSectionContainerLocator);
 
 		siteConfigPage.getDriverManager().dragAndDropElement(FromDateTime, ToDefaultSection);
@@ -111,18 +111,18 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 				userName,password);
 		
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 		
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				adminConsoleXpath).click();
 
 		// Select the content type to the test
@@ -138,14 +138,14 @@ public class ContentTypesAddDateTimeTest extends StudioBaseTest{
 		siteConfigPage.confirmContentTypeSelected();
 
 		// Click on input section to can view the properties	
-		driverManager.waitUntilPopupIsHidden();
+		getWebDriverManager().waitUntilPopupIsHidden();
 		
 		siteConfigPage.clickDateTimeSection();
 
 		// Asserts that fields are not empty.
-		this.driverManager.isElementPresentByXpath(contentTypeContainerDateTimeTitleLocator);
+		this.getWebDriverManager().isElementPresentByXpath(contentTypeContainerDateTimeTitleLocator);
 		
-		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		String titleText = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerDateTimeTitleLocator).getText();
 
 		Assert.assertTrue(titleText.contains("TestTitle"));

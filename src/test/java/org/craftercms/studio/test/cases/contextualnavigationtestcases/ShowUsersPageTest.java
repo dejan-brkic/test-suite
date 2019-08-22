@@ -52,12 +52,12 @@ public class ShowUsersPageTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the Users Contextual Navigation Option
 		homePage.clickUsersContextualNavigationOption();
 
-	    this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",newUserXpath);
+	    this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",newUserXpath);
 		
 	    // Checking if the UsersPage was Loaded
 		Assert.assertTrue(usersPage.getDriverManager().getDriver().getCurrentUrl()
@@ -72,16 +72,16 @@ public class ShowUsersPageTest extends StudioBaseTest {
 		// select the about us option
 		homePage.goToDashboardPage();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.clickUsersContextualNavigationOption();
 
 		// Checking if the UsersPage was Loaded
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(usersPage.getDriverManager().getDriver().getCurrentUrl()
 				.equals(apiConnectionManager.getHeaderLocationBase()+"/studio/#/users"));
 
 		// Checking if the Users title is displayed on the current page
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertTrue(usersPage.isUsersPageTitlePresent());
 
 		// go back to Sites Page

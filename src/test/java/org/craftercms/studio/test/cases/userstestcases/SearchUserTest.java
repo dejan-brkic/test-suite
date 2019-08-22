@@ -86,18 +86,18 @@ public class SearchUserTest extends StudioBaseTest {
 		usersPage.clickOnNewUser();
 
 		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("Name");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys("Name");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId).sendKeys("Last Name");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId).sendKeys("Last Name");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
 				.sendKeys("email@email.com");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("username");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys("username");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("password");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys("password");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
 				.sendKeys("password");
 
 		// Save Button
@@ -107,24 +107,24 @@ public class SearchUserTest extends StudioBaseTest {
 	public void searchUsers() {
 
 		// Search user recently created
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userSearchXpath).sendKeys("username");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", userSearchXpath).sendKeys("username");
 
 		// Assert to search is properly
-		String searchUsername = this.driverManager
+		String searchUsername = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", searchResultUserNameXpath).getText();
 		Assert.assertEquals(searchUsername, "username", "ERROR: searched username is not displayed");
 
 		// Search user admin
 
 		// Cleaning search field
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userSearchXpath).clear();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", userSearchXpath).clear();
 
 		// Search admin
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userSearchXpath).sendKeys("admin");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", userSearchXpath).sendKeys("admin");
 
 		// Assert to search is properly
 
-		String searchAdminUser = this.driverManager
+		String searchAdminUser = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", searchResultUserNameXpath).getText();
 
 		Assert.assertEquals(searchAdminUser, "admin", "ERROR: admin user is not displayed");
@@ -139,13 +139,13 @@ public class SearchUserTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// create new user
 		createUser();
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement newUserCreated = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				newUserUserNameXpath);
 
 		Assert.assertTrue(newUserCreated.isDisplayed());
@@ -154,20 +154,20 @@ public class SearchUserTest extends StudioBaseTest {
 		searchUsers();
 		
 		// Cleaning search field
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", userSearchXpath).clear();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", userSearchXpath).clear();
 
 		// Click on delete user
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 		usersPage.clickOnDeleteUserCreated();
 
 		// Confirmation to delete user connected
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", deleteYesButtonXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", deleteYesButtonXpath).click();
 
 		// Assert new users created is deleted
 
-		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(usersRowsXpath));
+		Assert.assertTrue(this.getWebDriverManager().elementHasChildsByXPath(usersRowsXpath));
 
-		List<WebElement> usersList = this.driverManager.getDriver().findElements(By.xpath(usersRowsXpath));
+		List<WebElement> usersList = this.getWebDriverManager().getDriver().findElements(By.xpath(usersRowsXpath));
 
 		Assert.assertTrue(usersList.size() == 1);
 

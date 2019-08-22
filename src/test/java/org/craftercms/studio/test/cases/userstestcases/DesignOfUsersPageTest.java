@@ -69,42 +69,42 @@ public class DesignOfUsersPageTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// click On Users option
 		createSitePage.clickOnUsersOption();
 
 		// Assert header is present.
-		WebElement header = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersTitleXpath);
+		WebElement header = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", usersTitleXpath);
 		Assert.assertTrue(header.isDisplayed());
 
 		// Assert crafter logo is present.
-		WebElement crafterLogo = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement crafterLogo = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				crafterLogoXpath);
 		Assert.assertTrue(crafterLogo.isDisplayed());
 
 		// Assert help menu option is present.
-		WebElement helpMenuOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement helpMenuOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				helpTopNavOptionXpath);
 		Assert.assertTrue(helpMenuOption.isDisplayed());
 
 		// Assert admin dropdown option is present.
-		WebElement adminOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement adminOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				accountTopNavOptionXpath);
 		Assert.assertTrue(adminOption.isDisplayed());
 
 		// Assert users per page combo option is present.
-		WebElement usersPerPage = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement usersPerPage = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				usersPerPageInputXpath);
 		Assert.assertTrue(usersPerPage.isDisplayed());
 
 		// Assert new user option is present.
-		WebElement newUser = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement newUser = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				newUserButtonXpath);
 		Assert.assertTrue(newUser.isDisplayed());
 		
 		// Assert search option is present.
-		WebElement search = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement search = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				userSearchXpath);
 		Assert.assertTrue(search.isDisplayed());
 

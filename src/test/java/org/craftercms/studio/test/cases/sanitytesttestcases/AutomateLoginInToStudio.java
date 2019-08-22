@@ -56,21 +56,21 @@ public class AutomateLoginInToStudio extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Assert create button is present.
-		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement createButton = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				createSiteButtonXpath);
 
 		//Assert is the Create Button Present
 		Assert.assertTrue(createButton.isDisplayed());
 		
 		//Assert Is the Site Page title Displayed
-		Assert.assertTrue(driverManager.isElementPresentAndClickableByXpath(sitesPageTitle));
+		Assert.assertTrue(getWebDriverManager().isElementPresentAndClickableByXpath(sitesPageTitle));
 		
 		//Assert URL of the page is the correct
-		this.driverManager.waitForAnimation();
-		String siteURL = driverManager.getDriver().getCurrentUrl();
+		this.getWebDriverManager().waitForAnimation();
+		String siteURL = getWebDriverManager().getDriver().getCurrentUrl();
 		Assert.assertTrue(siteURL.contains(sitesPageURL));
 	
 	}

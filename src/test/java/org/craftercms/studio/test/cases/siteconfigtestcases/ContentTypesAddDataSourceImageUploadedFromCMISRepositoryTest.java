@@ -67,18 +67,18 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 	}
 
 	public void dragAndDrop() {
-		this.driverManager.scrollDownPx(3000);
-		this.driverManager.focusAndScrollDownToMiddleInASection("#datasources-container",lastDatasourceElementCssSelector, 6);
+		this.getWebDriverManager().scrollDownPx(3000);
+		this.getWebDriverManager().focusAndScrollDownToMiddleInASection("#datasources-container",lastDatasourceElementCssSelector, 6);
 		// Getting the ChildContent for drag and drop action
-		WebElement FromDataSourceImageUploadedFromRepoElement = this.driverManager
+		WebElement FromDataSourceImageUploadedFromRepoElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 						dataSourceSectionImageUploadedFromCMISRepositoryLocator);
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement ToContentTypeContainer = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerLocator);
-		driverManager.dragAndDropElement(FromDataSourceImageUploadedFromRepoElement, ToContentTypeContainer);
+		getWebDriverManager().dragAndDropElement(FromDataSourceImageUploadedFromRepoElement, ToContentTypeContainer);
 
 		// Complete the input fields basics
 		siteConfigPage.completeDataSourceFieldsBasics("TestTitle");
@@ -96,19 +96,19 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 				userName,password);
 		
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 		
 		// Show admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				adminConsoleXpath).click();
 
 		// Select the content type to the test
@@ -124,13 +124,13 @@ public class ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest extend
 		siteConfigPage.confirmContentTypeSelected();
 
 		// Click on input section to can view the properties
-		driverManager.waitUntilPopupIsHidden();
+		getWebDriverManager().waitUntilPopupIsHidden();
 		siteConfigPage.clickDataSourceImageUploadedFromCMISRepositorySection();
 
 		// Asserts that fields are not empty.
-		this.driverManager.isElementPresentByXpath(contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator);
+		this.getWebDriverManager().isElementPresentByXpath(contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator);
 		
-		String titleText = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		String titleText = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				contentTypeContainerImageUploadedFromCMISRepositoryTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));
 		siteConfigPage.cancelChangesOnContentType();

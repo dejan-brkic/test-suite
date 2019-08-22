@@ -70,7 +70,7 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 
-		Assert.assertTrue(driverManager
+		Assert.assertTrue(getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}

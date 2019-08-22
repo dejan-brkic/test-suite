@@ -81,19 +81,19 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
 
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
@@ -108,7 +108,7 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
@@ -116,50 +116,50 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		// expand Articles/2016/12 folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articles2016Folder);
 		dashboardPage.expandParentFolder(articles2016Folder);
 
 		dashboardPage.expandParentFolder(articles201612Folder);
 		this.createNewPageArticle(articles201612Folder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void checkContentPreviewInfoForTestingArticleContent() {
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
 
 		logger.info("Checking preview info for testing article content");
-		this.driverManager
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleXpath)
 				.click();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		Assert.assertTrue(
-				this.driverManager.getDriver().getCurrentUrl().contains("page=/articles/2016/12/test"));
+				this.getWebDriverManager().getDriver().getCurrentUrl().contains("page=/articles/2016/12/test"));
 
-		this.driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo()
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "engineWindow"));
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().getDriver().switchTo()
+				.frame(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("id", "engineWindow"));
 		// Checking preview article subject of testing article
 		Assert.assertTrue("ArticleSubject"
-				.equalsIgnoreCase(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				.equalsIgnoreCase(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						articleSubject).getText()));
 		// Checking preview author of testing article
 		Assert.assertTrue("by ArticleAuthor"
-				.equalsIgnoreCase(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+				.equalsIgnoreCase(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 						articleAuthor).getText()));
 		// Checking preview image of testing article
-		String sourceValue = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		String sourceValue = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				articleImage).getAttribute("src");
 
 		Assert.assertTrue(sourceValue.contains("/static-assets/images/1-gear.png"));
-		this.driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	@Parameters({"testId"})

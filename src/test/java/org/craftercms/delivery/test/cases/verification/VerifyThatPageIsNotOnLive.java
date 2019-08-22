@@ -41,16 +41,16 @@ public class VerifyThatPageIsNotOnLive extends DeliveryBaseTest {
 				.getProperty("delivery.verification.siteurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
-		this.driverManager.getDriver().get(siteURL+testId);
-		this.driverManager.getDriver().get(pageURL);
+		this.getWebDriverManager().getDriver().get(siteURL+testId);
+		this.getWebDriverManager().getDriver().get(pageURL);
 	}
 
 	@Test()
 	public void verifyThatPageIsNotOnLive() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", pageTitleXpath);
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("The page you are looking for doesn't exist."));
 	}
 

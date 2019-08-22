@@ -45,7 +45,7 @@ public class ShowDocumentationTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// click On help option
 		createSitePage.clickOnHelpOption();

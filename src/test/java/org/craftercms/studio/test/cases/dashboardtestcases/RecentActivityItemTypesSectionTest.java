@@ -95,76 +95,76 @@ public class RecentActivityItemTypesSectionTest extends StudioBaseTest{
 
 		// Assert Item Types tittle is present.
 
-		WebElement itemTypes = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement itemTypes = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				itemsTypePanel);
 		Assert.assertTrue(itemTypes.isDisplayed());
 
 		// Assert navigation page is present.
-		WebElement navigationPage = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement navigationPage = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				navigationPageItem);
 		Assert.assertTrue(navigationPage.isDisplayed());
 
 		// Assert floating page is present.
-		WebElement floatingPage = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement floatingPage = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				floatingPageItem);
 		Assert.assertTrue(floatingPage.isDisplayed());
 
 		// Assert component is present.
-		WebElement component = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", componentItem);
+		WebElement component = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", componentItem);
 		Assert.assertTrue(component.isDisplayed());
 
 		// Assert template is present.
-		WebElement template = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement template = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				templateScriptItem);
 		Assert.assertTrue(template.isDisplayed());
 
 		// Assert taxonomy is present.
-		WebElement taxonomy = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", taxonomyItem);
+		WebElement taxonomy = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", taxonomyItem);
 		Assert.assertTrue(taxonomy.isDisplayed());
 
 		// Assert iamge is present.
-		WebElement image = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", imageItem);
+		WebElement image = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", imageItem);
 		Assert.assertTrue(image.isDisplayed());
 
 		// Assert css is present.
-		WebElement video = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", videoItem);
+		WebElement video = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", videoItem);
 		Assert.assertTrue(video.isDisplayed());
 
 		// Assert css is present.
-		WebElement css = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", cssItem);
+		WebElement css = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", cssItem);
 		Assert.assertTrue(css.isDisplayed());
 
 		// Assert Font for edit is present.
-		WebElement font = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", fontItem);
+		WebElement font = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", fontItem);
 		Assert.assertTrue(font.isDisplayed());
 
 		// Assert pdf is present.
-		WebElement pdf = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pdfItem);
+		WebElement pdf = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", pdfItem);
 		Assert.assertTrue(pdf.isDisplayed());
 
 		// Assert MS Power Point for edit is present.
-		WebElement msPowerPoint = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement msPowerPoint = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				msPowerPointItem);
 		Assert.assertTrue(msPowerPoint.isDisplayed());
 
 		// Assert MS Word is present.
-		WebElement msWord = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", msWordItem);
+		WebElement msWord = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", msWordItem);
 		Assert.assertTrue(msWord.isDisplayed());
 
 		// Assert MS Excel for edit is present.
-		WebElement msExcel = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", msExcelItem);
+		WebElement msExcel = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", msExcelItem);
 		Assert.assertTrue(msExcel.isDisplayed());
 
 		// Assert zip is present.
-		WebElement zip = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", zipItem);
+		WebElement zip = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", zipItem);
 		Assert.assertTrue(zip.isDisplayed());
 
 		// Assert zip is present.
-		WebElement groovy = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", groovyItem);
+		WebElement groovy = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", groovyItem);
 		Assert.assertTrue(groovy.isDisplayed());
 
 		// Assert other is present.
-		WebElement other = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", otherItem);
+		WebElement other = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", otherItem);
 		Assert.assertTrue(other.isDisplayed());
 
 	}
@@ -178,7 +178,7 @@ public class RecentActivityItemTypesSectionTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to dashboard page
 		homePage.goToDashboardPage();

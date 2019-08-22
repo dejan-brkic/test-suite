@@ -88,7 +88,6 @@ public class PreviewPage {
 	public PreviewPage(WebDriverManager driverManager,
 			UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
-		this.driverManager.getDriver();
 		this.siteConfigPage = new SiteConfigPage(driverManager, UIElementsPropertiesManager);
 		this.dashboardPage = new DashboardPage(driverManager, UIElementsPropertiesManager);
 		adminConsole = UIElementsPropertiesManager.getSharedUIElementsLocators()
