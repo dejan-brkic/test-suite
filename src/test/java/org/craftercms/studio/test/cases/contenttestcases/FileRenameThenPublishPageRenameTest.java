@@ -71,7 +71,7 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		int exitCode = this.driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
+		int exitCode = this.getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
 		Assert.assertEquals(exitCode, 0, "Init site process failed");
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
@@ -131,11 +131,11 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("foo", "foo", "foo", folderLocation,
 				selectEntertaimentCategoryCheckBox, selectAllSegmentsCheckBox, "foo", "foo", "foo");
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void changeBodyToNotRequiredOnPageArticleContent() {
@@ -147,66 +147,66 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		driverManager.clickElement("xpath", siteDropDownXpath);
+		getWebDriverManager().clickElement("xpath", siteDropDownXpath);
 
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilSidebarOpens();
 
 		// body not required
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(folder2016Locator);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandParentFolder(
 				folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='12']");
 		this.createNewPageArticle(folder2016Locator + "/../../../../../div[@class='ygtvchildren']//span[text()='12']");
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
-		driverManager.waitUntilHomeIsOpened();
-		Assert.assertTrue(this.driverManager
+		getWebDriverManager().getDriver().navigate().refresh();
+		getWebDriverManager().waitUntilHomeIsOpened();
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).isDisplayed());
 
-		this.driverManager.contextClick("xpath", fooContentXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement publishOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().contextClick("xpath", fooContentXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement publishOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					publishOptionXpath);
 			publishOption.click();
 		}, "Pages");
 
 		// submit
 		previewPage.clickOnSubmitButtonOfApprovePublish();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
 						.click();
-				this.driverManager.waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
+				this.getWebDriverManager().waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
 				break;
 			} catch (TimeoutException e) {
-				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
+				this.getWebDriverManager().takeScreenshot("PageNotPublishedOnTopNavBar");
 				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
-				driverManager.getDriver().navigate().refresh();
+				getWebDriverManager().getDriver().navigate().refresh();
 			}
 		}
 
-		String elementClassValue = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
+		String elementClassValue = this.getWebDriverManager().getDriver().findElement(By.xpath(topNavStatusIcon))
 				.getAttribute("class");
 		Assert.assertTrue(elementClassValue.contains("undefined live"));
 
@@ -215,23 +215,23 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 	public void goToDashboardAndCheck() {
 		// click on dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
 
-		this.driverManager.waitUntilDashboardWidgetsAreLoaded();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", recentlyActivitySelectAll);
+		this.getWebDriverManager().waitUntilDashboardWidgetsAreLoaded();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", recentlyActivitySelectAll);
 		Select categoriesDropDown = new Select(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyActivitySelectAll));
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyActivitySelectAll));
 
 		categoriesDropDown.selectByValue("all");
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.getWebDriverManager().waitUntilDashboardLoadingAnimationIsNotDisplayedOnRecentActivity();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
-		this.driverManager.waitForFullExpansionOfTree();
-		List<WebElement> recentActivityItems = this.driverManager
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		List<WebElement> recentActivityItems = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentlyActivityTable)
 				.findElements(By.tagName("tr"));
 
@@ -242,7 +242,7 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	}
 
 	public void checkRecentActivityItems(WebElement element) {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		String itemName = element.findElement(By.xpath(recentlyActivityItemName)).getText();
 		String itemIconClass = element.findElement(By.xpath(recentlyActivityItemIcon)).getAttribute("class");
 		String itemURL = element.findElement(By.xpath(recentlyActivityItemURL)).getText();
@@ -292,9 +292,9 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	}
 
 	public void validateItemNameForStaticAssetsFolders(String itemName, String itemIconClass, String itemURL) {
-		String year = this.driverManager.getCurrentYear();
-		String month = this.driverManager.getCurrentMonth();
-		String day = this.driverManager.getCurrentDay();
+		String year = this.getWebDriverManager().getCurrentYear();
+		String month = this.getWebDriverManager().getCurrentMonth();
+		String day = this.getWebDriverManager().getCurrentDay();
 
 		if (itemURL.equalsIgnoreCase("/static-assets/item/images/" + year)) {
 			Assert.assertTrue(itemIconClass.contains("fa-folder-o"));
@@ -312,13 +312,13 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 	public void step3() {
 		// expand pages folder
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandPagesTree();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
-		this.driverManager.waitUntilHomeIsOpened();
+		getWebDriverManager().getDriver().navigate().refresh();
+		this.getWebDriverManager().waitUntilHomeIsOpened();
 
 		dashboardPage.expandParentFolder(folder2016Locator);
 
@@ -328,9 +328,9 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 	public void step10() {
 		// click on dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		this.getWebDriverManager().waitForAnimation();
 
 		this.dashboardPage.validateItemsOnRecentActivity(true);
 
@@ -338,9 +338,9 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
 	
 	public void step11() {
-		this.driverManager.contextClick("xpath", fooContentXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement publishOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().contextClick("xpath", fooContentXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement publishOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					publishOptionXpath);
 			publishOption.click();
 		}, "Pages");
@@ -349,24 +349,24 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	public void step12() {
 		// submit
 		previewPage.clickOnSubmitButtonOfApprovePublish();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void step13() {
 		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
 						.click();
-				this.driverManager.waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
+				this.getWebDriverManager().waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
 				break;
 			} catch (TimeoutException e) {
-				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
+				this.getWebDriverManager().takeScreenshot("PageNotPublishedOnTopNavBar");
 				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
-				driverManager.getDriver().navigate().refresh();
+				getWebDriverManager().getDriver().navigate().refresh();
 			}
 		}
 
-		String elementClassValue = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
+		String elementClassValue = this.getWebDriverManager().getDriver().findElement(By.xpath(topNavStatusIcon))
 				.getAttribute("class");
 		Assert.assertTrue(elementClassValue.contains("undefined live"));
 	}
@@ -379,53 +379,53 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		this.step3();
 
 		// steps 4, 5, 6, 7 and 8
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
-		this.driverManager.contextClick("xpath", fooContentXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
+		this.getWebDriverManager().contextClick("xpath", fooContentXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// check that the edit form was opened
 			// step 4
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
+			Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
 					.getText().equalsIgnoreCase("foo"));
 
 			// step 5
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editURLButton).click();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", editURLButton).click();
 
-			this.driverManager.getDriver().switchTo().activeElement();
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
+			this.getWebDriverManager().getDriver().switchTo().activeElement();
+			Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
 					.getText().equalsIgnoreCase("Warning"));
 
 			// step 6
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", warningOkButton)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", warningOkButton)
 					.click();
 
 			// step 7
-			this.driverManager.waitForAnimation();
-			this.driverManager.getDriver().switchTo().activeElement();
-			this.driverManager.sendText("xpath", filenameInput, "bar");
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().getDriver().switchTo().activeElement();
+			this.getWebDriverManager().sendText("xpath", filenameInput, "bar");
+			this.getWebDriverManager().waitForAnimation();
 
 			// save and close
-			this.driverManager
+			this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElement)
 					.click();
 
 		});
 
 		// Step 8 Expected Output
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("/studio/site-dashboard"));
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl().contains("/studio/site-dashboard"));
 
 		// Step 9
-		this.driverManager.waitForFullExpansionOfTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/articles/2016/12/bar"));
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath).click();
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl().contains("page=/articles/2016/12/bar"));
 
 		// Step 10
 		this.step10();

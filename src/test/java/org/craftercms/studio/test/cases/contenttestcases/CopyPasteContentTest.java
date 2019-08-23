@@ -73,22 +73,22 @@ public class CopyPasteContentTest extends StudioBaseTest {
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// creating random values for URL field and InternalName field
 
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	@Parameters({"testId"})
@@ -97,7 +97,7 @@ public class CopyPasteContentTest extends StudioBaseTest {
 
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
@@ -112,7 +112,7 @@ public class CopyPasteContentTest extends StudioBaseTest {
 		this.createContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -124,20 +124,20 @@ public class CopyPasteContentTest extends StudioBaseTest {
 		dashboardPage.rightClickToPasteOption();
 
 		// Reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// Click on edit option of recent activity section
 		dashboardPage.clickOnEditOptionRecentActivity();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal name
 			dashboardPage.editInternalName("COPY");	
 		});
 		
-		this.driverManager.waitForAnimation();
-		Assert.assertNotNull(driverManager.waitUntilElementIsDisplayed("xpath", copyTestItemXpath)
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertNotNull(getWebDriverManager().waitUntilElementIsDisplayed("xpath", copyTestItemXpath)
 				,"Content page is not displayed on the Site Content panel");
 
 	}

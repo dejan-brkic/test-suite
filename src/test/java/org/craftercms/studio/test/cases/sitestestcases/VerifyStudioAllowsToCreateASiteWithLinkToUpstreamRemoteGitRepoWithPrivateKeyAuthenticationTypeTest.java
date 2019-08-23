@@ -102,14 +102,14 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	public void step12() {
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
-		this.driverManager.waitUntilCreateSiteModalCloses();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
 
 	public void step13() {
-		this.driverManager.waitUntilElementIsClickable("xpath", topNavSitesOption)
+		this.getWebDriverManager().waitUntilElementIsClickable("xpath", topNavSitesOption)
 				.click();
 	}
 
@@ -155,8 +155,8 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 
 	public void step24() {
 		createSitePage.clickOnCreateButton();
-		this.driverManager.waitUntilCreateSiteModalCloses();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -170,7 +170,7 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Step 2
 		step2();

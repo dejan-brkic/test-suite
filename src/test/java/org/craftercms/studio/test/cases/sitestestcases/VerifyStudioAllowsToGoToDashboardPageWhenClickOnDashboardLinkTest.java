@@ -47,9 +47,9 @@ public class VerifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest e
 	@Test()
 	public void verifyStudioAllowsToGoToDashboardPageWhenClickOnDashboardLinkTest(String testId) {
 		loginPage.loginToCrafter(userName, password);
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		this.homePage.goToDashboardPage(testId);
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl()
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl()
 				.contains("/studio/site-dashboard"));
 	}
 

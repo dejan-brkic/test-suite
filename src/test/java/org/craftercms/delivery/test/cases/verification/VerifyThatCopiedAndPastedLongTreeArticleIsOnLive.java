@@ -40,14 +40,14 @@ public class VerifyThatCopiedAndPastedLongTreeArticleIsOnLive extends DeliveryBa
 				.getProperty("delivery.verification.longtreearticlepageurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
-		this.driverManager.goToDeliveryUrl(verificationPageURL);
+		this.getWebDriverManager().goToDeliveryUrl(verificationPageURL);
 	}
 
 	@Test()
 	public void verifyThatCopiedAndPastedLongTreeArticleIsOnLive() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", pageTitleXpath);
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("Men Styles For Winter"));
 	}
 
@@ -55,7 +55,7 @@ public class VerifyThatCopiedAndPastedLongTreeArticleIsOnLive extends DeliveryBa
 	@AfterMethod(alwaysRun = true)
 	public void afterTest(String testId) {
 		apiTestHelper.deleteSite(testId);
-		int exitCode = driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
+		int exitCode = getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
 		Assert.assertEquals(exitCode, 0, "Remove site process failed");
 	}
 

@@ -62,27 +62,27 @@ public class UsersPerPageTest extends StudioBaseTest{
 	public void filters() {
 
 		// Show 1 user
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath);
-		driverManager.sendText("xpath",usersPerPageInputXpath,"1");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", usersPerPageInputXpath);
+		getWebDriverManager().sendText("xpath",usersPerPageInputXpath,"1");
 
 		// Asser only 1 users displayed
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",lastNumberOfPaginationXpath);
-		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(usersRowsXpath));
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",lastNumberOfPaginationXpath);
+		Assert.assertTrue(this.getWebDriverManager().elementHasChildsByXPath(usersRowsXpath));
 
-		List<WebElement> usersList1item = this.driverManager.getDriver().findElements(By.xpath(usersRowsXpath));
+		List<WebElement> usersList1item = this.getWebDriverManager().getDriver().findElements(By.xpath(usersRowsXpath));
 		Assert.assertTrue(usersList1item.size() == 1);
 		
 		// Show 3 users
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",usersPerPageInputXpath);
-		driverManager.sendText("xpath",usersPerPageInputXpath,"3");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",usersPerPageInputXpath);
+		getWebDriverManager().sendText("xpath",usersPerPageInputXpath,"3");
 
 		// Assert 3 users displayed
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",lastNumberOfPaginationXpath);
-		Assert.assertTrue(this.driverManager.elementHasChildsByXPath(usersRowsXpath));
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",lastNumberOfPaginationXpath);
+		Assert.assertTrue(this.getWebDriverManager().elementHasChildsByXPath(usersRowsXpath));
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",usersPerPageInputXpath);
-		driverManager.sendText("xpath",usersPerPageInputXpath,"10");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",usersPerPageInputXpath);
+		getWebDriverManager().sendText("xpath",usersPerPageInputXpath,"10");
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	@Test(priority = 0)
@@ -91,14 +91,14 @@ public class UsersPerPageTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		createSitePage.clickOnUsersOption();
 
 		// filters
 		filters();	
 		
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		// Delete all users
 	}
 

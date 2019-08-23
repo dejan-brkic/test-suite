@@ -92,19 +92,19 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath)
 					.click();
 
 		logger.info("Going to Site Config page");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
 
 	}
 
@@ -119,7 +119,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 
 	public void addNewRepository() {
 		this.siteConfigPage.addNewRepositoryUsingPrivateKeyAuthentication("origin", this.gitRepoUrl,
-				driverManager.getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+				getWebDriverManager().getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
 	}
 
 	public void step9() {
@@ -136,25 +136,25 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		this.changeBodyToNotRequiredOnEntryContent();
 
 		// go to sidebar
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand Pages tree
 		this.dashboardPage.expandPagesTree();
 
 		this.createContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// dashboardPage.expandHomeTree();
 
-		Assert.assertNotNull(driverManager.waitUntilElementIsDisplayed("xpath", testingItemRecentActivity));
+		Assert.assertNotNull(getWebDriverManager().waitUntilElementIsDisplayed("xpath", testingItemRecentActivity));
 	}
 
 	public void createContent() {
 		// right click to see the the menu
 		logger.info("Creating a new entry content on Home");
-		driverManager.waitUntilPageLoad();
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilPageLoad();
+		getWebDriverManager().waitUntilSidebarOpens();
 		dashboardPage.rightClickToSeeMenu();
 
 		// Select Entry Content Type
@@ -163,28 +163,28 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// creating random values for URL field and InternalName field
 
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent("Test", "Testing1");
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 
-			this.driverManager
+			this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 	}
 
 	public void step10() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
 	}
 
 	public void step11() {
@@ -195,16 +195,16 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		logger.info("Pushing changes to existent repository");
 		this.siteConfigPage.pushSiteChangesToRemoteRepo(pushButtonXpath);
 
-		this.driverManager.getDriver().switchTo().activeElement();
+		this.getWebDriverManager().getDriver().switchTo().activeElement();
 		// check notification dialog is displayed
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText)
 						.getText().contains("Successfully Pushed"));
 		
-		this.driverManager.waitUntilNotificationModalIsNotPresent();
+		this.getWebDriverManager().waitUntilNotificationModalIsNotPresent();
 		
-		this.driverManager.waitForAnimation();
-		this.driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 
 	}
 
@@ -212,36 +212,36 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		logger.info("Pulling changes from existent repository");
 		this.siteConfigPage.pullSiteChangesFromRemoteRepo(pullButtonXpath);
 
-		this.driverManager.getDriver().switchTo().activeElement();
+		this.getWebDriverManager().getDriver().switchTo().activeElement();
 		// check notification dialog is displayed
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText)
 						.getText().contains("Successfully Pulled"));
 
-		this.driverManager.waitUntilNotificationModalIsNotPresent();
+		this.getWebDriverManager().waitUntilNotificationModalIsNotPresent();
 		
-		this.driverManager.waitForAnimation();
-		this.driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	public void deleteRemoteRepo() {
 		logger.info("Deleting an existent repository");
 		this.siteConfigPage.deleteRemoteRepo(deleteButtonXpath);
 
-		this.driverManager.getDriver().switchTo().activeElement();
+		this.getWebDriverManager().getDriver().switchTo().activeElement();
 
 		// check notification dialog is displayed
 		Assert.assertTrue(
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText)
 						.getText().contains("deleted."));
 
-		this.driverManager.waitUntilNotificationModalIsNotPresent();
+		this.getWebDriverManager().waitUntilNotificationModalIsNotPresent();
 		
-		this.driverManager.waitForAnimation();
-		this.driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// waiting for update process on the list of repos
-		this.driverManager.waitForBulkPublish(5000);
+		this.getWebDriverManager().waitForBulkPublish(5000);
 
 		this.siteConfigPage.checkThatRepositoriesListIsEmpty();
 	}
@@ -263,7 +263,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		this.addNewRepository();
 
 		// waiting for update process on the list of repos
-		this.driverManager.waitForBulkPublish(5000);
+		this.getWebDriverManager().waitForBulkPublish(5000);
 
 		// checking list of repositories displayed
 		this.siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", this.gitRepoUrl);
@@ -278,7 +278,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		this.step11();
 
 		// waiting for update process on the list of repos
-		this.driverManager.waitForBulkPublish(5000);
+		this.getWebDriverManager().waitForBulkPublish(5000);
 
 		// Steps 12 and 13
 		this.pushSiteChangesToRemoteRepo();

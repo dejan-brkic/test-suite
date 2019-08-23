@@ -88,7 +88,7 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -101,24 +101,24 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 				.clickOnCreateButton();
 
 		// Verify No error messages after clicking on the Create button
-		Assert.assertFalse(driverManager.isElementPresentByXpath(createSiteErrorNotificationWindow));
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(createSiteErrorNotificationWindow));
+		this.getWebDriverManager().waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
 
-		WebElement sidebar = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement sidebar = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				dashboardSiteContent);
 
 		sidebar.click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsole);
 
-		WebElement siteConfigButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement siteConfigButton = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				adminConsole);
 
 		siteConfigButton.click();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteConfigPublishOperationsOption);
 
 		// Verify that there are no error messages displayed and that the following
@@ -126,28 +126,28 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 		// - Content Types - Configuration - Audit - Bulk Operations - Workflow States
 		// - Logging Levels - Log Console
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigcontentTypesOption),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(siteConfigcontentTypesOption),
 				"ERROR: Content Types option is not present");
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigConfigurationOption),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(siteConfigConfigurationOption),
 				"ERROR: Configuration option is not present");
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigAuditOption),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(siteConfigAuditOption),
 				"ERROR: Audit option is not present");
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigPublishOperationsOption),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(siteConfigPublishOperationsOption),
 				"ERROR: Publishing Operations option is not present");
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigWorkflowStatesoption),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(siteConfigWorkflowStatesoption),
 				"ERROR: Workflow States option is not present");
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigRemoteRepositoriesOption),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(siteConfigRemoteRepositoriesOption),
 				"ERROR: Remote Repositories option is not present");
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigLogConsoleOption),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(siteConfigLogConsoleOption),
 				"ERROR: Log Console option is not present");
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(siteConfigGraphiqlOption),
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(siteConfigGraphiqlOption),
 				"ERROR: GraphiQL option is not present");
 	}
 

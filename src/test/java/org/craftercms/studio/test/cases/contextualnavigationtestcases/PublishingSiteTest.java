@@ -94,7 +94,7 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 		// Switch to the iframe
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 
 			// Set basics fields of the new content created
 
@@ -104,13 +104,13 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 			// Set the title of main content
 
-			this.driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			this.getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 
 			logger.info("Click on Save and close button");
 
-			this.driverManager
+			this.getWebDriverManager()
 
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElement)
 					.click();
@@ -129,7 +129,7 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 		previewPage.clickOnSubmitButtonOfApprovePublish();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath);
 
 	}
 
@@ -143,7 +143,7 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 		// Wait for login page to closes
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// goto preview page
 
@@ -155,15 +155,15 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 		// Switch to the form
 
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 		// expand pages folder
 
 		dashboardPage.expandPagesTree();
 
 		// expand home content
-		this.driverManager.waitUntilPageLoad();
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilPageLoad();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	
 
 		dashboardPage.expandHomeTree();
@@ -172,31 +172,31 @@ public class PublishingSiteTest extends StudioBaseTest {
 
 		createNewContent();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentItem).click();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentItem).click();
 
 		// approve and publish
 		approveAndPublish();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
 		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentItem)
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentItem)
 						.click();
-				this.driverManager.waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
+				this.getWebDriverManager().waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
 				break;
 			} catch (TimeoutException e) {
-				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
+				this.getWebDriverManager().takeScreenshot("PageNotPublishedOnTopNavBar");
 				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
-				driverManager.getDriver().navigate().refresh();
+				getWebDriverManager().getDriver().navigate().refresh();
 			}
 		}
 
-		String elementClassValue = this.driverManager.getDriver().findElement(By.xpath(topNavStatusIcon))
+		String elementClassValue = this.getWebDriverManager().getDriver().findElement(By.xpath(topNavStatusIcon))
 				.getAttribute("class");
 		Assert.assertTrue(elementClassValue.contains("undefined live"));
 

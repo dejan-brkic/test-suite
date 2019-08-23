@@ -90,17 +90,17 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
 	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
@@ -115,17 +115,17 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		// expand Articles/2016/12 folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articles2016Folder);
 		dashboardPage.expandParentFolder(articles2016Folder);
 
@@ -135,18 +135,18 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 
 	public void editArticleAndSaveAndClose() {
 		logger.info("Editing testing article created previously");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleXpath);
-		this.driverManager.contextClick("xpath", testingArticleXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().contextClick("xpath", testingArticleXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		logger.info("Opening edit form");
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal name
 			dashboardPage.editInternalName("Testing");
 		});
@@ -154,39 +154,39 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 
 	public void publishArticle() {
 		logger.info("Publish testing article created previously");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleXpath);
-		this.driverManager.contextClick("xpath", testingArticleXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement publishOption = this.driverManager
+		this.getWebDriverManager().contextClick("xpath", testingArticleXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement publishOption = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", publishOptionLocator);
 			publishOption.click();
 		}, "Pages");
 
 		this.confirmPublishAction();
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 	}
 
 	public void confirmPublishAction() {
 		// Switch to the form
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 		// Click on Publish button
 		dashboardPage.clickApproveAndPublishSubmitButton();
 		// switch to default content
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	public void checkContentAndProperIconAreDisplayedAfterCreateContent() {
 		logger.info("Checking if testing article is displayed");
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleCompleteXPath);
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath)
 				.isDisplayed());
 		logger.info("Checking if testing article has new icon");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 						testingArticleCompleteXPath
 								+ "//span[@class='fa studio-fa-stack-1x fa-plus never-published']")
@@ -196,10 +196,10 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 
 	public void checkContentAndProperIconAreDisplayedAfterPublishContent() {
 		logger.info("Checking if testing article is displayed");
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleCompleteXPath);
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath)
 				.isDisplayed());
 		logger.info("Checking if testing article has live icon");
@@ -213,22 +213,22 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 		
 		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
 			try {
-				this.driverManager
+				this.getWebDriverManager()
 						.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath).click();
-				this.driverManager.waitUntilAttributeContains("xpath", iconElement, "class", "undefined live");
+				this.getWebDriverManager().waitUntilAttributeContains("xpath", iconElement, "class", "undefined live");
 				break;
 			} catch (TimeoutException e) {
-				this.driverManager.takeScreenshot("PageNotPublishedOnTopNavBar");
+				this.getWebDriverManager().takeScreenshot("PageNotPublishedOnTopNavBar");
 				logger.warn(
 						"Content page is not published yet, checking again if it has published icon on top bar");
-				this.driverManager.waitForAnimation();
-				this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+				this.getWebDriverManager().waitForAnimation();
+				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 						testingArticleCompleteXPath).click();
-				driverManager.getDriver().navigate().refresh();
+				getWebDriverManager().getDriver().navigate().refresh();
 			}
 		}
 
-		Assert.assertTrue(this.driverManager.getDriver().findElement(By.xpath(iconElement))
+		Assert.assertTrue(this.getWebDriverManager().getDriver().findElement(By.xpath(iconElement))
 				.getAttribute("class").contains("undefined live"));
 	}
 
@@ -236,15 +236,15 @@ public class VerifyThatStudioDisplaysProperContentStateTest extends StudioBaseTe
 		logger.info("Checking if testing article is displayed");
 		String testingContentXpath = testingArticleCompleteXPath.replace("Testing1", "Testing");
 
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingContentXpath);
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentXpath)
 				.isDisplayed());
 		logger.info("Checking if testing article has the edited icon");
 		Assert.assertTrue(
-				this.driverManager
+				this.getWebDriverManager()
 						.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 								testingContentXpath
 										+ "//span[@class='fa studio-fa-stack-1x fa-pencil edited']")

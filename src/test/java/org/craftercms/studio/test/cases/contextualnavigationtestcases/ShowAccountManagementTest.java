@@ -50,7 +50,7 @@ public class ShowAccountManagementTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// wait for element is clickable
 		createSitePage.clickAdmin();
@@ -58,12 +58,12 @@ public class ShowAccountManagementTest extends StudioBaseTest {
 		// click on settings
 		createSitePage.clickOnSettingsOption();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilElementIsDisplayed("xpath", accountManagementTitle);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", accountManagementTitle);
 		
 		// Checking if the Sites page was Loaded
 		Assert.assertTrue(accountManagementPage.getDriverManager().getDriver().getCurrentUrl()
-				.equals(apiConnectionManager.getHeaderLocationBase() + "/studio/#/settings"));
+				.equals(apiConnectionManager.getHeaderLocationBase() + "/studio#/settings"));
 
 		// Checking if the Users title is displayed on the current page
 		Assert.assertTrue(accountManagementPage.isAccountManagementTitlePresent());

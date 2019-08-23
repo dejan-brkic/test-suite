@@ -62,17 +62,17 @@ public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 	}
 
 	public void dragAndDrop() {
-		this.driverManager.scrollDownPx(3000);
+		this.getWebDriverManager().scrollDownPx(3000);
 		// Getting the ChildContent for drag and drop action
-		WebElement FromDataSourceChildContentElement = this.driverManager
+		WebElement FromDataSourceChildContentElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dataSourceSectionChildContentLocator);
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement ToContentTypeContainer = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				contentTypeContainerLocator);
 
-		driverManager.dragAndDropElement(FromDataSourceChildContentElement, ToContentTypeContainer);
+		getWebDriverManager().dragAndDropElement(FromDataSourceChildContentElement, ToContentTypeContainer);
 
 		// Complete the input fields basics
 		siteConfigPage.completeDataSourceFieldsBasics("TestTitle");
@@ -89,18 +89,18 @@ public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath).click();
 
 		// Show admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
 
 		// Select the content type to the test
 		siteConfigPage.selectEntryContentTypeFromAdminConsole();
@@ -115,13 +115,13 @@ public class ContentTypesAddDataSourceChildContentTest extends StudioBaseTest {
 		siteConfigPage.confirmContentTypeSelected();
 
 		// Click on input section to can view the properties
-		driverManager.waitUntilPopupIsHidden();
+		getWebDriverManager().waitUntilPopupIsHidden();
 		siteConfigPage.clickDataSourceChildContentSection();
 
 		// Asserts that fields are not empty.
-		this.driverManager.isElementPresentByXpath(contentTypeContainerChildContentTitleLocator);
+		this.getWebDriverManager().isElementPresentByXpath(contentTypeContainerChildContentTitleLocator);
 
-		String titleText = this.driverManager
+		String titleText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", contentTypeContainerChildContentTitleLocator)
 				.getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));

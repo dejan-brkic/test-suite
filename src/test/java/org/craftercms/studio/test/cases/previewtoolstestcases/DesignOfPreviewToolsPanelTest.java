@@ -53,7 +53,7 @@ public class DesignOfPreviewToolsPanelTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to dashboard page
 		homePage.goToPreviewPage(testId);
@@ -62,20 +62,20 @@ public class DesignOfPreviewToolsPanelTest extends StudioBaseTest {
 		previewPage.clickOnPreviewTools();
 
 		// Assert
-		WebElement previewToolsShow = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement previewToolsShow = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				previewToolsPanel);
 		Assert.assertTrue(previewToolsShow.getAttribute("style").contains("visibility: visible"),
 				"ERROR: Preview tools panel is not displayed");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		// Click on Preview Tools icon (hide)
 		previewPage.clickOnPreviewTools();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilAttributeContains("xpath", previewToolsPanel, "style", "visibility: hidden");
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilAttributeContains("xpath", previewToolsPanel, "style", "visibility: hidden");
 
 		// Assert
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.waitUntilElementIsPresent("xpath", previewToolsPanel)
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager().waitUntilElementIsPresent("xpath", previewToolsPanel)
 				.getAttribute("style").contains("visibility: hidden"),
 				"ERROR: Preview tools panel should not be displayed");
 	}

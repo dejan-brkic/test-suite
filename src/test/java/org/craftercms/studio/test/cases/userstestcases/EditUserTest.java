@@ -75,22 +75,22 @@ public class EditUserTest extends StudioBaseTest {
 		usersPage.clickOnNewUser();
 
 		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId)
 				.sendKeys(value+ "N");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
 				.sendKeys(value + "LN");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
 				.sendKeys(value + "@" + value);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId)
 				.sendKeys(value);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId)
 				.sendKeys(value);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
 				.sendKeys(value);
 
 		// Save Button
@@ -104,13 +104,13 @@ public class EditUserTest extends StudioBaseTest {
 		usersPage.clickEditUsername(username);
 
 		// Follow the form
-		this.driverManager.sendText("xpath", newUserFirstNameId, "TestFN");
-		this.driverManager.sendText("xpath", newUserLastNameId, "TestLN");
-		this.driverManager.sendText("xpath", newUserEmailId, "Test@Test");
+		this.getWebDriverManager().sendText("xpath", newUserFirstNameId, "TestFN");
+		this.getWebDriverManager().sendText("xpath", newUserLastNameId, "TestLN");
+		this.getWebDriverManager().sendText("xpath", newUserEmailId, "Test@Test");
 
 		// Save Button
 		usersPage.clickOnSaveNewUser();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",newUserButtonXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",newUserButtonXpath);
 
 	}
 
@@ -121,7 +121,7 @@ public class EditUserTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// click On Users option
 		createSitePage.clickOnUsersOption();
@@ -130,21 +130,21 @@ public class EditUserTest extends StudioBaseTest {
 		createUserToEdit(testUser);
 
 		// wait for element is clickeable
-		this.driverManager.waitUntilModalCloses();
+		this.getWebDriverManager().waitUntilModalCloses();
 
 		// edit user
 		editingUser(testUser);
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		Assert.assertEquals(
-				driverManager.waitUntilElementIsDisplayed("xpath", String.format(userLastNameCellXpath, testUser)).getText(),
+				getWebDriverManager().waitUntilElementIsDisplayed("xpath", String.format(userLastNameCellXpath, testUser)).getText(),
 				"TestLN");
 		Assert.assertEquals(
-				driverManager.waitUntilElementIsDisplayed("xpath", String.format(firstNameCellXpath, testUser)).getText(),
+				getWebDriverManager().waitUntilElementIsDisplayed("xpath", String.format(firstNameCellXpath, testUser)).getText(),
 				"TestFN");
 		Assert.assertEquals(
-				driverManager.waitUntilElementIsDisplayed("xpath", String.format(emailCellXpath, testUser)).getText(),
+				getWebDriverManager().waitUntilElementIsDisplayed("xpath", String.format(emailCellXpath, testUser)).getText(),
 				"Test@Test");
 
 	}

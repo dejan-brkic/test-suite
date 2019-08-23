@@ -87,17 +87,17 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
 	}
 
 	public void createNewPageArticleAsDraft(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentAsDraft("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
@@ -112,17 +112,17 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		// expand Articles/2016/12 folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articles2016Folder);
 		dashboardPage.expandParentFolder(articles2016Folder);
 
@@ -134,18 +134,18 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 
 	public void editArticleAndSaveAndClose() {
 		logger.info("Editing testing article created previously");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleXpath);
-		this.driverManager.contextClick("xpath", testingArticleXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().contextClick("xpath", testingArticleXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		logger.info("Opening edit form");
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal name
 			dashboardPage.editInternalName("Testing");
 		});
@@ -154,27 +154,27 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 
 	public void checkDraftPreviewBarIsDisplayed() {
 		logger.info("Checking if testing article is displayed");
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleCompleteXPath);
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath)
 				.isDisplayed());
 		logger.info("Checking if testing article has locked icon");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 						testingArticleCompleteXPath + "//span[@class='fa studio-fa-stack-1x fa-lock locked']")
 				.isDisplayed());
-		this.driverManager
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath)
 				.click();
 
-		this.driverManager.waitForFullExpansionOfTree();
-		driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 		logger.info("Checking if Draft preview bar is displayed");
 		Assert.assertTrue(
 				"Content was saved as DRAFT. Some required fields may not be populated. This can cause errors when previewed or deployed."
-						.equalsIgnoreCase(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+						.equalsIgnoreCase(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 								"xpath", previewDraftBar).getText()));
 	}
 
@@ -182,27 +182,27 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 		logger.info("Checking if testing article is displayed");
 		String testingContentXpath = testingArticleCompleteXPath.replace("Testing1", "Testing");
 
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingContentXpath);
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentXpath)
 				.isDisplayed());
 		logger.info("Checking if testing article has the never-published icon");
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 						testingContentXpath
 								+ "//span[@class='fa studio-fa-stack-1x fa-plus never-published']")
 				.isDisplayed());
-		this.driverManager
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentXpath)
 				.click();
 
-		this.driverManager.waitForFullExpansionOfTree();
-		driverManager.getDriver().switchTo().defaultContent();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 		logger.info("Checking if Draft preview bar is not displayed");
 		Assert.assertFalse(
-				this.driverManager.isElementPresentAndClickableByXpath(previewDraftBar));
+				this.getWebDriverManager().isElementPresentAndClickableByXpath(previewDraftBar));
 	}
 
 	@Parameters({"testId"})

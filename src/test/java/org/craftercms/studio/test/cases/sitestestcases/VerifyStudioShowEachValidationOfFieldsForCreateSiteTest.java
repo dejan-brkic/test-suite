@@ -68,10 +68,10 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 	public void step3() {
 		// Click on description to show the validations
-		this.driverManager.waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
+		this.getWebDriverManager().waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
 
 		// Assert Id site is required.
-		WebElement siteID = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement siteID = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageXpath);
 
 		Assert.assertTrue(siteID.isDisplayed(), "ERROR: site ID is not required");
@@ -85,8 +85,8 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		// Filling the name of site
 		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDWithUpperCasesAndSpaces);
 		
-		this.driverManager.waitForAnimation();
-		WebElement siteID = this.driverManager.waitUntilElementIsClickable("xpath", siteId);
+		this.getWebDriverManager().waitForAnimation();
+		WebElement siteID = this.getWebDriverManager().waitUntilElementIsClickable("xpath", siteId);
 
 		String testingSiteID=((testingSiteIDWithUpperCasesAndSpaces.toLowerCase()).replace(" ", ""));
 		String siteIDText=siteID.getAttribute("value");
@@ -99,8 +99,8 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		// Filling the name of site
 		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDSpecialCharacters);
 
-		this.driverManager.waitForAnimation();
-		WebElement siteID = this.driverManager.waitUntilElementIsDisplayed("xpath", siteId);
+		this.getWebDriverManager().waitForAnimation();
+		WebElement siteID = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", siteId);
 
 		String testingSiteID=((testingSiteIDSpecialCharacters.toLowerCase()).replace("!!$%", ""));
 		String siteIDText=siteID.getAttribute("value");
@@ -118,7 +118,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 		createSitePage.setPushRepositoryURL("testurl");
 
-		WebElement validationOnRepoName = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoName = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryName);
 
 		Assert.assertTrue(validationOnRepoName.isDisplayed());
@@ -130,7 +130,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				.setPushRepositoryURL("")
 				.setPushRepositoryName("testreponame");
 
-		WebElement validationOnRepoURL = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoURL = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryURL);
 
 		Assert.assertTrue(validationOnRepoURL.isDisplayed());
@@ -147,7 +147,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.setPushRepositoryUserName("")
 				.setPushRepositoryUserPassword("testpassword");
 
-		WebElement validationOnRepoUserName = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoUserName = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryUserName);
 
 		Assert.assertTrue(validationOnRepoUserName.isDisplayed());
@@ -159,7 +159,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				.setPushRepositoryUserPassword("")
 				.setPushRepositoryUserName("testusername");
 
-		WebElement validationOnRepoUserPassword = this.driverManager
+		WebElement validationOnRepoUserPassword = this.getWebDriverManager()
 				.waitUntilElementIsDisplayed("xpath", validationMessageForRepositoryUserPassword);
 
 		Assert.assertTrue(validationOnRepoUserPassword.isDisplayed());
@@ -177,7 +177,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.setPushRepositoryToken("")
 				.setPushRepositoryUserName("testusername");
 
-		WebElement validationOnRepoToken = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoToken = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryToken);
 
 		Assert.assertTrue(validationOnRepoToken.isDisplayed());
@@ -194,7 +194,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.setPushRepositoryPrivateKey("")
 				.setPushRepositoryName("testreponame");
 
-		WebElement validationOnRepoPrivateKey = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoPrivateKey = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryPrivateKey);
 
 		Assert.assertTrue(validationOnRepoPrivateKey.isDisplayed());
@@ -209,10 +209,10 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.clickUseRemoteGitRepoSiteCheckbox()
 				.clickBasicInformation();
 		// Click on description to show the validations
-		this.driverManager.waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
+		this.getWebDriverManager().waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
 
 		// Assert Id site is required.
-		WebElement siteID = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement siteID = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageXpath);
 
 		Assert.assertTrue(siteID.isDisplayed(), "ERROR: site ID is not required");
@@ -225,8 +225,8 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		// Filling the name of site
 		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDWithUpperCasesAndSpaces);
 
-		this.driverManager.waitForAnimation();
-		WebElement siteID = this.driverManager.waitUntilElementIsClickable("xpath", siteId);
+		this.getWebDriverManager().waitForAnimation();
+		WebElement siteID = this.getWebDriverManager().waitUntilElementIsClickable("xpath", siteId);
 
 		String testingSiteID=((testingSiteIDWithUpperCasesAndSpaces.toLowerCase()).replace(" ", ""));
 		String siteIDText=siteID.getAttribute("value");
@@ -239,8 +239,8 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		// Filling the name of site
 		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDSpecialCharacters);
 
-		this.driverManager.waitForAnimation();
-		WebElement siteID = this.driverManager.waitUntilElementIsDisplayed("xpath", siteId);
+		this.getWebDriverManager().waitForAnimation();
+		WebElement siteID = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", siteId);
 
 		String testingSiteID=((testingSiteIDSpecialCharacters.toLowerCase()).replace("!!$%", ""));
 		String siteIDText=siteID.getAttribute("value");
@@ -257,7 +257,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 		createSitePage.setFromGitRepositoryURL("testurl");
 
-		WebElement validationOnRepoName = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoName = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryName);
 
 		Assert.assertTrue(validationOnRepoName.isDisplayed());
@@ -269,7 +269,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				.setFromGitRepositoryURL("")
 				.setFromGitRepositoryName("testreponame");
 
-		WebElement validationOnRepoURL = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoURL = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryURL);
 
 		Assert.assertTrue(validationOnRepoURL.isDisplayed());
@@ -286,7 +286,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.setFromGitRepositoryUserName("")
 				.setFromGitRepositoryUserPassword("testpassword");
 
-		WebElement validationOnRepoUserName = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoUserName = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryUserName);
 
 		Assert.assertTrue(validationOnRepoUserName.isDisplayed());
@@ -298,7 +298,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				.setFromGitRepositoryUserPassword("")
 				.setFromGitRepositoryUserName("testusername");
 
-		WebElement validationOnRepoUserPassword = this.driverManager
+		WebElement validationOnRepoUserPassword = this.getWebDriverManager()
 				.waitUntilElementIsDisplayed("xpath", validationMessageForRepositoryUserPassword);
 
 		Assert.assertTrue(validationOnRepoUserPassword.isDisplayed());
@@ -316,7 +316,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.setFromGitRepositoryToken("")
 				.setFromGitRepositoryUserName("testusername");
 
-		WebElement validationOnRepoToken = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoToken = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryToken);
 
 		Assert.assertTrue(validationOnRepoToken.isDisplayed());
@@ -333,7 +333,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		createSitePage.setFromGitRepositoryPrivateKey("")
 				.setFromGitRepositoryName("testreponame");
 
-		WebElement validationOnRepoPrivateKey = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement validationOnRepoPrivateKey = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				validationMessageForRepositoryPrivateKey);
 
 		Assert.assertTrue(validationOnRepoPrivateKey.isDisplayed());
@@ -348,7 +348,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();

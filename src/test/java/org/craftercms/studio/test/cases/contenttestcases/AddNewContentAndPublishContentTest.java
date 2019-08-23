@@ -52,7 +52,7 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		int exitCode = this.driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
+		int exitCode = this.getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
 		Assert.assertEquals(exitCode, 0, "Init site process failed");
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
@@ -73,7 +73,7 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		categoryDrowpdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformcategorydropdown");
-		pageURL = driverManager.environmentProperties.getProperty("delivery.base.url") +
+		pageURL = getWebDriverManager().environmentProperties.getProperty("delivery.base.url") +
 				uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("delivery.verification.pageurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
@@ -91,43 +91,43 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		// Step2
 		this.createContentAndPublishIt();
 
-		String studioURL = this.driverManager.getDriver().getCurrentUrl();
+		String studioURL = this.getWebDriverManager().getDriver().getCurrentUrl();
 		verifyThatPageIsOnLive(testId);
 		deleteDeliveryContentPageTest(studioURL);
 		verifyThatPageIsNotOnLive(testId);
 	}
 
 	public void createContentAndPublishIt() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent);
 		// Step 1
 		this.createPageCategoryLandingPage(homeContent);
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		this.publishElement(createdContentXPath);
-		this.driverManager.waitUntilElementHasPublishedIcon(createdContentXPath);
+		this.getWebDriverManager().waitUntilElementHasPublishedIcon(createdContentXPath);
 	}
 
 	public void publishElement(String elementLocator) {
 
 		dashboardPage.rightClickOnAContentPage(elementLocator);
 		// selecting the Publish option
-		driverManager.usingContextMenu(() -> {
+		getWebDriverManager().usingContextMenu(() -> {
 			dashboardPage.clickOnPublishOption();
 		},"Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
 		this.confirmPublishAction();
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void confirmPublishAction() {
 		// Switch to the form
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 		// Click on Publish button
 		dashboardPage.clickApproveAndPublishSubmitButton();
 		// switch to default content
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
 	public void createPageCategoryLandingPage(String folderWebElementLocator) {
@@ -138,13 +138,13 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		// click on the Ok button to confirm the select content type above
 		dashboardPage.clickOKButton();
 		// creating new Page Article into the empty folder
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 		this.createNewPageArticleContent();
 	}
 
 	public void createNewPageArticleContent() {
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// creating random values for URL field and InternalName field
 			String randomURL = "testingPage";
 			String randomInternalName = "testingPage";
@@ -153,21 +153,21 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 			dashboardPage.setBasicFieldsOfNewPageArticleContent(randomURL, randomInternalName, "testingPage");
 
 			// Set the title of main content
-			this.driverManager.scrollDown();
-			driverManager.sendText("xpath", createFormArticleMainTitleElementXPath, "testingPage");
+			this.getWebDriverManager().scrollDown();
+			getWebDriverManager().sendText("xpath", createFormArticleMainTitleElementXPath, "testingPage");
 
-			WebElement categoryDropdown = this.driverManager
+			WebElement categoryDropdown = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", categoryDrowpdownXpath);
 			Select select = new Select(categoryDropdown);
 			select.selectByValue("style");
 			
 			// save and close
-			this.driverManager.waitForAnimation();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 	}
 
@@ -176,27 +176,27 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
 	}
 
 	public void verifyThatPageIsOnLive(String siteId) {
-		driverManager.goToDeliveryFromStudio(siteId);
-		driverManager.goToUrl(pageURL);
-		driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
-		Assert.assertTrue(driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
+		getWebDriverManager().goToDeliveryFromStudio(siteId);
+		getWebDriverManager().goToUrl(pageURL);
+		getWebDriverManager().waitUntilElementIsDisplayed("xpath", pageTitleXpath);
+		Assert.assertTrue(getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("testingpage"));
 	}
 
 	public void deleteDeliveryContentPageTest(String url) {
-		driverManager.goToUrl(url);
+		getWebDriverManager().goToUrl(url);
 
 		// Step2
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilSidebarOpens();
 
 		// right click to delete
 		dashboardPage.rightClickToDeleteContent(createdContentXPath);
@@ -207,15 +207,15 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		// submittal complete ok
 		dashboardPage.clickOKSubmittalComplete();
 
-		driverManager.waitForAnimation();
-		Assert.assertFalse(driverManager.isElementPresentByXpath(createdContentXPath));
+		getWebDriverManager().waitForAnimation();
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(createdContentXPath));
 	}
 
 	public void verifyThatPageIsNotOnLive(String siteId) {
-		driverManager.goToDeliveryFromStudio(siteId);
-		driverManager.goToUrl(pageURL);
-		driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
-		Assert.assertTrue(driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
+		getWebDriverManager().goToDeliveryFromStudio(siteId);
+		getWebDriverManager().goToUrl(pageURL);
+		getWebDriverManager().waitUntilElementIsDisplayed("xpath", pageTitleXpath);
+		Assert.assertTrue(getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("The page you are looking for doesn't exist."));
 	}
 
@@ -223,7 +223,7 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 	@AfterMethod(alwaysRun = true)
 	public void afterTest(String testId) {
 		apiTestHelper.deleteSite(testId);
-		int exitCode = driverManager.goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
+		int exitCode = getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "remove");
 		Assert.assertEquals(exitCode, 0, "Remove site process failed");
 
 	}

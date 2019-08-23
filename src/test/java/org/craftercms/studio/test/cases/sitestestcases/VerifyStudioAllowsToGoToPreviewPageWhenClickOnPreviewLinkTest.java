@@ -47,9 +47,9 @@ public class VerifyStudioAllowsToGoToPreviewPageWhenClickOnPreviewLinkTest exten
 	@Test()
 	public void verifyStudioAllowsToGoToPreviewPageWhenClickOnPreviewLinkTest(String testId) {
 		loginPage.loginToCrafter(userName, password);
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		this.homePage.goToPreviewPage(testId);
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl()
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl()
 				.contains("/studio/preview/#/?page=/&site=" + testId));	}
 
 	@Parameters({"testId"})

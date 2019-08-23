@@ -76,14 +76,14 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 	public void login() {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 	}
 
 	public void goToPreview(String siteId) {
 		logger.info("Going to preview page of site: {}", siteId);
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
 	}
 
@@ -94,10 +94,10 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 	}
 
 	public void rightClickAndSelectEditOption() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", janeDoeAuthor);
-		this.driverManager.contextClick("xpath", janeDoeAuthor, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", janeDoeAuthor);
+		this.getWebDriverManager().contextClick("xpath", janeDoeAuthor, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
 		}, "Pages");
@@ -119,38 +119,38 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 		this.rightClickAndSelectEditOption();
 
 		// Step 5, 6, 7 and 8
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			this.driverManager.waitForAnimation();			
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+			this.getWebDriverManager().waitForAnimation();
 			dashboardPage.addAnImageToAnAuthorUsingUploadOption();
 
 			// checking that the crop dialog is displayed and crop the image
-			driverManager.getDriver().switchTo().activeElement();
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",cropImageDialogTitle).isDisplayed());
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", cropImageDialogButton).click();
+			getWebDriverManager().getDriver().switchTo().activeElement();
+			Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",cropImageDialogTitle).isDisplayed());
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", cropImageDialogButton).click();
 			
 			// Switch to the iframe
-			driverManager.getDriver().switchTo().defaultContent();
-			driverManager.getDriver().switchTo()
-					.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
+			getWebDriverManager().getDriver().switchTo().defaultContent();
+			getWebDriverManager().getDriver().switchTo()
+					.frame(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
 							".studio-ice-dialog > .bd iframe"));
-			this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
-			this.driverManager.waitForFullExpansionOfTree();
+			this.getWebDriverManager().isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
+			this.getWebDriverManager().waitForFullExpansionOfTree();
 			
 			//check if the image was replaced by new one (just cropped image)
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",photoImageInfo).isDisplayed());
+			Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",photoImageInfo).isDisplayed());
 			Assert.assertTrue(
-					this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",photoImageInfo).getText().contains("testimage.jpg")
+					this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",photoImageInfo).getText().contains("testimage.jpg")
 					);
 			
 			// save and closing the edit dialog
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().waitForAnimation();
 			
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
 					.click();
 		});
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	@Parameters({"testId"})

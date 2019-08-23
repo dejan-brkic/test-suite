@@ -59,7 +59,7 @@ public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 				.clickReviewAndCreate()
 				.clickOnCreateButton();
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 
@@ -73,15 +73,15 @@ public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		this.createSiteUsingEmptyBluePrint(testId);
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", createSiteButton);
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", createSiteButton);
 
 		this.homePage.deleteSite(testId);
 
 		// Assert
-		Assert.assertFalse(this.driverManager.isElementPresentAndClickableByXpath(String.format(deletedSiteButton, testId)));
+		Assert.assertFalse(this.getWebDriverManager().isElementPresentAndClickableByXpath(String.format(deletedSiteButton, testId)));
 	}
 }

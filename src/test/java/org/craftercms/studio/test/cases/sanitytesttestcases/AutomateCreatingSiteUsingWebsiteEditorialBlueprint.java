@@ -60,7 +60,7 @@ public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends StudioBa
 				userName,password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -74,19 +74,19 @@ public class AutomateCreatingSiteUsingWebsiteEditorialBlueprint extends StudioBa
 		
 		//Verify No error messages after clicking on the Create button
 		
-		Assert.assertFalse(driverManager.isElementPresentByXpath(createSiteErrorNotificationWindow));
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);	
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(createSiteErrorNotificationWindow));
+		this.getWebDriverManager().waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
 
 		//Assert Page is displayed
 		//Move to the content frame
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		Assert.assertTrue(this.getWebDriverManager().isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 		
-		driverManager.getDriver().switchTo().defaultContent();
-        driverManager.getDriver().switchTo().frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		getWebDriverManager().getDriver().switchTo().defaultContent();
+        getWebDriverManager().getDriver().switchTo().frame(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
                 "id", "engineWindow"));
         
 		//Assert Title of the page correspond to a Editorial Blueprint site
-        WebElement siteTitle = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+        WebElement siteTitle = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
     		  "xpath", editorialSitePreviewPageTitle);
 
         Assert.assertTrue(siteTitle.getText().contains("Hi, I’m Editorial"));	

@@ -77,45 +77,45 @@ public class DesignOfWorkflowStateSectionTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to dashboard page
 		homePage.goToDashboardPage(testId);
 
 		// Assert workflow guide section is present.
-		WebElement workflowSection = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement workflowSection = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				workflowPanel);
 		Assert.assertTrue(workflowSection.isDisplayed(),"Error: Workflow section is not displayed");
 
 		// Assert neverpub is present.
-		WebElement neverPublished = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement neverPublished = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				neverPublishedItem);
 		Assert.assertTrue(neverPublished.isDisplayed(),"Error: Never published item is not present");
 
 		// Assert edited is present.
-		WebElement edited = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", editedStateItem);
+		WebElement edited = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", editedStateItem);
 		Assert.assertTrue(edited.isDisplayed(),"Error: Edited item is not present");
 
 		// Assert in workflow is present.
-		WebElement inWorkflow = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", inWorkFlowItem);
+		WebElement inWorkflow = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", inWorkFlowItem);
 		Assert.assertTrue(inWorkflow.isDisplayed(), "Error: Workflow item is not present");
 
 		// Assert scheduled is present.
-		WebElement scheduled = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement scheduled = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				scheduledStateItem);
 		Assert.assertTrue(scheduled.isDisplayed(),"Error: Scheduled item is not present");
 
 		// Assert processing is present.
-		WebElement processing = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement processing = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				processingStateItem);
 		Assert.assertTrue(processing.isDisplayed(), "Error: Processing item is not present");
 
 		// Assert deleted for edit is present.
-		WebElement deleted = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", deletedStateItem);
+		WebElement deleted = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", deletedStateItem);
 		Assert.assertTrue(deleted.isDisplayed(),"Error: Never publisehd item is not present");
 
 		// Assert Locked for edit is present.
-		WebElement locked = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", lockedStateItem);
+		WebElement locked = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", lockedStateItem);
 		Assert.assertTrue(locked.isDisplayed(),"Error: Locked item is not present");
 
 	}

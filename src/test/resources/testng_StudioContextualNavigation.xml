@@ -17,7 +17,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Contextual Navigation TestSuite" parallel="tests" thread-count="4" verbose="3">
+<suite name="craftercms - Studio Contextual Navigation TestSuite" parallel="tests" thread-count="4" verbose="3" preserve-order="false">
     <parameter name="blueprint" value="empty"/>
 	<test name="Delete Option Test">
         <parameter name="testId" value="dashboardfix01"/>
@@ -88,7 +88,7 @@
 	<test name="Verify that application displays the In-Context Edit icon when in preview for all users except user Reviewer and that the in-context edit appears in the preview page">
         <parameter name="testId" value="dashboardfix12"/>
         <parameter name="testUser" value="reviewercontextedit012"/>
-        <parameter name="groupToAdd" value="site_reviewer"/>
+        <parameter name="testGroup" value="site_reviewer"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contextualnavigationtestcases.VerifyThatApplicationDisplaysTheInContextEditIconProperlyTest"/>
 		</classes>

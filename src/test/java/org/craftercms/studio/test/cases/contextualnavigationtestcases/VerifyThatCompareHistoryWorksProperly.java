@@ -25,7 +25,6 @@ import org.testng.Assert;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 
 /**
@@ -80,18 +79,18 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
-		this.driverManager.waitForAnimation();
+		getWebDriverManager().waitUntilLoginCloses();
+		this.getWebDriverManager().waitForAnimation();
 		// go to preview page
 		homePage.goToPreviewPage(testId);
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void editSelectedContent() {
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Typing new text on title text field
-			driverManager.sendText("xpath", createFormTitleElementXPath,
+			getWebDriverManager().sendText("xpath", createFormTitleElementXPath,
 					RandomStringUtils.randomAlphabetic(5).toLowerCase());
 
 			// Save and close button.
@@ -102,44 +101,44 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	public void compareTwoVersionsOfAContentPage() {
 
 		// Switch to the iframe
-		driverManager.getDriver().switchTo().defaultContent();
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilPageLoad();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilPageLoad();
 
 		try {
-			this.driverManager.waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
+			this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
 		} catch (TimeoutException e) {
-			this.driverManager.takeScreenshot("HistoryDialogNotCompletedRendered");
+			this.getWebDriverManager().takeScreenshot("HistoryDialogNotCompletedRendered");
 			logger.warn("History dialog is not completely rendered, and the buttons can't be clicked");
 		}
 
 		// Checking the first row version
-		this.driverManager.waitForAnimation();
-		this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", historyFirstItemCheckbBox)
 				.click();
 
 		// Checking the second row version
-		this.driverManager.waitForAnimation();
-		this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", historySecondItemCheckbBox)
 				.click();
 
 		// click on Compare button
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.clickCompareButton();
 
 		// switching to the compare frame
-		this.driverManager.waitForAnimation();
-		driverManager.usingCrafterDialog("cssSelector", differencesDialogId, () -> {
-			this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().usingCrafterDialog("cssSelector", differencesDialogId, () -> {
+			this.getWebDriverManager().waitForAnimation();
 			// checkin if is present the removed-red-highlight text
-			Assert.assertTrue(driverManager.isElementPresentByXpath(differencesDialogRemovedMarkXpath));
+			Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(differencesDialogRemovedMarkXpath));
 
 			// checkin if is present the added-green-highlight text
-			Assert.assertTrue(driverManager.isElementPresentByXpath(differencesDialogAddedMarkXpath));
+			Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(differencesDialogAddedMarkXpath));
 
 			// click on close button
 			dashboardPage.clickCloseButton();
@@ -149,7 +148,7 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 
 	public void editHome() {
 		
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
 		dashboardPage.clickHomeTree();
 
@@ -160,13 +159,13 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	}
 
 	public void clickOnHistoryOption() {
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilSidebarOpens();
 
 		dashboardPage.clickHomeTree();
 
 		dashboardPage.clickOnContextualNavigationHistoryOption();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void compareVersionsOfHome() {
@@ -178,10 +177,8 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 		// login and go to dashboard page, later open the content site (site
 		// dropdown panel)
 		this.loginAndGoToSiteContentPagesStructure(testId);
-		// expand pages folder
-		dashboardPage.expandPagesTree();
 		this.editHome();
-		this.driverManager.getDriver().navigate().refresh();
+		this.getWebDriverManager().getDriver().navigate().refresh();
 		this.clickOnHistoryOption();
 		this.compareVersionsOfHome();
 
@@ -193,10 +190,9 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 		this.testScenario(testId);
 	}
 
-	@Parameters({"testId", "testUser"})
+	@Parameters({"testId"})
 	@AfterMethod(alwaysRun = true)
-	public void afterTest(String testId, String testUser) {
+	public void afterTest(String testId) {
 		apiTestHelper.deleteSite(testId);
-		apiTestHelper.deleteUser(testUser);
 	}
 }

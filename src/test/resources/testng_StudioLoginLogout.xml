@@ -17,7 +17,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio - Login TestSuite" parallel="tests" thread-count="4" verbose="3">
+<suite name="craftercms - Studio - Login TestSuite" parallel="tests" thread-count="4" verbose="3" preserve-order="false">
 	<test name="Login Test And Logout Test">
 		<classes>
 			<class name="org.craftercms.studio.test.cases.loginlogouttestcases.LoginTest"/>

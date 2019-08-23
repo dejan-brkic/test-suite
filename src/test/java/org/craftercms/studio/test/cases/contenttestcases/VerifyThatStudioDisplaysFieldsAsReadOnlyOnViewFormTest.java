@@ -91,17 +91,17 @@ public class VerifyThatStudioDisplaysFieldsAsReadOnlyOnViewFormTest extends Stud
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
 
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
@@ -115,17 +115,17 @@ public class VerifyThatStudioDisplaysFieldsAsReadOnlyOnViewFormTest extends Stud
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		// expand Articles/2016/12 folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articles2016Folder);
 		dashboardPage.expandParentFolder(articles2016Folder);
 
@@ -135,27 +135,27 @@ public class VerifyThatStudioDisplaysFieldsAsReadOnlyOnViewFormTest extends Stud
 
 	public void reviewAllReadOnlyFieldsOnViewForm() {
 		logger.info("Editing testing article created previously");	
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleXpath);
-		this.driverManager.contextClick("xpath", testingArticleXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement viewOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().contextClick("xpath", testingArticleXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement viewOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					viewOptionXpath);
 			viewOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		logger.info("Opening view form");
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal name
-			Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", readOnlyBanner).isDisplayed());
-			Assert.assertTrue("READ ONLY".equalsIgnoreCase(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", readOnlyBanner).getText()));
+			Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", readOnlyBanner).isDisplayed());
+			Assert.assertTrue("READ ONLY".equalsIgnoreCase(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", readOnlyBanner).getText()));
 			
-			List<WebElement> viewFormDefaulButtons = this.driverManager.getDriver().findElements(By.xpath(viewFormButtons));
+			List<WebElement> viewFormDefaulButtons = this.getWebDriverManager().getDriver().findElements(By.xpath(viewFormButtons));
 			Assert.assertTrue((viewFormDefaulButtons.size() == 1),
 					"There are more than the Close button displayed on the View form, expected only the Close button");
 			
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", closeButton)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", closeButton)
 					.click();
 		});
 	}

@@ -76,79 +76,79 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 	public void filters() {
 
 		// Show 1 sites
-		this.driverManager.waitUntilElementIsDisplayed("xpath",
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).clear();
-		this.driverManager.waitUntilElementIsDisplayed("xpath",
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("1");
 
 		// Assert only 1 sites displayed
-		WebElement page1 = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement page1 = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				firstSiteXpath);
 		Assert.assertTrue(page1.isDisplayed());
 
 		// Show 2 sites
-		this.driverManager.waitUntilElementIsDisplayed("xpath",
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).clear();
-		this.driverManager.waitUntilElementIsDisplayed("xpath",
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("2");
 
 		// Assert only 2 sites displayed
-		WebElement page2 = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement page2 = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				secondSiteXpath);
 		Assert.assertTrue(page2.isDisplayed());
 
 		// Show 3 site
-		this.driverManager.waitUntilElementIsDisplayed("xpath",
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).clear();
-		this.driverManager.waitUntilElementIsDisplayed("xpath",
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("3");
 
 		// Assert only 3 site displayed
-		WebElement page3 = this.driverManager.waitUntilElementIsDisplayed("xpath",
+		WebElement page3 = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				thirdSiteXpath);
 		Assert.assertTrue(page3.isDisplayed());
 
 		// Show 10 sites
-		this.driverManager.waitUntilElementIsDisplayed("xpath",
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).clear();
-		this.driverManager.waitUntilElementIsDisplayed("xpath",
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
 				sitesPerPageInputXpath).sendKeys("10");
 		
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		
 		this.navigationOfPage();
 	}
 
 	public void navigationOfPage() {
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("1");
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("1");
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("2");
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("2");
 
 		// navigation
-		this.driverManager.waitUntilElementIsDisplayed("xpath", lastNumberOfPaginationXpath).click();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", lastNumberOfPaginationXpath).click();
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", firstNumberOfPaginationXpath).click();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", firstNumberOfPaginationXpath).click();
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", lastArrowOfPaginationXpath).click();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", lastArrowOfPaginationXpath).click();
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", firstArrowOfPaginationXpath).click();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", firstArrowOfPaginationXpath).click();
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).clear();
 
-		this.driverManager.waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", sitesPerPageInputXpath).sendKeys("10");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	@Test()
 	public void verifyStudioAllowsToFilterNumberOfSitesPerPage() {
 		loginPage.loginToCrafter(userName, password);
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		filters();
 	}
 

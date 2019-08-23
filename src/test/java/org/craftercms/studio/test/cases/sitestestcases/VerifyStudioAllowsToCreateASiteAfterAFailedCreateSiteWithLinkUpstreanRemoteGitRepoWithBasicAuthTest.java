@@ -112,22 +112,22 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
-		String notificationTitleText = this.driverManager
+		String notificationTitleText = this.getWebDriverManager()
 				.waitUntilElementIsDisplayed("xpath", notificationTitle).getText();
 
 		while (!notificationTitleText.equalsIgnoreCase("Notification")) {
-			this.driverManager.waitForAnimation();
-			notificationTitleText = this.driverManager
+			this.getWebDriverManager().waitForAnimation();
+			notificationTitleText = this.getWebDriverManager()
 					.waitUntilElementIsDisplayed("xpath", notificationTitle).getText();
 		}
 
 		Assert.assertTrue("Notification"
-                .equals(this.driverManager.waitUntilElementIsDisplayed("xpath",notificationTitle).getText()));
+                .equals(this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",notificationTitle).getText()));
 		Assert.assertTrue("Unable to create site. Please contact your system administrator."
-				.equals(this.driverManager.waitUntilElementIsDisplayed("xpath", notificationText).getText()));
-		Assert.assertTrue(this.driverManager.waitUntilElementIsDisplayed("xpath", notificationError).getText()
+				.equals(this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationText).getText()));
+		Assert.assertTrue(this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationError).getText()
                 .contains("Error while adding remote origin (url:"));
 	}
 
@@ -136,11 +136,11 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 	}
 	
 	private void clickOnCloseNotificationButton() {
-		this.driverManager.waitUntilElementIsDisplayed("xpath", notificationClose).click();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationClose).click();
 	}
 
 	public void step13() {
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		this.clickOnCreateSiteButton();
 	}
 
@@ -183,14 +183,14 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
         // Click on Create button
         createSitePage.clickOnCreateButton();
 
-        this.driverManager.waitForAnimation();
+        this.getWebDriverManager().waitForAnimation();
 
-		this.driverManager.waitUntilCreateSiteModalCloses();
+		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteDropdownElementXPath);
 
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
 	}
@@ -209,7 +209,7 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Step 2
 		step2();

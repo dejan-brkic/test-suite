@@ -92,17 +92,17 @@ public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends S
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
 
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
@@ -116,17 +116,17 @@ public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends S
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		// expand Articles/2016/12 folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articles2016Folder);
 		dashboardPage.expandParentFolder(articles2016Folder);
 
@@ -136,18 +136,18 @@ public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends S
 
 	public void editArticleAndSaveAndClose() {
 		logger.info("Editing testing article created previously");	
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleXpath);
-		this.driverManager.contextClick("xpath", testingArticleXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().contextClick("xpath", testingArticleXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		logger.info("Opening edit form");
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal name
 			dashboardPage.editInternalName("Testing");
 		});
@@ -156,42 +156,42 @@ public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends S
 	public void checkHistoryOfArticle() {
 		logger.info("Publish testing article created previously");
 		String testingArticleXpathAfterEdit = testingArticleXpath.replace("Testing1", "Testing");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleXpathAfterEdit);
 		
-		this.driverManager.contextClick("xpath", testingArticleXpathAfterEdit, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement historyOption = this.driverManager
+		this.getWebDriverManager().contextClick("xpath", testingArticleXpathAfterEdit, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement historyOption = this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", historyOptionLocator);
 			historyOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		this.checkHistoryRows();
 	}
 
 	public void checkHistoryRows() {
 
 		// Switch to the iframe
-		driverManager.getDriver().switchTo().defaultContent();
-		driverManager.getDriver().switchTo().activeElement();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().activeElement();
 
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilPageLoad();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilPageLoad();
 
 		try {
-			this.driverManager.waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
+			this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
 		} catch (TimeoutException e) {
-			this.driverManager.takeScreenshot("HistoryDialogNotCompletedRendered");
+			this.getWebDriverManager().takeScreenshot("HistoryDialogNotCompletedRendered");
 			logger.warn("History dialog is not completely rendered, and the buttons can't be clicked");
 		}
 
 		// Checking if the first row version is displayed
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", historyFirstItemCheckbBox)
 				.isDisplayed());
 		// Checking if the second row version is displayed
-		Assert.assertTrue(this.driverManager
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", historySecondItemCheckbBox)
 				.isDisplayed());
 	}

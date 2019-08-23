@@ -81,19 +81,19 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 	public void loginAndGoToPreview(String siteId) {
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
 
-		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
 				"ArticleSummary");
@@ -108,7 +108,7 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 		logger.info("Change Article Page body content to not required");
 		this.changeBodyToNotRequiredOnPageArticleContent();
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
@@ -116,31 +116,31 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
 
 		// expand Articles/2016/12 folder
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				articles2016Folder);
 		dashboardPage.expandParentFolder(articles2016Folder);
 
 		dashboardPage.expandParentFolder(articles201612Folder);
 		this.createNewPageArticle(articles201612Folder);
 		
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 	}
 
 	public void checkContentInfoForHomeContent() {
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		
 		logger.info("Checking content info for Home page");
-		this.driverManager.clickElement("xpath", homeContent);
+		this.getWebDriverManager().clickElement("xpath", homeContent);
 		
-		String contentTypeInfo = this.driverManager.getContentTypeTooltipInfo(this.driverManager
+		String contentTypeInfo = this.getWebDriverManager().getContentTypeTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent));
-		String contentNameInfo = this.driverManager.getContentNameTooltipInfo(this.driverManager
+		String contentNameInfo = this.getWebDriverManager().getContentNameTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent));
-		String contentStatusInfo = this.driverManager.getContentStatusTooltipInfo(this.driverManager
+		String contentStatusInfo = this.getWebDriverManager().getContentStatusTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeContent));
 	
 
@@ -150,18 +150,18 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 	}
 	
 	public void checkContentInfoForStyleContent() {
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
 		
 		logger.info("Checking content info for Style page");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleContent)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleContent)
 				.click();
 		
-		String contentTypeInfo = this.driverManager.getContentTypeTooltipInfo(this.driverManager
+		String contentTypeInfo = this.getWebDriverManager().getContentTypeTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleContent));
-		String contentNameInfo = this.driverManager.getContentNameTooltipInfo(this.driverManager
+		String contentNameInfo = this.getWebDriverManager().getContentNameTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleContent));
-		String contentStatusInfo = this.driverManager.getContentStatusTooltipInfo(this.driverManager
+		String contentStatusInfo = this.getWebDriverManager().getContentStatusTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", styleContent));
 	
 
@@ -171,18 +171,18 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 	}
 	
 	public void checkContentInfoForHomeSectionDefaultsContent() {
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
 		
 		logger.info("Checking content info for Section Defaults content of Home");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeSectionDefaultsContent)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeSectionDefaultsContent)
 				.click();
 		
-		String contentTypeInfo = this.driverManager.getContentTypeTooltipInfo(this.driverManager
+		String contentTypeInfo = this.getWebDriverManager().getContentTypeTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeSectionDefaultsContent));
-		String contentNameInfo = this.driverManager.getContentNameTooltipInfo(this.driverManager
+		String contentNameInfo = this.getWebDriverManager().getContentNameTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeSectionDefaultsContent));
-		String contentStatusInfo = this.driverManager.getContentStatusTooltipInfo(this.driverManager
+		String contentStatusInfo = this.getWebDriverManager().getContentStatusTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeSectionDefaultsContent));
 	
 
@@ -192,18 +192,18 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 	}
 
 	public void checkContentInfoForArticlesFolder() {
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
 		
 		logger.info("Checking content info for Articles Folder");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder)
 				.click();
 		
-		String contentTypeInfo = this.driverManager.getContentTypeTooltipInfo(this.driverManager
+		String contentTypeInfo = this.getWebDriverManager().getContentTypeTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder));
-		String contentNameInfo = this.driverManager.getContentNameTooltipInfo(this.driverManager
+		String contentNameInfo = this.getWebDriverManager().getContentNameTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder));
-		String contentStatusInfo = this.driverManager.getContentStatusTooltipInfo(this.driverManager
+		String contentStatusInfo = this.getWebDriverManager().getContentStatusTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder));
 	
 
@@ -215,21 +215,21 @@ public class VerifyThatStudioDisplaysTheProperInfoOnContentToolTipTest extends S
 	
 	
 	public void checkContentInfoForTestingArticleContent() {
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitUntilContentTooltipIsHidden();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilContentTooltipIsHidden();
 		
 		logger.info("Checking content info for testing article content");
-		this.driverManager
+		this.getWebDriverManager()
 		.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleXpath).click();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		
-		String contentTypeInfo = this.driverManager.getContentTypeTooltipInfo(this.driverManager
+		String contentTypeInfo = this.getWebDriverManager().getContentTypeTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleXpath));
-		String contentNameInfo = this.driverManager.getContentNameTooltipInfo(this.driverManager
+		String contentNameInfo = this.getWebDriverManager().getContentNameTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleXpath));
-		String contentStatusInfo = this.driverManager.getContentStatusTooltipInfo(this.driverManager
+		String contentStatusInfo = this.getWebDriverManager().getContentStatusTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleXpath));
-		String contentEditedByInfo = this.driverManager.getContentEditedByTooltipInfo(this.driverManager
+		String contentEditedByInfo = this.getWebDriverManager().getContentEditedByTooltipInfo(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleXpath));
 	
 

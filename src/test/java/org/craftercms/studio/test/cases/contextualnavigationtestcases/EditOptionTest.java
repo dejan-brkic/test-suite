@@ -91,7 +91,7 @@ public class EditOptionTest extends StudioBaseTest {
 	public void bodyNotRequiered() {
 		logger.info("Changing body to not required");
 		// go to admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", adminConsoleXpath).click();
 
 		// select content types
 		siteConfigPage.selectContentTypeOption();
@@ -105,14 +105,14 @@ public class EditOptionTest extends StudioBaseTest {
 		siteConfigPage.confirmContentTypeSelected();
 
 		// select main content
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", entryContentTypeBodyXpath).click();
-		
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", entryContentTypeBodyXpath).click();
+
 
 		// Body not required
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().focusAndScrollDownToBottomInASection("#properties-container",lastPropertiesElementCssSelector);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				entryContentTypeBodyCheckCss).click();
 
 		// save
@@ -135,35 +135,35 @@ public class EditOptionTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssselector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssselector", createFormFrameElementCss, () -> {
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
 
 			// Expand all fields
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormExpandAll)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormExpandAll)
 				.click();
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormSaveAndCloseElement).click();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", createFormSaveAndCloseElement).click();
 
 		});
 	}
 
 	public void editingContent() {
 		logger.info("Editing existing content");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", testingContentItem)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", testingContentItem)
 				.click();
 
 		// click edit option of the menu
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",topNavEditOption).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",topNavEditOption).click();
 
-		this.driverManager.waitForAnimation();
-		
+		this.getWebDriverManager().waitForAnimation();
+
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal title
 			dashboardPage.editInternalName("EDITED");
 		});
@@ -176,44 +176,44 @@ public class EditOptionTest extends StudioBaseTest {
 		// login to application
 
 		loginPage.loginToCrafter(userName, password);
-		
+
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropDownXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropDownXpath)
 				.click();
-		
+
 		// Body Not requiered
 		bodyNotRequiered();
 
 		// go to dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLogoId).click();
-		
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", crafterLogoId).click();
+
 		dashboardPage.expandPagesTree();
 
 		// create a new content
 		createNewContent();
-		
+
 		//reload page
-        driverManager.getDriver().navigate().refresh();
-		
+        getWebDriverManager().getDriver().navigate().refresh();
+
 		dashboardPage.expandHomeTree();
 
 		// wait for element is clickeable
 		editingContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// Assert find the new content created edited
-		driverManager.waitUntilElementIsDisplayed("xpath", testingItemEditedXpath);
-		 Assert.assertTrue(this.driverManager.isElementPresentByXpath(testingItemEditedXpath));
+		getWebDriverManager().waitUntilElementIsDisplayed("xpath", testingItemEditedXpath);
+		 Assert.assertTrue(this.getWebDriverManager().isElementPresentByXpath(testingItemEditedXpath));
 
 	}
 

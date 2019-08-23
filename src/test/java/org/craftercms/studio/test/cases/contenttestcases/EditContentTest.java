@@ -74,31 +74,31 @@ public class EditContentTest extends StudioBaseTest {
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// creating random values for URL field and InternalName field
 
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void editingContentRecentlyCreated() {
 
 		dashboardPage.rightClickToSelectEditOption();
 
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// edit internal name
 			dashboardPage.editInternalName("Edited");
 		});
@@ -113,7 +113,7 @@ public class EditContentTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
@@ -131,11 +131,11 @@ public class EditContentTest extends StudioBaseTest {
 		dashboardPage.expandHomeTree();
 
 		// Edited content recently created
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		editingContentRecentlyCreated();
 
-		Assert.assertNotNull(driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityTestingItem),
+		Assert.assertNotNull(getWebDriverManager().waitUntilElementIsDisplayed("xpath", myRecentActivityTestingItem),
 				"Content page is not displayed on the My Recent Activity Widget");
 	}
 

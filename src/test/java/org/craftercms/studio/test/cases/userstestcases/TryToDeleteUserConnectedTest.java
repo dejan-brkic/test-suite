@@ -60,7 +60,7 @@ public class TryToDeleteUserConnectedTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);	
 	
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		
 		// click On Users option
 		createSitePage.clickOnUsersOption();
@@ -69,15 +69,15 @@ public class TryToDeleteUserConnectedTest extends StudioBaseTest {
 		usersPage.clickOnDeleteUser();
 
 		// Confirmation to delete user connected
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", deleteYesButtonXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", deleteYesButtonXpath).click();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 			deleteNotAllowedMessageXpath);
 
 		// Verify
-		Assert.assertTrue(this.driverManager.isElementPresentByXpath(deleteNotAllowedMessageXpath));
-		Assert.assertTrue(this.driverManager.isElementPresentByXpath(errorMessageXpath));
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		Assert.assertTrue(this.getWebDriverManager().isElementPresentByXpath(deleteNotAllowedMessageXpath));
+		Assert.assertTrue(this.getWebDriverManager().isElementPresentByXpath(errorMessageXpath));
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				deleteNotAllowedMessageXpath).getText().contains("Unable to delete user"));
 
 	}

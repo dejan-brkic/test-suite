@@ -36,7 +36,7 @@ import org.testng.annotations.BeforeClass;
  */
 public class StudioBaseTest {
 
-	protected WebDriverManager driverManager;
+	private ThreadLocal<WebDriverManager>  driverManager = new ThreadLocal<WebDriverManager>();
 	protected UIElementsPropertiesManager uiElementsPropertiesManager;
 	protected ConstantsPropertiesManager constantsPropertiesManager;
 	protected ConstantsPropertiesManager deliveryExecutionValuesManager;
@@ -55,33 +55,36 @@ public class StudioBaseTest {
 
 	@BeforeClass
 	public void setUp(ITestContext ctx) {
-		driverManager = new WebDriverManager();
+		driverManager.set(new WebDriverManager());
 		testName = ctx.getCurrentXmlTest().getName();
-		driverManager.setTestName(testName);
+		getWebDriverManager().setTestName(testName);
 		uiElementsPropertiesManager = new UIElementsPropertiesManager(
 				FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
 		constantsPropertiesManager = new ConstantsPropertiesManager(
 				FilesLocations.CONSTANTSPROPERTIESFILEPATH);
 		deliveryExecutionValuesManager = new ConstantsPropertiesManager(
 				FilesLocations.DELIVERYEXECUTIONVALUESPROPERTIESFILEPATH);
-		driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
-		driverManager.setUIElementsPropertiesManager(uiElementsPropertiesManager);
+		getWebDriverManager().setConstantsPropertiesManager(constantsPropertiesManager);
+		getWebDriverManager().setUIElementsPropertiesManager(uiElementsPropertiesManager);
 
-		loginPage = new LoginPage(driverManager, uiElementsPropertiesManager);
-		homePage = new HomePage(driverManager, uiElementsPropertiesManager);
-		previewPage = new PreviewPage(driverManager, uiElementsPropertiesManager);
-		dashboardPage = new DashboardPage(driverManager, uiElementsPropertiesManager);
-		createSitePage = new CreateSitePage(driverManager, uiElementsPropertiesManager);
-		accountManagementPage = new AccountManagementPage(driverManager, uiElementsPropertiesManager);
-		siteConfigPage = new SiteConfigPage(driverManager, uiElementsPropertiesManager);
-		myRecentActivityFramePage1 = new MyRecentActivityPage(driverManager, uiElementsPropertiesManager);
-		usersPage = new UsersPage(driverManager, uiElementsPropertiesManager);
+		loginPage = new LoginPage(getWebDriverManager(), uiElementsPropertiesManager);
+		homePage = new HomePage(getWebDriverManager(), uiElementsPropertiesManager);
+		previewPage = new PreviewPage(getWebDriverManager(), uiElementsPropertiesManager);
+		dashboardPage = new DashboardPage(getWebDriverManager(), uiElementsPropertiesManager);
+		createSitePage = new CreateSitePage(getWebDriverManager(), uiElementsPropertiesManager);
+		accountManagementPage = new AccountManagementPage(getWebDriverManager(), uiElementsPropertiesManager);
+		siteConfigPage = new SiteConfigPage(getWebDriverManager(), uiElementsPropertiesManager);
+		myRecentActivityFramePage1 = new MyRecentActivityPage(getWebDriverManager(), uiElementsPropertiesManager);
+		usersPage = new UsersPage(getWebDriverManager(), uiElementsPropertiesManager);
 		apiTestHelper = new APITestHelper();
 	}
 
 	@AfterClass
 	public void close() {
-		driverManager.closeConnection();
+		getWebDriverManager().closeConnection();
 	}
 
+	public WebDriverManager getWebDriverManager(){
+		return driverManager.get();
+	}
 }

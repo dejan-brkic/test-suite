@@ -64,8 +64,8 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 
 	public void createContent() {
 		// right click to see the the menu
-		driverManager.waitUntilPageLoad();
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilPageLoad();
+		getWebDriverManager().waitUntilSidebarOpens();
 		dashboardPage.rightClickToSeeMenu();
 
 		// Select Entry Content Type
@@ -74,22 +74,22 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// creating random values for URL field and InternalName field
 
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 	}
 
@@ -100,7 +100,7 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
@@ -115,11 +115,11 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 		createContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		dashboardPage.expandHomeTree();
 
-		Assert.assertNotNull(driverManager.waitUntilElementIsDisplayed("xpath", testingItemRecentActivity));
+		Assert.assertNotNull(getWebDriverManager().waitUntilElementIsDisplayed("xpath", testingItemRecentActivity));
 	}
 
 	@Parameters({"testId"})

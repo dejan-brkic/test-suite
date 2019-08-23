@@ -68,15 +68,15 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName,password);
 
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager
+		this.getWebDriverManager()
 		.driverWaitUntilElementIsPresentAndDisplayed( "xpath", siteDropdownXpath).click();
 
 		// go to admin console page
@@ -94,13 +94,13 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 		siteConfigPage.confirmContentTypeSelected();
 
 		// wait for element is clickeable
-		WebElement From = this.driverManager
+		WebElement From = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", controlsSectionFromSection);
 		
-		WebElement To = this.driverManager
+		WebElement To = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath", contentFormName);
 
-		Actions builder = new Actions(driverManager.getDriver());
+		Actions builder = new Actions(getWebDriverManager().getDriver());
 
 		Action dragAndDrop = builder.clickAndHold(From)
 
@@ -117,7 +117,7 @@ public class ContentTypesDragAndDropTest extends StudioBaseTest{
 		siteConfigPage.saveDragAndDropProcess(true);
 		// validate the control added
 
-		Assert.assertTrue(driverManager.isElementPresentByXpath(contentFormContentSection));
+		Assert.assertTrue(getWebDriverManager().isElementPresentByXpath(contentFormContentSection));
 		
 	}
 

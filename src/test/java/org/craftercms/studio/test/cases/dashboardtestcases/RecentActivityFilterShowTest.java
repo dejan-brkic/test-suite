@@ -81,8 +81,8 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 	public void createContent() {
 		logger.info("Creating first content");
 
-		driverManager.waitUntilPageLoad();
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilPageLoad();
+		getWebDriverManager().waitUntilSidebarOpens();
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenu();
 
@@ -93,19 +93,19 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssselector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssselector", createFormFrameElementCss, () -> {
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent("AboutUs", "AboutUs");
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// click necessary to validate all fields required
-			this.driverManager.scrollUp();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormExpandAll).click();
+			this.getWebDriverManager().scrollUp();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormExpandAll).click();
 
 			// save and close
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 	}
@@ -113,8 +113,8 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 	public void createSecondContent() {
 		logger.info("Creating second content");
 
-		driverManager.waitUntilPageLoad();
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilPageLoad();
+		getWebDriverManager().waitUntilSidebarOpens();
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenu();
 
@@ -126,20 +126,20 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssselector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssselector", createFormFrameElementCss, () -> {
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent("AboutUs1", "AboutUs1");
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// click necessary to validate all fields required
-			this.driverManager.scrollUp();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormExpandAll).click();
+			this.getWebDriverManager().scrollUp();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormExpandAll).click();
 
 			// save and close
 
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 	}
@@ -147,33 +147,33 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 	public void filtersAndAsserts() {
 
 		// clean filter
-		this.driverManager.clearInputUsingDeleteKeys("xpath", myRecentActivityShowInputXPath);
+		this.getWebDriverManager().clearInputUsingDeleteKeys("xpath", myRecentActivityShowInputXPath);
 
 		// Show only 1 item edited
-		driverManager.sendText("xpath", myRecentActivityShowInputXPath, "1", false);
-		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityShowInputXPath).sendKeys(Keys.ENTER);
-		this.driverManager.waitForAnimation();
-		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityFirstItemURLXPath);
+		getWebDriverManager().sendText("xpath", myRecentActivityShowInputXPath, "1", false);
+		getWebDriverManager().waitUntilElementIsDisplayed("xpath", myRecentActivityShowInputXPath).sendKeys(Keys.ENTER);
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().waitUntilElementIsDisplayed("xpath", myRecentActivityFirstItemURLXPath);
 
 		// Assert filter 1
-		this.driverManager.waitForAnimation();
-		String edit1 = this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		String edit1 = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivityFirstItemURLXPath).getText();
 
 		Assert.assertEquals(edit1, "/aboutus1");
 
 		// clean filter
-		this.driverManager.clearInputUsingDeleteKeys("xpath", myRecentActivityShowInputXPath);
+		this.getWebDriverManager().clearInputUsingDeleteKeys("xpath", myRecentActivityShowInputXPath);
 
 		// Show only 2 item edited
-		driverManager.sendText("xpath", myRecentActivityShowInputXPath, "2", false);
-		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivityShowInputXPath).sendKeys(Keys.ENTER);
-		this.driverManager.waitForAnimation();
-		driverManager.waitUntilElementIsDisplayed("xpath", myRecentActivitySecondItemURLXPath);
+		getWebDriverManager().sendText("xpath", myRecentActivityShowInputXPath, "2", false);
+		getWebDriverManager().waitUntilElementIsDisplayed("xpath", myRecentActivityShowInputXPath).sendKeys(Keys.ENTER);
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().waitUntilElementIsDisplayed("xpath", myRecentActivitySecondItemURLXPath);
 
 		// Assert filter 2
-		this.driverManager.waitForAnimation();
-		String edit2 = this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		String edit2 = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", myRecentActivitySecondItemURLXPath).getText();
 		Assert.assertEquals(edit2, "/aboutus");
 	}
@@ -187,7 +187,7 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
@@ -204,15 +204,15 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 		dashboardPage.expandHomeTree();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// create a content with level descriptor content type
 		// create another content to use a filter
-		this.driverManager.isElementPresentAndClickableByXpath(homeElementXPath);
+		this.getWebDriverManager().isElementPresentAndClickableByXpath(homeElementXPath);
 		createSecondContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// filters and asserts
 		this.filtersAndAsserts();

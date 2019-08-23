@@ -49,9 +49,9 @@
 
 	<developers>
 		<developer>
-			<id>luishernandez</id>
-			<name>Luis Hernandez Monge</name>
-			<email>luis.hernandez@craftersoftware.com</email>
+			<id>yacdaniel</id>
+			<name>Yacdaniel Hurtado</name>
+			<email>yacdaniel.hurtado@craftersoftware.com</email>
 		</developer>
 	</developers>
 
@@ -96,6 +96,7 @@
 		<detro.phantomjs.version>1.2.0</detro.phantomjs.version>
 		<kirviq.dumbster.version>1.7.1</kirviq.dumbster.version>
 		<jgit.version>4.11.0.201803080745-r</jgit.version>
+		<maven.surefire.plugin.version>3.0.0-M3</maven.surefire.plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -284,15 +285,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.21.0</version>
+				<version>${maven.surefire.plugin.version}</version>
 				<configuration>
 					<suiteXmlFiles>${file}</suiteXmlFiles>
 					<skipTests>false</skipTests>
 					<properties>
-						<property>
-							<name>suitethreadpoolsize</name>
-							<value>${threads}</value>
-						</property>
 						<property>
 							<name>surefire.testng.verbose</name>
 							<value>2</value>
@@ -300,68 +297,6 @@
 					</properties>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.github.klieber</groupId>
-				<artifactId>phantomjs-maven-plugin</artifactId>
-				<version>0.7</version>
-				<configuration>
-					<version>2.1.1</version>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>JDK8</id>
-			<activation>
-				<jdk>[1.8,)</jdk>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.10.4</version>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-								<configuration>
-									<additionalparam>-Xdoclint:none</additionalparam>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

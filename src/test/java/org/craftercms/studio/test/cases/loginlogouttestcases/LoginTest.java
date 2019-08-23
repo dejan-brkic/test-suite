@@ -51,10 +51,10 @@ public class LoginTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Assert create button is present.
-		WebElement createButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement createButton = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				createSiteButtonXpath);
 
 		Assert.assertTrue(createButton.isDisplayed());

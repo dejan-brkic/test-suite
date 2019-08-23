@@ -64,19 +64,19 @@ public class ContentTypesAddDataSourceImageUploadedFromDesktopTest extends Studi
 	}
 
 	public void dragAndDrop() {
-		this.driverManager.scrollDownPx(3000);
+		this.getWebDriverManager().scrollDownPx(3000);
 		// Getting the ChildContent for drag and drop action
-		WebElement FromDataSourceImageUploadedFromDesktopElement =  this.driverManager
+		WebElement FromDataSourceImageUploadedFromDesktopElement =  this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 						dataSourceSectionImageUploadedFromDesktopLocator);
 
 		// Getting the Content Type Container for drag and drop action
 		// (destination)
-		WebElement ToContentTypeContainer = this.driverManager
+		WebElement ToContentTypeContainer = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 						contentTypeContainerLocator);
 		
-		driverManager.dragAndDropElement(FromDataSourceImageUploadedFromDesktopElement, ToContentTypeContainer);
+		getWebDriverManager().dragAndDropElement(FromDataSourceImageUploadedFromDesktopElement, ToContentTypeContainer);
 
 		// Complete the input fields basics
 		siteConfigPage.completeDataSourceFieldsBasics("TestTitle");
@@ -94,20 +94,20 @@ public class ContentTypesAddDataSourceImageUploadedFromDesktopTest extends Studi
 				userName,password);
 		
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 		
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		 this.driverManager
+		 this.getWebDriverManager()
 			.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 					siteDropdownXpath).click();
 
 		// Show admin console page
-		 this.driverManager
+		 this.getWebDriverManager()
 			.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 					adminConsoleXpath).click();
 
@@ -124,11 +124,11 @@ public class ContentTypesAddDataSourceImageUploadedFromDesktopTest extends Studi
 		siteConfigPage.confirmContentTypeSelected();
 
 		// Click on input section to can view the properties
-		driverManager.waitUntilPopupIsHidden();
+		getWebDriverManager().waitUntilPopupIsHidden();
 		siteConfigPage.clickDataSourceImageUploadedFromDesktopSection();
 
 		// Asserts that fields are not empty.
-		String titleText =this.driverManager
+		String titleText =this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 						contentTypeContainerImageUploadedFromDesktopTitleLocator).getText();
 		Assert.assertTrue(titleText.contains("TestTitle"));

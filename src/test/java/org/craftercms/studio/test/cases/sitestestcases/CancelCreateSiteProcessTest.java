@@ -51,7 +51,7 @@ public class CancelCreateSiteProcessTest extends StudioBaseTest{
 				userName,password);
 
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -64,7 +64,7 @@ public class CancelCreateSiteProcessTest extends StudioBaseTest{
 				.clickOnCancelButtonOfTheCreateSiteProcess();
 
 		// Assert
-		WebElement sitePage = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement sitePage = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				sitesPageTitleLocator);
 
 		Assert.assertTrue(sitePage.isDisplayed());

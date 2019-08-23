@@ -101,8 +101,8 @@ public class RenameViaFormTest extends StudioBaseTest {
 
 	public void createContent() {
 		// right click to see the the menu
-		driverManager.waitUntilPageLoad();
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilPageLoad();
+		getWebDriverManager().waitUntilSidebarOpens();
 		dashboardPage.rightClickToSeeMenu();
 
 		// Select Entry Content Type
@@ -111,23 +111,23 @@ public class RenameViaFormTest extends StudioBaseTest {
 		// Confirm the Content Type selected
 		dashboardPage.clickOKButton();
 
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// creating random values for URL field and InternalName field
 
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
 
-			this.driverManager
+			this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 		});
 
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 
 	}
 
@@ -135,7 +135,7 @@ public class RenameViaFormTest extends StudioBaseTest {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
@@ -153,37 +153,37 @@ public class RenameViaFormTest extends StudioBaseTest {
 		createContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		//getWebDriverManager().getDriver().navigate().refresh();
 
 		// click on dashboard
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink)
 				.click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName).getText()
 				.contains("foo"));
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL).getText()
 				.contains("/foo.xml"));
 	}
 
 	public void step3() {
 		// expand pages folder
-		this.driverManager.waitUntilSidebarOpens();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandPagesTree();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		//getWebDriverManager().getDriver().navigate().refresh();
 
 		// expand home
 		dashboardPage.expandHomeTree();
@@ -191,22 +191,22 @@ public class RenameViaFormTest extends StudioBaseTest {
 
 	public void step10() {
 		// click on dashboard
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink)
 				.click();
 
 		// check items on My Recent Activity widget
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL);
 
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentName).getText()
 				.contains("foo"));
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", recentActivityContentURL).getText()
 				.contains("/bar.xml"));
 	}
@@ -218,58 +218,58 @@ public class RenameViaFormTest extends StudioBaseTest {
 		this.step3();
 
 		// steps 4, 5, 6, 7 and 8
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
-		this.driverManager.contextClick("xpath", fooContentXpath, false);
-		driverManager.usingContextMenu(() -> {
-			WebElement editOption = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
+		this.getWebDriverManager().contextClick("xpath", fooContentXpath, false);
+		getWebDriverManager().usingContextMenu(() -> {
+			WebElement editOption = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 					editRecentlyContentCreated);
 			editOption.click();
 		}, "Pages");
 
-		this.driverManager.waitForAnimation();
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		this.getWebDriverManager().waitForAnimation();
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// check that the edit form was opened
 			// step 4
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().waitForAnimation();
 			Assert.assertTrue(
-					this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
+					this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", ".//h1/span")
 							.getText().equalsIgnoreCase("foo"));
 
 			// step 5
-			this.driverManager.waitForAnimation();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", editURLButton).click();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", editURLButton).click();
 
-			this.driverManager.waitForAnimation();
-			this.driverManager.getDriver().switchTo().activeElement();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().getDriver().switchTo().activeElement();
 			Assert.assertTrue(
-					this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
+					this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", warningTitle)
 							.getText().equalsIgnoreCase("Warning"));
 
 			// step 6
-			this.driverManager.waitForAnimation();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", warningOkButton).click();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", warningOkButton).click();
 
 			// step 7
-			this.driverManager.waitForAnimation();
-			this.driverManager.getDriver().switchTo().activeElement();
-			this.driverManager.sendText("xpath", filenameInput, "bar");
-			this.driverManager.waitForAnimation();
+			this.getWebDriverManager().waitForAnimation();
+			this.getWebDriverManager().getDriver().switchTo().activeElement();
+			this.getWebDriverManager().sendText("xpath", filenameInput, "bar");
+			this.getWebDriverManager().waitForAnimation();
 
 			// save and close
-			this.driverManager
+			this.getWebDriverManager()
 					.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
 					.click();
 
 		});
 		// Step 8 Expected Output
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("/studio/site-dashboard"));
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl().contains("/studio/site-dashboard"));
 
 		// Step 9
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
 				.click();
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilSidebarOpens();
-		Assert.assertTrue(this.driverManager.getDriver().getCurrentUrl().contains("page=/bar.html"));
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilSidebarOpens();
+		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl().contains("page=/bar.html"));
 
 		// Step 10
 		this.step10();
@@ -278,6 +278,6 @@ public class RenameViaFormTest extends StudioBaseTest {
 	@Parameters({"testId"})
 	@AfterMethod(alwaysRun = true)
 	public void afterTest(String testId) {
-		apiTestHelper.deleteSite(testId);
+		//apiTestHelper.deleteSite(testId);
 	}
 }

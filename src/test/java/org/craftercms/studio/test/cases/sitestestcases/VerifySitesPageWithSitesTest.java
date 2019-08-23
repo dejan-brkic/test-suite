@@ -51,7 +51,7 @@ public class VerifySitesPageWithSitesTest extends StudioBaseTest {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		step6();
 	}

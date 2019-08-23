@@ -41,15 +41,15 @@ public class VerifyThatPageIsOnLive extends DeliveryBaseTest {
 				.getProperty("delivery.verification.siteurl");
 		pageTitleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("delivery.verification.pagetitle");
-		this.driverManager.getDriver().get(siteURL+testId);
-		this.driverManager.getDriver().get(pageURL);
+		this.getWebDriverManager().getDriver().get(siteURL+testId);
+		this.getWebDriverManager().getDriver().get(pageURL);
 	}
 
 	@Test()
 	public void verifyThatPageIsOnLive() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilElementIsDisplayed("xpath", pageTitleXpath);
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", pageTitleXpath);
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", pageTitleXpath)
 				.getText().equalsIgnoreCase("testingpage"));
 	}
 

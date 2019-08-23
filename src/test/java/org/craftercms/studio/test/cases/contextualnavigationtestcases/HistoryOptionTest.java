@@ -72,40 +72,40 @@ public class HistoryOptionTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				siteDropdownXpath).click();
 		
-		this.driverManager.waitUntilSidebarOpens();
+		this.getWebDriverManager().waitUntilSidebarOpens();
 		
 		// expand pages folder
 		previewPage.expandPagesTree();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath).click();
 
 		// click on history option
 		previewPage.clickOnHistoryOption();
 
 		// Assert
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		try {
-			this.driverManager.waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
+			this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", actionsHeaderXpath);
 		} catch (TimeoutException e) {
-			this.driverManager.takeScreenshot("HistoryDialogNotCompletedRendered");
+			this.getWebDriverManager().takeScreenshot("HistoryDialogNotCompletedRendered");
 			logger.warn("History dialog is not completely rendered");
 		}
 		
-		this.driverManager.waitForAnimation();
-		String historyPage = this.driverManager
+		this.getWebDriverManager().waitForAnimation();
+		String historyPage = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", historyDialogTitle).getText();
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		Assert.assertEquals(historyPage, "Version History");
 
 	}

@@ -32,7 +32,7 @@ import org.testng.annotations.Parameters;
  */
 public class DeliveryBaseTest {
 
-	protected WebDriverManager driverManager;
+	private ThreadLocal<WebDriverManager>  driverManager = new ThreadLocal<WebDriverManager>();
 	protected UIElementsPropertiesManager uiElementsPropertiesManager;
 	protected ConstantsPropertiesManager constantsPropertiesManager;
 	protected ConstantsPropertiesManager deliveryExecutionValuesManager;
@@ -45,24 +45,27 @@ public class DeliveryBaseTest {
 	@Parameters({"testId"})
 	@BeforeClass
 	public void setUp(String testId, ITestContext ctx) {
-		driverManager = new WebDriverManager();
+		driverManager.set(new WebDriverManager());
 		testName = ctx.getCurrentXmlTest().getName();
-		driverManager.setTestName(testName);
+		getWebDriverManager().setTestName(testName);
 		uiElementsPropertiesManager = new UIElementsPropertiesManager(
 				FilesLocations.UIELEMENTSPROPERTIESFILEPATH);
 		constantsPropertiesManager = new ConstantsPropertiesManager(
 				FilesLocations.CONSTANTSPROPERTIESFILEPATH);
 		deliveryExecutionValuesManager = new ConstantsPropertiesManager(
 				FilesLocations.DELIVERYEXECUTIONVALUESPROPERTIESFILEPATH);
-		driverManager.setConstantsPropertiesManager(constantsPropertiesManager);
-		driverManager.setUIElementsPropertiesManager(uiElementsPropertiesManager);
-		deliveryHome = new DeliveryHomePage(driverManager, testId);
+		getWebDriverManager().setConstantsPropertiesManager(constantsPropertiesManager);
+		getWebDriverManager().setUIElementsPropertiesManager(uiElementsPropertiesManager);
+		deliveryHome = new DeliveryHomePage(getWebDriverManager(), testId);
 		apiTestHelper = new APITestHelper();
 	}
 
 	@AfterClass
 	public void close() {
-		driverManager.closeConnection();
+		getWebDriverManager().closeConnection();
 	}
 
+	public WebDriverManager getWebDriverManager(){
+		return driverManager.get();
+	}
 }

@@ -71,7 +71,7 @@ public class AddNewUserTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 		
 		// click On Users option
 		createSitePage.clickOnUsersOption();
@@ -80,25 +80,25 @@ public class AddNewUserTest extends StudioBaseTest {
 		usersPage.clickOnNewUser();
 
 		// Follow the form
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys(testUser + "N");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId).sendKeys(testUser + "N");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId).sendKeys(testUser + "LN");
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId).sendKeys(testUser + "LN");
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserEmailId)
 				.sendKeys(testUser + "@" + testUser);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys(testUser);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserUserNameId).sendKeys(testUser);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys(testUser);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId).sendKeys(testUser);
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
 				.sendKeys(testUser);
 
 		// Save Button
 		usersPage.clickOnSaveNewUser();
 
 		// Assert new users created is present
-		WebElement newUserCreated = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement newUserCreated = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				String.format(newUserUserNameCreatedXpath, testUser));
 
 		Assert.assertTrue(newUserCreated.isDisplayed(),"ERROR: Recently created user is not displayed");

@@ -32,7 +32,6 @@ import org.openqa.selenium.WebElement;
 public class CreateSitePage {
 
 	private WebDriverManager driverManager;
-	private WebDriver driver;
 	private String siteName;
 	private String descriptionSite;
 	private String blueprintSelect;
@@ -75,7 +74,6 @@ public class CreateSitePage {
 	 */
 	public CreateSitePage(WebDriverManager driverManager, UIElementsPropertiesManager UIElementsPropertiesManager) {
 		this.driverManager = driverManager;
-		this.driver = this.driverManager.getDriver();
 
 		siteName = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("create.site_name");
 		descriptionSite = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -144,13 +142,6 @@ public class CreateSitePage {
 		basicDeveloperOptions = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("create.basic.developer.options");
 	}
-
-	public CreateSitePage(WebDriver driver) {
-
-		this.driver = driver;
-
-	}
-
 	public CreateSitePage setSiteName() {
 		driverManager.sendText("xpath", siteName, "testsite" + RandomStringUtils.randomAlphabetic(5).toLowerCase());
 		return this;
@@ -362,13 +353,6 @@ public class CreateSitePage {
 		this.driverManager = driverManager;
 	}
 
-	public WebDriver getDriver() {
-		return driver;
-	}
-
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
-	}
 
 	public CreateSitePage selectWebSiteEditorialBluePrintOption() {
 		// select blue corporate print

@@ -95,49 +95,49 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 			String testId, String testUser) {
 		logger.info("login to application with {} user", testUser);
 		loginPage.loginToCrafter(testUser, testUser);
-		this.driverManager.waitUntilLoginCloses();
+		this.getWebDriverManager().waitUntilLoginCloses();
 		logger.info("Go to Preview Page {}", testId);
 		this.homePage.goToPreviewPage(testId);
 
 		// Expand the site bar
-		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
+		this.getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 
-		Assert.assertTrue(this.driverManager.isElementPresentAndClickableByXpath(siteDropdownElementXPath));
+		Assert.assertTrue(this.getWebDriverManager().isElementPresentAndClickableByXpath(siteDropdownElementXPath));
 
 		// Check all the section are present;
-		WebElement dashboardLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement dashboardLinkElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				dashboardLink);
 		Assert.assertTrue(dashboardLinkElement.isDisplayed(), "ERROR: Dashboard link is not present");
 
-		WebElement pagesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement pagesTreeLinkElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				pagesTreeLink);
 		Assert.assertTrue(pagesTreeLinkElement.isDisplayed(), "ERROR: Pages Tree link is not present");
 
-		WebElement componentsTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement componentsTreeLinkElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				componentsTreeLink);
 		Assert.assertTrue(componentsTreeLinkElement.isDisplayed(), "ERROR: Components Tree link is not present");
 
-		WebElement taxonomyTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement taxonomyTreeLinkElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				taxonomyTreeLink);
 		Assert.assertTrue(taxonomyTreeLinkElement.isDisplayed(), "ERROR: Taxonomy Tree link is not present");
 
-		WebElement staticAssetsTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement staticAssetsTreeLinkElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				staticAssetsTreeLink);
 		Assert.assertTrue(staticAssetsTreeLinkElement.isDisplayed(), "ERROR: Static Assets Tree link is not present");
 
-		WebElement templatesTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement templatesTreeLinkElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				templatesTreeLink);
 		Assert.assertTrue(templatesTreeLinkElement.isDisplayed(), "ERROR: Templates Tree link is not present");
 
-		WebElement scriptsTreeLinkElement = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement scriptsTreeLinkElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				scriptsTreeLink);
 		Assert.assertTrue(scriptsTreeLinkElement.isDisplayed(), "ERROR: Scripts Tree link is not present");
 
-		List<WebElement> siteDropdownItems = this.driverManager.getDriver()
+		List<WebElement> siteDropdownItems = this.getWebDriverManager().getDriver()
 				.findElements(By.xpath(siteDropdownItemsXpath));
 		int currentIndex = 0;
 		for (WebElement element : siteDropdownItems) {
-			this.driverManager.waitUntilSidebarOpens();
+			this.getWebDriverManager().waitUntilSidebarOpens();
 			Assert.assertTrue(element.getText().equals(siteDropdownItemsInExpectedOrder.get(currentIndex)),
 					"ERROR: Link Option: " + element.getText() + " is not in the correct order");
 			currentIndex++;

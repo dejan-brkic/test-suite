@@ -68,7 +68,7 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -81,47 +81,47 @@ public class AutomateVerifyingNoErrorsPresentInWebsiteEditorialBPHomePage extend
 				.clickOnCreateButton();
 
 		// Verify No error messages after clicking on the Create button
-		Assert.assertFalse(driverManager.isElementPresentByXpath(createSiteErrorNotificationWindow));
-		this.driverManager.waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(createSiteErrorNotificationWindow));
+		this.getWebDriverManager().waitWhileElementIsDisplayedAndClickableByXpath(siteDropdownElementXPath);
 
-		driverManager.getDriver().switchTo().defaultContent();
-        driverManager.getDriver().switchTo().frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		getWebDriverManager().getDriver().switchTo().defaultContent();
+        getWebDriverManager().getDriver().switchTo().frame(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
                 "id", "engineWindow"));
        
         //Check that the Hero section of the Home Page has no errors.
-		Assert.assertFalse(driverManager.isElementPresentByXpath(siteErrorMessage),
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(siteErrorMessage),
 				"ERROR: Website Editorial Blueprint HomePage has displayed errors");
 		
 		//Check that the Features section Erat lacinia, has no errors.
-		this.driverManager.scrollDownPx(500);
-		Assert.assertFalse(driverManager.isElementPresentByXpath(siteErrorMessage),
+		this.getWebDriverManager().scrollDownPx(500);
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(siteErrorMessage),
 				"ERROR: Website Editorial Blueprint HomePage has displayed errors");
 		
 		//Check that there are no errors in the Featured Articles section.
-		this.driverManager.scrollDownPx(980);
-		Assert.assertFalse(driverManager.isElementPresentByXpath(siteErrorMessage),
+		this.getWebDriverManager().scrollDownPx(980);
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(siteErrorMessage),
 				"ERROR: Website Editorial Blueprint HomePage has displayed errors");
 		
-		this.driverManager.scrollDownPx(2300);
-		Assert.assertFalse(driverManager.isElementPresentByXpath(siteErrorMessage),
+		this.getWebDriverManager().scrollDownPx(2300);
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(siteErrorMessage),
 				"ERROR: Website Editorial Blueprint HomePage has displayed errors");
 		
 		//Verify Left Rail has no errors
-		this.driverManager.scrollUp();
-		WebElement leftRail = this.driverManager
+		this.getWebDriverManager().scrollUp();
+		WebElement leftRail = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", wesiteEditorialLeftRailIcon);
 		leftRail.click();
 		
-		Assert.assertFalse(driverManager.isElementPresentByXpath(siteErrorMessage),
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(siteErrorMessage),
 				"ERROR: Website Editorial Blueprint HomePage has displayed errors");
 		
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 		
-		WebElement sidebar = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
+		WebElement sidebar = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				dashboardSiteContent);
 		sidebar.click();
 		
-		Assert.assertFalse(driverManager.isElementPresentByXpath(siteErrorMessage),
+		Assert.assertFalse(getWebDriverManager().isElementPresentByXpath(siteErrorMessage),
 				"ERROR: Website Editorial Blueprint HomePage has displayed errors");
 		
 	}

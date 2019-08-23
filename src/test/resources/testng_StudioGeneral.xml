@@ -17,17 +17,19 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio - General TestCases TestSuite" parallel="tests" thread-count="4" verbose="3">
+<suite name="craftercms - Studio - General TestCases TestSuite" parallel="tests" thread-count="4" verbose="3" preserve-order="false">
 	<parameter name="blueprint" value="editorial"/>
 	<test name="ChangeStateOfPreviousPublishedContent">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="general003"/>
-		<parameter name="testUser" value="authorgeneral00333444"/>
+		<parameter name="testUser" value="authorgeneral003"/>
 		<parameter name="testGroup" value="site_author"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.generaltestcases.ChangeStateOfPreviousPublishedContent"/>
 		</classes>
 	</test>
 	<test name="Crafter3LoadTest">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="general001"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.generaltestcases.Crafter3LoadTest1Script">
@@ -35,18 +37,21 @@
 		</classes>
 	</test>
 	<test name="RenameParentPageAndPublishChildTest">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="general002"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.generaltestcases.RenameParentPageAndPublishChildTest"/>
 		</classes>
 	</test>
 	<test name="Verify that no errors with BluePrints are displayed when create sites">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="general005"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.generaltestcases.VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite"/>
 		</classes>
 	</test>
 	<test name="Verify The application allows to delete a page or component and the change is reflected on delivery">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="general006"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contenttestcases.AddNewContentAndPublishContentTest"/>

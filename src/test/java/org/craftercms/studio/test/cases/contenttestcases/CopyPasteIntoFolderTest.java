@@ -74,7 +74,7 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 	public void createContent() {
 		logger.info("Creating new content");
 		// right click to see the the menu
-		driverManager.waitUntilPageLoad();
+		getWebDriverManager().waitUntilPageLoad();
 		dashboardPage.rightClickToSeeMenu();
 
 		// Select Entry Content Type
@@ -84,15 +84,15 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
 			// Set basics fields of the new content created
 			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
 
 			// Set the title of main content
-			driverManager.sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
+			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
 
 			// save and close
-			this.driverManager.waitUntilElementIsClickable("xpath", createFormSaveAndCloseElement).click();
+			this.getWebDriverManager().waitUntilElementIsClickable("xpath", createFormSaveAndCloseElement).click();
 
 		});
 
@@ -104,7 +104,7 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		logger.info("Starting test case");
 		loginPage.loginToCrafter(userName, password);
 
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
@@ -117,7 +117,7 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		this.createContent();
 
 		// reload page
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -130,39 +130,39 @@ public class CopyPasteIntoFolderTest extends StudioBaseTest {
 		dashboardPage.setFolderName("foldertocopy");
 
 		// reload page
-		driverManager.getDriver().navigate().refresh(); 
+		getWebDriverManager().getDriver().navigate().refresh();
 
 		// Expand Home Tree
 		dashboardPage.rightClickToCopyComponentToNewFolder();
 
 		// paste the crafter component in the new folder created
-		this.driverManager.waitForAnimation();
+		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.rightClickToPasteToNewFolder();
 
 		// Copy the new content to the new folder created
-		driverManager.getDriver().navigate().refresh();
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitForFullExpansionOfTree();
+		getWebDriverManager().getDriver().navigate().refresh();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		dashboardPage.rightClickToCopyNewContentToNewFolder();
 
 		// paste the content in the new folder created
-		this.driverManager.waitForFullExpansionOfTree();
+		this.getWebDriverManager().waitForFullExpansionOfTree();
 		dashboardPage.rightClickToPasteToNewFolder();
 		
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilPageLoad();
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilPageLoad();
 		
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilTextIs("xpath", myRecentActivityItemsCounterXpath, "3");
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstCopiedElementXPath);
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", secondCopiedElementXPath);
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().waitUntilTextIs("xpath", myRecentActivityItemsCounterXpath, "3");
+		this.getWebDriverManager().waitForAnimation();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", firstCopiedElementXPath);
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", secondCopiedElementXPath);
 		
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", firstCopiedElementXPath).getText()
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", firstCopiedElementXPath).getText()
 				.contains("/foldertocopy/test1-"));
-		this.driverManager.waitForAnimation();
-		Assert.assertTrue(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", secondCopiedElementXPath).getText()
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", secondCopiedElementXPath).getText()
 				.equalsIgnoreCase("/foldertocopy/test1"));
 
 	}

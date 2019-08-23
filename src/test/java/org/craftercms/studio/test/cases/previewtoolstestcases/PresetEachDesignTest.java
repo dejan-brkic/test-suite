@@ -57,39 +57,39 @@ public class PresetEachDesignTest extends StudioBaseTest{
 		dashboardPage.clickOKButton();
 
 		// Switch to the iframe
-		driverManager.getDriver().switchTo().defaultContent();
-		driverManager.getDriver().switchTo()
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		getWebDriverManager().getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo()
+				.frame(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 						"cssSelector", ".studio-ice-dialog > .bd iframe"));					
 
 		// Set basics fields of the new content created
 		dashboardPage.setBasicFieldsOfNewContent("PRESET", "PRESET TESTING");
 
 		// Set the title of main content
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 				"cssSelector", "#title > div > input").sendKeys("MainTitle");
 	
 
 		// click necessary to validate all fields required
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 				"cssSelector", "#cstudio-form-expand-all").click();
 
 		// save and close
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 				"id", "cstudioSaveAndClose").click();
 	
 		// Switch back to the dashboard page
-		driverManager.getDriver().switchTo().defaultContent();
+		getWebDriverManager().getDriver().switchTo().defaultContent();
 
 	}
 
 	public void presets() {
 
 		// open publishing channel combo
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 				"cssSelector", "#medium-panel-elem > div.acn-accordion-header > a").click();
 
-		 String contentURL = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		 String contentURL = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 					"cssSelector", "#engineWindow").getText();
 		
 		 Assert.assertTrue(contentURL.contains(contentURL));
@@ -103,7 +103,7 @@ public class PresetEachDesignTest extends StudioBaseTest{
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage();
@@ -121,11 +121,11 @@ public class PresetEachDesignTest extends StudioBaseTest{
 		dashboardPage.expandHomeTree();
 
 		// select content
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 				"cssSelector", "#ygtvlabelel3").click();
 		
 		// open tools
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed(
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed(
 				"cssSelector", "#acn-preview-tools-image").click();
 
 		// presets and asserts

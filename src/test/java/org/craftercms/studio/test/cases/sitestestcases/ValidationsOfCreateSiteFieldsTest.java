@@ -55,7 +55,7 @@ public class ValidationsOfCreateSiteFieldsTest extends StudioBaseTest {
 				userName,password);
 		
 		//Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -64,10 +64,10 @@ public class ValidationsOfCreateSiteFieldsTest extends StudioBaseTest {
 				.setSiteName("");
 
 		// Click on description to show the validations
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath", createSiteDescriptionId).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", createSiteDescriptionId).click();
 
 		// Assert Id site is required.
-		WebElement siteID = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		WebElement siteID = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				validationMessageXpath);
 
 		Assert.assertTrue(siteID.isDisplayed(),"ERROR: site ID is not required");

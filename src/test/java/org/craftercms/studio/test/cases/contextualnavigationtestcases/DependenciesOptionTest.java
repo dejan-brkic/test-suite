@@ -62,33 +62,33 @@ public class DependenciesOptionTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 		
 		//Wait for login page to closes
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 				.getAttribute("class").contains("site-dropdown-open")))
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed( "xpath",
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
 				siteDropdownXpath).click();
 
 		// expand pages folder
 		previewPage.expandPagesTree();
 		
-		driverManager.getDriver().navigate().refresh();
+		getWebDriverManager().getDriver().navigate().refresh();
 		
 		// expand home content
 		previewPage.expandHomeTree();
 
 		// Select the content to view the history.
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
+		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", homeXpath).click();
 		
 		// click on history option
 		previewPage.clickOnDependenciesOption();
 
 		// Assert
-		String historyPage = this.driverManager
+		String historyPage = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependeciesDialogTitle).getText();
 		Assert.assertEquals(historyPage, "Dependencies");
 

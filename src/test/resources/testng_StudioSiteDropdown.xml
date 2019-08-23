@@ -17,16 +17,17 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio Site Dropdown TestSuite" parallel="tests" thread-count="8" verbose="3">
-	<parameter name="blueprint" value="editorial"/>
+<suite name="craftercms - Studio Site Dropdown TestSuite" parallel="tests" thread-count="4" verbose="3">
 	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Admin User">
 		<parameter name="testId" value="sitedropdown001"/>
+		<parameter name="blueprint" value="editorial"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminUser"/>
 		</classes>
 	</test>
 	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Author User">
 		<parameter name="testId" value="sitedropdown002"/>
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testUser" value="authorsidebar"/>
 		<parameter name="testGroup" value="site_author"/>
 		<classes>
@@ -35,6 +36,7 @@
 	</test>
 	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Developer User">
 		<parameter name="testId" value="sitedropdown003"/>
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testUser" value="developersidebar"/>
 		<parameter name="testGroup" value="site_developer"/>
 		<classes>
@@ -43,6 +45,7 @@
 	</test>
 	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Publisher User">
 		<parameter name="testId" value="sitedropdown004"/>
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testUser" value="publishersidebar"/>
 		<parameter name="testGroup" value="site_publisher"/>
 		<classes>
@@ -50,6 +53,7 @@
 		</classes>
 	</test>
 	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Reviewer User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown005"/>
 		<parameter name="testUser" value="reviewersidebar"/>
 		<parameter name="testGroup" value="site_reviewer"/>
@@ -58,18 +62,21 @@
 		</classes>
 	</test>
 	<test name="Verify that the application redirects to the Site Config page when the Site Config option is clicked">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedrowdownfixid01"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheApplicationRedirectstoTheSiteConfigPageWhenTheSiteConfigOptionIsClicked"/>
 		</classes>
 	</test>
 	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with admin user">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown007"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAdminUser"/>
 		</classes>
 	</test>
 	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with author user">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown008"/>
 		<parameter name="testUser" value="authorpage"/>
 		<parameter name="testGroup" value="site_author"/>
@@ -78,6 +85,7 @@
 		</classes>
 	</test>
 	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Developer user">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown009"/>
 		<parameter name="testUser" value="developerpage"/>
 		<parameter name="testGroup" value="site_developer"/>
@@ -86,6 +94,7 @@
 		</classes>
 	</test>
 	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Publisher user">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown010"/>
 		<parameter name="testUser" value="publisherpage"/>
 		<parameter name="testGroup" value="site_publisher"/>
@@ -94,6 +103,7 @@
 		</classes>
 	</test>
 	<test name="Verify that the application displays the proper set of available options when the right click is performed on any element of the Pages structure with Reviewer user">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown011"/>
 		<parameter name="testUser" value="reviewerpage"/>
 		<parameter name="testGroup" value="site_reviewer"/>
@@ -102,12 +112,14 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Admin User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown012"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyRightClickOptionsOfAnEditedPageUnderPageStructureUsingAdminUser"/>
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Author User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown013"/>
 		<parameter name="testUser" value="authoredit"/>
 		<parameter name="testGroup" value="site_author"/>
@@ -116,6 +128,7 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Developer User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown014"/>
 		<parameter name="testUser" value="developeredit"/>
 		<parameter name="testGroup" value="site_developer"/>
@@ -124,6 +137,7 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Publisher User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown015"/>
 		<parameter name="testUser" value="publisheredit"/>
 		<parameter name="testGroup" value="site_publisher"/>
@@ -132,6 +146,7 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited Using Reviewer User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown016"/>
 		<parameter name="testUser" value="revieweredit"/>
 		<parameter name="testGroup" value="site_reviewer"/>
@@ -140,6 +155,7 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Admin User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown017"/>
 		<parameter name="testUser" value="adminworkflow"/>
 		<parameter name="testGroup" value="site_author"/>
@@ -148,6 +164,7 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Author User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown018"/>
 		<parameter name="testUser" value="authorworkflow"/>
 		<parameter name="testGroup" value="site_author"/>
@@ -156,6 +173,7 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Developer User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown019"/>
 		<parameter name="testUser" value="developerworkflow"/>
 		<parameter name="testGroup" value="site_developer"/>
@@ -167,6 +185,7 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Publisher User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown020"/>
 		<parameter name="testUser" value="publisherworkflow"/>
 		<parameter name="testGroup" value="site_publisher"/>
@@ -177,6 +196,7 @@
 		</classes>
 	</test>
 	<test name="Verify The Application Displays The Proper Options Using Right Click When Any Element Of The Pages Structure Is Edited and Request Publish Using Reviewer User">
+		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testId" value="sitedropdown021"/>
 		<parameter name="testUser" value="reviewerworkflow"/>
 		<parameter name="testGroup" value="site_reviewer"/>

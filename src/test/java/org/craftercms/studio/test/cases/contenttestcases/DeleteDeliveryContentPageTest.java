@@ -60,7 +60,7 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 		dashboardPage.expandPagesTree();
 
 		// Step2
-		driverManager.waitUntilSidebarOpens();
+		getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
 		dashboardPage.expandHomeTree();
@@ -74,8 +74,8 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 		// submittal complete ok
 		dashboardPage.clickOKSubmittalComplete();
 
-		this.driverManager.waitForAnimation();
-		Assert.assertFalse(this.driverManager.isElementPresentByXpath(createdContentXPath));
+		this.getWebDriverManager().waitForAnimation();
+		Assert.assertFalse(this.getWebDriverManager().isElementPresentByXpath(createdContentXPath));
 	}
 
 	public void loginAndGoToSiteContentPagesStructure(String siteId) {
@@ -83,15 +83,15 @@ public class DeleteDeliveryContentPageTest extends StudioBaseTest {
 		loginPage.loginToCrafter(userName, password);
 
 		// Wait for login page to close
-		driverManager.waitUntilLoginCloses();
+		getWebDriverManager().waitUntilLoginCloses();
 
 		// go to preview page
 		homePage.goToDashboardPage(siteId);
-		if (this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
+		if (this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
 				.isDisplayed())
-			if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
+			if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
 					.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
+			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath).click();
 		else
 			throw new NoSuchElementException(
 					"Site creation process is taking too long time and the element was not found");
