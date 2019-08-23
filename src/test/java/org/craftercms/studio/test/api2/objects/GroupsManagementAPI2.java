@@ -31,6 +31,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
+import static org.hamcrest.Matchers.is;
+
 /**
  * @author luishernandez
  *
@@ -74,7 +76,10 @@ public class GroupsManagementAPI2 extends BaseAPI {
 
 	public void testGetAllGroupsBadRequest() {
 		api.get("/studio/api/2/groups").urlParam("offset", offSet+"nonint").urlParam("limit", limit)
-				.urlParam("sort", sort).execute().status(HttpStatus.SC_BAD_REQUEST);
+				.urlParam("sort", sort).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testGetAllGroupsNonAuthorized() {
@@ -107,7 +112,10 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", "Test_Groups");
 		json.put("desc", "Testing Group API2");
 
-		api.post("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.post("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testCreateGroupsUnauthorized() {
@@ -124,7 +132,10 @@ public class GroupsManagementAPI2 extends BaseAPI {
 	}
 
 	public void testDeleteGroupsBadRequest(String id) {
-		api.delete("/studio/api/2/groups").urlParam("idnonvalid", id).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.delete("/studio/api/2/groups").urlParam("idnonvalid", id).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Add missing parameter 'id' of type 'List'"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testDeleteGroupsUnauthorized(String id) {
@@ -155,7 +166,10 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("name", groupName);
 		json.put("desc", "Testing Group API2 updated");
 
-		api.patch("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.patch("/studio/api/2/groups").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testUpdateGroupsUnauthorized(String id, String groupName) {
@@ -176,7 +190,10 @@ public class GroupsManagementAPI2 extends BaseAPI {
 	}
 
 	public void testGetGroupsByIDBadRequest(String id) {
-		api.get("/studio/api/2/groups/" + id + "nonvalid").execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.get("/studio/api/2/groups/" + id + "nonvalid").execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testGetGroupsByIDNonAuthorized(String id) {
@@ -192,7 +209,10 @@ public class GroupsManagementAPI2 extends BaseAPI {
 	}
 
 	public void testGetGroupsMembersBadRequest(String id) {
-		api.get("/studio/api/2/groups/" + id + "nonvalid" + "/members").execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.get("/studio/api/2/groups/" + id + "nonvalid" + "/members").execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testGetGroupsMembersNonAuthorized(String id) {
@@ -229,7 +249,10 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
 
-		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 	
 	public void testAddMemberToGroupUsingUsernameResourceNotFound(String groupId, String userName) {
@@ -252,7 +275,10 @@ public class GroupsManagementAPI2 extends BaseAPI {
 	}
 	
 	public void testRemoveMemberFromGroupUsingUsernameBadRequest(String groupId, String userName) {
-		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username"+"nonvalid",userName).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.delete("/studio/api/2/groups/" + groupId + "/members").urlParam("username"+"nonvalid",userName).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s) : All parameters are empty or null"));
 	}
 	
 	public void testRemoveMemberFromUsingUsernameResourceNotFound(String groupId, String userName) {

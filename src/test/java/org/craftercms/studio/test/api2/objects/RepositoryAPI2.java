@@ -124,6 +124,8 @@ public class RepositoryAPI2 extends BaseAPI {
         Object requestBody = addRemotePayload(siteId, remoteName, remoteUrl, authenticationType, remoteUsername,
                 remotePassword, "", "", true);
         api.post(ADD_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
+                .json("$.response.code", is(1001))
+                .json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
                 .json("$.response.message", is("Invalid parameter(s)"));
     }
 
@@ -151,8 +153,9 @@ public class RepositoryAPI2 extends BaseAPI {
     public void testPullFromRemoteBadRequest(String siteId, String remoteName, String remoteBranch){
         Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "none", true);
         api.post(PULL_FROM_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
-                .json("$.response.message", is("Invalid parameter(s)"));
-    }
+                .json("$.response.code", is(1001))
+                .json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+                .json("$.response.message", is("Invalid parameter(s)"));    }
 
     public void testPullFromRemoteInvalidSiteId(String siteId, String remoteName, String remoteBranch){
         Object requestBody = pullFromRemotePayload(siteId, remoteName, remoteBranch, "none", false);
@@ -174,8 +177,9 @@ public class RepositoryAPI2 extends BaseAPI {
     public void testPushToRemoteBadRequest(String siteId, String remoteName, String remoteBranch){
         Object requestBody = pushToRemotePayload(siteId, remoteName, remoteBranch, true, true);
         api.post(PUSH_TO_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
-                .json("$.response.message", is("Invalid parameter(s)"));
-    }
+                .json("$.response.code", is(1001))
+                .json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+                .json("$.response.message", is("Invalid parameter(s)"));    }
 
     public void testPushToRemoteInvalidSiteId(String siteId, String remoteName, String remoteBranch ){
         Object requestBody = pushToRemotePayload(siteId, remoteName, remoteBranch, true, false);
@@ -199,8 +203,9 @@ public class RepositoryAPI2 extends BaseAPI {
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("siteIdBad", siteId);
         api.post(REBUILD_DATABASE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
-                .json("$.response.message", is("Invalid parameter(s)"));
-    }
+                .json("$.response.code", is(1001))
+                .json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+                .json("$.response.message", is("Invalid parameter(s)"));    }
 
     public void testRebuildDBRemoteInvalidSiteId(String siteId){
         Map<String, Object> requestBody = new HashMap<>();
@@ -228,6 +233,8 @@ public class RepositoryAPI2 extends BaseAPI {
         requestBody.put("siteIdBad", siteId);
         requestBody.put("remoteName", remoteName);
         api.post(REMOVE_REMOTE_URL).json(requestBody).execute().status(HttpStatus.SC_BAD_REQUEST)
+                .json("$.response.code", is(1001))
+                .json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
                 .json("$.response.message", is("Invalid parameter(s)"));
     }
 
