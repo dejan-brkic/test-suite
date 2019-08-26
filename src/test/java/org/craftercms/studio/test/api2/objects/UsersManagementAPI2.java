@@ -33,6 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.is;
+
 /**
  * @author luishernandez
  *
@@ -58,7 +60,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 
 	public void testGetAllUsersNonSiteIdBadRequest() {
 		api.get("/studio/api/2/users").urlParam("offset", offSet + "noninteger").urlParam("limit", limit)
-				.urlParam("sort", sort).execute().status(HttpStatus.SC_BAD_REQUEST);
+				.urlParam("sort", sort).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testGetAllUsersNonSiteIdNonAuthorized() {
@@ -105,7 +110,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("enabled", true);
 		json.put("externallyManaged", true);
 
-		api.post("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.post("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testCreateUserUnAuthorized(String id, String userName) {
@@ -180,7 +188,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("enabled", true);
 		json.put("externallyManaged", true);
 
-		api.post("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.post("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testUpdateUserUnAuthorized(String id, String userName) {
@@ -203,7 +214,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 
 	public void testDeleteUserByIdBadRequest(String userId) {
 		api.delete("/studio/api/2/users").urlParam("idnonvalid", userId).execute()
-				.status(HttpStatus.SC_BAD_REQUEST);
+				.status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s) : All parameters are empty or null"));
 	}
 
 	public void testDeleteUserByIdUnauthorized(String userId) {
@@ -216,7 +230,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 
 	public void testDeleteUserByUserNameBadRequest(String userName) {
 		api.delete("/studio/api/2/users").urlParam("usernamenonvalid", userName).execute()
-				.status(HttpStatus.SC_BAD_REQUEST);
+				.status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s) : All parameters are empty or null"));
 	}
 
 	public void testDeleteUserByUserNameUnauthorized(String userName) {
@@ -281,7 +298,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
 
-		api.patch("/studio/api/2/users/enable").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.patch("/studio/api/2/users/enable").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testUpdateUserEnableUserUsingUsernameUnauthorized(String userName) {
@@ -311,7 +331,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 		JSONObject json = new JSONObject();
 		json.put("usernamesnonvalid", usernames);
 
-		api.patch("/studio/api/2/users/disable").json(json).execute().status(HttpStatus.SC_BAD_REQUEST);
+		api.patch("/studio/api/2/users/disable").json(json).execute().status(HttpStatus.SC_BAD_REQUEST)
+				.json("$.response.code", is(1001))
+				.json("$.response.remedialAction", is("Check API and make sure you're sending the correct parameters"))
+				.json("$.response.message", is("Invalid parameter(s)"));
 	}
 
 	public void testUpdateUserDisableUserUsingUsernameUnauthorized(String userName) {
