@@ -21,7 +21,7 @@
 	<groupId>org.craftercms</groupId>
 	<artifactId>studio-test-suite</artifactId>
 	<packaging>jar</packaging>
-	<version>3.1.1</version><!-- craftercms version flag -->
+	<version>3.1.2-SNAPSHOT</version><!-- craftercms version flag -->
 	<name>studio-test-suite</name>
 	<description>Crafter CMS Integration Test Suite</description>
 	<url>https://github.com/craftercms/test-suite</url>
