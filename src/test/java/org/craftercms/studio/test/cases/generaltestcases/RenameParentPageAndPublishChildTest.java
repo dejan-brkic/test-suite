@@ -119,7 +119,6 @@ public class RenameParentPageAndPublishChildTest extends StudioBaseTest{
 			dashboardPage.clickOnPublishOption();
 		},"Pages");
 		// moving to the publish dialog, clicking on Submit and confirm action
-		this.selectOnlyOnePageToPublish(pageName);
 		this.confirmPublishAction();
 		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
