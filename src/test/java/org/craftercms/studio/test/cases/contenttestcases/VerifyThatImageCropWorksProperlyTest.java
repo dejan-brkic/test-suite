@@ -38,14 +38,15 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 	private String userName;
 	private String password;
 	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
-	private String editorialBPSiteId;
 	private String janeDoeAuthor;
 	private String editRecentlyContentCreated;
 	private String createFormFrameElementCss;
 	private String cropImageDialogTitle;
 	private String cropImageDialogButton;
 	private String photoImageInfo;
+	private String zoomInButtonCss;
+	private String zoomOutButtonCss;
+	private String resetButtonCss;
 
 	private static final Logger logger = LogManager.getLogger(VerifyThatImageCropWorksProperlyTest.class);
 
@@ -57,8 +58,6 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		janeDoeAuthor = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitecontent.janedoeauthor");
 		editRecentlyContentCreated = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -71,6 +70,12 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 				.getProperty("frame2.author.cropbutton");
 		photoImageInfo = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame2.author.photoinfo");
+		zoomInButtonCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.crop.image.zoom.in.css");
+		zoomOutButtonCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.crop.image.zoom.out.css");
+		resetButtonCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("frame2.crop.image.reset.css");
 	}
 
 	public void login() {
@@ -127,8 +132,11 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 
 			// checking that the crop dialog is displayed and crop the image
 			getWebDriverManager().getDriver().switchTo().activeElement();
-			Assert.assertTrue(this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",cropImageDialogTitle).isDisplayed());
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", cropImageDialogButton).click();
+			Assert.assertTrue(getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",cropImageDialogTitle).isDisplayed());
+			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("css", zoomInButtonCss).isDisplayed());
+			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("css", zoomOutButtonCss).isDisplayed());
+			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("css", resetButtonCss).isDisplayed());
+			getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", cropImageDialogButton).click();
 			
 			// Switch to the iframe
 			getWebDriverManager().getDriver().switchTo().defaultContent();
