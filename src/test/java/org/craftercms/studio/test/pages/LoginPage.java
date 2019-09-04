@@ -68,14 +68,7 @@ public class LoginPage {
 
 	// Click on login button
 	public void clickLogin() {
-		WebElement loginButton = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", loginXpath);
-		loginButton.click();
-
-		this.driverManager.waitForAnimation();
-		if (this.driverManager.isLoginDisplayed()) {
-			driverManager.clickElement("xpath", loginXpath);
-		}
+		driverManager.clickElement("xpath", loginXpath);
 	}
 
 	// Login to crafter

@@ -71,7 +71,8 @@ public class AutomateLoginInToStudio extends StudioBaseTest{
 		//Assert URL of the page is the correct
 		this.getWebDriverManager().waitForAnimation();
 		String siteURL = getWebDriverManager().getDriver().getCurrentUrl();
-		Assert.assertTrue(siteURL.contains(sitesPageURL));
+		Assert.assertTrue(siteURL.contains(sitesPageURL), "Expected the URL to have " + sitesPageURL +
+				"but found " + siteURL);
 	
 	}
 

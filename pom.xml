@@ -294,6 +294,10 @@
 							<name>surefire.testng.verbose</name>
 							<value>2</value>
 						</property>
+						<property>
+							<name>listener</name>
+							<value>org.craftercms.studio.test.utils.TestngListeners</value>
+						</property>
 					</properties>
 				</configuration>
 			</plugin>

@@ -53,6 +53,7 @@ public class HomePage {
 	private String sitesPerPageInputXpath;
 	private String siteIdLabel;
 	private String siteTableRow;
+	private String engineWindowId;
 	private Object siteIDColumn;
 	private static Logger logger = LogManager.getLogger(HomePage.class);
 
@@ -79,6 +80,7 @@ public class HomePage {
 		sitesPageTitleXpath = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("sites.pagetitle");
 		sitesPerPageInputXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.sitesperpageinput");
+		engineWindowId = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.sites.iframe.engine.id");
 		siteIdLabel = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.siteidlabel");
 		siteTableRow = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.general.sitetablerow");
 		siteIDColumn = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("home.general.siteidtablecolumn");
@@ -97,6 +99,9 @@ public class HomePage {
 	public void goToPreviewPage(String siteId) {
 		logger.info("Going to preview page");
 		driverManager.clickElement("xpath", String.format(previewSiteLink,siteId));
+		driverManager.getDriver().switchTo()
+				.frame(driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", engineWindowId));
+		driverManager.getDriver().switchTo().defaultContent();
 	}
 
 	public void goToPreviewPage() {

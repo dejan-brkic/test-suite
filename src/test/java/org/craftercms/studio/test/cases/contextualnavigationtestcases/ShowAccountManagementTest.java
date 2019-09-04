@@ -62,9 +62,10 @@ public class ShowAccountManagementTest extends StudioBaseTest {
 		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", accountManagementTitle);
 		
 		// Checking if the Sites page was Loaded
-		Assert.assertTrue(accountManagementPage.getDriverManager().getDriver().getCurrentUrl()
-				.equals(apiConnectionManager.getHeaderLocationBase() + "/studio#/settings"));
-
+		String currentUrl = accountManagementPage.getDriverManager().getDriver().getCurrentUrl();
+		String expectedUrl = apiConnectionManager.getHeaderLocationBase() + "/studio#/settings";
+		Assert.assertEquals(expectedUrl, currentUrl, "Expected URL is " + expectedUrl +
+				"but found " + currentUrl);
 		// Checking if the Users title is displayed on the current page
 		Assert.assertTrue(accountManagementPage.isAccountManagementTitlePresent());
 

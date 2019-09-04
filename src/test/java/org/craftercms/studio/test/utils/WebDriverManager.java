@@ -621,19 +621,6 @@ public class WebDriverManager {
 		}
 	}
 
-	public boolean isLoginDisplayed() {
-		boolean isLoginDisplayed = false;
-		WebElement body = this.driverWaitUntilElementIsPresentAndDisplayed("tagname", "body");
-
-		logger.debug("Checking if login dialog is closed");
-
-		if (body.getAttribute("class").contains("modal-open")) {
-			isLoginDisplayed = true;
-		}
-
-		return isLoginDisplayed;
-	}
-
 	public void waitUntilSidebarOpens() {
 		logger.debug("Waiting for sidebar to open");
 		this.waitUntilAttributeContains("xpath", sideBarDropDownWrapper, "class", "site-dropdown-open");

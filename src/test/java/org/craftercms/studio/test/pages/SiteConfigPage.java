@@ -194,9 +194,7 @@ public class SiteConfigPage {
 	// Click on Content Type option
 
 	public void clickContentTypeOption() {
-		WebElement contentTypeOpt = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				contentTypeOption);
-		contentTypeOpt.click();
+		driverManager.clickElement("xpath", contentTypeOption);
 	}
 
 	public void selectContentTypeOption() {
@@ -208,12 +206,7 @@ public class SiteConfigPage {
 	// Click on open existing Type option
 
 	public void clickOpenExistingTypeOption() {
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				openExistingTypeOption);
-		WebElement openExistingTypeOpt = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", openExistingTypeOption);
-		openExistingTypeOpt.click();
+		driverManager.clickElement("xpath", openExistingTypeOption);
 	}
 
 	public void clickExistingTypeOption() {

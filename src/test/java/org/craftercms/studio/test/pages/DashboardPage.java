@@ -819,9 +819,7 @@ public class DashboardPage {
 
 	// Ok delete content option
 	public void deleteContentOK() {
-		WebElement confirmDelete = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				deleteContentOK);
-		confirmDelete.click();
+		driverManager.clickElement("xpath", deleteContentOK);
 	}
 
 	public void clicktoDeleteContent() {
@@ -831,9 +829,7 @@ public class DashboardPage {
 
 	// Ok submittal complete
 	public void submittalCompleteOK() {
-		WebElement submittalComplete = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				submittalCompleteOK);
-		submittalComplete.click();
+		driverManager.clickElement("xpath", submittalCompleteOK);
 	}
 
 	public void clickOKSubmittalComplete() {
@@ -966,17 +962,11 @@ public class DashboardPage {
 	}
 
 	public void clickOnContextualNavigationEditOption() {
-		WebElement contextualNavigationEdit = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-						contextualNavigationEditLocator);
-		contextualNavigationEdit.click();
+		driverManager.clickElement("xpath", contextualNavigationEditLocator);
 	}
 
 	public void clickOnContextualNavigationHistoryOption() {
-		WebElement contextualNavigationHistory = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-						contextualNavigationHistoryLocator);
-		contextualNavigationHistory.click();
+		driverManager.clickElement("xpath", contextualNavigationHistoryLocator);
 	}
 
 	public void clickCompareButton() {
@@ -1020,11 +1010,7 @@ public class DashboardPage {
 	}
 
 	public void clickApproveAndPublishSubmitButton() {
-		this.driverManager.isElementPresentAndClickableById(approveAndPublishPublishButtonLocator);
-		WebElement submitButton = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable(
-				"xpath", approveAndPublishPublishButtonLocator);
-		submitButton.click();
-		this.driverManager.waitForAnimation();
+		driverManager.clickElement("xpath", approveAndPublishPublishButtonLocator);
 	}
 
 	public void clickChangeTemplateSubmitButton() {
