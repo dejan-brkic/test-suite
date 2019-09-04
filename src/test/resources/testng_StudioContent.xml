@@ -228,7 +228,7 @@
 	</test>
 	<test name="Verify that the image crop works correctly">
 		<parameter name="testId" value="content047"/>
-		<parameter name="blueprint" value="blog"/>
+		<parameter name="blueprint" value="headless_blog"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contenttestcases.VerifyThatImageCropWorksProperlyTest"/>
 		</classes>
