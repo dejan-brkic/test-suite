@@ -44,6 +44,8 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	private String createFormTitleElementXPath;
 	private String actionsHeaderXpath;
 	private String siteDropdownElementXPath;
+	private String firstItemRevertXpath;
+	private String historyRevertButtonXpath;
 	private static Logger logger = LogManager.getLogger(VerifyThatCompareHistoryWorksProperly.class);
 
 	@Parameters({"testId", "blueprint"})
@@ -71,7 +73,10 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 				.getProperty("complexscenarios.general.historydialogactionsheader");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-
+		firstItemRevertXpath = uiElementsPropertiesManager.getSharedDataOfExecutionLocators()
+				.getProperty("complexscenarios.crafter3loadtest.historydialog.initialcommittrevertbutton");
+		historyRevertButtonXpath = uiElementsPropertiesManager.getSharedDataOfExecutionLocators()
+				.getProperty("general.history.revert.button");
 	}
 
 	public void loginAndGoToSiteContentPagesStructure(String testId) {
@@ -144,6 +149,9 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 			dashboardPage.clickCloseButton();
 		});
 
+		getWebDriverManager().waitForNumberElementsToBe("xpath", historyRevertButtonXpath, 2);
+		getWebDriverManager().clickElement("xpath", firstItemRevertXpath);
+		getWebDriverManager().waitForNumberElementsToBe("xpath", historyRevertButtonXpath, 3);
 	}
 
 	public void editHome() {
