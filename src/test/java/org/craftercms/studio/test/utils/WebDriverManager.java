@@ -313,9 +313,13 @@ public class WebDriverManager {
 	}
 
 	public void waitUntilElementIsNotDisplayed(String typeOfSelector, String selectorValue) {
-		logger.debug("Waiting for element to be hidden: {} , {}", typeOfSelector, selectorValue);
+		waitUntilElementIsNotDisplayed(typeOfSelector, selectorValue, defaultTimeOut);
+	}
+
+	public void waitUntilElementIsNotDisplayed(String typeOfSelector, String selectorValue, int timeOut) {
+		logger.info("Waiting for element to be hidden: {} , {}", typeOfSelector, selectorValue);
 		By selector = getSelector(typeOfSelector, selectorValue);
-		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions
+		new WebDriverWait(driver, timeOut).until(ExpectedConditions
 				.refreshed(ExpectedConditions.invisibilityOf(driver.findElement(selector))));
 	}
 

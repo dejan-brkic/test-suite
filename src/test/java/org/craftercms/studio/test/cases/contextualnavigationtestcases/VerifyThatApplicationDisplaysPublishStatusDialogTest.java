@@ -70,11 +70,7 @@ public class VerifyThatApplicationDisplaysPublishStatusDialogTest extends Studio
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
-		// Show site content panel
-		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				siteDropdownXpath).click();
+		getWebDriverManager().clickElement( "xpath", siteDropdownXpath);
 
 		// expand pages folder
 		previewPage.expandPagesTree();
@@ -98,7 +94,7 @@ public class VerifyThatApplicationDisplaysPublishStatusDialogTest extends Studio
 
 		String publishStatusStatusText = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", publishStatusProccessStatusText).getText();
-		Assert.assertEquals(publishStatusStatusText, "Idle");
+		Assert.assertEquals(publishStatusStatusText, "Ready");
 	}
 
 	@Parameters({"testId"})
