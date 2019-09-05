@@ -42,6 +42,18 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 	private String validationMessageForRepositoryUserPassword;
 	private String validationMessageForRepositoryToken;
 	private String validationMessageForRepositoryPrivateKey;
+	private String siteIdNumericExpectedMsg;
+	private String siteIdRequiredExpectedMsg;
+	private String gitRepoNameExpectedMsg;
+	private String gitRepoUrlExpectedMsg;
+	private String gitRepoUsernameExpectedMsg;
+	private String gitRepoPasswordExpectedMsg;
+	private String gitRepoTokenExpectedMsg;
+	private String gitRepoPrivateKeyExpectedMsg;
+	private String testingSiteIDWithUpperCasesAndSpaces;
+	private String testingSiteIDSpecialCharacters;
+	private String testingSiteIdWithDash;
+	private String testingSiteIdWithUnderscore;
 
 	@BeforeMethod
 	public void beforeTest() {
@@ -64,48 +76,61 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				.getProperty("home.createsite.repositorytokenvalidation");
 		validationMessageForRepositoryPrivateKey = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.repositoryprivatekeyvalidation");
+		siteIdNumericExpectedMsg = "If site id is numeric, it can't start with 0";
+		siteIdRequiredExpectedMsg = "Site Id is required.";
+		gitRepoNameExpectedMsg = "Remote Git Repository Name is required.";
+		gitRepoUrlExpectedMsg = "Remote Git Repository URL is required.";
+		gitRepoPasswordExpectedMsg = "Remote Git Repository Password is required.";
+		gitRepoUsernameExpectedMsg  = "Remote Git Repository Username is required.";
+		gitRepoTokenExpectedMsg = "Remote Git Repository Token is required.";
+		gitRepoPrivateKeyExpectedMsg = "Remote Git Repository Private Key is required.";
+		testingSiteIDWithUpperCasesAndSpaces = "TestingUPPERCASE SPACE";
+		testingSiteIDSpecialCharacters = "testing!!$%";
+		testingSiteIdWithDash = "-testing";
+		testingSiteIdWithUnderscore = "_testing";
+	}
+
+	public void checkSiteNameRestrictions(String siteToType, String errorMessage) {
+		createSitePage.setSiteNameForSiteIDRestrictions(siteToType);
+		String currentErrorValue =  getWebDriverManager().waitUntilElementIsDisplayed(
+				"xpath",validationMessageXpath).getText();
+		Assert.assertEquals(currentErrorValue, errorMessage, "Expected to have error: " +
+				errorMessage + ". But found: " + currentErrorValue);
+	}
+
+	public void checkSiteIdRename(String siteToType, String expectedSiteId) {
+		createSitePage.setSiteNameForSiteIDRestrictions(siteToType);
+		String currentSiteId =  getWebDriverManager().waitUntilElementIsDisplayed(
+				"xpath", siteId).getAttribute("value");
+		Assert.assertEquals(currentSiteId, expectedSiteId, "Expected to have the site id: " +
+				expectedSiteId + ". But found: " + currentSiteId);
 	}
 
 	public void step3() {
 		// Click on description to show the validations
-		this.getWebDriverManager().waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
+		getWebDriverManager().waitUntilElementIsClickable("xpath", createSiteDescriptionId).click();
 
 		// Assert Id site is required.
-		WebElement siteID = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",
-				validationMessageXpath);
+		WebElement siteID = getWebDriverManager().waitUntilElementIsDisplayed("xpath", validationMessageXpath);
 
 		Assert.assertTrue(siteID.isDisplayed(), "ERROR: site ID is not required");
-		Assert.assertTrue(siteID.getText().contains("Site Id is required."));
+		Assert.assertTrue(siteID.getText().contains(siteIdRequiredExpectedMsg));
+		checkSiteNameRestrictions("01", siteIdNumericExpectedMsg);
+		checkSiteNameRestrictions("0", siteIdNumericExpectedMsg);
+		checkSiteIdRename("1", "1");
+		checkSiteIdRename(testingSiteIdWithUnderscore, testingSiteIdWithUnderscore.replace("_", ""));
+		checkSiteIdRename(testingSiteIdWithDash, testingSiteIdWithDash.replace("-", ""));
 
 	}
 
 	public void step4() {
-		String testingSiteIDWithUpperCasesAndSpaces = "TestingUPPERCASE SPACE";
-
-		// Filling the name of site
-		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDWithUpperCasesAndSpaces);
-		
-		this.getWebDriverManager().waitForAnimation();
-		WebElement siteID = this.getWebDriverManager().waitUntilElementIsClickable("xpath", siteId);
-
-		String testingSiteID=((testingSiteIDWithUpperCasesAndSpaces.toLowerCase()).replace(" ", ""));
-		String siteIDText=siteID.getAttribute("value");
-		
-		Assert.assertTrue(siteIDText.equals(testingSiteID));
+		checkSiteIdRename(testingSiteIDWithUpperCasesAndSpaces,
+				testingSiteIDWithUpperCasesAndSpaces.toLowerCase().replace(" ", ""));
 	}
 
 	public void step5() {
-		String testingSiteIDSpecialCharacters = "testing!!$%";
-		// Filling the name of site
-		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDSpecialCharacters);
-
-		this.getWebDriverManager().waitForAnimation();
-		WebElement siteID = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", siteId);
-
-		String testingSiteID=((testingSiteIDSpecialCharacters.toLowerCase()).replace("!!$%", ""));
-		String siteIDText=siteID.getAttribute("value");
-		
-		Assert.assertTrue(siteIDText.equals(testingSiteID));
+		checkSiteIdRename(testingSiteIDSpecialCharacters,
+				testingSiteIDSpecialCharacters.toLowerCase().replace("!!$%", ""));
 	}
 
 	public void step6() {
@@ -122,7 +147,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageForRepositoryName);
 
 		Assert.assertTrue(validationOnRepoName.isDisplayed());
-		Assert.assertTrue(validationOnRepoName.getText().contains("Remote Git Repository Name is required."));
+		Assert.assertTrue(validationOnRepoName.getText().contains(gitRepoNameExpectedMsg));
 	}
 
 	public void step8() {
@@ -134,7 +159,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageForRepositoryURL);
 
 		Assert.assertTrue(validationOnRepoURL.isDisplayed());
-		Assert.assertTrue(validationOnRepoURL.getText().contains("Remote Git Repository URL is required."));
+		Assert.assertTrue(validationOnRepoURL.getText().contains(gitRepoUrlExpectedMsg));
 	}
 
 	public void step9() {
@@ -151,7 +176,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageForRepositoryUserName);
 
 		Assert.assertTrue(validationOnRepoUserName.isDisplayed());
-		Assert.assertTrue(validationOnRepoUserName.getText().contains("Remote Git Repository Username is required."));
+		Assert.assertTrue(validationOnRepoUserName.getText().contains(gitRepoUsernameExpectedMsg));
 	}
 
 	public void step11() {
@@ -164,7 +189,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 		Assert.assertTrue(validationOnRepoUserPassword.isDisplayed());
 		Assert.assertTrue(
-				validationOnRepoUserPassword.getText().contains("Remote Git Repository Password is required."));
+				validationOnRepoUserPassword.getText().contains(gitRepoPasswordExpectedMsg));
 	}
 
 	public void step12() {
@@ -181,7 +206,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageForRepositoryToken);
 
 		Assert.assertTrue(validationOnRepoToken.isDisplayed());
-		Assert.assertTrue(validationOnRepoToken.getText().contains("Remote Git Repository Token is required."));
+		Assert.assertTrue(validationOnRepoToken.getText().contains(gitRepoTokenExpectedMsg));
 	}
 
 	public void step14() {
@@ -199,7 +224,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 		Assert.assertTrue(validationOnRepoPrivateKey.isDisplayed());
 		Assert.assertTrue(
-				validationOnRepoPrivateKey.getText().contains("Remote Git Repository Private Key is required."));
+				validationOnRepoPrivateKey.getText().contains(gitRepoPrivateKeyExpectedMsg));
 	}
 
 
@@ -216,36 +241,20 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageXpath);
 
 		Assert.assertTrue(siteID.isDisplayed(), "ERROR: site ID is not required");
-		Assert.assertTrue(siteID.getText().contains("Site Id is required."));
+		Assert.assertTrue(siteID.getText().contains(siteIdRequiredExpectedMsg));
+		checkSiteNameRestrictions("01", siteIdNumericExpectedMsg);
+		checkSiteNameRestrictions("0", siteIdNumericExpectedMsg);
+		checkSiteIdRename("1", "1");
+		checkSiteIdRename(testingSiteIdWithUnderscore, testingSiteIdWithUnderscore.replace("_", ""));
+		checkSiteIdRename(testingSiteIdWithDash, testingSiteIdWithDash.replace("-", ""));;
 	}
 
 	public void step17() {
-		String testingSiteIDWithUpperCasesAndSpaces = "TestingUPPERCASE SPACE";
-
-		// Filling the name of site
-		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDWithUpperCasesAndSpaces);
-
-		this.getWebDriverManager().waitForAnimation();
-		WebElement siteID = this.getWebDriverManager().waitUntilElementIsClickable("xpath", siteId);
-
-		String testingSiteID=((testingSiteIDWithUpperCasesAndSpaces.toLowerCase()).replace(" ", ""));
-		String siteIDText=siteID.getAttribute("value");
-
-		Assert.assertTrue(siteIDText.equals(testingSiteID));
+		step4();
 	}
 
 	public void step18() {
-		String testingSiteIDSpecialCharacters = "testing!!$%";
-		// Filling the name of site
-		createSitePage.setSiteNameForSiteIDRestrictions(testingSiteIDSpecialCharacters);
-
-		this.getWebDriverManager().waitForAnimation();
-		WebElement siteID = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", siteId);
-
-		String testingSiteID=((testingSiteIDSpecialCharacters.toLowerCase()).replace("!!$%", ""));
-		String siteIDText=siteID.getAttribute("value");
-
-		Assert.assertTrue(siteIDText.equals(testingSiteID));
+		step5();
 	}
 
 	public void step19(){
@@ -261,7 +270,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageForRepositoryName);
 
 		Assert.assertTrue(validationOnRepoName.isDisplayed());
-		Assert.assertTrue(validationOnRepoName.getText().contains("Remote Git Repository Name is required."));
+		Assert.assertTrue(validationOnRepoName.getText().contains(gitRepoNameExpectedMsg));
 	}
 
 	public void step21() {
@@ -273,7 +282,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageForRepositoryURL);
 
 		Assert.assertTrue(validationOnRepoURL.isDisplayed());
-		Assert.assertTrue(validationOnRepoURL.getText().contains("Remote Git Repository URL is required."));
+		Assert.assertTrue(validationOnRepoURL.getText().contains(gitRepoUrlExpectedMsg));
 	}
 
 	public void step22() {
@@ -290,7 +299,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageForRepositoryUserName);
 
 		Assert.assertTrue(validationOnRepoUserName.isDisplayed());
-		Assert.assertTrue(validationOnRepoUserName.getText().contains("Remote Git Repository Username is required."));
+		Assert.assertTrue(validationOnRepoUserName.getText().contains(gitRepoUsernameExpectedMsg));
 	}
 
 	public void step24() {
@@ -303,7 +312,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 		Assert.assertTrue(validationOnRepoUserPassword.isDisplayed());
 		Assert.assertTrue(
-				validationOnRepoUserPassword.getText().contains("Remote Git Repository Password is required."));
+				validationOnRepoUserPassword.getText().contains(gitRepoPasswordExpectedMsg));
 	}
 
 	public void step25() {
@@ -320,7 +329,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				validationMessageForRepositoryToken);
 
 		Assert.assertTrue(validationOnRepoToken.isDisplayed());
-		Assert.assertTrue(validationOnRepoToken.getText().contains("Remote Git Repository Token is required."));
+		Assert.assertTrue(validationOnRepoToken.getText().contains(gitRepoTokenExpectedMsg));
 	}
 
 	public void step27() {
@@ -338,7 +347,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 
 		Assert.assertTrue(validationOnRepoPrivateKey.isDisplayed());
 		Assert.assertTrue(
-				validationOnRepoPrivateKey.getText().contains("Remote Git Repository Private Key is required."));
+				validationOnRepoPrivateKey.getText().contains(gitRepoPrivateKeyExpectedMsg));
 
 	}
 

@@ -870,25 +870,27 @@ public class WebDriverManager {
 
 	public void sendTextByLineJS(String selectorType, String selectorValue, String filePath){
 		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
-		String scrollByJS = "document.getElementById('%s').scrollTop = document.getElementById('%s').scrollHeight;";
-		input.click();
-		List<String> result = new ArrayList<>();
-		try {
-			 result = Files.readAllLines(Paths.get(filePath));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if (!filePath.equals("")) {
+			String scrollByJS = "document.getElementById('%s').scrollTop = document.getElementById('%s').scrollHeight;";
+			input.click();
+			List<String> result = new ArrayList<>();
+			try {
+				result = Files.readAllLines(Paths.get(filePath));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
-		//add \n newline to all lines expect for last one
-		for(int i = 0; i < result.size(); i++){
-			if (i == result.size() - 1) {
-				sendTextByIdJS(selectorValue, result.get(i));
+			//add \n newline to all lines expect for last one
+			for(int i = 0; i < result.size(); i++){
+				if (i == result.size() - 1) {
+					sendTextByIdJS(selectorValue, result.get(i));
+				}
+				else {
+					sendTextByIdJS(selectorValue, result.get(i) + "\\n");
+				}
 			}
-			else {
-				sendTextByIdJS(selectorValue, result.get(i) + "\\n");
-			}
+			((JavascriptExecutor) driver).executeScript(String.format(scrollByJS, selectorValue, selectorValue));
 		}
-		((JavascriptExecutor) driver).executeScript(String.format(scrollByJS, selectorValue, selectorValue));
 		//send a char and remove it to enable the text sent by javascript
 		input.sendKeys("a");
 		input.sendKeys(Keys.BACK_SPACE);
@@ -904,7 +906,7 @@ public class WebDriverManager {
 		input.clear();
 		input.sendKeys(text);
 		waitUntilAttributeIs(selectorType, selectorValue, "value",
-				text.toLowerCase().replaceAll("[^a-zA-Z0-9_-]", ""));
+				text.toLowerCase().replaceAll("[^a-zA-Z0-9]", ""));
 	}
 
 	public void usingContextMenu(Runnable actions, String menuOption) {
