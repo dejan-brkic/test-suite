@@ -133,9 +133,9 @@ public class VerifyThatImageCropWorksProperlyTest extends StudioBaseTest {
 			// checking that the crop dialog is displayed and crop the image
 			getWebDriverManager().getDriver().switchTo().activeElement();
 			Assert.assertTrue(getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",cropImageDialogTitle).isDisplayed());
-			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("css", zoomInButtonCss).isDisplayed());
-			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("css", zoomOutButtonCss).isDisplayed());
-			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("css", resetButtonCss).isDisplayed());
+			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("cssselector", zoomInButtonCss).isDisplayed());
+			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("cssselector", zoomOutButtonCss).isDisplayed());
+			Assert.assertTrue(getWebDriverManager().waitUntilElementIsClickable("cssselector", resetButtonCss).isDisplayed());
 			getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", cropImageDialogButton).click();
 			
 			// Switch to the iframe

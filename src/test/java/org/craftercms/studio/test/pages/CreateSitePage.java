@@ -68,6 +68,8 @@ public class CreateSitePage {
 	private String createSiteFromGitRepoCheckbox;
 	private String basicInformationButton;
 	private String basicDeveloperOptions;
+	private String creatingSpinnerImgCss;
+	private int waitForCreateSite = 100;
 
 	/**
 	 * 
@@ -141,6 +143,8 @@ public class CreateSitePage {
 				.getProperty("create.basic.information_button");
 		basicDeveloperOptions = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("create.basic.developer.options");
+		creatingSpinnerImgCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("creating.spinner.img");
 	}
 	public CreateSitePage setSiteName() {
 		driverManager.sendText("xpath", siteName, "testsite" + RandomStringUtils.randomAlphabetic(5).toLowerCase());
@@ -249,6 +253,7 @@ public class CreateSitePage {
 	// Press on create site
 	public CreateSitePage clickOnCreateButton() {
 		this.driverManager.clickElement("id", createSiteButton);
+		driverManager.waitUntilElementIsNotDisplayed("cssselector", creatingSpinnerImgCss, waitForCreateSite);
 		return this;
 	}
 

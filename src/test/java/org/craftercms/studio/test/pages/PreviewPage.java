@@ -452,8 +452,7 @@ public class PreviewPage {
 		// Show site content panel
 		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
 		// go to admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", adminConsoleXpath)
-				.click();
+		this.driverManager.clickElement("xpath", adminConsoleXpath);
 		// select content types
 		siteConfigPage.selectContentTypeOption();
 		// open content types

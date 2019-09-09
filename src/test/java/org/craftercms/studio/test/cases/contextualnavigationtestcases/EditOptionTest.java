@@ -154,11 +154,9 @@ public class EditOptionTest extends StudioBaseTest {
 
 	public void editingContent() {
 		logger.info("Editing existing content");
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath", testingContentItem)
-				.click();
-
+		this.getWebDriverManager().clickElement( "xpath", testingContentItem);
 		// click edit option of the menu
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",topNavEditOption).click();
+		this.getWebDriverManager().clickElement("xpath",topNavEditOption);
 
 		this.getWebDriverManager().waitForAnimation();
 
@@ -184,11 +182,7 @@ public class EditOptionTest extends StudioBaseTest {
 		homePage.goToPreviewPage(testId);
 
 		// Show site content panel
-		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropDownXpath)
-				.click();
-
+		getWebDriverManager().clickElement("xpath", siteDropDownXpath);
 		// Body Not requiered
 		bodyNotRequiered();
 

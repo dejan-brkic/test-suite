@@ -77,18 +77,13 @@ public class HistoryOptionTest extends StudioBaseTest{
 		// go to preview page
 		homePage.goToPreviewPage(testId);
 
-		// Show site content panel
-		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteDropdownXpath).click();
+		getWebDriverManager().clickElement("xpath", siteDropdownXpath);
 		
 		this.getWebDriverManager().waitUntilSidebarOpens();
 		
 		// expand pages folder
 		previewPage.expandPagesTree();
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath);
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", homeXpath).click();
+		this.getWebDriverManager().clickElement("xpath", homeXpath);
 
 		// click on history option
 		previewPage.clickOnHistoryOption();
