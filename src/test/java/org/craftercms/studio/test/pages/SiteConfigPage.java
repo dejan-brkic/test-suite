@@ -841,7 +841,7 @@ public class SiteConfigPage {
 
 	public String[] getPostfixNotificationError() {
 		String errorMsg =  driverManager.getText("cssselector", postfixNotificationErrorCss);
-		String errorVariableName = driverManager.getText("cssselector",postfixValueNotificationErrorCss);
+		String errorVariableName = driverManager.getText("cssselector", postfixValueNotificationErrorCss);
 		return new String[] { errorMsg, errorVariableName };
 	}
 }
