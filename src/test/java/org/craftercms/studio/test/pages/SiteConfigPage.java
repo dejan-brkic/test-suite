@@ -40,6 +40,7 @@ public class SiteConfigPage {
 	private String saveButton;
 	private String genericTitle;
 	private String inputTitle;
+	private String inputVariableName;
 	private String inputIceGroup;
 	private String inputDescription;
 	private String inputDefaultValue;
@@ -83,6 +84,13 @@ public class SiteConfigPage {
 	private String remoteRepoFirsChildName;
 	private String remoteRepoFirsChildURL;
 	private String remoteRepoFirsChildPushURL;
+	private String controlsSectionFormSectionLocator;
+	private String contentTypeContainerLocator;
+	private String controlByNameForm;
+	private String defaultSectionByNameForm;
+	private String postfixNotificationErrorCss;
+	private String postfixValueNotificationErrorCss;
+
 	private static Logger logger = LogManager.getLogger(SiteConfigPage.class);
 
 	public SiteConfigPage(WebDriverManager driverManager,
@@ -102,6 +110,8 @@ public class SiteConfigPage {
 				.getProperty("adminconsole.generic_title");
 		inputTitle = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.input_Title");
+		inputVariableName =  UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.input_variable_name");
 		inputIceGroup = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.input_Ice_Group");
 		inputDescription = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -189,6 +199,19 @@ public class SiteConfigPage {
 				.getProperty("remoterepositories.tablechilds.firstchildurl");
 		remoteRepoFirsChildPushURL = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("remoterepositories.tablechilds.firstchildpushurl");
+		controlsSectionFormSectionLocator = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.controlssectionformsection");
+		contentTypeContainerLocator = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainer");
+		controlByNameForm = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contentype.control.by.name");
+		defaultSectionByNameForm = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.entry.contenttypecontainerformsecttion.by.name");
+		postfixNotificationErrorCss =  UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.postfix.notifiaction.css");
+		postfixValueNotificationErrorCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("adminconsole.contenttype.postfix.value.notifiaction.css");
+
 	}
 
 	// Click on Content Type option
@@ -262,22 +285,26 @@ public class SiteConfigPage {
 	}
 
 	public void saveSectionDropped(Boolean oneTime) {
-		this.driverManager.waitForAnimation();
-		try {
-			this.driverManager.waitUntilElementIsClickable("xpath", saveButton).click();
-			WebElement notification = this.driverManager.waitUntilElementIsDisplayed("xpath",
-					contentTypeSavedNotification);
-			this.driverManager.waitUntilContentTypeNotificationIsNotDisplayed("xpath", "div",
-					notification);
-			this.driverManager.waitForAnimation();
-		} catch (TimeoutException e) {
-			logger.warn("Click on Save button didn't work, trying again");
-		} catch (WebDriverException exception) {
-			driverManager.takeScreenshot("ErrorDialogWasDisplayed");
-			WebElement error = this.driverManager.waitUntilElementIsDisplayed("xpath",
-					".//div[@class='bd']");
-			logger.warn("Error dialog was displayed, the error is: {}", error.getText());
+		if (oneTime) {
+			try {
+				this.driverManager.waitUntilElementIsClickable("xpath", saveButton).click();
+				WebElement notification = this.driverManager.waitUntilElementIsDisplayed("xpath",
+						contentTypeSavedNotification);
+				this.driverManager.waitUntilContentTypeNotificationIsNotDisplayed("xpath", "div",
+						notification);
+			} catch (TimeoutException e) {
+				logger.warn("Click on Save button didn't work, trying again");
+			} catch (WebDriverException exception) {
+				driverManager.takeScreenshot("ErrorDialogWasDisplayed");
+				WebElement error = this.driverManager.waitUntilElementIsDisplayed("xpath",
+						".//div[@class='bd']");
+				logger.warn("Error dialog was displayed, the error is: {}", error.getText());
+			}
 		}
+		else {
+			driverManager.clickElement("xpath", saveButton);
+		}
+
 	}
 
 	public void saveDragAndDropProcess() {
@@ -317,6 +344,10 @@ public class SiteConfigPage {
 		driverManager.sendText("xpath", inputTitle, strTitle);
 	}
 
+	public void setVariableName(String strVariableName) {
+		driverManager.sendText("xpath", inputVariableName, strVariableName);
+	}
+
 	// Set ICE group
 	public void setIceGroup(String strICEGroup) {
 		driverManager.sendText("xpath", inputIceGroup, strICEGroup);
@@ -344,6 +375,19 @@ public class SiteConfigPage {
 		this.setDefaultValue(strDefaultValue);
 	}
 
+	public void completeControlsFieldsBasics(String strTitle, String strVariableName, String strICEGroup,
+			String strDescription, String strDefaultValue) {
+		// Fill title
+		this.setTitle(strTitle);
+		// Fill Name/Variable Name
+		this.setVariableName(strVariableName);
+		// Fill Ice group
+		this.setIceGroup(strICEGroup);
+		// Fill description
+		this.setDescription(strDescription);
+		// Fill default value
+		this.setDefaultValue(strDefaultValue);
+	}
 	public void completeControlsFieldsBasics2(String strTitle, String strICEGroup, String strDescription) {
 		// Fill title
 		this.setTitle(strTitle);
@@ -355,11 +399,7 @@ public class SiteConfigPage {
 
 	// Click on input section to can view the properties
 	public void clickOnInputSectionToViewTheProperties() {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				clickOnInputSection);
-		WebElement showSection = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", clickOnInputSection);
-		showSection.click();
+		driverManager.clickElement("xpath", clickOnInputSection);
 	}
 
 	public void clickInputSection() {
@@ -783,5 +823,25 @@ public class SiteConfigPage {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
 				.click();
+	}
+
+	public SiteConfigPage dragAndDropFormSection() {
+		WebElement fromControlFormSectionElement = driverManager.waitUntilElementIsDisplayed( "xpath", controlsSectionFormSectionLocator);
+		WebElement ToContentTypeContainer = driverManager.waitUntilElementIsDisplayed( "xpath", contentTypeContainerLocator);
+		driverManager.dragAndDropElement(fromControlFormSectionElement, ToContentTypeContainer);
+		return this;
+	}
+
+	public SiteConfigPage dragAndDropControls(String controlName, String sectionName) {
+		WebElement fromControl = driverManager.waitUntilElementIsDisplayed("xpath", String.format(controlByNameForm, controlName));
+		WebElement toSection = driverManager.waitUntilElementIsDisplayed("xpath", String.format(defaultSectionByNameForm, sectionName));
+		driverManager.dragAndDropElement(fromControl, toSection);
+		return this;
+	}
+
+	public String[] getPostfixNotificationError() {
+		String errorMsg =  driverManager.getText("cssselector", postfixNotificationErrorCss);
+		String errorVariableName = driverManager.getText("cssselector",postfixValueNotificationErrorCss);
+		return new String[] { errorMsg, errorVariableName };
 	}
 }
