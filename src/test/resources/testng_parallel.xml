@@ -1001,4 +1001,11 @@
 			<class name="org.craftercms.studio.test.cases.userstestcases.PaginationOfListOfUsersTest"/>
 		</classes>
 	</test>
+	<test name="Verify that Studio allows to exclude name postfix con crafter reserved fields">
+		<parameter name="testId" value="siteconfig62"/>
+		<parameter name="valuesToTest" value="scripts,mime-type,force-https,force-https,expired,key,value,items,redirect-url,authorizedRoles,role"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.FieldsNamePostfixExclusionReservedFieldsTest"/>
+		</classes>
+	</test>
 </suite> <!-- Suite -->
