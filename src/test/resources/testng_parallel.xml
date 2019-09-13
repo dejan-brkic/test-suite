@@ -1001,4 +1001,13 @@
 			<class name="org.craftercms.studio.test.cases.userstestcases.PaginationOfListOfUsersTest"/>
 		</classes>
 	</test>
+	<test name="Verify the language settings are persistant per browser">
+		<parameter name="testUser1" value="users0101"/>
+		<parameter name="testUser2" value="users0102"/>
+		<parameter name="langUser1" value="español"/>
+		<parameter name="langUser2" value="Deutsch"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.userstestcases.VerifyLanguageSettingsTest"/>
+		</classes>
+	</test>
 </suite> <!-- Suite -->
