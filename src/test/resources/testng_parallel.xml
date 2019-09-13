@@ -1001,13 +1001,13 @@
 			<class name="org.craftercms.studio.test.cases.userstestcases.PaginationOfListOfUsersTest"/>
 		</classes>
 	</test>
-<<<<<<< HEAD
 	<test name="Verify that Studio allows to exclude name postfix con crafter reserved fields">
 		<parameter name="testId" value="siteconfig62"/>
 		<parameter name="valuesToTest" value="scripts,mime-type,force-https,force-https,expired,key,value,items,redirect-url,authorizedRoles,role"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.FieldsNamePostfixExclusionReservedFieldsTest"/>
-=======
+		</classes>
+	</test>
 	<test name="Verify the language settings are persistant per browser">
 		<parameter name="testUser1" value="users0101"/>
 		<parameter name="testUser2" value="users0102"/>
@@ -1015,7 +1015,6 @@
 		<parameter name="langUser2" value="Deutsch"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.userstestcases.VerifyLanguageSettingsTest"/>
->>>>>>> upstream/develop
 		</classes>
 	</test>
 </suite> <!-- Suite -->
