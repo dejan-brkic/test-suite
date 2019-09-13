@@ -91,9 +91,8 @@
 		<httpcomponents.httpclient.version>4.5.3</httpcomponents.httpclient.version>
 		<jayway.jsonpath.version>2.2.0</jayway.jsonpath.version>
 		<jackson.version>2.9.8</jackson.version>
-		<htmlunit.version>2.20</htmlunit.version>
 		<log4j.version>2.10.0</log4j.version>
-		<detro.phantomjs.version>1.2.0</detro.phantomjs.version>
+		<commons.io.version>2.6</commons.io.version>
 		<kirviq.dumbster.version>1.7.1</kirviq.dumbster.version>
 		<jgit.version>4.11.0.201803080745-r</jgit.version>
 		<maven.surefire.plugin.version>3.0.0-M3</maven.surefire.plugin.version>
@@ -158,6 +157,11 @@
 			<version>${httpcomponents.httpclient.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.io.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
 			<version>${jayway.jsonpath.version}</version>
@@ -190,11 +194,6 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.sourceforge.htmlunit</groupId>
-			<artifactId>htmlunit</artifactId>
-			<version>${htmlunit.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -235,11 +234,6 @@
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-edge-driver</artifactId>
 			<version>${selenium.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.detro</groupId>
-			<artifactId>phantomjsdriver</artifactId>
-			<version>${detro.phantomjs.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>
