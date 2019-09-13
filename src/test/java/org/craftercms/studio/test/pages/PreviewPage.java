@@ -196,9 +196,7 @@ public class PreviewPage {
 
 	// Click on admin console link
 	public void clickAdminConsoleOption() {
-		WebElement adminConsoleOption = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsole);
-		adminConsoleOption.click();
+		driverManager.clickElement("xpath", adminConsole);
 	}
 
 	public void goToAdminConsolePage() {
@@ -1944,5 +1942,10 @@ public class PreviewPage {
 		Assert.assertTrue(this.driverManager.getDriver().findElement(By.xpath(siteStatusIcon))
 				.getAttribute("class").contains("undefined live"));
 
+	}
+
+	public PreviewPage clickSidebar() {
+		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		return this;
 	}
 }

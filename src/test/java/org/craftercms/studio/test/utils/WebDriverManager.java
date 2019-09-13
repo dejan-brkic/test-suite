@@ -333,12 +333,10 @@ public class WebDriverManager {
 		logger.debug("Waiting for Popup to be hidden");
 		WebElement popupElement = null;
 		try {
-			popupElement = driverWaitUntilElementIsPresentAndDisplayed("id", "cstudio-wcm-popup-div_mask");
-		} catch (TimeoutException e) {
+			waitUntilElementIsNotDisplayed("id", "cstudio-wcm-popup-div_mask");
+		} catch (Exception e) {
 			logger.info("Popup is already closed");
-			return;
 		}
-		waitUntilElementIsHidden(popupElement);
 	}
 
 	public void waitUntilAttributeIs(String selectorType, String selectorValue, String attributeName,
@@ -1806,5 +1804,13 @@ public class WebDriverManager {
 			actions.sendKeys(Keys.DELETE);
 		}
 		actions.build().perform();
+	}
+
+	public void clickButtonByText(String text) {
+		clickElement("xpath", String.format("//button[text()='%s']", text));
+	}
+
+	public String getText(String selectorType, String selectorValue) {
+		return waitUntilElementIsDisplayed(selectorType, selectorValue).getText();
 	}
 }
