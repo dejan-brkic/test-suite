@@ -71,7 +71,12 @@ public class SiteConfigPage {
 	private String addNewRepositoryButton;
 	private String addNewRepoRepoName;
 	private String addNewRepoRepoURL;
+	private String addNewRepoTokenAuthOption;
+	private String addNewRepoBasicAuthOption;
 	private String addNewRepoPrivateKeyAuthOption;
+	private String addNewRepositoryUsernameInput;
+	private String addNewRepositoryPasswordInput;
+	private String addNewRepositoryTokenInput;
 	private String addNewRepositoryPrivateKeyTextArea;
 	private String addNewRepositoryCreateButton;
 	private String pushOkButtonXpath;
@@ -90,6 +95,7 @@ public class SiteConfigPage {
 	private String defaultSectionByNameForm;
 	private String postfixNotificationErrorCss;
 	private String postfixValueNotificationErrorCss;
+	private String pushButtonXpath;
 
 	private static Logger logger = LogManager.getLogger(SiteConfigPage.class);
 
@@ -173,10 +179,20 @@ public class SiteConfigPage {
 				.getProperty("remoterepositories.addnewrepo.name");
 		addNewRepoRepoURL = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("remoterepositories.addnewrepo.url");
+		addNewRepoBasicAuthOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.fromgit.repositorybasicauthenticationtype");
+		addNewRepoTokenAuthOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.fromgit.repositorygittokenauthenticationtype");
 		addNewRepoPrivateKeyAuthOption = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("remoterepositories.addnewrepo.privatekeyoption");
+		addNewRepositoryUsernameInput = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.fromgit.repositoryusername");
+		addNewRepositoryPasswordInput = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.fromgit.repositoryuserpassword");
+		addNewRepositoryTokenInput = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("home.createsite.fromgit.repositorytoken");
 		addNewRepositoryPrivateKeyTextArea = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("remoterepositories.addnewrepo.privatekey");
+				.getProperty("home.createsite.fromgit.repositoryprivatekey");
 		addNewRepositoryCreateButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("remoterepositories.addnewrepo.createbutton");
 		pushOkButtonXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -211,6 +227,8 @@ public class SiteConfigPage {
 				.getProperty("adminconsole.contenttype.postfix.notifiaction.css");
 		postfixValueNotificationErrorCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("adminconsole.contenttype.postfix.value.notifiaction.css");
+		pushButtonXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("remoterepositories.newrepo.pushbutton");
 
 	}
 
@@ -696,24 +714,31 @@ public class SiteConfigPage {
 
 	public void addNewRepositoryUsingPrivateKeyAuthentication(String repositoryName, String repositoryURL,
 			String privateKeyContent) {
-		this.driverManager.waitForAnimation();
-		this.driverManager.getDriver().switchTo().activeElement();
+		addNewRepository("key", repositoryName, repositoryURL, "", "", "", privateKeyContent);
+	}
 
+	public void addNewRepository(String repoType, String repositoryName, String repositoryURL, String repoUsername,
+	 		String repoPassword, String token, String privateKey) {
+		driverManager.getDriver().switchTo().activeElement();
 		driverManager.sendText("xpath", addNewRepoRepoName, repositoryName);
-
 		driverManager.sendText("xpath", addNewRepoRepoURL, repositoryURL);
+		if (repoType.equalsIgnoreCase("basic")) {
+			driverManager.clickElement("xpath", addNewRepoBasicAuthOption);
+			driverManager.sendText("xpath", addNewRepositoryUsernameInput, repoUsername);
+			driverManager.sendText("xpath", addNewRepositoryPasswordInput, repoPassword);
+		}
+		else if (repoType.equalsIgnoreCase("token")) {
+			driverManager.clickElement("xpath", addNewRepoTokenAuthOption);
+			driverManager.sendText("xpath", addNewRepositoryTokenInput, token);
+		}
+		else if (repoType.equalsIgnoreCase("key")) {
+			driverManager.clickElement("xpath", addNewRepoPrivateKeyAuthOption);
+			driverManager.sendTextByLineJS("id", addNewRepositoryPrivateKeyTextArea, privateKey);
+		}
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				addNewRepoPrivateKeyAuthOption).click();
-
-		driverManager.sendText("xpath", addNewRepositoryPrivateKeyTextArea, privateKeyContent);
-
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				addNewRepositoryCreateButton).click();
-
-		this.driverManager.waitForAnimation();
-		this.driverManager.getDriver().switchTo().activeElement();
-
+		driverManager.clickElement("xpath",  addNewRepositoryCreateButton);
+		driverManager.getDriver().switchTo().activeElement();
+		driverManager.getDriver().switchTo().defaultContent();
 	}
 
 	public void pushSiteChangesToRemoteRepo(String upArrowButtonXpath) {
@@ -723,14 +748,12 @@ public class SiteConfigPage {
 		this.driverManager.getDriver().switchTo().frame(
 				this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", suiteConfigIFrame));
 		
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", upArrowButtonXpath).click();
+		this.driverManager.clickElement("xpath", pushButtonXpath);
 
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo().activeElement();
 
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pushOkButtonXpath)
-				.click();
+		this.driverManager.clickElement("xpath", pushOkButtonXpath);
 	}
 
 	public void pullSiteChangesFromRemoteRepo(String downArrowButtonXpath) {
@@ -780,7 +803,6 @@ public class SiteConfigPage {
 
 		Assert.assertFalse(this.driverManager.elementHasChildsByXPath(remoteRepoRows));
 
-		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
 
 	}
