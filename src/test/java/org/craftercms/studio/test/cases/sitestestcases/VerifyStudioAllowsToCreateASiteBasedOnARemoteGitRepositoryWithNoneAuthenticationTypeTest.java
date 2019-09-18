@@ -46,7 +46,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-		
 		emptyBPSiteId = testId + "emptysitefornoneauth";
 		siteId = testId + "targetsite";
 	}
@@ -85,9 +84,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 
 	public void step11() {
 		createSitePage.clickOnCreateButton();
-		this.getWebDriverManager().waitForAnimation();
-		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
-
 		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());

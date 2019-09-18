@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -36,36 +35,18 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 	private String userName;
 	private String password;
 	private String siteId;
-	private String siteDropdownElementXPath;
 	private String gitUserName;
 	private String gitPassword;
 	private String gitRepositoryURL;
-	private String notificationTitle;
-	private String notificationText;
-	private String notificationError;
-	private String notificationClose;
 
-	@Parameters({"testId"})
+	@Parameters({"testId", "remoteUrl", "remoteUsername", "remotePassword"})
 	@BeforeMethod
-	public void beforeTest(String testId) {
+	public void beforeTest(String testId,String remoteUrl, String remoteUsername, String remotePassword) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		gitUserName = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.username");
-		gitPassword = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.password");
-		gitRepositoryURL = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.baregitrepository.url");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
-		notificationTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.notificationdialog.title");
-		notificationText = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.notificationdialog.text");
-		notificationError = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.notificationdialog.error");
-		notificationClose = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.notificationdialog.closebutton");
+		gitUserName = remoteUsername;
+		gitPassword = remotePassword;
+		gitRepositoryURL = remoteUrl;
 		siteId =  testId + "targetforbasicauth";
 	}
 
@@ -95,7 +76,6 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 
     public void step8() {
 	    createSitePage.setPushRepositoryURL(gitRepositoryURL+"incorrect");
-
     }
 
 	public void step9() {
@@ -111,89 +91,30 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 	public void step11() {
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
-
-		this.getWebDriverManager().waitForAnimation();
-
-		String notificationTitleText = this.getWebDriverManager()
-				.waitUntilElementIsDisplayed("xpath", notificationTitle).getText();
-
-		while (!notificationTitleText.equalsIgnoreCase("Notification")) {
-			this.getWebDriverManager().waitForAnimation();
-			notificationTitleText = this.getWebDriverManager()
-					.waitUntilElementIsDisplayed("xpath", notificationTitle).getText();
-		}
-
-		Assert.assertTrue("Notification"
-                .equals(this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",notificationTitle).getText()));
-		Assert.assertTrue("Unable to create site. Please contact your system administrator."
-				.equals(this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationText).getText()));
-		Assert.assertTrue(this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationError).getText()
-                .contains("Error while adding remote origin (url:"));
 	}
 
 	public void step12() {
-		this.clickOnCloseNotificationButton();
-	}
-	
-	private void clickOnCloseNotificationButton() {
-		this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationClose).click();
+		previewPage.clickSidebar();
+		previewPage.clickAdminConsoleOption();
 	}
 
 	public void step13() {
-		this.getWebDriverManager().waitForAnimation();
-		this.clickOnCreateSiteButton();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsEmpty();
 	}
 
     public void step14() {
-        createSitePage.selectWebSiteEditorialBluePrintOption();
+        siteConfigPage.clickAddNewRepositoryButton();
     }
 
     public void step15() {
-        createSitePage.setSiteName(siteId);
-    }
-
-    public void step16() {
-        createSitePage.clickAdditionalDeveloperOptions();
-    }
-
-    public void step17() {
-        createSitePage.clickPushSiteToRemoteGitCheckbox();
+       siteConfigPage.addNewRepository("basic", "origin", gitRepositoryURL, gitUserName, gitPassword, "", "");
+       siteConfigPage.pushSiteChangesToRemoteRepo("");
     }
 
     public void step18() {
-        createSitePage.setPushRepositoryName("origin");
+        siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", gitRepositoryURL);
     }
-
-    public void step19() {
-        createSitePage.setPushRepositoryURL(gitRepositoryURL);
-
-    }
-
-    public void step20() {
-        createSitePage.selectPushGitRepoBasicAuthenticationType()
-                .setPushRepositoryUserName(gitUserName)
-                .setPushRepositoryUserPassword(gitPassword);
-    }
-
-    public void step21() {
-        createSitePage.clickReviewAndCreate();
-    }
-
-    public void step22() {
-        // Click on Create button
-        createSitePage.clickOnCreateButton();
-
-        this.getWebDriverManager().waitForAnimation();
-
-		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
-
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				siteDropdownElementXPath);
-
-		Assert.assertTrue(this.getWebDriverManager()
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
-	}
 
 	public void clickOnCreateSiteButton() {
 		// Click on the create site button
@@ -253,31 +174,14 @@ public class VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstre
 		//Step 15
 		step15();
 		
-		//Step 16
-		step16();
-		
-		//Step 17
-		step17();
-		
 		//Step 18
 		step18();
-
-		//Step 19
-		step19();
-		
-		//Step 20
-		step20();
-
-		//Step 21
-        step21();
-
-        //Step 22
-        step22();
 	}
 
 	@Parameters({"testId"})
 	@AfterMethod(alwaysRun = true)
 	public void afterTest(String testId) {
 		apiTestHelper.deleteSite(testId);
+		apiTestHelper.deleteSite(siteId);
 	}
 }

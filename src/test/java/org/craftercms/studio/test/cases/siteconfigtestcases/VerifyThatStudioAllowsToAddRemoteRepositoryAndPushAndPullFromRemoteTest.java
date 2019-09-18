@@ -53,14 +53,13 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 	private static Logger logger = LogManager
 			.getLogger(VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest.class);
 
-	@Parameters({"testId", "blueprint"})
+	@Parameters({"testId", "blueprint", "remoteSshUrl"})
 	@BeforeMethod
-	public void beforeTest(String testId, String blueprint) {
+	public void beforeTest(String testId, String blueprint, String remoteSshUrl) {
 		apiTestHelper.createSite(testId, "", blueprint);
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		gitRepoUrl = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.remotegiturlforaddrepositorytosite");
+		gitRepoUrl = remoteSshUrl;
 		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
 		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sitedropdown");
@@ -104,7 +103,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 					.click();
 
 		logger.info("Going to Site Config page");
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
+		this.getWebDriverManager().clickElement("xpath", adminConsoleXpath);
 
 	}
 
@@ -118,8 +117,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 	}
 
 	public void addNewRepository() {
-		this.siteConfigPage.addNewRepositoryUsingPrivateKeyAuthentication("origin", this.gitRepoUrl,
-				getWebDriverManager().getPrivateKeyContentFromPrivateKeyTestFile(gitPrivateKey));
+		siteConfigPage.addNewRepositoryUsingPrivateKeyAuthentication("origin", this.gitRepoUrl, gitPrivateKey);
 	}
 
 	public void step9() {
@@ -198,7 +196,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		this.getWebDriverManager().getDriver().switchTo().activeElement();
 		// check notification dialog is displayed
 		Assert.assertTrue(
-				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText)
+				this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationText)
 						.getText().contains("Successfully Pushed"));
 		
 		this.getWebDriverManager().waitUntilNotificationModalIsNotPresent();
@@ -215,12 +213,11 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		this.getWebDriverManager().getDriver().switchTo().activeElement();
 		// check notification dialog is displayed
 		Assert.assertTrue(
-				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText)
+				this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationText)
 						.getText().contains("Successfully Pulled"));
 
 		this.getWebDriverManager().waitUntilNotificationModalIsNotPresent();
 		
-		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 

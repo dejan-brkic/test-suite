@@ -38,9 +38,6 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	private String siteId;
 	private String siteDropdownElementXPath;
 	private String topNavSitesOption;
-	private String notificationTitle;
-	private String notificationText;
-	private String notificationError;
 
 	@Parameters({"testId"})
 	@BeforeMethod
@@ -53,12 +50,6 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 				.getProperty("complexscenarios.general.sitedropdown");
 		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.preview.sitesoption");
-		notificationTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.notificationdialog.title");
-		notificationText = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.notificationdialog.text");
-		notificationError = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("home.createsite.notificationdialog.error");
 		siteId =  testId + "remotebarerepositoryforpushlocal";
 		this.setup();
 	}
@@ -97,8 +88,6 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	public void step11() {
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
-
-		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
 		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
@@ -143,28 +132,10 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	public void step22() {
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
-		this.getWebDriverManager().waitForAnimation();
-		
-		String notificationTitleText = this.getWebDriverManager()
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
-
-		while (!notificationTitleText.equalsIgnoreCase("Notification")) {
-			this.getWebDriverManager().waitForAnimation();
-			notificationTitleText = this.getWebDriverManager()
-					.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
-		}
-
-		notificationTitleText = this.getWebDriverManager()
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationTitle).getText();
-		String notificationFirstText = this.getWebDriverManager()
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationText).getText();
-		String notificationSecondText = this.getWebDriverManager()
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", notificationError).getText();
-
-		Assert.assertTrue("Notification".equals(notificationTitleText));
-		Assert.assertTrue(
-				"Unable to create site. Please contact your system administrator.".equals(notificationFirstText));
-		Assert.assertTrue("Error: Remote repository not bare".equals(notificationSecondText));
+		previewPage.clickSidebar();
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsEmpty();
 	}
 
 
@@ -241,14 +212,14 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 
 	public void setup() {
 		int exitCode = this.getWebDriverManager().goToFolderAndExecuteGitInitBareRepository(localRepoName);
-		Assert.assertTrue(exitCode == 0, "Init bare repository process failed");
+		Assert.assertEquals(exitCode, 0, "Init bare repository process failed");
 	}
 
 	@Parameters({"testId"})
 	@AfterMethod(alwaysRun = true)
 	public void afterTest(String testId) {
 		int exitCode = this.getWebDriverManager().goToFolderAndExecuteDeleteBareRepositoryFolder(localRepoName);
-		Assert.assertTrue(exitCode == 0, "Delete bare repository process failed");
+		Assert.assertEquals(exitCode, 0, "Delete bare repository process failed");
 		apiTestHelper.deleteSite(testId);
 		apiTestHelper.deleteSite(siteId);
 	}

@@ -69,7 +69,7 @@ public class CreateSitePage {
 	private String basicInformationButton;
 	private String basicDeveloperOptions;
 	private String creatingSpinnerImgCss;
-	private int waitForCreateSite = 100;
+	private int waitForCreateSite = 300;
 
 	/**
 	 * 
