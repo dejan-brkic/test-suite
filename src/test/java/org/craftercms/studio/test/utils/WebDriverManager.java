@@ -184,6 +184,55 @@ public class WebDriverManager {
 
 	public void goToUrl(String url){
 		driver.get(url);
+		waitUntilPageLoad();
+	}
+
+	public String fromSshToHttps(String sshUrl) {
+		String goToUrl = sshUrl.replace("https://", "git@");
+		String[] url = goToUrl.split("/");
+		return goToUrl.replace("/" + url[1], ":" + url[1]);
+	}
+
+	public void goToWebRepoUrlFile(String url, String pathUrl) {
+		String goToUrl = url;
+		if (!goToUrl.startsWith("https")) {
+			goToUrl = fromSshToHttps(url);
+		}
+		goToUrl = goToUrl.replace(".git", "");
+
+		if (goToUrl.contains("bitbucket")) {
+			goToUrl = goToUrl + "/src";
+		}
+		else {
+			goToUrl = goToUrl + "/blob";
+		}
+		goToUrl = goToUrl + "/master/" + pathUrl;
+		logger.debug("Going to the git repo url {}", goToUrl);
+		driver.get(goToUrl);
+	}
+
+	public void clickRawGitRepoWeb(String repoUrl) {
+		String gitlabRawCss = ".fa.fa-file-code-o";
+		String bitbucketFileActionsXpath = ".//*[@aria-label='Source file actions']";
+		if (repoUrl.contains("github")) {
+			clickLinkByText("Raw");
+		}
+		else {
+			if(repoUrl.contains("gitlab")) {
+				logger.info("clickcin the gitlab raw");
+				clickElement("cssselector", gitlabRawCss);
+				logger.info("done clickin gitlab rab");
+			}
+			else {
+				clickElement("xpath", bitbucketFileActionsXpath);
+				clickLinkByText("Open raw");
+			}
+			ArrayList<String> openTabs = new ArrayList<>(driver.getWindowHandles());
+			for(String s1: openTabs){
+				logger.info("the tabs are {},", s1);
+			}
+			driver.switchTo().window(openTabs.get(1));
+		}
 	}
 
 	public void initializeLocators() {
@@ -582,13 +631,9 @@ public class WebDriverManager {
 	}
 
 	public boolean elementHasChildsByXPath(String childsLocator) {
-		boolean hasChilds = false;
 		List<WebElement> childs = this.driver.findElements(By.xpath(childsLocator));
-
-		if (!(childs.isEmpty()))
-			hasChilds = true;
-
-		return hasChilds;
+		logger.debug("Founded {} elements from xpath locator {}", childs.size(), childsLocator);
+		return !childs.isEmpty();
 	}
 
 	public void moveMouseToElement(WebElement toElement) {
@@ -1810,7 +1855,17 @@ public class WebDriverManager {
 		clickElement("xpath", String.format("//button[text()='%s']", text));
 	}
 
+	public void clickLinkByText(String text) {
+		clickElement("xpath", String.format("//*[text()='%s']", text));
+	}
+
+
 	public String getText(String selectorType, String selectorValue) {
 		return waitUntilElementIsDisplayed(selectorType, selectorValue).getText();
+	}
+
+	public boolean isTextPresentPageSource(String textToSearch) {
+		logger.debug("Searching for the text in page source {}", textToSearch);
+		return driver.getPageSource().contains(textToSearch);
 	}
 }
