@@ -41,20 +41,16 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 	private String gitPassword;
 	private String gitRepositoryURL;
 
-	@Parameters({"testId"})
+	@Parameters({"testId", "remoteUrl", "remoteUsername", "remotePassword"})
 	@BeforeMethod
-	public void beforeTest(String testId) {
+	public void beforeTest(String testId, String remoteUrl, String remoteUsername, String remotePassword) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		gitUserName = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.username");
-		gitPassword = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.password");
-		gitRepositoryURL = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.basicauth.url");
+		gitUserName = remoteUsername;
+		gitPassword = remotePassword;
+		gitRepositoryURL = remoteUrl;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
-
 		siteId = testId;
 	}
 
@@ -105,10 +101,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 	public void step13() {
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
-
-		this.getWebDriverManager().waitForAnimation();
-		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
-
 		Assert.assertTrue(this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
@@ -122,9 +114,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 	public void testScenario() {
 		// login to application
 		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
 		// Step 2
 		step2();
 

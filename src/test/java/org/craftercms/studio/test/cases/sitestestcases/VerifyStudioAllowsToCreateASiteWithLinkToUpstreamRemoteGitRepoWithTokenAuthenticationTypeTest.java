@@ -38,23 +38,22 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 	private String gitRepositoryUserName;
 	private String gitRepositoryToken;
 
+	@Parameters({"remoteUrl", "remoteUsername", "remoteToken"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String remoteUrl, String remoteUsername, String remoteToken) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		gitRepoUrl = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.linkremote.createthenpush.tokenauth.url");
-		gitRepositoryUserName = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.username");
-		gitRepositoryToken = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.token");
+		gitRepoUrl = remoteUrl;
+		gitRepositoryUserName = remoteUsername;
+		gitRepositoryToken = remoteToken;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 	}
 
-	@Parameters({"testId"})
+	@Parameters({"testId", "pathRawFile", "expectValueRawFile"})
 	@Test()
-	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest(String testId){
+	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest(
+			String testId, String pathRawFile, String expectValueRawFile){
 		loginPage.loginToCrafter(userName, password);
 		homePage.clickOnCreateSiteButton();
 
@@ -73,6 +72,15 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 		Assert.assertTrue(getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
+
+		previewPage.clickSidebar();
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", gitRepoUrl);
+		getWebDriverManager().goToWebRepoUrlFile(gitRepoUrl, pathRawFile);
+		getWebDriverManager().clickRawGitRepoWeb(gitRepoUrl);
+
+		Assert.assertTrue(getWebDriverManager().isTextPresentPageSource(expectValueRawFile));
 	}
 
 	@Parameters({"testId"})

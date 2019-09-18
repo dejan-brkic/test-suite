@@ -41,17 +41,14 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 	private String gitToken;
 	private String gitRepositoryURL;
 
-	@Parameters({"testId"})
+	@Parameters({"testId", "remoteUrl", "remoteUsername", "remoteToken"})
 	@BeforeMethod
-	public void beforeTest(String testId) {
+	public void beforeTest(String testId, String remoteUrl, String remoteUsername, String remoteToken) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		gitUsername = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.username");
-		gitToken = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.token");
-		gitRepositoryURL = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.tokenauth.url");
+		gitRepositoryURL = remoteUrl;
+		gitUsername = remoteUsername;
+		gitToken = remoteToken;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 
@@ -107,9 +104,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 	public void step13() {
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
-
-		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
-		
 		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());

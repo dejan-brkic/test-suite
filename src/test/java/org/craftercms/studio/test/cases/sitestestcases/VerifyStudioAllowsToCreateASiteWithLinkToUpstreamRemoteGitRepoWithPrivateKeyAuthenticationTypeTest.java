@@ -43,20 +43,19 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	private String topNavSitesOption;
 	private String siteIdFromGit;
 
-	@Parameters({"testId"})
+	@Parameters({"testId", "remoteSshUrl"})
 	@BeforeMethod
-	public void beforeTest(String testId) {
+	public void beforeTest(String testId, String remoteSshUrl) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		gitRepoUrl = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.remotegiturl");
+		gitRepoUrl = remoteSshUrl;
 		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.preview.sitesoption");
-		siteId = testId + "targetpushremotegit";
-		siteIdFromGit = testId + "targetfromremotegit";
+		siteId = testId + "pushremote";
+		siteIdFromGit = testId + "fromremote";
 	}
 
 	public void step2() {
@@ -102,10 +101,13 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 	public void step12() {
 		// Click on Create button
 		createSitePage.clickOnCreateButton();
-		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
 		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
+		previewPage.clickSidebar();
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", gitRepoUrl);
 	}
 
 	public void step13() {
@@ -155,10 +157,12 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithP
 
 	public void step24() {
 		createSitePage.clickOnCreateButton();
-		this.getWebDriverManager().waitUntilCreateSiteModalCloses();
 		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", gitRepoUrl);
 	}
 
 	@Test()

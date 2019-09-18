@@ -140,8 +140,23 @@
 			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest"/>
 		</classes>
 	</test>
-	<test name="Verify that Studio allows to add a remote repository for the site and to push and pull from the remote repo">
-		<parameter name="testId" value="siteconfig58"/>
+	<test name="Verify that Studio allows to add a remote repository GitHub for the site and to push and pull from the remote repo">
+		<parameter name="testId" value="siteconfig58github"/>
+		<parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftertest6.git"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
+		</classes>
+	</test>
+	<test name="Verify that Studio allows to add a remote repository GitLab for the site and to push and pull from the remote repo">
+		<parameter name="testId" value="siteconfig58gitlab"/>
+		<parameter name="remoteSshUrl" value="git@gitlab.com:crafter-qa/craftertest6.git"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
+		</classes>
+	</test>
+	<test name="Verify that Studio allows to add a remote repository Bitbucket for the site and to push and pull from the remote repo">
+		<parameter name="testId" value="siteconfig58bitbucket"/>
+		<parameter name="remoteSshUrl" value="git@bitbucket.org:crafter-qa/craftertest6.git"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
 		</classes>

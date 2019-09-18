@@ -38,23 +38,22 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithB
 	private String gitRepositoryUserName;
 	private String gitRepositoryPassword;
 
+	@Parameters({"remoteUrl", "remoteUsername", "remotePassword"})
 	@BeforeMethod
-	public void beforeTest() {
+	public void beforeTest(String remoteUrl, String remoteUsername, String remotePassword) {
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		gitRepoUrl = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.linkremote.createthenpush.basicauth.url");
-		gitRepositoryUserName = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.username");
-		gitRepositoryPassword = constantsPropertiesManager.getSharedExecutionConstants()
-				.getProperty("crafter.gitrepository.password");
+		gitRepoUrl = remoteUrl;
+		gitRepositoryUserName = remoteUsername;
+		gitRepositoryPassword = remotePassword;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 	}
 
-	@Parameters({"testId"})
+	@Parameters({"testId", "pathRawFile", "expectValueRawFile"})
 	@Test()
-	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest(String testId){
+	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest(
+			String testId, String pathRawFile, String expectValueRawFile){
 		loginPage.loginToCrafter(userName, password);
 		homePage.clickOnCreateSiteButton();
 
@@ -70,10 +69,18 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithB
                 .clickReviewAndCreate()
                 .clickOnCreateButton();
 
-		getWebDriverManager().waitUntilCreateSiteModalCloses();
 		Assert.assertTrue(getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
+
+		previewPage.clickSidebar();
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", gitRepoUrl);
+		getWebDriverManager().goToWebRepoUrlFile(gitRepoUrl, pathRawFile);
+		getWebDriverManager().clickRawGitRepoWeb(gitRepoUrl);
+
+		Assert.assertTrue(getWebDriverManager().isTextPresentPageSource(expectValueRawFile));
 	}
 
 	@Parameters({"testId"})
