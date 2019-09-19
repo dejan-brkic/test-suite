@@ -546,7 +546,7 @@
 		<parameter name="testId" value="sites012github"/>
 		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites012github"/>
+		<parameter name="sites012github" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest"/>
 		</classes>
@@ -555,7 +555,7 @@
 		<parameter name="testId" value="sites012gitlab"/>
 		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites012gitlab"/>
+		<parameter name="sites012gitlab" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest"/>
 		</classes>
@@ -564,7 +564,7 @@
 		<parameter name="testId" value="sites012bitbucket"/>
 		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites012bitbucket"/>
+		<parameter name="sites012bitbucket" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest"/>
 		</classes>
@@ -573,7 +573,7 @@
 		<parameter name="testId" value="sites014github"/>
 		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remoteToken" value="sites014github"/>
+		<parameter name="sites014github" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest"/>
 		</classes>
@@ -582,7 +582,7 @@
 		<parameter name="testId" value="sites014gitlab"/>
 		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remoteToken" value="sites014gitlab"/>
+		<parameter name="sites014gitlab" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest"/>
 		</classes>
@@ -591,7 +591,7 @@
 		<parameter name="testId" value="sites014bitbucket"/>
 		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remoteToken" value="sites014bitbucket"/>
+		<parameter name="sites014bitbucket" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest"/>
 		</classes>
@@ -606,7 +606,7 @@
 		<parameter name="testId" value="sites013github"/>
 		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest2.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites013github"/>
+		<parameter name="sites013github" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
 		<parameter name="expectValueRawFile" value="sites013github"/>
 
@@ -618,7 +618,7 @@
 		<parameter name="testId" value="sites013gitlab"/>
 		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest2.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites013gitlab"/>
+		<parameter name="sites013gitlab" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
 		<parameter name="expectValueRawFile" value="sites013gitlab"/>
 		<classes>
@@ -629,7 +629,7 @@
 		<parameter name="testId" value="sites013bitbucket"/>
 		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest2.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites013bitbucket"/>
+		<parameter name="sites013bitbucket" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
 		<parameter name="expectValueRawFile" value="sites013bitbucket"/>
 		<classes>
@@ -640,7 +640,7 @@
 		<parameter name="testId" value="sites015github"/>
 		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest3.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remoteToken" value="sites015github"/>
+		<parameter name="sites015github" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
 		<parameter name="expectValueRawFile" value="sites015github"/>
 		<classes>
@@ -651,7 +651,7 @@
 		<parameter name="testId" value="sites015gitlab"/>
 		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest3.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remoteToken" value="sites015gitlab"/>
+		<parameter name="sites015gitlab" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
 		<parameter name="expectValueRawFile" value="sites015gitlab"/>
 		<classes>
@@ -662,7 +662,7 @@
 		<parameter name="testId" value="sites015bitbucket"/>
 		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest3.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remoteToken" value="sites015bitbucket"/>
+		<parameter name="sites015bitbucket" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
 		<parameter name="expectValueRawFile" value="sites015bitbucket"/>
 		<classes>
@@ -694,7 +694,7 @@
 		<parameter name="testId" value="sites018github"/>
 		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest5.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites018github"/>
+		<parameter name="sites018github" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
 		</classes>
@@ -703,7 +703,7 @@
 		<parameter name="testId" value="sites018gitlab"/>
 		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest5.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites018gitlab"/>
+		<parameter name="sites018gitlab" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
 		</classes>
@@ -712,7 +712,7 @@
 		<parameter name="testId" value="sites018bitbucket"/>
 		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest5.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="remotePassword" value="sites018bitbucket"/>
+		<parameter name="sites018bitbucket" value=""/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
 		</classes>
