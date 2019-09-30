@@ -1300,19 +1300,13 @@ public class WebDriverManager {
 			this.clickElement("xpath", selectorValue);
 	}
 
-	public void fileUploadUsingSendKeys(String locator, String filePath) {
-		By selector = getSelector("xpath", locator);
-		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.elementToBeClickable(selector));
-		WebElement element;
-
-		try {
-			element = driver.findElement(selector);
-		} catch (NoSuchElementException e) {
-			logger.warn("Element has been removed {}, {}", "xpath", locator);
-			element = waitUntilElementIsDisplayed("xpath", locator);
-		}
-
-		element.sendKeys(filePath);
+	public void fileUploadUsingSendKeys(String locatorInput, String locatorBtn, String filePath) {
+		By selectorInput = getSelector("cssselector", locatorInput);
+		By selectorButton = getSelector("cssselector", locatorBtn);
+		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.elementToBeClickable(selectorButton));
+		new WebDriverWait(driver, defaultTimeOut).until(ExpectedConditions.presenceOfElementLocated(selectorInput));
+		driver.findElement(selectorInput).sendKeys(filePath);
+		driver.findElement(selectorButton).click();
 	}
 
 	public void waitForBulkPublish(int waitTimeOut) {
