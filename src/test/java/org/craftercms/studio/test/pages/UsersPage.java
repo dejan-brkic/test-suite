@@ -16,15 +16,12 @@
  */
 package org.craftercms.studio.test.pages;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.craftercms.studio.test.utils.UIElementsPropertiesManager;
 import org.craftercms.studio.test.utils.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  *
@@ -45,7 +42,6 @@ public class UsersPage {
 	private String usersPageTitle;
 	private String crafterLogo;
 	private String deleteYesButtonXpath;
-	private String deleteUsersRowsXpath;
 	private String deleteNonAdminUserIconXpath;
 	private String sitesOptionXpath;
 	private String newUserFirstNameId;
@@ -54,6 +50,8 @@ public class UsersPage {
 	private String newUserUserNameId;
 	private String newUserPasswordId;
 	private String newUserPasswordVerificationId;
+	private String validationMsgXpathSuffix;
+	private String emailValidationMsgXpathSuffix;
 
 
 	public UsersPage(WebDriverManager driverManager, UIElementsPropertiesManager uiElementsPropertiesManager) {
@@ -70,8 +68,6 @@ public class UsersPage {
 		crafterLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("users.crafterlogo");
 		deleteYesButtonXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.deleteyesbutton");
-		deleteUsersRowsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.deleteusersrows");
 		deleteNonAdminUserIconXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.deletenonadminrow");
 		sitesOptionXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -87,7 +83,8 @@ public class UsersPage {
 				.getProperty("general.users.password");
 		newUserPasswordVerificationId = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.passwordVerification");
-
+		validationMsgXpathSuffix = "/..//small[@class='error ng-binding']";
+		emailValidationMsgXpathSuffix = "/..//small[@class='error ng-binding ng-scope']";
 	}
 
 
@@ -122,15 +119,21 @@ public class UsersPage {
 
 	// Click on Save New User Button
 	public void clickSaveNewUserButton() {
-		WebElement saveNewUser = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				saveNewUserOption);
-		saveNewUser.click();
+		driverManager.clickElement("xpath", saveNewUserOption);
 	}
 
 	// Click on Save New User Button
-	public void clickOnSaveNewUser() {
+	public UsersPage clickSaveNewUserDisable() {
+		Actions mouseActions = new Actions(driverManager.getDriver());
+		mouseActions.moveToElement(driverManager.findElement("xpath", saveNewUserOption)).click().build().perform();
+		return this;
+	}
+
+	// Click on Save New User Button
+	public UsersPage clickOnSaveNewUser() {
 		// Click on Save New User Button
 		this.clickSaveNewUserButton();
+		return this;
 	}
 
 	// Delete User
@@ -191,21 +194,75 @@ public class UsersPage {
 		clickOnNewUser();
 
 		// Follow the form
-		this.driverManager.sendText("xpath", newUserFirstNameId, "FirstName");
+		setFirstName("FN" + userName);
 
-		this.driverManager.sendText("xpath", newUserLastNameId,"LastName");
+		setLastName("LN" + userName);
 
-		this.driverManager.sendText("xpath", newUserEmailId, "email@email.com");
+		setEmail(userName + "@email.com");
 
-		this.driverManager.sendText("xpath", newUserUserNameId, userName);
+		setUserName(userName);
 
-		this.driverManager.sendText("xpath", newUserPasswordId, userName);
+		setPassword(userName);
 
-		this.driverManager.sendText("xpath", newUserPasswordVerificationId, userName);
+		setVerificationPassword(userName);
 
 		// Save Button
 		clickOnSaveNewUser();
-		this.driverManager.waitForAnimation();
-		this.driverManager.waitUntilAddUserModalCloses();
+		getDriverManager().waitUntilAddUserCreatedNotificationCloses(userName);
 	}
+
+	public UsersPage setFirstName(String firstName) {
+		driverManager.sendText("xpath", newUserFirstNameId, firstName);
+		return this;
+	}
+
+	public UsersPage setLastName(String lastName) {
+		driverManager.sendText("xpath", newUserLastNameId, lastName);
+		return this;
+	}
+
+	public UsersPage setEmail(String email) {
+		driverManager.sendText("xpath", newUserEmailId, email);
+		return this;
+	}
+
+	public UsersPage setUserName(String userName) {
+		driverManager.sendText("xpath", newUserUserNameId, userName);
+		return this;
+	}
+
+	public UsersPage setPassword(String password) {
+		driverManager.sendText("xpath", newUserPasswordId, password);
+		return this;
+	}
+
+	public UsersPage setVerificationPassword(String verificationPassword) {
+		driverManager.sendText("xpath", newUserPasswordVerificationId, verificationPassword);
+		return this;
+	}
+
+	public String getFirstNameValidationMsg(){
+		return driverManager.getText("xpath", newUserFirstNameId + validationMsgXpathSuffix);
+	}
+
+	public String getLastNameValidationMsg(){
+		return driverManager.getText("xpath", newUserLastNameId + validationMsgXpathSuffix);
+	}
+
+	public String getEmailValidationMsg(){
+		return driverManager.getText("xpath", newUserEmailId + emailValidationMsgXpathSuffix);
+	}
+
+	public String getUserNameValidationMsg(){
+		return driverManager.getText("xpath", newUserUserNameId+ validationMsgXpathSuffix);
+	}
+
+	public String getPwdValidationMsg(){
+		return driverManager.getText("xpath", newUserPasswordId + validationMsgXpathSuffix);
+	}
+
+	public String getPwdVerifyValidationMsg(){
+		return driverManager.getText("xpath", newUserPasswordVerificationId + validationMsgXpathSuffix);
+	}
+
 }

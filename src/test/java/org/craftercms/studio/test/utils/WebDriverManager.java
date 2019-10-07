@@ -690,9 +690,12 @@ public class WebDriverManager {
 		waitUntilElementIsRemoved(element);
 	}
 	
-	public void waitUntilAddUserCreatedNotificationCloses() {
+	public void waitUntilAddUserCreatedNotificationCloses(String username) {
 		logger.debug("Waiting for notification modal to close");
+		String expectedNotificationMsg = "'" + username + "' created.";
 		WebElement element = this.waitUntilElementIsDisplayed("xpath", userCreatedNotificationModal);
+		Assert.assertEquals(getText("xpath", "(" + userCreatedNotificationModal + "//p/span)[2]"),
+				expectedNotificationMsg, "Add User Notification message is not correct");
 		waitUntilElementIsRemoved(element);
 	}
 	

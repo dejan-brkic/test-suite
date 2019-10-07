@@ -67,4 +67,10 @@
 			<class name="org.craftercms.studio.test.cases.userstestcases.VerifyLanguageSettingsTest"/>
 		</classes>
 	</test>
+	<test name="Verify that Studio shows validation for Add User fields">
+		<parameter name="testUser" value="users001"/>
+		<classes>
+			<class name="org.craftercms.studio.test.cases.userstestcases.ValidationsFieldsAddUserTest"/>
+		</classes>
+	</test>
 </suite> <!-- Suite -->
