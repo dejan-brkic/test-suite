@@ -36,6 +36,8 @@ public class LoginPage {
 	private String passwordXpath;
 	private String loginXpath;
 	private String loginLanguageSelector;
+	private String userName;
+	private String password;
 	private static Logger logger = LogManager.getLogger(LoginPage.class);
 
 	public LoginPage(WebDriverManager driverManager,
@@ -49,7 +51,8 @@ public class LoginPage {
 				.getProperty("login.password");
 		loginXpath = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("login.login");
 		loginLanguageSelector = UIElementsPropertiesManager.getSharedUIElementsLocators().getProperty("login.languageselector");
-
+		userName = getDriverManager().getConstantsPropertiesManager().getSharedExecutionConstants().getProperty("crafter.username");
+		password = getDriverManager().getConstantsPropertiesManager().getSharedExecutionConstants().getProperty("crafter.password");
 
 	}
 	// Set user name in textbox
@@ -72,6 +75,15 @@ public class LoginPage {
 	// Click on login button
 	public void clickLogin() {
 		driverManager.clickElement("xpath", loginXpath);
+	}
+
+	// Login to crafter
+	public void loginToCrafter() {
+		logger.info("Login into Crafter with admin user");
+		setUserName(userName);
+		setPassword(password);
+		clickLogin();
+		driverManager.waitUntilLoginCloses();
 	}
 
 	// Login to crafter
