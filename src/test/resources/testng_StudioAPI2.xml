@@ -195,4 +195,9 @@
 			<class name="org.craftercms.studio.test.cases.api2testcases.ListRemotesAPI2Test" />
 		</classes>
 	</test>
+	<test name="Get Marketplace Blueprints" preserve-order="true">
+		<classes>
+			<class name="org.craftercms.studio.test.cases.api2testcases.GetBlueprintsAPI2Test" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->
