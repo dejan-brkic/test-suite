@@ -21,7 +21,7 @@ import org.craftercms.studio.test.api.objects.SecurityAPI;
 import org.craftercms.studio.test.api2.objects.MarketplaceAPI2;
 import org.craftercms.studio.test.utils.*;
 import org.testng.annotations.AfterGroups;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 
 public class GetBlueprintsAPI2Test {
@@ -37,8 +37,8 @@ public class GetBlueprintsAPI2Test {
         marketplaceAPI2 = new MarketplaceAPI2(api, apiConnectionManager);
     }
 
-    @BeforeTest
-    public void beforeTest() {
+    @BeforeGroups(groups = {"GetMarketplace"})
+    public void beforeTestGroup() {
         securityAPI.logInIntoStudioUsingAPICall();
     }
 
@@ -72,7 +72,7 @@ public class GetBlueprintsAPI2Test {
         securityAPI.logOutFromStudioUsingAPICall();
     }
 
-    @Test(dependsOnGroups={"GetMarketplace"})
+    @Test(alwaysRun = true, priority = 100)
     public void testGetAuditLogUnauthorized() {
         marketplaceAPI2.testGetBlueprintPluginUnauthorized();
     }
