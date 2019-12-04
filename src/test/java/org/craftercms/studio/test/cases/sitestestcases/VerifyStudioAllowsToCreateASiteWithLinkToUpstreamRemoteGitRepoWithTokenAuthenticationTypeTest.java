@@ -31,9 +31,6 @@ import org.testng.annotations.Test;
 public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest
 		extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
 	private String gitRepoUrl;
 	private String gitRepositoryUserName;
 	private String gitRepositoryToken;
@@ -41,37 +38,27 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithT
 	@Parameters({"remoteUrl", "remoteUsername", "remoteToken"})
 	@BeforeMethod
 	public void beforeTest(String remoteUrl, String remoteUsername, String remoteToken) {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitRepoUrl = remoteUrl;
 		gitRepositoryUserName = remoteUsername;
 		gitRepositoryToken = remoteToken;
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 	}
 
 	@Parameters({"testId", "pathRawFile", "expectValueRawFile"})
 	@Test()
 	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest(
 			String testId, String pathRawFile, String expectValueRawFile){
-		loginPage.loginToCrafter(userName, password);
+		loginPage.loginToCrafter();
 		homePage.clickOnCreateSiteButton();
 
 		createSitePage.selectWebSiteEditorialBluePrintOption()
 				.setSiteName(testId)
-				.clickAdditionalDeveloperOptions()
 				.clickPushSiteToRemoteGitCheckbox()
-				.setPushRepositoryName("origin")
-				.setPushRepositoryURL(gitRepoUrl)
-				.selectPushGitRepoTokenAuthenticationType()
-				.setPushRepositoryUserName(gitRepositoryUserName)
-				.setPushRepositoryToken(gitRepositoryToken)
-				.clickReviewAndCreate()
+				.setRepositoryURL(gitRepoUrl)
+				.selectGitRepoTokenAuthenticationType()
+				.setRepositoryUserName(gitRepositoryUserName)
+				.setRepositoryToken(gitRepositoryToken)
+				.clickReview()
 				.clickOnCreateButton();
-
-		Assert.assertTrue(getWebDriverManager()
-				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
 
 		previewPage.clickSidebar();
 		previewPage.clickAdminConsoleOption();

@@ -31,9 +31,6 @@ import org.testng.annotations.Test;
 public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest
 		extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
 	private String gitRepoUrl;
 	private String gitRepositoryUserName;
 	private String gitRepositoryPassword;
@@ -41,37 +38,27 @@ public class VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithB
 	@Parameters({"remoteUrl", "remoteUsername", "remotePassword"})
 	@BeforeMethod
 	public void beforeTest(String remoteUrl, String remoteUsername, String remotePassword) {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitRepoUrl = remoteUrl;
 		gitRepositoryUserName = remoteUsername;
 		gitRepositoryPassword = remotePassword;
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 	}
 
 	@Parameters({"testId", "pathRawFile", "expectValueRawFile"})
 	@Test()
 	public void verifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest(
 			String testId, String pathRawFile, String expectValueRawFile){
-		loginPage.loginToCrafter(userName, password);
+		loginPage.loginToCrafter();
 		homePage.clickOnCreateSiteButton();
 
-        createSitePage.selectWebSiteEditorialBluePrintOption()
-                .setSiteName(testId)
-                .clickAdditionalDeveloperOptions()
-                .clickPushSiteToRemoteGitCheckbox()
-                .setPushRepositoryName("origin")
-                .setPushRepositoryURL(gitRepoUrl)
-                .selectPushGitRepoBasicAuthenticationType()
-                .setPushRepositoryUserName(gitRepositoryUserName)
-                .setPushRepositoryUserPassword(gitRepositoryPassword)
-                .clickReviewAndCreate()
-                .clickOnCreateButton();
-
-		Assert.assertTrue(getWebDriverManager()
-				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName(testId)
+				.clickPushSiteToRemoteGitCheckbox()
+				.setRepositoryURL(gitRepoUrl)
+				.selectGitRepoBasicAuthenticationType()
+				.setRepositoryUserName(gitRepositoryUserName)
+				.setRepositoryUserPassword(gitRepositoryPassword)
+				.clickReview()
+				.clickOnCreateButton();
 
 		previewPage.clickSidebar();
 		previewPage.clickAdminConsoleOption();

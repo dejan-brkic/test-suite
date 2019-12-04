@@ -19,8 +19,9 @@ package org.craftercms.studio.test.pages;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.craftercms.studio.test.utils.UIElementsPropertiesManager;
 import org.craftercms.studio.test.utils.WebDriverManager;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 /**
  * 
@@ -35,7 +36,7 @@ public class CreateSitePage {
 	private String siteName;
 	private String descriptionSite;
 	private String blueprintSelect;
-	private String reviewAndCreateButton;
+	private String reviewButton;
 	private String additionalDeveloperOptions;
 	private String createSiteButton;
 	private String cancelButton;
@@ -47,14 +48,14 @@ public class CreateSitePage {
 	private String adminDropdownOption;
 	private String settingsOption;
 	private String pushRepositoryName;
-	private String pushRepositoryURL;
-	private String pushRepositoryUserName;
-	private String pushRepositoryUserPassword;
-	private String pushRepositoryToken;
-	private String pushRepositoryPrivateKey;
-	private String pushBasicAuthenticationOpt;
-	private String pushTokenAuthenticationOpt;
-	private String pushPrivateKeyAuthenticationOpt;
+	private String repositoryURL;
+	private String repositoryUserName;
+	private String repositoryUserPassword;
+	private String repositoryToken;
+	private String repositoryPrivateKey;
+	private String basicAuthenticationOpt;
+	private String tokenAuthenticationOpt;
+	private String privateKeyAuthenticationOpt;
 	private String fromGitRepositoryName;
 	private String fromGitRepositoryURL;
 	private String fromGitRepositoryUserName;
@@ -68,7 +69,9 @@ public class CreateSitePage {
 	private String createSiteFromGitRepoCheckbox;
 	private String basicInformationButton;
 	private String basicDeveloperOptions;
-	private String creatingSpinnerImgCss;
+	private String creatingGearsImgCss;
+	private String summaryCreationStrategyXpath;
+	private String summarySiteInfoXpath;
 	private int waitForCreateSite = 300;
 
 	/**
@@ -82,8 +85,8 @@ public class CreateSitePage {
 				.getProperty("create.description_site");
 		blueprintSelect = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("create.blueprint.select_button");
-		reviewAndCreateButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("create.review.create_button");
+		reviewButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("create.review_button");
 		additionalDeveloperOptions = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("create.additional.developer.options");
 		createSiteButton = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -101,21 +104,21 @@ public class CreateSitePage {
 				.getProperty("create_settings_option");
 		pushRepositoryName = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositoryname");
-		pushRepositoryURL = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		repositoryURL = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositoryurl");
-		pushRepositoryUserName = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		repositoryUserName = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositoryusername");
-		pushRepositoryUserPassword = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		repositoryUserPassword = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositoryuserpassword");
-		pushRepositoryToken = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		repositoryToken = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositorytoken");
-		pushRepositoryPrivateKey = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		repositoryPrivateKey = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositoryprivatekey");
-		pushBasicAuthenticationOpt = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		basicAuthenticationOpt = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositorybasicauthenticationtype");
-		pushTokenAuthenticationOpt = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		tokenAuthenticationOpt = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositorygittokenauthenticationtype");
-		pushPrivateKeyAuthenticationOpt = UIElementsPropertiesManager.getSharedUIElementsLocators()
+		privateKeyAuthenticationOpt = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.push.repositorygitprivatekeyauthenticationtype");
 		fromGitRepositoryName = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("home.createsite.fromgit.repositoryname");
@@ -143,8 +146,12 @@ public class CreateSitePage {
 				.getProperty("create.basic.information_button");
 		basicDeveloperOptions = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("create.basic.developer.options");
-		creatingSpinnerImgCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("creating.spinner.img");
+		creatingGearsImgCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("creating.gears.img");
+		summaryCreationStrategyXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("create_summary_creation_strategy");
+		summarySiteInfoXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("create_summary_site_info");
 	}
 	public CreateSitePage setSiteName() {
 		driverManager.sendText("xpath", siteName, "testsite" + RandomStringUtils.randomAlphabetic(5).toLowerCase());
@@ -166,28 +173,28 @@ public class CreateSitePage {
 		return this;
 	}
 
-	public CreateSitePage setPushRepositoryURL(String repositoryURL) {
-		driverManager.sendText("xpath", this.pushRepositoryURL, repositoryURL);
+	public CreateSitePage setRepositoryURL(String repositoryURL) {
+		driverManager.sendText("xpath", this.repositoryURL, repositoryURL);
 		return this;
 	}
 
-	public CreateSitePage setPushRepositoryUserName(String repositoryUserName) {
-		driverManager.sendText("xpath", this.pushRepositoryUserName, repositoryUserName);
+	public CreateSitePage setRepositoryUserName(String repositoryUserName) {
+		driverManager.sendText("xpath", this.repositoryUserName, repositoryUserName);
 		return this;
 	}
 
-	public CreateSitePage setPushRepositoryUserPassword(String repositoryUserPassword) {
-		driverManager.sendText("xpath", this.pushRepositoryUserPassword, repositoryUserPassword);
+	public CreateSitePage setRepositoryUserPassword(String repositoryUserPassword) {
+		driverManager.sendText("xpath", this.repositoryUserPassword, repositoryUserPassword);
 		return this;
 	}
 
-	public CreateSitePage setPushRepositoryToken(String repositoryToken) {
-		driverManager.sendText("xpath", this.pushRepositoryToken, repositoryToken);
+	public CreateSitePage setRepositoryToken(String repositoryToken) {
+		driverManager.sendText("xpath", this.repositoryToken, repositoryToken);
 		return this;
 	}
 
-	public CreateSitePage setPushRepositoryPrivateKey(String repositoryPrivateKey) {
-		driverManager.sendTextByLineJS("id", this.pushRepositoryPrivateKey, repositoryPrivateKey);
+	public CreateSitePage setRepositoryPrivateKey(String repositoryPrivateKey) {
+		driverManager.sendTextByLineJS("id", this.repositoryPrivateKey, repositoryPrivateKey);
 		return this;
 	}
 
@@ -224,18 +231,19 @@ public class CreateSitePage {
 
 	// Set description
 	public CreateSitePage setDescription(String strDescription) {
-		driverManager.sendText("xpath", descriptionSite, strDescription);
+		driverManager.sendText("xpath", descriptionSite, strDescription, false);
 		return this;
 	}
 
 	// Select blueprint button
 	public CreateSitePage blueprintSelect(String blueprintName) {
-		driverManager.waitUntilElementIsClickable("xpath", String.format(blueprintSelect,blueprintName)).click();
+		driverManager.scrollIntoViewXpathElement(String.format(blueprintSelect, blueprintName));
+		driverManager.clickElement("xpath", String.format(blueprintSelect, blueprintName));
 		return this;
 	}
 
-	public CreateSitePage clickReviewAndCreate() {
-		driverManager.waitUntilElementIsClickable("xpath", reviewAndCreateButton).click();
+	public CreateSitePage clickReview() {
+		driverManager.waitUntilElementIsClickable("xpath", reviewButton).click();
 		return this;
 	}
 
@@ -252,8 +260,9 @@ public class CreateSitePage {
 
 	// Press on create site
 	public CreateSitePage clickOnCreateButton() {
-		this.driverManager.clickElement("id", createSiteButton);
-		driverManager.waitUntilElementIsNotDisplayed("cssselector", creatingSpinnerImgCss, waitForCreateSite);
+		this.driverManager.clickElement("xpath", createSiteButton);
+		Assert.assertTrue(driverManager.isTextInStudio("Please wait while your site is being created.."));
+		driverManager.waitUntilElementIsNotDisplayed("cssselector", creatingGearsImgCss, waitForCreateSite);
 		return this;
 	}
 
@@ -285,11 +294,10 @@ public class CreateSitePage {
 		return this;
 	}
 
-	public void clickOnCancelButtonOfTheCreateSiteProcess() {
-		// Press on Cancel button of the create site.
-		this.cancelButton();
+	public CreateSitePage confirmCancelCreateSite() {
+		this.driverManager.clickLinkByText("Ok");
+		return this;
 	}
-
 	// Press on help option
 	public void clickHelp() {
 		WebElement users = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
@@ -327,9 +335,7 @@ public class CreateSitePage {
 
 	// Press on admin option
 	public void clickAdmin() {
-		WebElement admin = this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-				adminDropdownOption);
-		admin.click();
+		driverManager.clickElement("xpath", adminDropdownOption);
 	}
 
 	public void clickOnAdminOption() {
@@ -383,18 +389,23 @@ public class CreateSitePage {
 		return this;
 	}
 
-	public CreateSitePage selectPushGitRepoBasicAuthenticationType() {
-		this.driverManager.waitUntilElementIsClickable("xpath", pushBasicAuthenticationOpt).click();
+	public CreateSitePage selectRemoteGitRepositorySite() {
+		this.blueprintSelect("Remote Git Repository");
 		return this;
 	}
 
-	public CreateSitePage selectPushGitRepoTokenAuthenticationType() {
-		this.driverManager.waitUntilElementIsClickable("xpath", pushTokenAuthenticationOpt).click();
+	public CreateSitePage selectGitRepoBasicAuthenticationType() {
+		this.driverManager.clickElement("xpath", basicAuthenticationOpt);
 		return this;
 	}
 
-	public CreateSitePage selectPushGitRepoPrivateKeyAuthenticationType() {
-		this.driverManager.waitUntilElementIsClickable("xpath", pushPrivateKeyAuthenticationOpt).click();
+	public CreateSitePage selectGitRepoTokenAuthenticationType() {
+		this.driverManager.clickElement("xpath", tokenAuthenticationOpt);
+		return this;
+	}
+
+	public CreateSitePage selectGitRepoPrivateKeyAuthenticationType() {
+		this.driverManager.clickElement("xpath", privateKeyAuthenticationOpt);
 		return this;
 	}
 
@@ -431,5 +442,58 @@ public class CreateSitePage {
 	public CreateSitePage clickBasicDeveloperOptions() {
 		this.driverManager.waitUntilElementIsClickable("xpath", basicDeveloperOptions).click();
 		return this;
+	}
+
+	private String getSummaryStrings(String selector, String value) {
+		String newSelector = selector + String.format("//*[contains(text(),'%s')]/..", value);
+		WebElement element = driverManager.findElement("xpath", newSelector);
+		return driverManager.getNodeText(element).substring(1);
+	}
+
+	public String getSummaryCreationStrategy() {
+		return driverManager.waitUntilElementIsDisplayed("xpath", summaryCreationStrategyXpath)
+				.findElement(By.xpath(".//p")).getText();
+	}
+
+	public String getSummaryBlueprint() {
+		return getSummaryStrings(summaryCreationStrategyXpath, "Blueprint");
+
+	}
+
+	public Boolean isSummaryCreationStrategyBtnClickable() {
+		WebElement creationSummary = driverManager.waitUntilElementIsDisplayed("xpath", summaryCreationStrategyXpath)
+				.findElement(By.xpath(".//button"));
+		return creationSummary.isDisplayed() && creationSummary.isEnabled();
+	}
+
+	public Boolean isSummarySiteInfoBtnClickable() {
+		WebElement siteInfo = driverManager.waitUntilElementIsDisplayed("xpath", summarySiteInfoXpath)
+				.findElement(By.xpath(".//button"));
+		return siteInfo.isDisplayed() && siteInfo.isEnabled();
+	}
+
+	public String getSummarySiteId() {
+		return getSummaryStrings(summarySiteInfoXpath, "Site ID");
+	}
+
+	public String getSummaryDescription() {
+		return getSummaryStrings(summarySiteInfoXpath, "Description");
+	}
+
+	public String getSummaryGitRepoUrl() {
+		return getSummaryStrings(summarySiteInfoXpath, "Git Repo URL");
+	}
+
+	public String getSummaryGitRemoteName() {
+		return getSummaryStrings(summarySiteInfoXpath, "Git Remote Name");
+	}
+
+	public String getSummaryGitBranch() {
+		return getSummaryStrings(summarySiteInfoXpath, "Git Branch");
+	}
+
+
+	public String getSummarySandboxBranch() {
+		return getSummaryStrings(summarySiteInfoXpath, "Sandbox Branch");
 	}
 }

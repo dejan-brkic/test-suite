@@ -33,10 +33,7 @@ import org.testng.annotations.Test;
 public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest
 		extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String siteId;
-	private String siteDropdownElementXPath;
 	private String gitUserName;
 	private String gitPassword;
 	private String gitRepositoryURL;
@@ -44,111 +41,28 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasic
 	@Parameters({"testId", "remoteUrl", "remoteUsername", "remotePassword"})
 	@BeforeMethod
 	public void beforeTest(String testId, String remoteUrl, String remoteUsername, String remotePassword) {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitUserName = remoteUsername;
 		gitPassword = remotePassword;
 		gitRepositoryURL = remoteUrl;
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		siteId = testId;
-	}
-
-	public void step2() {
-		homePage.clickOnCreateSiteButton();
-	}
-
-	public void step3() {
-		createSitePage.clickUseRemoteGitRepoSiteCheckbox();
-	}
-
-	public void step4() {
-		createSitePage.clickBasicInformation();
-	}
-
-	public void step5() {
-		createSitePage.setSiteName(siteId);
-	}
-
-	public void step6() {
-		createSitePage.clickBasicDeveloperOptions();
-	}
-
-	public void step7() {
-		createSitePage.setFromGitRepositoryName("origin");
-	}
-
-	public void step8() {
-		createSitePage.setFromGitRepositoryURL(gitRepositoryURL);
-	}
-
-	public void step9() {
-		createSitePage.selectFromGitRepoBasicAuthenticationType();
-	}
-
-	public void step10() {
-		createSitePage.setFromGitRepositoryUserName(gitUserName);
-	}
-
-	public void step11() {
-		createSitePage.setFromGitRepositoryUserPassword(gitPassword);
-	}
-
-	public void step12() {
-		createSitePage.clickReviewAndCreate();
-	}
-
-	public void step13() {
-		// Click on Create button
-		createSitePage.clickOnCreateButton();
-		Assert.assertTrue(this.getWebDriverManager()
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
 	}
 
 	@Test()
 	public void verifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest() {
-		this.testScenario();
-	}
-
-	public void testScenario() {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-		// Step 2
-		step2();
-
-		// Step 3
-		step3();
-
-		// Step 4
-		step4();
-
-		// Step 5
-		step5();
-
-		// Step 6
-		step6();
-
-		// Step 7
-		step7();
-
-		// Step 8
-		step8();
-		
-		// Step9
-		step9();
-		
-		// Step 10
-		step10();
-
-		// Step 11
-		step11();
-
-		// Step 12
-		step12();
-
-		// Step 13
-		step13();
+		loginPage.loginToCrafter();
+		homePage.clickOnCreateSiteButton();
+		createSitePage.selectRemoteGitRepositorySite()
+				.setSiteName(siteId)
+				.setRepositoryURL(gitRepositoryURL)
+				.selectGitRepoBasicAuthenticationType()
+				.setRepositoryUserName(gitUserName)
+				.setRepositoryUserPassword(gitPassword)
+				.clickReview()
+				.clickOnCreateButton();
+		previewPage.clickSidebar();
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", gitRepositoryURL);
 	}
 
 	@Parameters({"testId"})

@@ -78,11 +78,11 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	}
 
 	public void step8() {
-		createSitePage.setPushRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName));
+		createSitePage.setRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName));
 	}
 
 	public void step10() {
-		createSitePage.clickReviewAndCreate();
+		createSitePage.clickReview();
 	}
 
 	public void step11() {
@@ -122,11 +122,11 @@ public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRe
 	}
 
 	public void step19() {
-		createSitePage.setPushRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName));
+		createSitePage.setRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName));
 	}
 
 	public void step21() {
-		createSitePage.clickReviewAndCreate();
+		createSitePage.clickReview();
 	}
 
 	public void step22() {

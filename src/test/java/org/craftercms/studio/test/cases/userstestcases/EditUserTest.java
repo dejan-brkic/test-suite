@@ -52,8 +52,7 @@ public class EditUserTest extends StudioBaseTest {
 				.getProperty("general.users.firstname");
 		newUserLastNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.lastname");
-		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.users.email");
+		newUserEmailId = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.users.email");
 		newUserUserNameId = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.users.username");
 		newUserPasswordId = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -73,10 +72,10 @@ public class EditUserTest extends StudioBaseTest {
 	public void createUserToEdit(String value) {
 		// click on new user button
 		usersPage.clickOnNewUser();
-
+		String password = "asDF12#$";
 		// Follow the form
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId)
-				.sendKeys(value+ "N");
+				.sendKeys(value + "N");
 
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserLastNameId)
 				.sendKeys(value + "LN");
@@ -88,10 +87,10 @@ public class EditUserTest extends StudioBaseTest {
 				.sendKeys(value);
 
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordId)
-				.sendKeys(value);
+				.sendKeys(password);
 
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserPasswordVerificationId)
-				.sendKeys(value);
+				.sendKeys(password);
 
 		// Save Button
 		usersPage.clickOnSaveNewUser();

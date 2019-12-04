@@ -62,7 +62,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTestForDeliveryCheck extends
 		createSitePage.selectWebSiteEditorialBluePrintOption()
 				.setSiteName(siteId)	// Filling the name of site
 				.setDescription("Description")		// Filling the description of the site
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);

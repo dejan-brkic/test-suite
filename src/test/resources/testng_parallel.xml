@@ -544,7 +544,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote GitHub repository -Authentication type: basic">
 		<parameter name="testId" value="sites012github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest1.git"/>
+		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites012github" value=""/>
 		<classes>
@@ -553,7 +553,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote GitLab repository -Authentication type: basic">
 		<parameter name="testId" value="sites012gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest1.git"/>
+		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstests1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites012gitlab" value=""/>
 		<classes>
@@ -562,7 +562,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote Bitbucket repository -Authentication type: basic">
 		<parameter name="testId" value="sites012bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest1.git"/>
+		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstests1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites012bitbucket" value=""/>
 		<classes>
@@ -571,7 +571,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote GitHub repository -Authentication type: token">
 		<parameter name="testId" value="sites014github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest1.git"/>
+		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites014github" value=""/>
 		<classes>
@@ -580,7 +580,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote GitLabrepository -Authentication type: token">
 		<parameter name="testId" value="sites014gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest1.git"/>
+		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstests1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites014gitlab" value=""/>
 		<classes>
@@ -589,7 +589,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote Bitbucket repository -Authentication type: token">
 		<parameter name="testId" value="sites014bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest1.git"/>
+		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstests1.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites014bitbucket" value=""/>
 		<classes>
@@ -604,7 +604,7 @@
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitHub -Authentication type: basic">
 		<parameter name="testId" value="sites013github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest2.git"/>
+		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests2.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites013github" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
@@ -616,7 +616,7 @@
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitLab-Authentication type: basic">
 		<parameter name="testId" value="sites013gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest2.git"/>
+		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstests2.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites013gitlab" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
@@ -627,7 +627,7 @@
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository Bitbucket -Authentication type: basic">
 		<parameter name="testId" value="sites013bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest2.git"/>
+		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstests2.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites013bitbucket" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
@@ -638,7 +638,7 @@
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitHub -Authentication type: token">
 		<parameter name="testId" value="sites015github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest3.git"/>
+		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests3.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites015github" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
@@ -649,7 +649,7 @@
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitLab -Authentication type: token">
 		<parameter name="testId" value="sites015gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest3.git"/>
+		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstests3.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites015gitlab" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
@@ -660,7 +660,7 @@
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository Bitbucket -Authentication type: token">
 		<parameter name="testId" value="sites015bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest3.git"/>
+		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstests3.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites015bitbucket" value=""/>
 		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
@@ -692,27 +692,31 @@
 	</test>
 	<test name="Automate verification of create site after a failed create site with link to upstream remote GitHub repository (With Basic Auth)">
 		<parameter name="testId" value="sites018github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftertest5.git"/>
+		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstest5.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites018github" value=""/>
+		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
 		</classes>
 	</test>
 	<test name="Automate verification of create site after a failed create site with link to upstream remote GitLab repository (With Basic Auth)">
 		<parameter name="testId" value="sites018gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftertest5.git"/>
+		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstest5.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites018gitlab" value=""/>
+		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
 		</classes>
 	</test>
 	<test name="Automate verification of create site after a failed create site with link to upstream remote Bitbucket repository (With Basic Auth)">
 		<parameter name="testId" value="sites018bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftertest5.git"/>
+		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstest5.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites018bitbucket" value=""/>
+		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
+
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
 		</classes>

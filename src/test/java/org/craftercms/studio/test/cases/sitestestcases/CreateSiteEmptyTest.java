@@ -60,7 +60,7 @@ public class CreateSiteEmptyTest extends StudioBaseTest {
 		createSitePage.selectEmptyBluePrintOption()
 				.setSiteName(testId)
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);
