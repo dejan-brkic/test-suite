@@ -57,7 +57,7 @@ public class CreateSiteWithHeadlessBlogBluePrintTest extends StudioBaseTest {
 		createSitePage.selectHeadlessBlogBluePrintOption()
 				.setSiteName()
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		Assert.assertTrue(this.getWebDriverManager().waitUntilElementIsClickable("xpath",siteDropdownElementXPath).isDisplayed());

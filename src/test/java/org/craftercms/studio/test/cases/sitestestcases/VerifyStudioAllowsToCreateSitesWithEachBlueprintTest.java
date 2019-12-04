@@ -24,7 +24,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
- * 
+ *
  * @author luishernandez
  *
  */
@@ -63,7 +63,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 		createSitePage.selectEmptyBluePrintOption()
 				.setSiteName(emptyBPSiteId)
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		Assert.assertTrue(this.getWebDriverManager()
@@ -79,7 +79,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 		createSitePage.selectWebSiteEditorialBluePrintOption()
 				.setSiteName(editorialBPSiteId)
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		Assert.assertTrue(this.getWebDriverManager()
@@ -95,7 +95,7 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 		createSitePage.selectHeadlessStoreBluePrintOption()
 				.setSiteName(headlessBlogBPSiteId)
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		Assert.assertTrue(this.getWebDriverManager()
@@ -110,29 +110,12 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 		createSitePage.selectHeadlessStoreBluePrintOption()
 				.setSiteName(headlessStoreBPSiteId)
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		Assert.assertTrue(this.getWebDriverManager()
 				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
 				.isDisplayed());
-	}
-
-	public void createSiteUsingVideoCenterBlueprint() {
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-
-		//select blueprint, set site name, set description, click review and create site
-		createSitePage.selectVideoCenterBluePrintOption()
-				.setSiteName(videoCenterBPSiteId)
-				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCreateButton();
-		//video center takes longer to create, lets wait for more
-		Assert.assertTrue(this.getWebDriverManager()
-				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath,80)
-				.isDisplayed());
-
 	}
 
 	public void verifySiteAvailable(String siteId) {
@@ -167,11 +150,6 @@ public class VerifyStudioAllowsToCreateSitesWithEachBlueprintTest extends Studio
 		createSiteUsingHeadlessStoreBluePrint();
 
 		verifySiteAvailable(headlessStoreBPSiteId);
-
-		// Steps 15 and 16
-		createSiteUsingVideoCenterBlueprint();
-
-		verifySiteAvailable(videoCenterBPSiteId);
 	}
 
 	@AfterMethod(alwaysRun = true)

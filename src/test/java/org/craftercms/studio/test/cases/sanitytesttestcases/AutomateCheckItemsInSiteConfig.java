@@ -97,7 +97,7 @@ public class AutomateCheckItemsInSiteConfig extends StudioBaseTest {
 		createSitePage.selectWebSiteEditorialBluePrintOption()
 				.setSiteName(testId)
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		// Verify No error messages after clicking on the Create button

@@ -79,7 +79,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 	}
 
 	public void step10() {
-		createSitePage.clickReviewAndCreate();
+		createSitePage.clickReview();
 	}
 
 	public void step11() {
@@ -143,7 +143,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 		createSitePage.selectEmptyBluePrintOption()
 				.setSiteName(emptyBPSiteId)
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);

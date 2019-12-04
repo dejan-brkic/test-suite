@@ -30,28 +30,18 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 //Test Case Studio- Sites ID:3
 public class CancelCreateSiteProcessTest extends StudioBaseTest{
 
-	private String userName;
-	private String password;
 	private String sitesPageTitleLocator;
-	
-	
+
 	@BeforeMethod
 	public void beforeTest() {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		sitesPageTitleLocator = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("sites.pagetitle");
-
 	}
 
 	@Test(priority = 0)
 	public void verifyTheCancellationOfTheCreateSiteProcessTest() {
 
 		// login to application
-		loginPage.loginToCrafter(
-				userName,password);
-
-		//Wait for login page to close
-		getWebDriverManager().waitUntilLoginCloses();
+		loginPage.loginToCrafter();
 
 		// Click on the create site button
 		homePage.clickOnCreateSiteButton();
@@ -60,8 +50,9 @@ public class CancelCreateSiteProcessTest extends StudioBaseTest{
 		createSitePage.selectWebSiteEditorialBluePrintOption()
 				.setSiteName()
 				.setDescription("Description")
-				.clickReviewAndCreate()
-				.clickOnCancelButtonOfTheCreateSiteProcess();
+				.clickReview()
+				.cancelButton()
+				.confirmCancelCreateSite();
 
 		// Assert
 		WebElement sitePage = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",

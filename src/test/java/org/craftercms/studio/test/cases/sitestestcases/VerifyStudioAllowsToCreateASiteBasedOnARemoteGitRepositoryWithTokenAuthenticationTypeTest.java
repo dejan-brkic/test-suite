@@ -98,7 +98,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 	}
 
 	public void step12() {
-		createSitePage.clickReviewAndCreate();
+		createSitePage.clickReview();
 	}
 
 	public void step13() {

@@ -259,7 +259,7 @@ public class VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrect
 		
 		logger.info("Duplicating second testing article created previously");
 		this.getWebDriverManager().scrollDownIntoSideBar();
-		this.getWebDriverManager().scrollUpIntoSideBar(expandPagesTree);
+		this.getWebDriverManager().scrollIntoViewXpathElement(expandPagesTree);
 		
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", pageXpath);
 		this.getWebDriverManager().contextClick("xpath", pageXpath, false);

@@ -58,7 +58,7 @@ public class CreateSiteWithWebSiteEditorialBluePrintTest extends StudioBaseTest 
 		createSitePage.selectWebSiteEditorialBluePrintOption()
 				.setSiteName()
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", siteDropdownElementXPath);

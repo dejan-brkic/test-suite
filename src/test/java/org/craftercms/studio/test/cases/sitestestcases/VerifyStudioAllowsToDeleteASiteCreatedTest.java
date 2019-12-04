@@ -56,7 +56,7 @@ public class VerifyStudioAllowsToDeleteASiteCreatedTest extends StudioBaseTest {
 		createSitePage.selectEmptyBluePrintOption()
 				.setSiteName(siteId)
 				.setDescription("Description")
-				.clickReviewAndCreate()
+				.clickReview()
 				.clickOnCreateButton();
 
 		Assert.assertTrue(this.getWebDriverManager()

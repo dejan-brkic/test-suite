@@ -82,21 +82,21 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	}
 
 	public void step8() {
-		createSitePage.setPushRepositoryURL(gitRepoUrlForSSH);
+		createSitePage.setRepositoryURL(gitRepoUrlForSSH);
 	}
 
 	public void step9() {
-		createSitePage.selectPushGitRepoPrivateKeyAuthenticationType();
+		createSitePage.selectGitRepoPrivateKeyAuthenticationType();
 	}
 
 	public void step10() {
 		// Select website blueprint
-		createSitePage.setPushRepositoryPrivateKey(gitPrivateKey);
+		createSitePage.setRepositoryPrivateKey(gitPrivateKey);
 	}
 
 	public void step11() {
 
-		createSitePage.clickReviewAndCreate();
+		createSitePage.clickReview();
 		// Click on Create button
 
 	}
