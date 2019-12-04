@@ -83,6 +83,7 @@ public class PreviewPage {
 	private String previewToolsOption;
 	private String inContextEditOption;
 	private String draftSavedNotification;
+    private String engineWindowId;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager,
@@ -192,6 +193,8 @@ public class PreviewPage {
 				.getProperty("general.sitecontent.authorstree");
 		draftSavedNotification = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("preview.saved_draft_notification");
+        engineWindowId = UIElementsPropertiesManager.getSharedUIElementsLocators()
+                .getProperty("general.sites.iframe.engine.id");
 	}
 
 	// Click on admin console link

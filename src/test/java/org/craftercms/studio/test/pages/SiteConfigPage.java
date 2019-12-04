@@ -690,13 +690,13 @@ public class SiteConfigPage {
 		clickDataSourceImageUploadedFromCMISRepositoryToViewProperties();
 	}
 
-	public void clickRemoteRepositoriesOption() {
+	public SiteConfigPage clickRemoteRepositoriesOption() {
 		logger.info("Clicking Remote Repositories option");
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", remoteRepositoriesOptionXpath)
-				.click();
+		this.driverManager.clickElement("xpath", remoteRepositoriesOptionXpath);
+		return this;
 	}
 
-	public void clickAddNewRepositoryButton() {
+	public SiteConfigPage clickAddNewRepositoryButton() {
 		logger.info("Adding new remote repository");
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
@@ -707,9 +707,8 @@ public class SiteConfigPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				addNewRepositoryButton);
 
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", addNewRepositoryButton)
-				.click();
+		this.driverManager.clickElement("xpath", addNewRepositoryButton);
+		return this;
 	}
 
 	public void addNewRepositoryUsingPrivateKeyAuthentication(String repositoryName, String repositoryURL,
@@ -717,7 +716,7 @@ public class SiteConfigPage {
 		addNewRepository("key", repositoryName, repositoryURL, "", "", "", privateKeyContent);
 	}
 
-	public void addNewRepository(String repoType, String repositoryName, String repositoryURL, String repoUsername,
+	public SiteConfigPage addNewRepository(String repoType, String repositoryName, String repositoryURL, String repoUsername,
 	 		String repoPassword, String token, String privateKey) {
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.sendText("xpath", addNewRepoRepoName, repositoryName);
@@ -739,9 +738,10 @@ public class SiteConfigPage {
 		driverManager.clickElement("xpath",  addNewRepositoryCreateButton);
 		driverManager.getDriver().switchTo().activeElement();
 		driverManager.getDriver().switchTo().defaultContent();
-	}
+        return this;
+    }
 
-	public void pushSiteChangesToRemoteRepo(String upArrowButtonXpath) {
+	public SiteConfigPage pushSiteChangesToRemoteRepo(String upArrowButtonXpath) {
 		this.driverManager.waitForAnimation();
 		this.driverManager.getDriver().switchTo().activeElement();
 
@@ -754,6 +754,8 @@ public class SiteConfigPage {
 		this.driverManager.getDriver().switchTo().activeElement();
 
 		this.driverManager.clickElement("xpath", pushOkButtonXpath);
+		this.driverManager.waitUntilNotificationModalIsNotPresent();
+		return this;
 	}
 
 	public void pullSiteChangesFromRemoteRepo(String downArrowButtonXpath) {
@@ -791,7 +793,7 @@ public class SiteConfigPage {
 				.click();
 	}
 
-	public void checkThatRepositoriesListIsEmpty() {
+	public SiteConfigPage checkThatRepositoriesListIsEmpty() {
 		logger.info("Checking that the remote repositories list is empty");
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
@@ -804,6 +806,7 @@ public class SiteConfigPage {
 		Assert.assertFalse(this.driverManager.elementHasChildsByXPath(remoteRepoRows));
 
 		driverManager.getDriver().switchTo().defaultContent();
+		return this;
 
 	}
 
@@ -815,7 +818,7 @@ public class SiteConfigPage {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", remoteRepopushURLHeader);
 	}
 
-	public void checkThatRepositoriesListIsNotEmptyAndListContainsRepo(String name, String gitRepoUrl) {
+	public SiteConfigPage checkThatRepositoriesListIsNotEmptyAndListContainsRepo(String name, String gitRepoUrl) {
 		logger.info("Checking that the remote repositories list is not empty");
 		this.driverManager.waitForAnimation();
 		driverManager.getDriver().switchTo().defaultContent();
@@ -845,6 +848,7 @@ public class SiteConfigPage {
 
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
 				.click();
+		return this;
 	}
 
 	public SiteConfigPage dragAndDropFormSection() {
