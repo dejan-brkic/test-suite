@@ -95,6 +95,7 @@ public class WebDriverManager {
 	private String userAddedNotificationModal;
 	private String userEditDialog;
 	private String userCreatedNotificationModal;
+    private String engineWindowId;
 	private String testName;
 	public Properties environmentProperties;
 
@@ -217,23 +218,17 @@ public class WebDriverManager {
 		if (repoUrl.contains("github")) {
 			clickLinkByText("Raw");
 		}
+		else if (repoUrl.contains("gitlab")) {
+            clickElement("cssselector", gitlabRawCss);
+        }
 		else {
-			if(repoUrl.contains("gitlab")) {
-				logger.info("clickcin the gitlab raw");
-				clickElement("cssselector", gitlabRawCss);
-				logger.info("done clickin gitlab rab");
-			}
-			else {
-				clickElement("xpath", bitbucketFileActionsXpath);
-				clickLinkByText("Open raw");
-			}
-			ArrayList<String> openTabs = new ArrayList<>(driver.getWindowHandles());
-			for(String s1: openTabs){
-				logger.info("the tabs are {},", s1);
-			}
-			driver.switchTo().window(openTabs.get(1));
-		}
+            clickElement("xpath", bitbucketFileActionsXpath);
+            clickLinkByText("Open raw");
+        }
+		ArrayList<String> openTabs = new ArrayList<>(driver.getWindowHandles());
+		driver.switchTo().window(openTabs.get(openTabs.size()-1));
 	}
+
 
 	public void initializeLocators() {
 		this.sideBarDropDownWrapper = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -280,6 +275,8 @@ public class WebDriverManager {
 				.getProperty("general.sitecontent.tooltipmodal.contenteditedby");
 		newRepoNotificationDialog = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("remoterepositories.newrepo.push.notificationdialog");
+        engineWindowId = uiElementsPropertiesManager.getSharedUIElementsLocators()
+                .getProperty("general.sites.iframe.engine.id");
 	}
 
 	public void closeConnection() {
@@ -605,6 +602,9 @@ public class WebDriverManager {
 		}
 	}
 
+	public void clickByText(String text) {
+		driver.findElement(By.linkText(text));
+	}
 	public void scrollUp() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 	}
@@ -953,10 +953,8 @@ public class WebDriverManager {
 	public void sendTextForSiteIDRestrictions(String selectorType, String selectorValue, String text) {
 		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
 		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
-		input.clear();
+		clearInputUsingDeleteKeys(selectorType, selectorValue);
 		input.sendKeys(text);
-		waitUntilAttributeIs(selectorType, selectorValue, "value",
-				text.toLowerCase().replaceAll("[^a-zA-Z0-9]", ""));
 	}
 
 	public void usingContextMenu(Runnable actions, String menuOption) {
@@ -1287,7 +1285,7 @@ public class WebDriverManager {
 				siteConfigButton);
 	}
 
-	public void scrollUpIntoSideBar(String selectorValue) {
+	public void scrollIntoViewXpathElement(String selectorValue) {
 		WebElement element = this.driverWaitUntilElementIsPresentAndDisplayed("xpath", selectorValue);
 		((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", element);
 	}
@@ -1856,7 +1854,6 @@ public class WebDriverManager {
 		clickElement("xpath", String.format("//*[text()='%s']", text));
 	}
 
-
 	public String getText(String selectorType, String selectorValue) {
 		return waitUntilElementIsDisplayed(selectorType, selectorValue).getText();
 	}
@@ -1865,4 +1862,25 @@ public class WebDriverManager {
 		logger.debug("Searching for the text in page source {}", textToSearch);
 		return driver.getPageSource().contains(textToSearch);
 	}
+
+    public String getNodeText(WebElement element) {
+        String text = element.getText();
+        for (WebElement child : element.findElements(By.xpath("./*"))) {
+            text = text.replaceFirst(child.getText(), "");
+        }
+        return text;
+    }
+
+    public boolean isTextPresentInPreview(String textToSearch) {
+        driver.switchTo()
+                .frame(this.driverWaitUntilElementIsPresentAndDisplayed("id", engineWindowId));
+        String text = getText("xpath", String.format(".//*[contains(text(),'%s')]", textToSearch));
+        driver.switchTo().defaultContent();
+        return text.contains(textToSearch);
+    }
+
+    public boolean isTextInStudio(String textToSearch) {
+        String text = getText("xpath", String.format(".//*[text()='%s']", textToSearch));
+        return text.contains(textToSearch);
+    }
 }
