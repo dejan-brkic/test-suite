@@ -33,8 +33,6 @@ import org.testng.annotations.Test;
 public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneAuthenticationTypeTest
 		extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String siteId;
 	private String siteDropdownElementXPath;
 	private String emptyBPSiteId;
@@ -42,8 +40,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 	@Parameters({"testId"})
 	@BeforeMethod
 	public void beforeTest(String testId) {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		emptyBPSiteId = testId + "emptysitefornoneauth";
@@ -55,27 +51,16 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 	}
 
 	public void step3() {
-		this.createSitePage.clickUseRemoteGitRepoSiteCheckbox();
-	}
-
-	public void step4() {
-		this.createSitePage.clickBasicInformation();
+		this.createSitePage.selectRemoteGitRepositorySite();
 	}
 
 	public void step5() {
 		createSitePage.setSiteName(siteId);
 	}
 
-	public void step6() {
-		createSitePage.clickBasicDeveloperOptions();
-	}
-
-	public void step7() {
-		createSitePage.setFromGitRepositoryName("origin");
-	}
 
 	public void step8() {
-		createSitePage.setFromGitRepositoryURL(this.getWebDriverManager().getAuthoringSiteSandboxRepoURL(emptyBPSiteId));
+		createSitePage.setRepositoryURL(this.getWebDriverManager().getAuthoringSiteSandboxRepoURL(emptyBPSiteId));
 	}
 
 	public void step10() {
@@ -109,17 +94,8 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 		// Step 3
 		step3();
 
-		// Step 4
-		step4();
-
 		// Step 5
 		step5();
-
-		// Step 6
-		step6();
-
-		// Step 7
-		step7();
 
 		// Step 8
 		step8();
@@ -157,11 +133,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneA
 	}
 
 	public void setup() {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
+		loginPage.loginToCrafter();
 		this.createSiteUsingEmptyBluePrint(emptyBPSiteId);
 	}
 
