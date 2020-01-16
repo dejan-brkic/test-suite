@@ -44,7 +44,7 @@ public class SiteManagementAPI extends BaseAPI {
 		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(HttpStatus.SC_CREATED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
-				.json("$.message", is("OK")).debug();
+				.json("$.message", is("OK"));
 		this.setSiteId(siteId);
 	}
 

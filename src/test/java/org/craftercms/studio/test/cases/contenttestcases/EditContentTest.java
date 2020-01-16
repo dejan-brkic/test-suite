@@ -31,11 +31,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 
 public class EditContentTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String createFormFrameElementCss;
-	private String createFormMainTitleElementXPath;
-	private String createFormSaveAndCloseElement;
 	private String myRecentActivityTestingItem;
 	private String randomURL;
 	private String randomInternalName;
@@ -44,52 +40,13 @@ public class EditContentTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformTitle");
-		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.saveandclosebutton");
 		myRecentActivityTestingItem = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitemedited.myrecentactivity");
 
 		randomURL = "Test1";
 		randomInternalName = "Testing1";
-	}
-
-	public void changeBodyToNotRequiredOnEntryContent() {
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
-
-	public void createNewContent() {
-		// right click to see the the menu
-
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-		dashboardPage.clickOKButton();
-
-		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			// creating random values for URL field and InternalName field
-
-			// Set basics fields of the new content created
-			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
-
-			// Set the title of main content
-			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// save and close
-
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
-					.click();
-		});
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
 
 	public void editingContentRecentlyCreated() {
@@ -108,33 +65,14 @@ public class EditContentTest extends StudioBaseTest {
 	@Parameters({"testId"})
 	@Test()
 	public void verifyTheEditionOfAPageUsingRightClickEditOptionTest(String testId) {
-
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		// Wait for login page to closes
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
-		homePage.goToPreviewPage(testId);
-
-		// body not required
-		this.changeBodyToNotRequiredOnEntryContent();
-
-		// expand pages folder
+		loginPage.loginToCrafter();
+		homePage.goToDashboardPage(testId);
+		previewPage.clickSidebar();
 		dashboardPage.expandPagesTree();
-
-		// create new content
-		createNewContent();
-
-		// Expand Home Tree
+		previewPage.createEntryContent(randomURL, randomInternalName, "title" + testId, "body" + testId);
 		dashboardPage.expandHomeTree();
 
-		// Edited content recently created
-		getWebDriverManager().getDriver().navigate().refresh();
-
 		editingContentRecentlyCreated();
-
 		Assert.assertNotNull(getWebDriverManager().waitUntilElementIsDisplayed("xpath", myRecentActivityTestingItem),
 				"Content page is not displayed on the My Recent Activity Widget");
 	}

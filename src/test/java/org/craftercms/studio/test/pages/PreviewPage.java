@@ -59,22 +59,16 @@ public class PreviewPage {
 	private String studioLogo;
 	private String siteDropdownElementXPath;
 	private String adminConsoleXpath;
-	private String entryContentTypeBodyXpath;
-	private String entryContentTypeBodyCheckXpath;
 	private String createFormFrameElementCss;
 	private String articleContentCreatedName;
 	private String generalDeleteOption;
 	private String generalEditOption;
 	private String siteStatusIcon;
-	private String siteContentXpath;
-	private String articlesContentTypeRepeatingGroup;
 	private String gearItemXpath;
 	private String bulkPublishTab;
 	private String publishingFrame;
 	private String siteDropdownListElementXPath;
-	private String lastPropertiesElementCssSelector;
 	private String dependenciesForXpath;
-	private String articlesContentTypeDate;
 	private String itemsTree;
 	private String itemsSubtree;
 	private String authorsTree;
@@ -84,6 +78,7 @@ public class PreviewPage {
 	private String inContextEditOption;
 	private String draftSavedNotification;
     private String engineWindowId;
+    private String sidebarTreeLoading;
 	private static Logger logger = LogManager.getLogger(PreviewPage.class);
 
 	public PreviewPage(WebDriverManager driverManager,
@@ -157,12 +152,6 @@ public class PreviewPage {
 				.getProperty("complexscenarios.general.sitedropdownlielement");
 		adminConsoleXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
-		entryContentTypeBodyXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.entrycontenttype.body");
-		lastPropertiesElementCssSelector = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.entrycontenttype.propertiesdivlastelement");
-		entryContentTypeBodyCheckXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.entrycontenttype.bodyrequiredcheck");
 		createFormFrameElementCss = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
 		articleContentCreatedName = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -173,12 +162,6 @@ public class PreviewPage {
 				.getProperty("general.edittopnavoption");
 		siteStatusIcon = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.statustopbaricon");
-		siteContentXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("dashboard.site_content");
-		articlesContentTypeRepeatingGroup = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.edit.articles.content.type.sections.repeating.group");
-		articlesContentTypeDate = UIElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.edit.articles.content.type.date");
 		gearItemXpath = UIElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearlocator");
 		publishingFrame = UIElementsPropertiesManager.getSharedUIElementsLocators()
@@ -195,6 +178,8 @@ public class PreviewPage {
 				.getProperty("preview.saved_draft_notification");
         engineWindowId = UIElementsPropertiesManager.getSharedUIElementsLocators()
                 .getProperty("general.sites.iframe.engine.id");
+        sidebarTreeLoading = UIElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.sidebar.loading");
 	}
 
 	// Click on admin console link
@@ -449,40 +434,6 @@ public class PreviewPage {
 		this.saveAndCloseButton();
 	}
 
-	public void changeBodyOfEntryContentPageToNotRequired() {
-		// Show site content panel
-		this.driverManager.clickElement("xpath", siteDropdownElementXPath);
-		// go to admin console page
-		this.driverManager.clickElement("xpath", adminConsoleXpath);
-		// select content types
-		siteConfigPage.selectContentTypeOption();
-		// open content types
-		siteConfigPage.clickExistingTypeOption();
-		// Confirm the content type selected
-		siteConfigPage.confirmContentTypeSelected();
-		// wait for element is clickeable
-		driverManager.getDriver().switchTo().defaultContent();
-		// select main content
-		this.driverManager.waitUntilSiteConfigMaskedModalCloses();
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyXpath)
-				.click();
-		// Mark Body not required
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
-				lastPropertiesElementCssSelector);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
-		// save
-		this.driverManager.waitForAnimation();
-		siteConfigPage.saveDragAndDropProcess();
-		driverManager.getDriver().switchTo().defaultContent();
-		// go to dashboard
-		this.driverManager.getDriver().navigate().refresh();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
-				.click();
-	}
-
 	public void modifyPageXMLDefinitionContentAsFolderEntryContentType(String configurationSetUp) {
 		// Show site content panel
 		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
@@ -584,80 +535,9 @@ public class PreviewPage {
 				.click();
 	}
 
-	public void changeDateOfArticlePageToNotRequired() {
-		// Show site content panel
-		if (!(this.driverManager.waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", siteContentXpath).click();
-		// go to admin console page
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
-		// Click on Content Types Option
-		siteConfigPage.clickContentTypeOption();
-		// open content types
-		siteConfigPage.clickExistingTypeOption();
-		// select content types
-		siteConfigPage.selectPageArticleContentType();
-		// Confirm the content type selected
-		siteConfigPage.confirmContentTypeSelected();
-		// wait for element is clickeable
-		driverManager.getDriver().switchTo().defaultContent();
-		// Scroll Down to select the item
-		this.driverManager.scrollDown();
-		// select main content
-		this.driverManager.waitForAnimation();
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", articlesContentTypeDate)
-				.click();
-		// Mark Body not required
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
-				lastPropertiesElementCssSelector);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
-		// save
-		siteConfigPage.saveDragAndDropProcess();
-		this.driverManager.getDriver().switchTo().defaultContent();
-		// go to dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
-				.click();
-	}
-
-	public void changeBodyOfArticlePageToNotRequired() {
-		// go to admin console page
-		this.driverManager.clickElement("xpath", adminConsoleXpath);
-		// Click on Content Types Option
-		siteConfigPage.clickContentTypeOption();
-		// open content types
-		siteConfigPage.clickExistingTypeOption();
-		// select content types
-		siteConfigPage.selectPageArticleContentType();
-		// Confirm the content type selected
-		siteConfigPage.confirmContentTypeSelected();
-		// wait for element is clickeable
-		driverManager.getDriver().switchTo().defaultContent();
-		// Scroll Down to select the item
-		this.driverManager.scrollDown();
-		// select main content
-		this.driverManager.waitForAnimation();
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", articlesContentTypeRepeatingGroup)
-				.click();
-		// Mark Body not required
-		this.driverManager.waitForAnimation();
-		this.driverManager.focusAndScrollDownToBottomInASection("#properties-container",
-				lastPropertiesElementCssSelector);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayed("xpath", entryContentTypeBodyCheckXpath).click();
-		// save
-		siteConfigPage.saveDragAndDropProcess();
-		this.driverManager.getDriver().switchTo().defaultContent();
-		// go to dashboard
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", studioLogo)
-				.click();
-	}
-
 	public void createPageArticleContentUsingUploadedImage(String url, String name, String title,
 			String folderLocation, String selectedSegments, String selectedCategories, String subject,
-			String author, String summary) {
+			String author, String summary, String section) {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
@@ -677,18 +557,17 @@ public class PreviewPage {
 			this.driverManager.waitForAnimation();
 			dashboardPage.setArticlesTitle(title);
 			this.driverManager.waitForAnimation();
-			// Fill the New Article Content Section
-			this.driverManager.scrollDown();
-			this.driverManager.waitForAnimation();
-			dashboardPage.setNewArticleContentSection(subject, author, summary);
-			// Select the catergory of the Article Page
 			this.driverManager.scrollMiddle();
 			this.driverManager.waitForAnimation();
+			// Select the catergory of the Article Page
 			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
 			// Select the segment of the Article Page
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
+			// Fill the New Article Content Section
+			this.driverManager.waitForAnimation();
 			this.driverManager.scrollDown();
+			dashboardPage.setNewArticleContentSection(subject, author, summary, section);
 			// Add an Image
 			this.driverManager.waitForAnimation();
 			dashboardPage.addAnImageToAnArticleUsingUploadOption();
@@ -709,7 +588,7 @@ public class PreviewPage {
 
 	public void createPageArticleContent(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author,
-			String summary) {
+			String summary, String section) {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
@@ -728,20 +607,18 @@ public class PreviewPage {
 			this.driverManager.waitForAnimation();
 			dashboardPage.setArticlesTitle(title);
 			this.driverManager.waitForAnimation();
-			// Fill the New Article Content Section
-			this.driverManager.scrollDown();
-			this.driverManager.waitForAnimation();
-			dashboardPage.setNewArticleContentSection(subject, author, summary);
-			// Select the catergory of the Article Page
 			this.driverManager.scrollMiddle();
 			this.driverManager.waitForAnimation();
-			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
+			// Select the catergory of the Article Page
+			dashboardPage.setNewArticleContentSection(subject, author, summary, section);
 			// Select the segment of the Article Page
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
-			this.driverManager.scrollDown();
-			// Add an Image
 			this.driverManager.waitForAnimation();
+			this.driverManager.scrollDown();
+			// Fill the New Article Content Section
+			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
+			// Add an Image
 			dashboardPage.addAnImageToAnArticle();
 			// Switch to the iframe
 			driverManager.getDriver().switchTo().defaultContent();
@@ -752,8 +629,7 @@ public class PreviewPage {
 			// save and close
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitForFullExpansionOfTree();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
-					.click();
+			dashboardPage.clickSaveClose();
 		});
 		this.driverManager.waitUntilSidebarOpens();
 
@@ -761,7 +637,7 @@ public class PreviewPage {
 
 	public void createPageArticleContentUsingWinterWomanPicture(String url, String name, String title,
 			String folderLocation, String selectedSegments, String selectedCategories, String subject,
-			String author, String summary) {
+			String author, String summary, String section) {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
@@ -779,12 +655,7 @@ public class PreviewPage {
 			dashboardPage.setInternalName1(name);
 			this.driverManager.waitForAnimation();
 			dashboardPage.setArticlesTitle(title);
-			this.driverManager.waitForAnimation();
 			// Fill the New Article Content Section
-			this.driverManager.scrollDown();
-			this.driverManager.waitForAnimation();
-			dashboardPage.setNewArticleContentSection(subject, author, summary);
-			// Select the catergory of the Article Page
 			this.driverManager.scrollMiddle();
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
@@ -792,8 +663,10 @@ public class PreviewPage {
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
 			this.driverManager.scrollDown();
-			// Add an Image
+			dashboardPage.setNewArticleContentSection(subject, author, summary, section);
+			// Select the catergory of the Article Page
 			this.driverManager.waitForAnimation();
+			// Add an Image
 			dashboardPage.addWinterWomanAssetImageToAnArticle();
 			// Switch to the iframe
 			driverManager.getDriver().switchTo().defaultContent();
@@ -804,8 +677,7 @@ public class PreviewPage {
 			// save and close
 			this.driverManager.waitForAnimation();
 			this.driverManager.waitForFullExpansionOfTree();
-			this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("id", "cstudioSaveAndClose")
-					.click();
+			dashboardPage.clickSaveClose();
 		});
 		this.driverManager.waitUntilSidebarOpens();
 
@@ -813,7 +685,7 @@ public class PreviewPage {
 
 	public void createPageArticleContentAsDraft(String url, String name, String title, String folderLocation,
 			String selectedSegments, String selectedCategories, String subject, String author,
-			String summary) {
+			String summary, String section) {
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", folderLocation);
 		// right click to see the the menu
 		dashboardPage.rightClickToSeeMenuOfSpecificFolder(folderLocation);
@@ -831,12 +703,6 @@ public class PreviewPage {
 			dashboardPage.setInternalName1(name);
 			this.driverManager.waitForAnimation();
 			dashboardPage.setArticlesTitle(title);
-			this.driverManager.waitForAnimation();
-			// Fill the New Article Content Section
-			this.driverManager.scrollDown();
-			this.driverManager.waitForAnimation();
-			dashboardPage.setNewArticleContentSection(subject, author, summary);
-			// Select the catergory of the Article Page
 			this.driverManager.scrollMiddle();
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectCategoriesOfNewPageArticle(selectedCategories);
@@ -844,9 +710,10 @@ public class PreviewPage {
 			this.driverManager.waitForAnimation();
 			dashboardPage.selectSegmentsOfNewPageArticle(selectedSegments);
 			this.driverManager.scrollDown();
+			dashboardPage.setNewArticleContentSection(subject, author, summary, section);
+			// Select the catergory of the Article Page
 			// Add an Image
 			this.driverManager.waitForAnimation();
-
 			// Switch to the iframe
 			driverManager.getDriver().switchTo().defaultContent();
 			driverManager.getDriver().switchTo()
@@ -861,7 +728,6 @@ public class PreviewPage {
 					.click();
 			this.driverManager.waitUntilElementIsDisplayed("xpath", draftSavedNotification);
 			this.driverManager.waitUntilElementIsNotDisplayed("xpath", draftSavedNotification);
-			this.driverManager.waitForFullExpansionOfTree();
 			this.driverManager
 					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("id", "colExpButtonBtn").click();
 
@@ -870,6 +736,32 @@ public class PreviewPage {
 					.click();
 		});
 		this.driverManager.waitUntilSidebarOpens();
+	}
+
+	public PreviewPage createEntryContent(String url, String name, String title, String body) {
+		// right click to see the the menu
+		dashboardPage.rightClickToSeeMenu();
+
+		// Select Entry Content Type
+		dashboardPage.clickEntryCT();
+
+		// Confirm the Content Type selected
+		dashboardPage.clickOKButton();
+
+		driverManager.usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
+			// creating random values for URL field and InternalName field
+
+			// Set basics fields of the new content created
+			dashboardPage.setPageURL1(url);
+			dashboardPage.setInternalName1(name);
+			dashboardPage.setArticlesTitle(title);
+			dashboardPage.setTinyMCEBody(body);
+			// save and close
+			dashboardPage.clickSaveClose();
+		});
+
+		driverManager.waitUntilSidebarOpens();
+		return this;
 	}
 
 	public void checkDependencies() {
@@ -882,7 +774,7 @@ public class PreviewPage {
 				dependenciesSelector);
 		Select categoriesDropDown = new Select(this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dependenciesSelector));
-		categoriesDropDown.selectByValue("depends-on");
+		categoriesDropDown.selectByValue("depends-on-me");
 		this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath", gearItemXpath);
 		Assert.assertTrue(this.getDriverManager().isElementPresentByXpath(gearItemXpath));
 		this.driverManager
@@ -938,8 +830,7 @@ public class PreviewPage {
 			if ((dependentItemName.equalsIgnoreCase("home.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("home.groovy"))
 					|| (dependentItemName.equalsIgnoreCase("strawberries.jpg"))
-					|| (dependentItemName.equalsIgnoreCase("Three"))
-					|| (dependentItemName.equalsIgnoreCase("Two"))
+					|| (dependentItemName.equalsIgnoreCase("feature.ftl"))
 					|| (dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"))) {
 				firstCheckPass = true;
 			}
@@ -947,9 +838,7 @@ public class PreviewPage {
 					|| (dependentItemLocation.equalsIgnoreCase("/scripts/pages/home.groovy"))
 					|| (dependentItemLocation.equalsIgnoreCase("/static-assets/images/strawberries.jpg"))
 					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/components/features/sapien-veroeros.xml"))
-					|| (dependentItemLocation
-							.equalsIgnoreCase("/site/components/features/quam-lorem-ipsum.xml"))
+							.equalsIgnoreCase("/templates/web/components/feature.ftl"))
 					|| (dependentItemLocation.equalsIgnoreCase(
 							"/site/components/left-rails/left-rail-with-latest-articles.xml"))) {
 				secondCheckPass = true;
@@ -1585,7 +1474,7 @@ public class PreviewPage {
 	}
 
 	public void checkDependentItemsForTemplate(String templateName, WebElement element, boolean dependsOn) {
-		if (!dependsOn) {
+		if (dependsOn) {
 			checkDependsOn(templateName, element);
 		} else {
 			checkDependsOnMe(templateName, element);
@@ -1638,7 +1527,7 @@ public class PreviewPage {
 		boolean firstCheckPass = false;
 		boolean secondCheckPass = false;
 
-		if (!dependsOn) {
+		if (dependsOn) {
 			switch (componentName) {
 			case "Latest Articles Widget":
 				Assert.assertTrue(dependentItemName.equalsIgnoreCase("Left Rail with Latest Articles"));
@@ -1688,7 +1577,7 @@ public class PreviewPage {
 					secondCheckPass = true;
 				}
 				break;
-			case "Four":
+			case "Five":
 				if ((dependentItemName.equalsIgnoreCase("feature.ftl"))) {
 					firstCheckPass = true;
 				}
@@ -1714,6 +1603,8 @@ public class PreviewPage {
 				throw new IllegalArgumentException(
 						"No component case for provided component name: " + componentName);
 			}
+			Assert.assertTrue(firstCheckPass);
+			Assert.assertTrue(secondCheckPass);
 		}
 
 	}
@@ -1758,7 +1649,7 @@ public class PreviewPage {
 
 	public void checkNumberOfItemOnDependencies(String componentName, List<WebElement> dependeciesItems,
 			boolean dependsOn) {
-		if (!dependsOn) {
+		if (dependsOn) {
 			switch (componentName) {
 			case "Latest Articles Widget":
 				Assert.assertTrue(dependeciesItems.size() == 1);
@@ -1811,7 +1702,7 @@ public class PreviewPage {
 		} else {
 			switch (componentName) {
 			case "Home":
-				Assert.assertTrue(dependeciesItems.size() == 6);
+				Assert.assertTrue(dependeciesItems.size() == 5);
 				break;
 			case "Style":
 				Assert.assertTrue(dependeciesItems.size() == 2);
@@ -1831,7 +1722,7 @@ public class PreviewPage {
 			case "Header":
 				Assert.assertTrue(dependeciesItems.size() == 1);
 				break;
-			case "Four":
+			case "Five":
 				Assert.assertTrue(dependeciesItems.size() == 1);
 				break;
 			case "Left Rail with Latest Articles":
@@ -1949,6 +1840,16 @@ public class PreviewPage {
 
 	public PreviewPage clickSidebar() {
 		driverManager.clickElement("xpath", siteDropdownElementXPath);
+		return this;
+	}
+
+	public PreviewPage goToDashboard() {
+		driverManager.clickElement("xpath", studioLogo);
+		return this;
+	}
+
+	public PreviewPage waitForSidebarTreeLoading(int timeout) {
+		driverManager.waitUntilElementIsNotDisplayed("xpath", sidebarTreeLoading, timeout);
 		return this;
 	}
 }

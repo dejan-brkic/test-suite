@@ -41,7 +41,6 @@ import org.openqa.selenium.WebElement;
 public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser extends StudioBaseTest {
 
 	private String siteDropdownElementXPath;
-	private String pagesTreeLink;
 	private String pagesTree;
 	private String homeContent;
 	private String rightclickEditOption;
@@ -65,7 +64,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 	private LinkedList<String> rightClickOptionsListInCategoryLandingPage;
 	private LinkedList<String> rightClickOptionsListInMenStylesForWinterPage;
 	private String rightClickOptions;
-	private String siteDropdownListElementXPath;
 	private static Logger logger = LogManager
 			.getLogger(VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser.class);
 
@@ -76,8 +74,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 		apiTestHelper.createUserAddToGroup(testUser, testGroup);
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
-		pagesTreeLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitecontent.expandpages");
 		pagesTree = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.expand_Pages_Tree");
 		homeContent = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -118,8 +114,6 @@ public class VerifyRightClickOptionsOfAPagesUnderPageStructureUsingAuthorUser ex
 				.getProperty("dashboard.articles.folder.2017.1.menstylesforwinter");
 		rightClickOptions = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.list.all.options");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	public void rightClickHome() {

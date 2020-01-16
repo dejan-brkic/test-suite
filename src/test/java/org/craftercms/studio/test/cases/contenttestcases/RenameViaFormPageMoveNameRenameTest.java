@@ -32,14 +32,10 @@ import org.testng.annotations.Test;
 // Test Case Studio- Site Content ID:33
 public class RenameViaFormPageMoveNameRenameTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String createFormFrameElementCss;
 	private String createFormSaveAndCloseElement;
-	private String createFormMainTitleElementXPath;
 	private String randomURL;
 	private String randomInternalName;
-	private String configurationSetUp;
 	private String dashboardLink;
 	private String editRecentlyContentCreated;
 	private String recentActivityContentURL;
@@ -54,14 +50,10 @@ public class RenameViaFormPageMoveNameRenameTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
 		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.saveandclosebutton");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformTitle");
 		dashboardLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.dashboard.dashboardlink");
 		editRecentlyContentCreated = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -79,72 +71,15 @@ public class RenameViaFormPageMoveNameRenameTest extends StudioBaseTest {
 		filenameInput = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("frame1.filenameinput");
 		randomURL = "foo";
 		randomInternalName = "foo";
-		configurationSetUp = "<content-type name=\"/page/entry\" is-wcm-type=\"true\">"
-				+ "<label>Entry</label>" + "<form>/page/entry</form>" + "<form-path>simple</form-path>"
-				+ "<model-instance-path>NOT-USED-BY-SIMPLE-FORM-ENGINE</model-instance-path>"
-				+ "<file-extension>xml</file-extension>" + "<content-as-folder>false</content-as-folder>"
-				+ "<previewable>true</previewable>" + "<noThumbnail>true</noThumbnail>"
-				+ "<image-thumbnail>image.jpg</image-thumbnail>" + "</content-type>";
-
-	}
-
-	public void changeBodyToNotRequiredOnEntryContent() {
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
-
-	public void createContent() {
-		// right click to see the the menu
-		getWebDriverManager().waitUntilPageLoad();
-		getWebDriverManager().waitUntilSidebarOpens();
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-		dashboardPage.clickOKButton();
-
-		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			// creating random values for URL field and InternalName field
-
-			// Set basics fields of the new content created
-			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
-
-			// Set the title of main content
-			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// save and close
-
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
-					.click();
-		});
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
 
 	}
 
 	public void setup(String siteId) {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(siteId);
-
-		// body not required
-		this.changeBodyToNotRequiredOnEntryContent();
-
-		// create content
-		createContent();
-
-		// reload page
-		getWebDriverManager().getDriver().navigate().refresh();
-
-		// click on dashboard
-		this.getWebDriverManager().waitForAnimation();
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink);
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", dashboardLink).click();
+		previewPage.clickSidebar();
+		previewPage.createEntryContent(randomURL, randomInternalName, "title" + siteId, "body" + siteId)
+				.goToDashboard();
 
 		// check items on My Recent Activity widget
 		this.getWebDriverManager().waitForAnimation();
@@ -162,16 +97,8 @@ public class RenameViaFormPageMoveNameRenameTest extends StudioBaseTest {
 	}
 
 	public void step2() {
-		// expand pages folder
-		this.getWebDriverManager().waitUntilSidebarOpens();
-		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandPagesTree();
-
-		// reload page
-		getWebDriverManager().getDriver().navigate().refresh();
-
-		// expand home
-		dashboardPage.expandHomeTree();
+		//dashboardPage.expandHomeTree();
 	}
 
 	public void step9() {

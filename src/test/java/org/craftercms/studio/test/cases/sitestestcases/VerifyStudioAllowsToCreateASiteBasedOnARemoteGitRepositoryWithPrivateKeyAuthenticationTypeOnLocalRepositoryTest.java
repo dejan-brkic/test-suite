@@ -34,8 +34,6 @@ import org.testng.annotations.Test;
 public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeOnLocalRepositoryTest
 		extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String siteId;
 	private String siteDropdownElementXPath;
 	private String gitPrivateKey;
@@ -45,8 +43,6 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	@Parameters({"testId"})
 	@BeforeMethod
 	public void beforeTest(String testId) {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		localRepoName = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.localrepositoryname");
 		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
@@ -69,16 +65,8 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 		createSitePage.setSiteName(siteId);
 	}
 
-	public void step5() {
-		createSitePage.clickAdditionalDeveloperOptions();
-	}
-
 	public void step6() {
 		createSitePage.clickPushSiteToRemoteGitCheckbox();
-	}
-
-	public void step7() {
-		createSitePage.setPushRepositoryName("origin");
 	}
 
 	public void step8() {
@@ -119,11 +107,7 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 	}
 
 	public void testScenario() {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
+		loginPage.loginToCrafter();
 		// Step 2
 		step2();
 
@@ -133,14 +117,8 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPriva
 		// Step 4
 		step4();
 
-		// Step 5
-		step5();
-
 		// Step 6
 		step6();
-
-		// Step 7
-		step7();
 
 		// Step 8
 		step8();

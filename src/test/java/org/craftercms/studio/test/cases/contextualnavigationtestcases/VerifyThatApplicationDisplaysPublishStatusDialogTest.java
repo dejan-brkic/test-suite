@@ -31,11 +31,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 
 public class VerifyThatApplicationDisplaysPublishStatusDialogTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownXpath;
 	private String homeXpath;
-	private String siteDropdownListElementXPath;
 	private String publishStatusTitleText;
 	private String publishStatusProccessStatusText;
 
@@ -43,14 +39,8 @@ public class VerifyThatApplicationDisplaysPublishStatusDialogTest extends Studio
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
 		homeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.home");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		publishStatusTitleText = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.publishingstatus.title");
 		publishStatusProccessStatusText = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -60,23 +50,9 @@ public class VerifyThatApplicationDisplaysPublishStatusDialogTest extends Studio
 	@Parameters({"testId"})
 	@Test()
 	public void verifyThatApplicationDisplaysPublishStatusDialogTest(String testId) {
-
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-		
-		//Wait for login page to closes
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-
-		getWebDriverManager().clickElement( "xpath", siteDropdownXpath);
-
-		// expand pages folder
-		previewPage.expandPagesTree();
-		
-		getWebDriverManager().getDriver().navigate().refresh();
-		
+		previewPage.clickSidebar();
 		// expand home content
 		previewPage.expandHomeTree();
 

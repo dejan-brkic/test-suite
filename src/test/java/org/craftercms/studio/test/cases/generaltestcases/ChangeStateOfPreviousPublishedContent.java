@@ -38,8 +38,6 @@ import org.openqa.selenium.WebElement;
 
 public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
 	private String userOptions;
@@ -52,7 +50,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String dependenciesMenuOption;
 	private String staticAssetsChildFolder;
 	private String staticAssetsImagesChildFolder;
-	private String generalSiteDropdown;
 	private String pageStatus;
 	private String staticAssetsGearImageXpath;
 	private String articlesFolder;
@@ -61,7 +58,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	private String expandPagesTree;
 	private String editedPageArticleName;
 	private String articleTitle;
-	private String siteDropdownElementXPath;
 	private String articleContentCreatedName;
 	private String gearImageXpath;
 	private int numberOfAttemptsForElementsDisplayed;
@@ -72,8 +68,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 	public void beforeTest(String testId, String blueprint, String testUser, String testGroup) {
 		apiTestHelper.createSite(testId, "", blueprint);
 		apiTestHelper.createUserAddToGroup(testUser, testGroup);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
 		selectAllSegmentsCheckBox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -99,8 +93,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("preview.static_assets_child_folder");
 		staticAssetsImagesChildFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("preview.static_assets_images_child_folder");
-		generalSiteDropdown = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
 		pageStatus = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.pageStatus");
 		staticAssetsGearImageXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("preview.staticassets.gear.image.xpath");
@@ -114,22 +106,12 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 				.getProperty("complexscenarios.general.editedarticlename");
 		articleTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.cssarticletitle");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		articleContentCreatedName = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitem");
 		gearImageXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.gearimagexpath");
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
-
-	}
-
-	public void login(String user, String loginpassword) {
-		// login to application
-		loginPage.loginToCrafter(user, loginpassword);
-		// Wait for login page to close
-		getWebDriverManager().waitUntilLoginCloses();
 
 	}
 
@@ -157,13 +139,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		});
 
 		this.getWebDriverManager().waitUntilSidebarOpens();
-
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
-
-		previewPage.changeDateOfArticlePageToNotRequired();
 
 	}
 
@@ -212,8 +187,6 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				".//span[contains(text(),'" + newPageArticleName + "')]").click();
 
-		this.getWebDriverManager().getDriver().navigate().refresh();
-
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", requestPublishButton);
 
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", requestPublishButton)
@@ -230,39 +203,19 @@ public class ChangeStateOfPreviousPublishedContent extends StudioBaseTest {
 
 		// Related to the bug:
 		// issue https://github.com/craftercms/craftercms/issues/1557
-		this.login(userName, password);
+		loginPage.loginToCrafter();
 
 		logger.info("Go to Site Preview {}", siteId);
 		homePage.goToPreviewPage(siteId);
 
-		this.getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
-
-		this.getWebDriverManager().waitUntilFolderOpens("xpath", expandPagesTree);
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-
-
-		// body not required Page-Article
-		logger.info("Change Article Page body content to not required");
-
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("id",
-
-				"admin-console");
-
-		// expand Home tree
-		this.getWebDriverManager().waitUntilFolderOpens("xpath", expandPagesTree);
+		previewPage.clickSidebar();
 
 		this.dashboardPage.expandHomeTree();
-
-		//this.getWebDriverManager().getDriver().navigate().refresh();
 
 		logger.info("Create Article Content");
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", articlesFolder, selectAllCategoriesCheckBox,
-
-				selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor", "ArticleSummary");
+				selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor", "ArticleSummary", "ArticleSection");
 
 		// Switch back to the dashboard page
 		this.getWebDriverManager().getDriver().switchTo().activeElement();

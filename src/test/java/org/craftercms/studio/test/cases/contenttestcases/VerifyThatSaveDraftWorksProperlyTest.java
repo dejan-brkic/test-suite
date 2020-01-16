@@ -35,10 +35,6 @@ import org.openqa.selenium.WebElement;
 // Test Case Studio- Site Content ID:48
 public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
 	private String articlesFolder;
@@ -56,12 +52,6 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String siteId, String blueprint) {
 		apiTestHelper.createSite(siteId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -85,13 +75,10 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 	}
 
 	public void loginAndGoToPreview(String siteId) {
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
+		loginPage.loginToCrafter();
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
+		previewPage.clickSidebar();
 
 	}
 
@@ -100,18 +87,12 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentAsDraft("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
-				"ArticleSummary");
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
+				"ArticleSummary", "ArticleSection");
 	}
 
 	public void openSidebarAndGotoArticlesChildFolderAndCreatNewArticleAsDraft() {
 
 		logger.info("Change Article Page body content to not required");
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
 		this.getWebDriverManager().waitUntilSidebarOpens();
 
 		// Expand Home Tree
@@ -161,13 +142,9 @@ public class VerifyThatSaveDraftWorksProperlyTest extends StudioBaseTest {
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath)
 				.isDisplayed());
 		logger.info("Checking if testing article has locked icon");
-		Assert.assertTrue(this.getWebDriverManager()
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
-						testingArticleCompleteXPath + "//span[@class='fa studio-fa-stack-1x fa-lock locked']")
-				.isDisplayed());
-		this.getWebDriverManager()
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingArticleCompleteXPath)
-				.click();
+
+		this.getWebDriverManager().clickElement("xpath", testingArticleCompleteXPath);
+
 
 		this.getWebDriverManager().waitForFullExpansionOfTree();
 		getWebDriverManager().getDriver().switchTo().defaultContent();

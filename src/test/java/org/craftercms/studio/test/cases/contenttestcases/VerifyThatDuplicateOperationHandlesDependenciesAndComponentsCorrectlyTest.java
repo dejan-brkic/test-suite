@@ -39,8 +39,6 @@ import org.openqa.selenium.WebElement;
 public class VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrectlyTest
 		extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String siteDropdownElementXPath;
 	private String articles2016Folder;
 	private String selectAllSegmentsCheckBox;
@@ -78,8 +76,6 @@ public class VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrect
 	@BeforeMethod
 	public void beforeTest(String siteId, String blueprint) {
 		apiTestHelper.createSite(siteId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -141,13 +137,8 @@ public class VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrect
 	}
 
 	public void loginAndGoToPreview(String testId) {
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-
 		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
 		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
@@ -157,7 +148,7 @@ public class VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrect
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
-				"ArticleSummary");
+				"ArticleSummary", "ArticleSection");
 	}
 
 	public void createSecondPageArticle(String folderLocation) {
@@ -165,19 +156,11 @@ public class VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrect
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingWinterWomanPicture("test2", "Testing2", "test2",
 				folderLocation, selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject",
-				"ArticleAuthor", "ArticleSummary");
+				"ArticleAuthor", "ArticleSummary", "ArticleSection");
 	}
 
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
-	}
 
 	public void openSidebarAndGotoArticlesChildFolderAndCreatNewArticle() {
-
-		logger.info("Change Article Page body content to not required");
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand pages folder
 		dashboardPage.expandPagesTree();
 
@@ -400,7 +383,7 @@ public class VerifyThatDuplicateOperationHandlesDependenciesAndComponentsCorrect
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("duplication-winter-woman-pic.jpg", false, true);
+		previewPage.checkDependenciesForStaticAssetItem("duplication-winter-woman-pic.jpg", true, true);
 
 	}
 

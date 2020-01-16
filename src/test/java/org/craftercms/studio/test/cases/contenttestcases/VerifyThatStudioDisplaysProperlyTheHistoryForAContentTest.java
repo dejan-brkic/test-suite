@@ -35,10 +35,7 @@ import org.openqa.selenium.WebElement;
 
 // Test Case Studio- Site Content ID:16
 public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends StudioBaseTest {
-
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
+	;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
 	private String articlesFolder;
@@ -59,10 +56,6 @@ public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends S
 	@BeforeMethod
 	public void beforeTest(String siteId, String blueprint) {
 		apiTestHelper.createSite(siteId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -90,14 +83,10 @@ public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends S
 	}
 
 	public void loginAndGoToPreview(String siteId) {
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(siteId);
-
-		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
+		previewPage.clickSidebar()
+				.expandHomeTree();
 	}
 
 	public void createNewPageArticle(String folderLocation) {
@@ -105,22 +94,10 @@ public class VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest extends S
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
-				"ArticleSummary");
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
+				"ArticleSummary", "ArticleSection");
 	}
 
 	public void openSidebarAndGotoArticlesChildFolderAndCreatNewArticle() {
-		logger.info("Change Article Page body content to not required");
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-
-		// Expand Home Tree
-		dashboardPage.expandHomeTree();
-
 		// expand Articles folder
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);

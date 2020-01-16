@@ -34,9 +34,6 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 // Test Case Studio- Site Content ID:8
 public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
 	private String articles2016Folder;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
@@ -54,10 +51,6 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 	@BeforeMethod
 	public void beforeTest(String siteId, String blueprint) {
 		apiTestHelper.createSite(siteId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.2016folder");
 		selectAllSegmentsCheckBox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -79,16 +72,10 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 	}
 
 	public void loginAndGoToPreview(String siteId) {
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(siteId);
-
-		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
+		previewPage.clickSidebar()
+				.expandHomeTree();
 	}
 
 	public void createNewPageArticle(String folderLocation) {
@@ -96,25 +83,10 @@ public class VerifyThatStudioDisplaysTheProperPreviewInfoForAContentTest extends
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContent("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
-				"ArticleSummary");
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
+				"ArticleSummary", "ArticleSection");
 	}
 
 	public void openSidebarAndGotoArticlesChildFolderAndCreatNewArticle() {
-
-		logger.info("Change Article Page body content to not required");
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-		// expand pages folder
-		dashboardPage.expandPagesTree();
-
-		// Expand Home Tree
-		dashboardPage.expandHomeTree();
-
 		// expand Articles folder
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);

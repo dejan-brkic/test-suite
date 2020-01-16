@@ -35,8 +35,6 @@ public class EditOptionTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(EditOptionTest.class);
 
-	private String userName;
-	private String password;
 	private String adminConsoleXpath;
 	private String entryContentTypeBodyXpath;
 	private String entryContentTypeBodyCheckCss;
@@ -46,18 +44,14 @@ public class EditOptionTest extends StudioBaseTest {
 	private String createFormMainTitleElementXPath;
 	private String testingContentItem;
 	private String topNavEditOption;
-	private String siteDropDownXpath;
 	private String crafterLogoId;
 	private String testingItemEditedXpath;
-	private String siteDropdownListElementXPath;
 	private String lastPropertiesElementCssSelector;
 
 	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
 		entryContentTypeBodyXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -76,14 +70,10 @@ public class EditOptionTest extends StudioBaseTest {
 				.getProperty("general.testingcontentitem");
 		topNavEditOption= uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.edittopnavoption");
-		siteDropDownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
 		crafterLogoId = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.studiologo");
 		testingItemEditedXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitemedited.sitecontent");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		lastPropertiesElementCssSelector = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.entrycontenttype.propertiesdivlastelement");
 	}
@@ -171,18 +161,9 @@ public class EditOptionTest extends StudioBaseTest {
 	@Test()
 	public void verifyTheEditionOfAPageUsingContextualNavigationEditOptionTest(String testId) {
 		logger.info("Starting test case");
-		// login to application
-
-		loginPage.loginToCrafter(userName, password);
-
-		//Wait for login page to close
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-
-		// Show site content panel
-		getWebDriverManager().clickElement("xpath", siteDropDownXpath);
+		previewPage.clickSidebar();
 		// Body Not requiered
 		bodyNotRequiered();
 

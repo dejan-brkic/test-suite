@@ -113,6 +113,9 @@ public class DashboardPage {
 	private String changeTemplateSubmitButtonLocator;
 	private String changeTemplateArticlesTitleLocator;
 	private String addCloseWinterWomanButton;
+	private String tinyMCEIframe;
+	private String tinyMCEBody;
+	private String iceFormIframe;
 	private static Logger logger = LogManager.getLogger(DashboardPage.class);
 
 	/**
@@ -273,6 +276,12 @@ public class DashboardPage {
 				.getProperty("dashboard.myrecentactivity.contentsecondicon");
 		authorReplaceImageButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("frame2.author.replaceimage");
+		tinyMCEIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.tinymce.iframe");
+		tinyMCEBody = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.tinymce.body");
+		iceFormIframe = uiElementsPropertiesManager.getSharedUIElementsLocators()
+				.getProperty("general.createformframe");
 	}
 
 
@@ -511,9 +520,7 @@ public class DashboardPage {
 
 	// Click on save and close button
 	public void clickSaveClose() {
-		WebElement saveCloseButton = this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", this.saveCloseButton);
-		saveCloseButton.click();
+		driverManager.clickElement("xpath", this.saveCloseButton);
 	}
 
 	// Click on save and close button
@@ -921,10 +928,20 @@ public class DashboardPage {
 		driverManager.sendText("xpath", changeTemplateArticlesTitleLocator, articlesTitle);
 	}
 
-	public void setNewArticleContentSection(String subject, String author, String summary) {
+	public void setTinyMCEBody(String text) {
+		driverManager.getDriver().switchTo().frame(driverManager.findElement("cssselector", tinyMCEIframe));
+		driverManager.sendText("xpath", tinyMCEBody, text, false, false);
+		driverManager.getDriver().switchTo().defaultContent();
+		driverManager.getDriver().switchTo()
+				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
+						iceFormIframe));
+	}
+
+	public void setNewArticleContentSection(String subject, String author, String summary, String section) {
 		driverManager.sendText("xpath", articlesSubjectInput, subject);
 		driverManager.sendText("xpath", articlesAuthorInput, author);
 		driverManager.sendText("xpath", articlesSummaryInput, summary);
+		setTinyMCEBody(section);
 	}
 
 	public void selectFirstCategoryOfPagArticle() {
@@ -934,17 +951,11 @@ public class DashboardPage {
 	}
 
 	public void selectCategoriesOfNewPageArticle(String category) {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", category);
-		WebElement categoryToCheck = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				category);
-		categoryToCheck.click();
+		driverManager.clickElement("xpath", category);
 	}
 
 	public void selectSegmentsOfNewPageArticle(String segments) {
-		this.driverManager.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", segments);
-		WebElement segmentToCheck = this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("xpath",
-				segments);
-		segmentToCheck.click();
+		driverManager.clickElement("xpath", segments);
 	}
 
 	public void selectAllTreeOnSelector(String folderXPath) {
@@ -1091,7 +1102,7 @@ public class DashboardPage {
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", parentElementLocator);
 		if (!parentElement.getAttribute("class").contains("open")) {
 			this.driverManager.waitUntilContentTooltipIsHidden();
-			parentElement.click();
+			driverManager.clickElement("xpath", parentElementLocator);
 		}
 	}
 
@@ -1155,15 +1166,8 @@ public class DashboardPage {
 
 		// Switch to the iframe
 		driverManager.getDriver().switchTo().defaultContent();
-		driverManager.getDriver().switchTo()
-				.frame(this.driverManager.driverWaitUntilElementIsPresentAndDisplayed("cssSelector",
-						".studio-ice-dialog > .bd iframe"));
-		this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
-		driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo().frame(2);
-		this.driverManager
-				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", addCloseGearImageButton)
-				.click();
+		this.driverManager.getDriver().switchTo().frame(3);
+		this.driverManager.clickElement("xpath", addCloseGearImageButton);
 
 	}
 
@@ -1183,7 +1187,7 @@ public class DashboardPage {
 						".studio-ice-dialog > .bd iframe"));
 		this.driverManager.isElementPresentAndClickableBycssSelector(".studio-ice-dialog > .bd iframe");
 		driverManager.getDriver().switchTo().defaultContent();
-		this.driverManager.getDriver().switchTo().frame(2);
+		this.driverManager.getDriver().switchTo().frame(3);
 		this.driverManager.scrollDown();
 		this.driverManager
 				.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", addCloseWinterWomanButton)

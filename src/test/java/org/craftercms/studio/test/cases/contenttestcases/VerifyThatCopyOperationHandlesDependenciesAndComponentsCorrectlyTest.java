@@ -38,9 +38,6 @@ import org.openqa.selenium.WebElement;
 // Test Case Studio- Site Content ID:6
 public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
 	private String articles2016Folder;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
@@ -72,10 +69,6 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	@BeforeMethod
 	public void beforeTest(String siteId, String blueprint) {
 		apiTestHelper.createSite(siteId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.articles.2016folder");
 		selectAllSegmentsCheckBox = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -125,14 +118,10 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 	}
 
 	public void loginAndGoToPreview(String siteId) {
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
+		loginPage.loginToCrafter();
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-
-		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
+		previewPage.clickSidebar();
 
 		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
@@ -142,7 +131,7 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
-				"ArticleSummary");
+				"ArticleSummary", "ArticleSection");
 	}
 
 	public void createSecondPageArticle(String folderLocation) {
@@ -150,18 +139,10 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingWinterWomanPicture("test2", "Testing2", "test2",
 				folderLocation, selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject",
-				"ArticleAuthor", "ArticleSummary");
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
+				"ArticleAuthor", "ArticleSummary", "ArticleSection");
 	}
 
 	public void openSidebarAndGotoArticlesChildFolderAndCreatNewArticle() {
-
-		logger.info("Change Article Page body content to not required");
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
 		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand pages folder
 		dashboardPage.expandPagesTree();
@@ -301,7 +282,7 @@ public class VerifyThatCopyOperationHandlesDependenciesAndComponentsCorrectlyTes
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("winter-woman-pic.jpg", false, false);
+		previewPage.checkDependenciesForStaticAssetItem("winter-woman-pic.jpg", true, false);
 
 	}
 
