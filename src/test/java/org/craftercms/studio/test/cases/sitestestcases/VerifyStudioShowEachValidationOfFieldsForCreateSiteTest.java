@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.cases.sitestestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -67,7 +66,7 @@ public class VerifyStudioShowEachValidationOfFieldsForCreateSiteTest extends Stu
 				.getProperty("home.createsite.repositoryprivatekeyvalidation");
 		siteIdNumericExpectedMsg = "Site names may not start with zeros, dashes (-) or underscores (_).";
 		siteIdRequiredExpectedMsg = "Site ID is required.";
-		gitRepoUrlExpectedMsg = "The git repository URL to push.";
+		gitRepoUrlExpectedMsg = "Git Repo URL is required.";
 		gitRepoPasswordExpectedMsg = "Password is required.";
 		gitRepoUsernameExpectedMsg  = "Username is required.";
 		gitRepoTokenExpectedMsg = "Token is required.";
