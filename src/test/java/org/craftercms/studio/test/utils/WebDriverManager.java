@@ -366,7 +366,7 @@ public class WebDriverManager {
 		logger.info("Waiting for element to be hidden: {} , {}", typeOfSelector, selectorValue);
 		By selector = getSelector(typeOfSelector, selectorValue);
 		new WebDriverWait(driver, timeOut).until(ExpectedConditions
-				.refreshed(ExpectedConditions.invisibilityOf(driver.findElement(selector))));
+				.refreshed(ExpectedConditions.invisibilityOfElementLocated(selector)));
 	}
 
 	public void waitUntilElementIsHidden(WebElement element) {
@@ -844,7 +844,7 @@ public class WebDriverManager {
 		String contentTypeInfo = "";
 
 		logger.debug("Moving pointer to element");
-		this.moveMouseToElementAndClick(element);
+		this.moveMouseToElement(element);
 
 		WebElement toolTip = this.waitUntilElementIsDisplayed("xpath", toolTipModal);
 
@@ -905,17 +905,23 @@ public class WebDriverManager {
 	}
 
 	public void sendText(String selectorType, String selectorValue, String text) {
-		sendText(selectorType, selectorValue, text, true);
+		sendText(selectorType, selectorValue, text, true, true);
 	}
 
-	public void sendText(String selectorType, String selectorValue, String text, boolean clearInput) {
+	public void sendText(String selectorType, String selectorValue, String text, Boolean clear) {
+		sendText(selectorType, selectorValue, text, clear, true);
+	}
+
+	public void sendText(String selectorType, String selectorValue, String text, boolean clearInput, boolean checkText) {
 		logger.debug("Filling element {}, {} with value {}", selectorType, selectorValue, text);
 		WebElement input = waitUntilElementIsClickable(selectorType, selectorValue);
 		if (clearInput) {
 			input.clear();
 		}
 		input.sendKeys(text);
-		waitUntilAttributeIs(selectorType, selectorValue, "value", text);
+		if (checkText) {
+			waitUntilAttributeIs(selectorType, selectorValue, "value", text);
+		}
 	}
 
 	public void sendTextByLineJS(String selectorType, String selectorValue, String filePath){
@@ -1154,8 +1160,7 @@ public class WebDriverManager {
 		String script;
 		String shell;
 
-		String folder = System.getProperty("user.dir") + File.separator + ".." +
-				File.separator + ".."
+		String folder = System.getProperty("user.dir") + File.separator + "craftercms"
 				+ File.separator + "crafter-delivery" + File.separator + "bin";
 
 		shell = "/bin/bash";
@@ -1206,7 +1211,7 @@ public class WebDriverManager {
 
 	@SuppressWarnings("deprecation")
 	public int goToFolderAndExecuteGitInitBareRepository(String repositoryName) {
-		String repositoryFolder = System.getProperty("user.dir") +File.separator + ".." + File.separator + ".."
+		String repositoryFolder = System.getProperty("user.dir") +File.separator + "craftercms"
 				+ File.separator + "crafter-authoring" + File.separator + "data" + File.separator + "craftercms_testrepos"
 				+ File.separator + repositoryName + File.separator;
 
@@ -1232,7 +1237,7 @@ public class WebDriverManager {
 
 	public int goToFolderAndExecuteDeleteBareRepositoryFolder(String repositoryName) {
 		try {
-			String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+			String repositoryFolder = System.getProperty("user.dir") + File.separator + "craftercms"
 					+ File.separator + "crafter-authoring" + File.separator + "data" + File.separator
 					+ "craftercms_testrepos";
 
@@ -1250,15 +1255,15 @@ public class WebDriverManager {
 	}
 
 	public String getLocalBareRepoURL(String repositoryName) {
-		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+		String repositoryFolder = System.getProperty("user.dir") + File.separator + "craftercms"
 				+ File.separator + "crafter-authoring" + File.separator + "data" + File.separator
 				+ "craftercms_testrepos" + File.separator + repositoryName + File.separator;
 		return repositoryFolder;
 	}
 
 	public String getAuthoringSiteSandboxRepoURL(String siteID) {
-		String repositoryFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator
-				+ ".." + File.separator + "crafter-authoring" + File.separator + "data" + File.separator
+		String repositoryFolder = System.getProperty("user.dir") + File.separator + "craftercms" + File.separator
+				+  "crafter-authoring" + File.separator + "data" + File.separator
 				+ "repos" + File.separator + "sites" + File.separator + siteID + File.separator + "sandbox";
 
 		return repositoryFolder;
