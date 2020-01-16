@@ -34,33 +34,15 @@ import org.testng.annotations.Test;
 public class DeleteOptionTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(DeleteOptionTest.class);
-
-	private String userName;
-	private String password;
-
-	private String createFormFrameElementCss;
-	private String createFormSaveAndCloseElement;
-	private String createFormMainTitleElementXPath;
 	private String testingItemURLXpath;
-	private String studioLogo;
-
 	private String testItemXpath;
 
 	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.createformframe");
-		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.saveandclosebutton");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformTitle");
 		testingItemURLXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.firstelementurl");
-		studioLogo = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.studiologo");
 		testItemXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general" + ".testingcontentitem");
 	}
@@ -69,95 +51,20 @@ public class DeleteOptionTest extends StudioBaseTest {
 	@Test()
 	public void deletePageUsingContextualNavigationDeleteOptionTest(String testId) {
 		logger.info("Starting test case");
-		// login to application
-
-		loginPage.loginToCrafter(userName, password);
-
-		// Wait for login page to closes
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-
-		// body not required
-		this.changeBodyToNotRequiredOnEntryContent();
-
-		getWebDriverManager().getDriver().switchTo().defaultContent();
-
-		// expand pages folder
-		dashboardPage.expandPagesTree();
-
-		this.createContent();
-
-		this.getWebDriverManager().waitForAnimation();
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
-
-		// wait for element is clickeable
-		this.getWebDriverManager().waitForAnimation();
-		dashboardPage.expandHomeTree();
-
+		previewPage.clickSidebar()
+				.createEntryContent("Test1", "Testing1", "title" + testId, "body" + testId)
+				.goToDashboard();
 		// Select the content to delete.
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", testItemXpath).click();
-
-		// click on delete option
 		previewPage.clickOnDeleteOption();
-
-		// Click on Delete dependencies
-
 		previewPage.clickOnDeleteDependencies();
-
-		// Click nn OK Delete dependencies
-
 		previewPage.clickOnOKDeleteDependencies();
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-		this.getWebDriverManager().waitForAnimation();
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", studioLogo).click();
-
-		this.getWebDriverManager().waitForAnimation();
-		this.getWebDriverManager().waitForFullExpansionOfTree();
-		
-		this.getWebDriverManager().waitForAnimation();
+		previewPage.goToDashboard();
 		String contentDelete = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", testingItemURLXpath).getText();
 		Assert.assertEquals(contentDelete, "/test1");
-	}
-
-	public void changeBodyToNotRequiredOnEntryContent() {
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
-
-	public void createContent() {
-		logger.info("Creating new content");
-		getWebDriverManager().waitUntilPageLoad();
-		getWebDriverManager().waitUntilSidebarOpens();
-		// right click to see the the menu
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-		dashboardPage.clickOKButton();
-
-		// Switch to the iframe
-		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			// Set basics fields of the new content created
-			this.getWebDriverManager().waitForAnimation();
-			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
-
-			// Set the title of main content
-			this.getWebDriverManager().waitForAnimation();
-			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// save and close
-			this.getWebDriverManager().waitForAnimation();
-			this.getWebDriverManager().waitForAnimation();
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
-					.click();
-
-		});
-
 	}
 
 	@Parameters({"testId"})

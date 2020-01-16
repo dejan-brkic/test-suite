@@ -36,13 +36,9 @@ import org.openqa.selenium.TimeoutException;
 
 public class HistoryOptionTest extends StudioBaseTest{
 
-	private String userName;
-	private String password;
-	private String siteDropdownXpath;
 	private String homeXpath;
 	private String historyDialogTitle;
 	private String actionsHeaderXpath;
-	private String siteDropdownListElementXPath;
 
 	private static Logger logger = LogManager.getLogger(HistoryOptionTest.class);
 
@@ -50,34 +46,20 @@ public class HistoryOptionTest extends StudioBaseTest{
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
 		homeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.home");
 		historyDialogTitle = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.historydialogtitle");
 		actionsHeaderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.historydialogactionsheader");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 	}
 
 	@Parameters({"testId"})
 	@Test()
 	public void verifyThatTheHistoryDialogIsDisplayedTest(String testId) {
-
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-		
-		//Wait for login page to close
-		getWebDriverManager().waitUntilLoginCloses();
-		
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-
-		getWebDriverManager().clickElement("xpath", siteDropdownXpath);
+		previewPage.clickSidebar();
 		
 		this.getWebDriverManager().waitUntilSidebarOpens();
 		

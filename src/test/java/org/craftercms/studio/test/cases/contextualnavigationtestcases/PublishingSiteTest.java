@@ -40,11 +40,7 @@ import org.openqa.selenium.TimeoutException;
  */
 
 public class PublishingSiteTest extends StudioBaseTest {
-	private String userName;
-	private String password;
-	private String createFormFrameElementCss;
-	private String createFormMainTitleElementXPath;
-	private String createFormSaveAndCloseElement;
+
 	private String testingContentItem;
 	private String topNavStatusIcon;
 	private String homeXpath;
@@ -56,14 +52,6 @@ public class PublishingSiteTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformframe");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformTitle");
-		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.saveandclosebutton");
 		testingContentItem = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitem");
 		topNavStatusIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -71,51 +59,6 @@ public class PublishingSiteTest extends StudioBaseTest {
 		homeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.home");
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
-
-	}
-
-	public void changeBodyToNotRequiredOnEntryContent() {
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
-
-	public void createNewContent() {
-
-		// right click to see the the menu
-
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-
-		dashboardPage.clickOKButton();
-
-		// Switch to the iframe
-
-		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-
-			// Set basics fields of the new content created
-
-			logger.info("Set the fields of the new content");
-
-			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
-
-			// Set the title of main content
-
-			this.getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// save and close
-
-			logger.info("Click on Save and close button");
-
-			this.getWebDriverManager()
-
-					.driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", createFormSaveAndCloseElement)
-					.click();
-
-		});
 
 	}
 
@@ -136,43 +79,11 @@ public class PublishingSiteTest extends StudioBaseTest {
 	@Parameters({"testId"})
 	@Test()
 	public void publishingSite(String testId) {
-
-		// login to application
-
-		loginPage.loginToCrafter(userName, password);
-
-		// Wait for login page to closes
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// goto preview page
-
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
+		previewPage.clickSidebar()
+				.createEntryContent("Test1", "Testing1", "title" + testId, "body" + testId);
 
-		// select the content type to the test
-
-		changeBodyToNotRequiredOnEntryContent();
-
-		// Switch to the form
-
-		getWebDriverManager().getDriver().switchTo().defaultContent();
-
-		// expand pages folder
-
-		dashboardPage.expandPagesTree();
-
-		// expand home content
-		this.getWebDriverManager().waitUntilPageLoad();
-		this.getWebDriverManager().waitUntilSidebarOpens();
-	
-
-		dashboardPage.expandHomeTree();
-
-		// create a new content
-
-		createNewContent();
-
-		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", testingContentItem).click();
 
 		// approve and publish

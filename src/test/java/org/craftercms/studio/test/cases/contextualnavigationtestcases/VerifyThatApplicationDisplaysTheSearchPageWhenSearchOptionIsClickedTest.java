@@ -31,12 +31,7 @@ import org.craftercms.studio.test.cases.StudioBaseTest;
 
 public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClickedTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownXpath;
 	private String homeXpath;
-	private String siteDropdownListElementXPath;
-	private String searchBoxInput;
 	private String searchPageTitleXpath;
 	private String searchResultsCss;
 
@@ -44,16 +39,9 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
+
 		homeXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.home");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
-		searchBoxInput=uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.searchpage.searchbox");
 		searchPageTitleXpath=uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.searchpage.title");
 		searchResultsCss= uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -63,21 +51,9 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 	@Parameters({"testId"})
 	@Test()
 	public void verifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClickedTest(String testId) {
-
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-		
-		//Wait for login page to closes
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-
-		// Show site content panel
-		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed( "xpath",
-				siteDropdownXpath).click();
+		previewPage.clickSidebar();
 
 		// expand pages folder
 		previewPage.expandPagesTree();
@@ -95,9 +71,9 @@ public class VerifyThatApplicationDisplaysTheSearchPageWhenSearchOptionIsClicked
 		// Assertions	
 		Assert.assertTrue(this.getWebDriverManager().getDriver().getCurrentUrl().contains("/studio/search?"));
 		String searchPlaceholder = this.getWebDriverManager().waitUntilElementIsDisplayed("xpath",searchPageTitleXpath).getAttribute("placeholder");
+		getWebDriverManager().waitUntilSidebarOpens();
 		Assert.assertTrue("Search".equalsIgnoreCase(searchPlaceholder));
 		this.getWebDriverManager().sendText("xpath", searchPageTitleXpath, "entry");
-		this.getWebDriverManager().clickElement("xpath", searchBoxInput);
 		Assert.assertTrue("entry.ftl".equals(this.getWebDriverManager().waitForNumberElementsToBe(
 				"cssselector", searchResultsCss, 1).getText()));
 	}

@@ -33,8 +33,6 @@ import org.openqa.selenium.TimeoutException;
  */
 public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String historyFirstItemCheckbBox;
 	private String historySecondItemCheckbBox;
 	private String differencesDialogId;
@@ -43,7 +41,6 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	private String createFormFrameElementCss;
 	private String createFormTitleElementXPath;
 	private String actionsHeaderXpath;
-	private String siteDropdownElementXPath;
 	private String firstItemRevertXpath;
 	private String historyRevertButtonXpath;
 	private static Logger logger = LogManager.getLogger(VerifyThatCompareHistoryWorksProperly.class);
@@ -52,9 +49,6 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
 		createFormTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -71,8 +65,6 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 				.getProperty("complexscenarios.crafter3loadtest.differencedialog_addedmark");
 		actionsHeaderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.historydialogactionsheader");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		firstItemRevertXpath = uiElementsPropertiesManager.getSharedDataOfExecutionLocators()
 				.getProperty("complexscenarios.crafter3loadtest.historydialog.initialcommittrevertbutton");
 		historyRevertButtonXpath = uiElementsPropertiesManager.getSharedDataOfExecutionLocators()
@@ -80,15 +72,9 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 	}
 
 	public void loginAndGoToSiteContentPagesStructure(String testId) {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		// Wait for login page to close
-		getWebDriverManager().waitUntilLoginCloses();
-		this.getWebDriverManager().waitForAnimation();
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
+		previewPage.clickSidebar();
 	}
 
 	public void editSelectedContent() {
@@ -151,6 +137,7 @@ public class VerifyThatCompareHistoryWorksProperly extends StudioBaseTest {
 
 		getWebDriverManager().waitForNumberElementsToBe("xpath", historyRevertButtonXpath, 2);
 		getWebDriverManager().clickElement("xpath", firstItemRevertXpath);
+		getWebDriverManager().clickElement("xpath", ".//*[@aria-expanded='true']/..//a[@class='confirm']");
 		getWebDriverManager().waitForNumberElementsToBe("xpath", historyRevertButtonXpath, 3);
 	}
 
