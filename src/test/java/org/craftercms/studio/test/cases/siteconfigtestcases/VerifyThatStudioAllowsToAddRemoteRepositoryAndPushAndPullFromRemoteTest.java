@@ -35,18 +35,11 @@ import org.craftercms.studio.test.utils.FilesLocations;
 // Test Case Studio - Site Config ID:58
 public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownXpath;
 	private String adminConsoleXpath;
-	private String siteDropdownListElementXPath;
 	private String gitPrivateKey;
 	private String gitRepoUrl;
 	private String pushButtonXpath;
 	private String notificationText;
-	private String createFormFrameElementCss;
-	private String createFormSaveAndCloseElement;
-	private String createFormMainTitleElementXPath;
 	private String testingItemRecentActivity;
 	private String pullButtonXpath;
 	private String deleteButtonXpath;
@@ -57,16 +50,10 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint, String remoteSshUrl) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitRepoUrl = remoteSshUrl;
 		gitPrivateKey = FilesLocations.PRIVATEKEYCONTENTFILEPATH;
-		siteDropdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
 		adminConsoleXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		pushButtonXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("remoterepositories.newrepo.pushbutton");
 		pullButtonXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -75,36 +62,15 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 				.getProperty("remoterepositories.newrepo.deletebutton");
 		notificationText = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("remoterepositories.newrepo.push.notificationtext");
-		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.createformframe");
-		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.saveandclosebutton");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformTitle");
 		testingItemRecentActivity = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitem.myrecentactivity");
-
 	}
 
 	public void step1(String siteId) {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		// Wait for login page to closes
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(siteId);
-
-		// Show site content panel
-		if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-				.getAttribute("class").contains("site-dropdown-open")))
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownXpath)
-					.click();
-
-		logger.info("Going to Site Config page");
-		this.getWebDriverManager().clickElement("xpath", adminConsoleXpath);
-
+		previewPage.clickSidebar()
+				.clickAdminConsoleOption();
 	}
 
 	public void step2() {
@@ -124,62 +90,13 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		this.goToDashboardAndCreateNewArticlePage();
 	}
 
-	public void changeBodyToNotRequiredOnEntryContent() {
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
 
 	public void goToDashboardAndCreateNewArticlePage() {
-		// body not required for Entry content type
-		logger.info("Change the entry body content to not required");
-		this.changeBodyToNotRequiredOnEntryContent();
-
-		// go to sidebar
-		this.getWebDriverManager().waitUntilSidebarOpens();
-		// expand Pages tree
-		this.dashboardPage.expandPagesTree();
-
-		this.createContent();
-
-		// reload page
-		getWebDriverManager().getDriver().navigate().refresh();
-
-		// dashboardPage.expandHomeTree();
-
+		previewPage.goToDashboard();
+		previewPage.createEntryContent("Test", "Testing1", "Title", "Body");
 		Assert.assertNotNull(getWebDriverManager().waitUntilElementIsDisplayed("xpath", testingItemRecentActivity));
 	}
 
-	public void createContent() {
-		// right click to see the the menu
-		logger.info("Creating a new entry content on Home");
-		getWebDriverManager().waitUntilPageLoad();
-		getWebDriverManager().waitUntilSidebarOpens();
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-		dashboardPage.clickOKButton();
-
-		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			// creating random values for URL field and InternalName field
-
-			// Set basics fields of the new content created
-			dashboardPage.setBasicFieldsOfNewContent("Test", "Testing1");
-
-			// Set the title of main content
-			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// save and close
-
-			this.getWebDriverManager()
-					.driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
-					.click();
-		});
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-
-	}
 
 	public void step10() {
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", adminConsoleXpath).click();
@@ -198,9 +115,9 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 		Assert.assertTrue(
 				this.getWebDriverManager().waitUntilElementIsDisplayed("xpath", notificationText)
 						.getText().contains("Successfully Pushed"));
-		
+
 		this.getWebDriverManager().waitUntilNotificationModalIsNotPresent();
-		
+
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 
@@ -217,7 +134,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 						.getText().contains("Successfully Pulled"));
 
 		this.getWebDriverManager().waitUntilNotificationModalIsNotPresent();
-		
+
 		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 	}
 
@@ -233,7 +150,7 @@ public class VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemote
 						.getText().contains("deleted."));
 
 		this.getWebDriverManager().waitUntilNotificationModalIsNotPresent();
-		
+
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().getDriver().switchTo().defaultContent();
 
