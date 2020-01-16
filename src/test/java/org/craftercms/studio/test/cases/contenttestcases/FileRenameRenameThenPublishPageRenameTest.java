@@ -37,8 +37,6 @@ import org.testng.annotations.Test;
 // Test Case Studio- Site Content ID:43
 public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String createFormFrameElementCss;
 	private String createFormSaveAndCloseElement;
 	private String dashboardLink;
@@ -65,7 +63,6 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 	private String recentlyPublishedContentName;
 	private String recentlyPublishedContentURL;
 	private String recentlyPublishedSelectAll;
-	private String siteDropDownXpath;
 	private int numberOfAttemptsForElementsDisplayed;
 	private static Logger logger = LogManager.getLogger(FileRenameRenameThenPublishPageRenameTest.class);
 
@@ -75,8 +72,6 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 		apiTestHelper.createSite(testId, "", blueprint);
 		int exitCode = this.getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
 		Assert.assertEquals(exitCode, 0, "Init site process failed");
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
 		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -127,48 +122,24 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.itemurl");
 		recentlyActivityItemConfigurationEditedIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
-		siteDropDownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
-	}
-
-	public void changeBodyToNotRequiredOnEntryContent() {
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-		previewPage.changeDateOfArticlePageToNotRequired();
 	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("foo", "foo", "foo", folderLocation,
-				selectEntertaimentCategoryCheckBox, selectAllSegmentsCheckBox, "foo", "foo", "foo");
+				selectEntertaimentCategoryCheckBox, selectAllSegmentsCheckBox, "foo", "foo", "foo", "foo");
 
 		this.getWebDriverManager().waitUntilSidebarOpens();
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
 	}
 
 	public void setup(String testId) {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-		getWebDriverManager().clickElement("xpath", siteDropDownXpath);
+		previewPage.clickSidebar();
 		this.getWebDriverManager().waitUntilSidebarOpens();
-
-		// body not required
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-
-		// Expand Home Tree
-		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder
@@ -403,25 +374,6 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 		this.getWebDriverManager().waitForAnimation();
 	}
 
-	public void step13() {
-		for (int i = 0; i < numberOfAttemptsForElementsDisplayed; i++) {
-			try {
-				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath)
-						.click();
-				this.getWebDriverManager().waitUntilAttributeContains("xpath", topNavStatusIcon, "class", "undefined live");
-				break;
-			} catch (TimeoutException e) {
-				this.getWebDriverManager().takeScreenshot("PageNotPublishedOnTopNavBar");
-				logger.warn("Content page is not published yet, checking again if it has published icon on top bar");
-				getWebDriverManager().getDriver().navigate().refresh();
-			}
-		}
-
-		String elementClassValue = this.getWebDriverManager().getDriver().findElement(By.xpath(topNavStatusIcon))
-				.getAttribute("class");
-		Assert.assertTrue(elementClassValue.contains("undefined live"));
-	}
-
 	public void step11() {
 		// steps 11, , 12, 13 and 14
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", fooContentXpath);
@@ -550,7 +502,5 @@ public class FileRenameRenameThenPublishPageRenameTest extends StudioBaseTest {
 		this.step19();
 		// Step 20
 		this.step20();
-
 	}
-
 }

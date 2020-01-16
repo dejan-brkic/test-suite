@@ -17,7 +17,6 @@
 package org.craftercms.studio.test.cases.contenttestcases;
 
 import org.craftercms.studio.test.cases.StudioBaseTest;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -43,7 +42,6 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 	private String createFormArticleMainTitleElementXPath;
 	private String homeContent;
 	private String createdContentXPath;
-	private String siteDropdownListElementXPath;
 	private String categoryDrowpdownXpath;
 	private String pageTitleXpath;
 	private String pageURL;
@@ -56,7 +54,6 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 		Assert.assertEquals(exitCode, 0, "Init site process failed");
 		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
 		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -69,8 +66,6 @@ public class AddNewContentAndPublishContentTest extends StudioBaseTest {
 				.getProperty("dashboard.home_Content_Page");
 		createdContentXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.studio.deliverypagecontenttodelete");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		categoryDrowpdownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformcategorydropdown");
 		pageURL = getWebDriverManager().environmentProperties.getProperty("delivery.base.url") +

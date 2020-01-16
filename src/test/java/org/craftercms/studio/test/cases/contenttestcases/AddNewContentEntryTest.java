@@ -31,11 +31,6 @@ import org.testng.annotations.Test;
 
 public class AddNewContentEntryTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String createFormFrameElementCss;
-	private String createFormSaveAndCloseElement;
-	private String createFormMainTitleElementXPath;
 	private String testingItemRecentActivity;
 	private String randomURL;
 	private String randomInternalName;
@@ -44,81 +39,21 @@ public class AddNewContentEntryTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.createformframe");
-		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.saveandclosebutton");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformTitle");
 		testingItemRecentActivity = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.testingcontentitem.myrecentactivity");
 		randomURL = "Test1";
 		randomInternalName = "Testing1";
 	}
 
-	public void changeBodyToNotRequiredOnEntryContent() {
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
-
-	public void createContent() {
-		// right click to see the the menu
-		getWebDriverManager().waitUntilPageLoad();
-		getWebDriverManager().waitUntilSidebarOpens();
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-		dashboardPage.clickOKButton();
-
-		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			// creating random values for URL field and InternalName field
-
-			// Set basics fields of the new content created
-			dashboardPage.setBasicFieldsOfNewContent(randomURL, randomInternalName);
-
-			// Set the title of main content
-			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// save and close
-
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
-					.click();
-		});
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-
-	}
-
 	@Parameters({"testId"})
 	@Test()
 	public void addNewPageUsingEntryContentTypeAndContextualClickOptionTest(String testId) {
-
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
-		homePage.goToPreviewPage(testId);
-
-		// body not required
-		this.changeBodyToNotRequiredOnEntryContent();
-
-		// expand pages folder
+		loginPage.loginToCrafter();
+		homePage.goToDashboardPage(testId);
+		previewPage.clickSidebar();
 		dashboardPage.expandPagesTree();
-
-		// create content
-		createContent();
-
-		// reload page
-		getWebDriverManager().getDriver().navigate().refresh();
-
+		previewPage.createEntryContent(randomURL, randomInternalName, "title" + testId, "body" + testId);
 		dashboardPage.expandHomeTree();
-
 		Assert.assertNotNull(getWebDriverManager().waitUntilElementIsDisplayed("xpath", testingItemRecentActivity));
 	}
 

@@ -35,102 +35,30 @@ import org.testng.annotations.Test;
 public class DeleteContentTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(DeleteContentTest.class);
-
-	private String userName;
-	private String password;
-	private String createFormFrameElementCss;
-	private String createFormMainTitleElementXPath;
-	private String createFormSaveAndCloseElement;
 	private String testingItemURLXpath;
 
 	@Parameters({"testId", "blueprint"})
 	@BeforeMethod
 	public void beforeTest(String siteId, String blueprint) {
 		apiTestHelper.createSite(siteId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.createformframe");
-		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.saveandclosebutton");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformTitle");
 		testingItemURLXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.firstelementurl");
-	}
-
-	public void changeBodyToNotRequiredOnEntryContent() {
-
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-
-	}
-
-	public void createContent() {
-		logger.info("Creating new content");
-		// right click to see the the menu
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-
-		dashboardPage.clickOKButton();
-
-		// Switch to the iframe
-		getWebDriverManager().usingCrafterForm("cssSelector", createFormFrameElementCss, () -> {
-			// Set basics fields of the new content created
-			dashboardPage.setBasicFieldsOfNewContent("Test1", "Testing1");
-
-			// Set the title of main content
-			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// save and close
-
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement).click();
-		});
-
 	}
 
 	@Parameters({"testId"})
 	@Test()
 	public void deletePageUsingContextualClickDeleteOptionTest(String testId) {
 		logger.info("Starting test case");
-		loginPage.loginToCrafter(userName, password);
-		
-		//Wait for login page to closes
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
-		homePage.goToPreviewPage(testId);
-
-		// body not required
-		this.changeBodyToNotRequiredOnEntryContent();
-
+		loginPage.loginToCrafter();
+		homePage.goToDashboardPage(testId);
+		previewPage.clickSidebar();
 		getWebDriverManager().waitUntilSidebarOpens();
-
-		// expand pages folder
 		dashboardPage.expandPagesTree();
-
-		// create content
-
-		createContent();
-
+		previewPage.createEntryContent("Test1", "Testing1", "title", "body");
 		getWebDriverManager().waitUntilSidebarOpens();
-
-		// Expand Home Tree
 		dashboardPage.expandHomeTree();
-
-		// right click to delete
-
 		dashboardPage.rightClickToDeleteContent();
-
-		// confirmation
-
 		dashboardPage.clicktoDeleteContent();
-
-		// submittal complete ok
 		dashboardPage.clickOKSubmittalComplete();
 
 		this.getWebDriverManager().waitForAnimation();

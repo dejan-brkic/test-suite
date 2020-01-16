@@ -37,10 +37,6 @@ import org.openqa.selenium.WebElement;
 // Test Case Studio- Site Content ID:4
 public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
-	private String siteDropdownListElementXPath;
 	private String generalEditOption;
 	private String dependenciesMenuOption;
 	private String styleLocator;
@@ -59,7 +55,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	private String headerFolderXpath;
 	private String headerXpath;
 	private String featuresFolderXpath;
-	private String fourXpath;
+	private String fiveXpath;
 	private String leftrailsfolder;
 	private String wommenStylesArticlePage;
 	private String leftrailwithlastestarticles;
@@ -94,17 +90,11 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		initLocatorsFirstPart();
 		initLocatorsSecondPart();
 	}
 
 	public void initLocatorsFirstPart() {
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
-		siteDropdownListElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownlielement");
 		generalEditOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.edittopnavoption");
 		dependenciesMenuOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -140,7 +130,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 				.getProperty("general.components.header");
 		featuresFolderXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.components.featuresfolder");
-		fourXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.components.four");
+		fiveXpath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.components.five");
 		leftrailsfolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.components.leftrailsfolder");
 		wommenStylesArticlePage = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -202,22 +192,9 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	}
 
 	public void loginAndGoToPreview(String siteId) {
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(siteId);
-
-		if (this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-				.isDisplayed())
-			if (!(this.getWebDriverManager().waitUntilElementIsPresent("xpath", siteDropdownListElementXPath)
-					.getAttribute("class").contains("site-dropdown-open")))
-				this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", siteDropdownElementXPath)
-						.click();
-			else
-				throw new NoSuchElementException(
-						"Site creation process is taking too long time and the element was not found");
+		previewPage.clickSidebar();
 	}
 
 	public void step1() {
@@ -233,7 +210,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForItem("Home",false);
+		previewPage.checkNoDependenciesForItem("Home",true);
 	}
 
 	public void step2() {
@@ -252,7 +229,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForItem("Style",false);
+		previewPage.checkNoDependenciesForItem("Style",true);
 	}
 
 	public void step3() {
@@ -282,7 +259,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForItem("Women Styles for Winter",false);
+		previewPage.checkNoDependenciesForItem("Women Styles for Winter",true);
 	}
 
 	public void step4() {
@@ -307,7 +284,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForItem("Testing1",false);
+		previewPage.checkNoDependenciesForItem("Testing1",true);
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
@@ -331,7 +308,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForItem("Search Results",false);
+		previewPage.checkNoDependenciesForItem("Search Results",true);
 	}
 
 	public void step6() {
@@ -352,7 +329,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForComponentItem("Latest Articles Widget",false);
+		previewPage.checkDependenciesForComponentItem("Latest Articles Widget",true);
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesWidgetFolder);
@@ -370,7 +347,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForComponentItem("Header",false);
+		previewPage.checkDependenciesForComponentItem("Header",true);
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", headerFolderXpath);
@@ -383,11 +360,11 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().scrollDownIntoSideBar();
-		this.rightClickAndClickOnDependencies(fourXpath, "Components");
+		this.rightClickAndClickOnDependencies(fiveXpath, "Components");
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForItem("Four",false);
+		previewPage.checkNoDependenciesForItem("Five",true);
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", featuresFolderXpath);
@@ -404,7 +381,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForComponentItem("Left Rail with Latest Articles",false);
+		previewPage.checkDependenciesForComponentItem("Left Rail with Latest Articles",true);
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", leftrailsfolder);
@@ -437,7 +414,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("book-woman-pic.jpg",false, false);
+		previewPage.checkDependenciesForStaticAssetItem("book-woman-pic.jpg",true, false);
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", staticAssetsimagesFolder);
@@ -473,7 +450,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForTemplateItem("article.ftl",false);
+		previewPage.checkDependenciesForTemplateItem("article.ftl",true);
 
 	}
 
@@ -484,7 +461,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForTemplateItem("category-landing.ftl",false);
+		previewPage.checkDependenciesForTemplateItem("category-landing.ftl",true);
 
 	}
 
@@ -495,7 +472,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForTemplateItem("home.ftl",false);
+		previewPage.checkDependenciesForTemplateItem("home.ftl",true);
 	}
 
 	public void step14() {
@@ -505,7 +482,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForTemplateItem("search-results.ftl",false);
+		previewPage.checkDependenciesForTemplateItem("search-results.ftl",true);
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", templatesPagesFolder);
@@ -541,7 +518,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesFoScriptItem("category-landing.groovy",false);
+		previewPage.checkDependenciesFoScriptItem("category-landing.groovy",true);
 	}
 
 	public void step16() {
@@ -551,7 +528,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesFoScriptItem("home.groovy",false);
+		previewPage.checkDependenciesFoScriptItem("home.groovy",true);
 	}
 
 	public void step17() {
@@ -561,7 +538,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesFoScriptItem("search-results.groovy",false);
+		previewPage.checkDependenciesFoScriptItem("search-results.groovy",true);
 	}
 
 	public void step18() {
@@ -571,7 +548,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForItem("site-map.groovy",false);
+		previewPage.checkNoDependenciesForItem("site-map.groovy",true);
 
 		this.getWebDriverManager().waitForAnimation();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", scriptsPagesFolderXpath);
@@ -608,7 +585,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkNoDependenciesForItem("font-awesome.min.css",false);
+		previewPage.checkNoDependenciesForItem("font-awesome.min.css",true);
 	}
 
 	public void step20() {
@@ -635,7 +612,7 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 
 		// check dependencies are listed
 		logger.info("Check Listed Dependencies");
-		previewPage.checkDependenciesForStaticAssetItem("jquery.min.js",false, false);
+		previewPage.checkDependenciesForStaticAssetItem("jquery.min.js",true, false);
 	}
 
 	public void rightClickAndClickOnDependencies(String itemLocator, String menuLocation) {
@@ -653,17 +630,12 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 		this.getWebDriverManager().waitForAnimation();
 	}
 
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
-		previewPage.changeDateOfArticlePageToNotRequired();
-	}
-
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
-				"ArticleSummary");
+				"ArticleSummary", "ArticleSection");
 
 		this.getWebDriverManager().waitUntilSidebarOpens();
 	}
@@ -672,9 +644,6 @@ public class DependenciesCalculationRefersToAnItemTest extends StudioBaseTest {
 	@Test()
 	public void verifyDependencyCalculationForWhatRefersToAnItem(String testId) {
 		loginAndGoToPreview(testId);
-
-		logger.info("Change Article Page body content to not required");
-		this.changeBodyToNotRequiredOnPageArticleContent();
 
 		this.getWebDriverManager().waitUntilSidebarOpens();
 		// expand pages folder

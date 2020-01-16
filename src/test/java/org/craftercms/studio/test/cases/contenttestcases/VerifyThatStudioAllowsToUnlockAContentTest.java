@@ -35,9 +35,6 @@ import org.openqa.selenium.WebElement;
 // Test Case Studio- Site Content ID:22
 public class VerifyThatStudioAllowsToUnlockAContentTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
 	private String selectAllSegmentsCheckBox;
 	private String selectAllCategoriesCheckBox;
 	private String articlesFolder;
@@ -53,10 +50,6 @@ public class VerifyThatStudioAllowsToUnlockAContentTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String siteId, String blueprint) {
 		apiTestHelper.createSite(siteId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
 		articles2016Folder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -76,17 +69,10 @@ public class VerifyThatStudioAllowsToUnlockAContentTest extends StudioBaseTest {
 	}
 
 	public void loginAndGoToPreview(String siteId) {
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(siteId);
-		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
+		previewPage.clickSidebar()
+				.expandHomeTree();
 	}
 
 	public void unlockArticle() {
@@ -108,7 +94,6 @@ public class VerifyThatStudioAllowsToUnlockAContentTest extends StudioBaseTest {
 
 	public void checkLockedIcon() {
 		logger.info("Checking if testing article is locked");
-		this.getWebDriverManager().waitUntilSidebarOpens();
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath",
 				testingArticleCompleteXPath);
 		Assert.assertTrue(this.getWebDriverManager()
@@ -122,15 +107,6 @@ public class VerifyThatStudioAllowsToUnlockAContentTest extends StudioBaseTest {
 	}
 
 	public void openSidebarAndGotoArticlesChildFolderAndCreatNewArticle() {
-
-		logger.info("Change Article Page body content to not required");
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-
-		// Expand Home Tree
-		dashboardPage.expandHomeTree();
-
 		// expand Articles folder
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayedAndClickable("xpath", articlesFolder);
 		dashboardPage.expandParentFolder(articlesFolder);
@@ -149,7 +125,7 @@ public class VerifyThatStudioAllowsToUnlockAContentTest extends StudioBaseTest {
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentAsDraft("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
-				"ArticleSummary");
+				"ArticleSummary", "ArticleSection");
 	}
 
 	@Parameters({"testId"})

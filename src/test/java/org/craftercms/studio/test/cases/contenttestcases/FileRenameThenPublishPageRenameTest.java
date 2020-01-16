@@ -38,8 +38,6 @@ import org.testng.annotations.Test;
 // Test Case Studio- Site Content ID:41,45
 public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String createFormFrameElementCss;
 	private String createFormSaveAndCloseElement;
 	private String dashboardLink;
@@ -63,7 +61,6 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 	private String recentlyActivityItemIcon;
 	private String recentlyActivityItemURL;
 	private String recentlyActivityItemConfigurationEditedIcon;
-	private String siteDropDownXpath;
 	private int numberOfAttemptsForElementsDisplayed;
 	private static Logger logger = LogManager.getLogger(FileRenameThenPublishPageRenameTest.class);
 
@@ -73,8 +70,6 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 		apiTestHelper.createSite(testId, "", blueprint);
 		int exitCode = this.getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
 		Assert.assertEquals(exitCode, 0, "Init site process failed");
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.createformframe");
 		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -119,49 +114,24 @@ public class FileRenameThenPublishPageRenameTest extends StudioBaseTest {
 				.getProperty("dashboard.myrecentactivity.itemurl");
 		recentlyActivityItemConfigurationEditedIcon = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.myrecentactivity.itemconfigurationeditedicon");
-		siteDropDownXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sitedropdown");
 		this.numberOfAttemptsForElementsDisplayed = Integer.parseInt(constantsPropertiesManager
 				.getSharedExecutionConstants().getProperty("crafter.numberofattemptsforelementdisplayed"));
 	}
 
-	public void changeBodyToNotRequiredOnEntryContent() {
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-	}
 
 	public void createNewPageArticle(String folderLocation) {
 		logger.info("Create Article Content");
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("foo", "foo", "foo", folderLocation,
-				selectEntertaimentCategoryCheckBox, selectAllSegmentsCheckBox, "foo", "foo", "foo");
+				selectEntertaimentCategoryCheckBox, selectAllSegmentsCheckBox, "foo", "foo", "foo", "section");
 
 		this.getWebDriverManager().waitUntilSidebarOpens();
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
-		previewPage.changeDateOfArticlePageToNotRequired();
 	}
 
 	public void setup(String siteId) {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(siteId);
-		getWebDriverManager().clickElement("xpath", siteDropDownXpath);
-
-		getWebDriverManager().waitUntilSidebarOpens();
-
-		// body not required
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-
-		// Expand Home Tree
-		this.getWebDriverManager().waitForAnimation();
+		previewPage.clickSidebar();
 		dashboardPage.expandHomeTree();
 
 		// expand Articles folder

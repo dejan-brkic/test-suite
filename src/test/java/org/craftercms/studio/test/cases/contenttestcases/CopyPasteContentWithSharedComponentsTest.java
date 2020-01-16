@@ -37,10 +37,7 @@ import org.openqa.selenium.WebElement;
 // Test Case Studio- Site Content ID:3
 public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String articlesFolder;
-	private String siteDropdownElementXPath;
 	private String pasteOptionLocator;
 	private String firstChildLocator;
 	private String firstDestinationLocator;
@@ -73,12 +70,8 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		apiTestHelper.createSite(testId, "", blueprint);
 		int exitCode = this.getWebDriverManager().goToDeliveryFolderAndExecuteSiteScriptThroughCommandLine(testId, "init");
 		Assert.assertEquals(exitCode, 0, "Init site process failed");
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		articlesFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.articlesfolder");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		pasteOptionLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("rightclick.paste.option");
 		firstChildLocator = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -135,13 +128,11 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 	}
 
 	public void loginAndGoToPreview(String siteId) {
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
+		loginPage.loginToCrafter();
 
 		// go to preview page
 		homePage.goToPreviewPage(siteId);
-		getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
+		previewPage.clickSidebar();
 	}
 
 	public void createNewPageArticle(String folderLocation) {
@@ -149,22 +140,12 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 		this.getWebDriverManager().waitForAnimation();
 		previewPage.createPageArticleContentUsingUploadedImage("test", "Testing1", "test", folderLocation,
 				selectAllCategoriesCheckBox, selectAllSegmentsCheckBox, "ArticleSubject", "ArticleAuthor",
-				"ArticleSummary");
+				"ArticleSummary", "ArticleSection");
 
 		this.getWebDriverManager().waitUntilSidebarOpens();
-	}
-
-	public void changeBodyToNotRequiredOnPageArticleContent() {
-		previewPage.changeBodyOfArticlePageToNotRequired();
 	}
 
 	public void step1() {
-
-		logger.info("Change Article Page body content to not required");
-		this.changeBodyToNotRequiredOnPageArticleContent();
-
-		this.getWebDriverManager().waitUntilSidebarOpens();
-
 		// Expand Home Tree
 		this.getWebDriverManager().waitForAnimation();
 		dashboardPage.expandHomeTree();
@@ -279,6 +260,7 @@ public class CopyPasteContentWithSharedComponentsTest extends StudioBaseTest {
 
 		this.getWebDriverManager().waitForAnimation();
 		copyAndPasteLongTreeIntoExistentFolder(firstDestinationLocator, firstChildLocator);
+		previewPage.waitForSidebarTreeLoading(50);
 
 		String elementClassValue = "";
 		while (!(elementClassValue.contains("open"))) {
