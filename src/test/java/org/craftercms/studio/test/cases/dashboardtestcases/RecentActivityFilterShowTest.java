@@ -36,13 +36,6 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 
 	private static final Logger logger = LogManager.getLogger(RecentActivityFilterShowTest.class);
 
-	private String userName;
-	private String password;
-
-	private String createFormFrameElementCss;
-	private String createFormMainTitleElementXPath;
-	private String createFormExpandAll;
-	private String createFormSaveAndCloseElement;
 	private String homeElementXPath;
 	private String myRecentActivityShowInputXPath;
 	private String myRecentActivityFirstItemURLXPath;
@@ -52,16 +45,6 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 	@BeforeMethod
 	public void beforeTest(String testId, String blueprint) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		createFormFrameElementCss = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.createformframe");
-		createFormSaveAndCloseElement = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.saveandclosebutton");
-		createFormExpandAll = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.createformexpandall");
-		createFormMainTitleElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.createformMainTitle");
 		homeElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators().getProperty("general.home");
 		myRecentActivityShowInputXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.showinput");
@@ -70,78 +53,6 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 		myRecentActivitySecondItemURLXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.myrecentactivity.secondelementurl");
 
-	}
-
-	public void changeBodyToNotRequiredOnEntryContent() {
-
-		previewPage.changeBodyOfEntryContentPageToNotRequired();
-
-	}
-
-	public void createContent() {
-		logger.info("Creating first content");
-
-		getWebDriverManager().waitUntilPageLoad();
-		getWebDriverManager().waitUntilSidebarOpens();
-		// right click to see the the menu
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-		dashboardPage.clickOKButton();
-
-		// Switch to the iframe
-		getWebDriverManager().usingCrafterForm("cssselector", createFormFrameElementCss, () -> {
-			// Set basics fields of the new content created
-			dashboardPage.setBasicFieldsOfNewContent("AboutUs", "AboutUs");
-
-			// Set the title of main content
-			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// click necessary to validate all fields required
-			this.getWebDriverManager().scrollUp();
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormExpandAll).click();
-
-			// save and close
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
-					.click();
-		});
-	}
-
-	public void createSecondContent() {
-		logger.info("Creating second content");
-
-		getWebDriverManager().waitUntilPageLoad();
-		getWebDriverManager().waitUntilSidebarOpens();
-		// right click to see the the menu
-		dashboardPage.rightClickToSeeMenu();
-
-		// Select Entry Content Type
-		dashboardPage.clickEntryCT();
-
-		// Confirm the Content Type selected
-
-		dashboardPage.clickOKButton();
-
-		// Switch to the iframe
-		getWebDriverManager().usingCrafterForm("cssselector", createFormFrameElementCss, () -> {
-			// Set basics fields of the new content created
-			dashboardPage.setBasicFieldsOfNewContent("AboutUs1", "AboutUs1");
-
-			// Set the title of main content
-			getWebDriverManager().sendText("xpath", createFormMainTitleElementXPath, "MainTitle");
-
-			// click necessary to validate all fields required
-			this.getWebDriverManager().scrollUp();
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormExpandAll).click();
-
-			// save and close
-
-			this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", createFormSaveAndCloseElement)
-					.click();
-		});
 	}
 
 	public void filtersAndAsserts() {
@@ -182,38 +93,16 @@ public class RecentActivityFilterShowTest extends StudioBaseTest {
 	@Test()
 	public void verifyThatTheShowInputWorksProperlyOnRecentActivityWidgetTest(String testId) {
 		logger.info("Starting test case");
-
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		// Wait for login page to close
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// go to preview page
+		loginPage.loginToCrafter();
 		homePage.goToPreviewPage(testId);
-
-		// body not requiered
-		changeBodyToNotRequiredOnEntryContent();
-
-		dashboardPage.expandPagesTree();
-
-		// create content
-		createContent();
-
-		// expand home
-		dashboardPage.expandHomeTree();
-
-		// reload page
-		getWebDriverManager().getDriver().navigate().refresh();
+		previewPage.clickSidebar();
+		previewPage.createEntryContent("AboutUs", "AboutUs", "title" + testId, "body" + testId);
 
 		// create a content with level descriptor content type
 		// create another content to use a filter
 		this.getWebDriverManager().isElementPresentAndClickableByXpath(homeElementXPath);
-		createSecondContent();
-
-		// reload page
-		getWebDriverManager().getDriver().navigate().refresh();
-
+		previewPage.createEntryContent("AboutUs1", "AboutUs1", "title" + testId, "body" + testId);
+		previewPage.goToDashboard();
 		// filters and asserts
 		this.filtersAndAsserts();
 
