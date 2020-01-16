@@ -39,7 +39,6 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 	private String firstSiteXpath;
 	private String secondSiteXpath;
 	private String thirdSiteXpath;
-	private String createSiteButton;
 	private String lastNumberOfPaginationXpath;
 	private String firstNumberOfPaginationXpath;
 	private String lastArrowOfPaginationXpath;
@@ -61,8 +60,6 @@ public class VerifyStudioAllowsToFilterNumberOfSitesPerPage extends StudioBaseTe
 				.getProperty("general.sites.secondSiteNameOnList");
 		thirdSiteXpath= uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.thirdSiteNameOnList");
-		createSiteButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("general.sites.createsitebutton");
 		lastNumberOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.pagination.lastnumberelement");
 		firstNumberOfPaginationXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()

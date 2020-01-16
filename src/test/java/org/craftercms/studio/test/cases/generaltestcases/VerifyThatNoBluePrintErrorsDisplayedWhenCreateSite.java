@@ -37,7 +37,6 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 	private String userName;
 	private String password;
 	private String createSiteErrorNotificationWindow;
-	private String menuSitesButton;
 	private String siteDropdownElementXPath;
 
 
@@ -47,8 +46,6 @@ public class VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite extends StudioBa
 		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		createSiteErrorNotificationWindow = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.sites.createsite.errowindow");
-		menuSitesButton = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("preview.sites.menu.button");
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 
