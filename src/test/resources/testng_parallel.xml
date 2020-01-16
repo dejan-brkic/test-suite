@@ -17,7 +17,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio UI -AllTestCases TestSuite" parallel="tests" thread-count="12" preserve-order="false">
+<suite name="craftercms - Studio UI -AllTestCases TestSuite" parallel="tests" thread-count="5" preserve-order="false">
 	<parameter name="blueprint" value="empty"/>
 	<test name="Open Studio Test">
 		<parameter name="testId" value="sanity001"/>
@@ -150,7 +150,7 @@
 		</classes>
 	</test>
 	<test name="Verify that studio allows to rename content via Form (page.xml move name)">
-		<parameter name="testId" value="content027"/>
+		<parameter name="testId" value="content026"/>
 		<parameter name="blueprint" value="empty"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contenttestcases.RenameViaFormTest"/>
@@ -168,7 +168,6 @@
 		<parameter name="blueprint" value="empty"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteToFolderTest"/>
-
 		</classes>
 	</test>
 	<test name="Verify that studio allows to copy and paste content to folder with collision and duplicate">
@@ -179,7 +178,7 @@
 		</classes>
 	</test>
 	<test name="Verify that studio allows to rename content via Form (page move name rename)">
-		<parameter name="testId" value="content026"/>
+		<parameter name="testId" value="content033"/>
 		<parameter name="blueprint" value="empty"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contenttestcases.RenameViaFormPageMoveNameRenameTest"/>
@@ -317,8 +316,7 @@
 		<parameter name="testId" value="content016"/>
 		<parameter name="blueprint" value="editorial"/>
 		<classes>
-			<class
-					name="org.craftercms.studio.test.cases.contenttestcases.VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest"/>
+			<class name="org.craftercms.studio.test.cases.contenttestcases.VerifyThatStudioDisplaysProperlyTheHistoryForAContentTest"/>
 		</classes>
 	</test>
 	<test name="Verify that the application displays as read-only all the fields on the View form when the View option is clicked on the right click options">
@@ -459,7 +457,7 @@
 	<test name="Filter Activity Item Types Test">
 		<parameter name="testId" value="dashboard024"/>
 		<classes>
-			<class name="org.craftercms.studio.test.cases.dashboardtestcases.RecentActivityFilterShowTest"/>
+			<class name="org.craftercms.studio.test.cases.dashboardtestcases.RecentActivityItemTypesSectionTest"/>
 		</classes>
 	</test>
 	<test name="Filter Show Recent Activity Test">
