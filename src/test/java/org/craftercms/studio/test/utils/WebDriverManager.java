@@ -1485,9 +1485,8 @@ public class WebDriverManager {
 				"Copying full files and folders structure from Scripts site repository folder to test folder structure");
 		String testFolderPath = FilesLocations.BULK_SCRIPTSFOLDERFILEPATH + "scripts" + File.separator;
 		for (int i = 0; i <= amountOfTestFoldersToGenerateForBulkUploadTest; i++) {
-			File sourceFolder = this.getAuthoringSiteFolder(siteId, "scripts");
+			File sourceFolder = this.getAuthoringSiteFolder(siteId, "scripts/pages");
 			this.copyFolderStructureToTestFolder(sourceFolder, new File(testFolderPath));
-			testFolderPath = testFolderPath + "rest" + File.separator + "scripts" + File.separator;
 		}
 	}
 
@@ -1574,8 +1573,7 @@ public class WebDriverManager {
 
 	public File getAuthoringSiteFolder(String siteId, String requestedFolderPath) {
 		// locate the given folder path on crafter-authoring repo folder
-		File existentFolder = new File(System.getProperty("user.dir") + File.separator + ".." + File.separator
-				+ ".." + File.separator + "crafter-authoring" + File.separator + "data" + File.separator
+		File existentFolder = new File(System.getProperty("user.dir") + File.separator + "craftercms" + File.separator + "crafter-authoring" + File.separator + "data" + File.separator
 				+ "repos" + File.separator + "sites" + File.separator + siteId + File.separator + "sandbox"
 				+ File.separator + requestedFolderPath);
 		return existentFolder;
@@ -1661,7 +1659,7 @@ public class WebDriverManager {
 
 	public String getStudioTomcatLog() {
 		// locate the path of the tomcat log file
-		String tomcatLog = System.getProperty("user.dir") + File.separator + ".." + File.separator + ".."
+		String tomcatLog = System.getProperty("user.dir") + File.separator + "craftercms"
 				+ File.separator + "crafter-authoring" + File.separator + "logs" + File.separator + "tomcat"
 				+ File.separator;
 		return tomcatLog + "catalina.out";
