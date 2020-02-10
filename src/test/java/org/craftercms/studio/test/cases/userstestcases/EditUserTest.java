@@ -72,7 +72,7 @@ public class EditUserTest extends StudioBaseTest {
 	public void createUserToEdit(String value) {
 		// click on new user button
 		usersPage.clickOnNewUser();
-		String password = "asDF12#$";
+		String password = "newpassword";
 		// Follow the form
 		this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath", newUserFirstNameId)
 				.sendKeys(value + "N");

@@ -53,6 +53,7 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	private String templatesSubTreeXpath;
 	private String scriptsTreeXpath;
 	private String scriptsSubTreeXpath;
+	private int multiplierBulkScriptsLogs;
 
 	private static final Logger logger = LogManager.getLogger(WebDriverManager.class);
 
@@ -65,6 +66,7 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 		amountOfLastLinesToReadOnLog = Integer
 				.parseInt(constantsPropertiesManager.getSharedExecutionConstants()
 						.getProperty("crafter.bulkupload.amountoflastlinestoreadonlog"));
+		multiplierBulkScriptsLogs = 3;
 		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("complexscenarios.general.sitedropdown");
 		cssFolder = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -281,8 +283,9 @@ public class VerifyBulkUploadAssetsWorksProperlyTest extends StudioBaseTest {
 	}
 
 	public void step33() {
+		//Adding scripts will recreate the site context we need to check the log further than usual, 3 times the normal is enough
 		this.getWebDriverManager().checkNoErrorsOnStudioTomcatLogInGivenLastLines(editorialBPSiteId,
-				amountOfLastLinesToReadOnLog);
+				amountOfLastLinesToReadOnLog * multiplierBulkScriptsLogs);
 	}
 
 	@Parameters({"testId"})

@@ -76,7 +76,7 @@ public class VerifyLanguageSettingsTest extends StudioBaseTest {
     @Parameters({"testUser1", "testUser2"})
     @AfterMethod(alwaysRun = true)
     public void afterTest(String testUser1, String testUser2) {
-        apiTestHelper.deleteSite(testUser1);
+        apiTestHelper.deleteUser(testUser1);
         apiTestHelper.deleteUser(testUser2);
     }
 }

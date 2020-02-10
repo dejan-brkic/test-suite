@@ -255,13 +255,6 @@
 			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameAgainAndDeletePageRenameTest"/>
 		</classes>
 	</test>
-	<test name="Verify that the application allows to bulk upload assets correctly">
-		<parameter name="testId" value="content046"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.VerifyBulkUploadAssetsWorksProperlyTest"/>
-		</classes>
-	</test>
 	<test name="Verify that the image crop works correctly">
 		<parameter name="testId" value="content047"/>
 		<parameter name="blueprint" value="headless_blog"/>
