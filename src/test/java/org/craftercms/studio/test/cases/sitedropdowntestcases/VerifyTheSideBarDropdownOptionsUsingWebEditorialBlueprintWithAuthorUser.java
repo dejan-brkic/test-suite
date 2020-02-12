@@ -40,7 +40,6 @@ import org.openqa.selenium.WebElement;
 // Test Case Studio- Site Dropdown ID:3
 public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthorUser extends StudioBaseTest {
 
-	private String siteDropdownElementXPath;
 	private String dashboardLink;
 	private String pagesTreeLink;
 	private String componentsTreeLink;
@@ -48,18 +47,16 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 	private String staticAssetsTreeLink;
 	private String templatesTreeLink;
 	private String scriptsTreeLink;
-	private LinkedList<String> siteDropdownItemsInExpectedOrder;
+	private String[] siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
 	private static Logger logger = LogManager
 			.getLogger(VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthorUser.class);
 
-	@Parameters({"testId", "blueprint", "testUser", "testGroup"})
+	@Parameters({"testId", "blueprint", "testUser", "testGroup", "siteDropdownOrderItems"})
 	@BeforeMethod
-	public void beforeTest(String testId, String blueprint, String testUser, String testGroup) {
+	public void beforeTest(String testId, String blueprint, String testUser, String testGroup, String siteDropdownOrderItems) {
 		apiTestHelper.createSite(testId, "", blueprint);
 		apiTestHelper.createUserAddToGroup(testUser, testGroup);
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
 		dashboardLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.dashboard_menu_option");
 		pagesTreeLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -76,17 +73,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 				.getProperty("dashboard.expand_scripts_tree");
 		siteDropdownItemsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.sitebar.dropdown.items");
-		siteDropdownItemsInExpectedOrder = new LinkedList<String>();
-		siteDropdownItemsInExpectedOrder.add(0, "Dashboard");
-		siteDropdownItemsInExpectedOrder.add(1, "Pages");
-		siteDropdownItemsInExpectedOrder.add(2, "Components");
-		siteDropdownItemsInExpectedOrder.add(3, "Taxonomy");
-		siteDropdownItemsInExpectedOrder.add(4, "Static Assets");
-		siteDropdownItemsInExpectedOrder.add(5, "Templates");
-		siteDropdownItemsInExpectedOrder.add(6, "Scripts");
-		siteDropdownItemsInExpectedOrder.add(7, "here");
-		siteDropdownItemsInExpectedOrder.add(8, "bug");
-		siteDropdownItemsInExpectedOrder.add(9, "Crafter News");
+		siteDropdownItemsInExpectedOrder = siteDropdownOrderItems.split(",");
 	}
 
 	@Parameters({"testId", "testUser"})
@@ -95,15 +82,9 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 			String testId, String testUser) {
 		logger.info("login to application with {} user", testUser);
 		loginPage.loginToCrafter(testUser, testUser);
-		this.getWebDriverManager().waitUntilLoginCloses();
 		logger.info("Go to Preview Page {}", testId);
 		this.homePage.goToPreviewPage(testId);
-
-		// Expand the site bar
-		this.getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
-
-		Assert.assertTrue(this.getWebDriverManager().isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-
+		previewPage.clickSidebar();
 		// Check all the section are present;
 		WebElement dashboardLinkElement = this.getWebDriverManager().driverWaitUntilElementIsPresentAndDisplayed("xpath",
 				dashboardLink);
@@ -138,7 +119,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthor
 		int currentIndex = 0;
 		for (WebElement element : siteDropdownItems) {
 			this.getWebDriverManager().waitUntilSidebarOpens();
-			Assert.assertTrue(element.getText().equals(siteDropdownItemsInExpectedOrder.get(currentIndex)),
+			Assert.assertTrue(element.getText().equals(siteDropdownItemsInExpectedOrder[currentIndex]),
 					"ERROR: Link Option: " + element.getText() + " is not in the correct order");
 			currentIndex++;
 		}
