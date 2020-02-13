@@ -261,7 +261,7 @@ public class CreateSitePage {
 	// Press on create site
 	public CreateSitePage clickOnCreateButton() {
 		this.driverManager.clickElement("xpath", createSiteButton);
-		Assert.assertTrue(driverManager.isTextInStudio("Please wait while your site is being created.."));
+		Assert.assertTrue(driverManager.isTextInStudio("Please wait while your site is being created."));
 		driverManager.waitUntilElementIsNotDisplayed("cssselector", creatingGearsImgCss, waitForCreateSite);
 		return this;
 	}

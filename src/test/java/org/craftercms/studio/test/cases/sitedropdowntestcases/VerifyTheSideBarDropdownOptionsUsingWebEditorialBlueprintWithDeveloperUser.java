@@ -41,7 +41,6 @@ import org.openqa.selenium.WebElement;
 public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDeveloperUser
 		extends StudioBaseTest {
 
-	private String siteDropdownElementXPath;
 	private String dashboardLink;
 	private String pagesTreeLink;
 	private String componentsTreeLink;
@@ -49,19 +48,17 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 	private String staticAssetsTreeLink;
 	private String templatesTreeLink;
 	private String scriptsTreeLink;
-	private LinkedList<String> siteDropdownItemsInExpectedOrder;
+	private String[] siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
 	private String siteConfigLink;
 	private static Logger logger = LogManager
 			.getLogger(VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDeveloperUser.class);
 
-	@Parameters({"testId", "blueprint", "testUser", "testGroup"})
+	@Parameters({"testId", "blueprint", "testUser", "testGroup", "siteDropdownOrderItems"})
 	@BeforeMethod
-	public void beforeTest(String testId, String blueprint, String testUser, String testGroup) {
+	public void beforeTest(String testId, String blueprint, String testUser, String testGroup, String siteDropdownOrderItems) {
 		apiTestHelper.createSite(testId, "", blueprint);
 		apiTestHelper.createUserAddToGroup(testUser, testGroup);
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
 		dashboardLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.dashboard_menu_option");
 		pagesTreeLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -80,18 +77,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 				.getProperty("dashboard.sitebar.dropdown.items");
 		siteConfigLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.adminconsole");
-		siteDropdownItemsInExpectedOrder = new LinkedList<String>();
-		siteDropdownItemsInExpectedOrder.add(0, "Dashboard");
-		siteDropdownItemsInExpectedOrder.add(1, "Pages");
-		siteDropdownItemsInExpectedOrder.add(2, "Components");
-		siteDropdownItemsInExpectedOrder.add(3, "Taxonomy");
-		siteDropdownItemsInExpectedOrder.add(4, "Static Assets");
-		siteDropdownItemsInExpectedOrder.add(5, "Templates");
-		siteDropdownItemsInExpectedOrder.add(6, "Scripts");
-		siteDropdownItemsInExpectedOrder.add(7, "Site Config");
-		siteDropdownItemsInExpectedOrder.add(8, "here");
-		siteDropdownItemsInExpectedOrder.add(9, "bug");
-		siteDropdownItemsInExpectedOrder.add(10, "Crafter News");
+		siteDropdownItemsInExpectedOrder = siteDropdownOrderItems.split(",");
 	}
 
 	@Parameters({"testId", "testUser"})
@@ -100,19 +86,9 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 		// login to application with developer user
 		logger.info("login to application with {} user", testUser);
 		loginPage.loginToCrafter(testUser, testUser);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
 		logger.info("Go to Preview Page {}", testId);
 		this.homePage.goToPreviewPage(testId);
-
-		this.getWebDriverManager().waitForAnimation();
-
-		// Expand the site bar
-		this.getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
-
-		Assert.assertTrue(this.getWebDriverManager().isElementPresentAndClickableByXpath(siteDropdownElementXPath));
-
+		previewPage.clickSidebar();
 		// Check all the section are present;
 		WebElement dashboardLinkElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dashboardLink);
@@ -154,7 +130,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDevelo
 		int currentIndex = 0;
 		for (WebElement element : siteDropdownItems) {
 			this.getWebDriverManager().waitUntilSidebarOpens();
-			Assert.assertTrue(element.getText().equals(siteDropdownItemsInExpectedOrder.get(currentIndex)),
+			Assert.assertTrue(element.getText().equals(siteDropdownItemsInExpectedOrder[currentIndex]),
 					"ERROR: Link Option: " + element.getText() + " is not in the correct order");
 			currentIndex++;
 		}

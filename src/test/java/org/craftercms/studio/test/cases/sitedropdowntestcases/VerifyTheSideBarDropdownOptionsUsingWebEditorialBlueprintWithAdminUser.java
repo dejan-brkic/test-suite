@@ -38,9 +38,6 @@ import org.openqa.selenium.WebElement;
 // Test Case Studio- Site Dropdown ID:1
 public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminUser extends StudioBaseTest {
 
-	private String userName;
-	private String password;
-	private String siteDropdownElementXPath;
 	private String dashboardLink;
 	private String pagesTreeLink;
 	private String componentsTreeLink;
@@ -49,17 +46,13 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 	private String templatesTreeLink;
 	private String scriptsTreeLink;
 	private String siteConfigLink;
-	private LinkedList<String> siteDropdownItemsInExpectedOrder;
+	private String[] siteDropdownItemsInExpectedOrder;
 	private String siteDropdownItemsXpath;
 
-	@Parameters({"testId", "blueprint"})
+	@Parameters({"testId", "blueprint", "siteDropdownOrderItems"})
 	@BeforeMethod
-	public void beforeTest(String testId, String blueprint) {
+	public void beforeTest(String testId, String blueprint, String siteDropdownOrderItems) {
 		apiTestHelper.createSite(testId, "", blueprint);
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdownmenuinnerxpath");
 		dashboardLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.dashboard_menu_option");
 		pagesTreeLink = uiElementsPropertiesManager.getSharedUIElementsLocators()
@@ -78,36 +71,17 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 				.getProperty("general.adminconsole");
 		siteDropdownItemsXpath = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("dashboard.sitebar.dropdown.items");
-		siteDropdownItemsInExpectedOrder = new LinkedList<String>();
-		siteDropdownItemsInExpectedOrder.add(0, "Dashboard");
-		siteDropdownItemsInExpectedOrder.add(1, "Pages");
-		siteDropdownItemsInExpectedOrder.add(2, "Components");
-		siteDropdownItemsInExpectedOrder.add(3, "Taxonomy");
-		siteDropdownItemsInExpectedOrder.add(4, "Static Assets");
-		siteDropdownItemsInExpectedOrder.add(5, "Templates");
-		siteDropdownItemsInExpectedOrder.add(6, "Scripts");
-		siteDropdownItemsInExpectedOrder.add(7, "Site Config");
-		siteDropdownItemsInExpectedOrder.add(8, "here");
-		siteDropdownItemsInExpectedOrder.add(9, "bug");
-		siteDropdownItemsInExpectedOrder.add(10, "Crafter News");
-
+		siteDropdownItemsInExpectedOrder = siteDropdownOrderItems.split(",");
 	}
 
 	@Parameters({"testId"})
 	@Test()
 	public void verifyTheSideBarDropdownOptionsUsingWebEditorialBlueprint(String testId) {
 		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		// Wait for login page to close
-		getWebDriverManager().waitUntilLoginCloses();
-
+		loginPage.loginToCrafter();
 		// go to preview page
 		homePage.goToPreviewPage(testId);
-
-		// Expand the site bar
-		this.getWebDriverManager().clickElement("xpath", siteDropdownElementXPath);
-
+		previewPage.clickSidebar();
 		// Check all the section are present;
 		WebElement dashboardLinkElement = this.getWebDriverManager()
 				.driverWaitUntilElementIsPresentAndDisplayed("xpath", dashboardLink);
@@ -150,7 +124,7 @@ public class VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminU
 		for (WebElement element : siteDropdownItems) {
 			this.getWebDriverManager().waitForAnimation();
 			this.getWebDriverManager().waitUntilSidebarOpens();
-			Assert.assertTrue(element.getText().equals(siteDropdownItemsInExpectedOrder.get(currentIndex)),
+			Assert.assertTrue(element.getText().equals(siteDropdownItemsInExpectedOrder[currentIndex]),
 					"ERROR: Link Option: " + element.getText() + " is not in the correct order");
 			currentIndex++;
 		}

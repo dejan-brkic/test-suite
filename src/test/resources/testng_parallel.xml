@@ -857,6 +857,7 @@
 	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Admin User">
 		<parameter name="testId" value="sitedropdown001"/>
 		<parameter name="blueprint" value="editorial"/>
+		<parameter name="siteDropdownOrderItems" value="Dashboard,Pages,Components,Taxonomy,Static Assets,Templates,Scripts,Site Config,Get support,Crafter News"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAdminUser"/>
 		</classes>
@@ -866,6 +867,7 @@
 		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testUser" value="authorsidebar"/>
 		<parameter name="testGroup" value="site_author"/>
+		<parameter name="siteDropdownOrderItems" value="Dashboard,Pages,Components,Taxonomy,Static Assets,Templates,Scripts,Get support,Crafter News"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithAuthorUser"/>
 		</classes>
@@ -875,6 +877,7 @@
 		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testUser" value="developersidebar"/>
 		<parameter name="testGroup" value="site_developer"/>
+		<parameter name="siteDropdownOrderItems" value="Dashboard,Pages,Components,Taxonomy,Static Assets,Templates,Scripts,Site Config,Get support,Crafter News"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithDeveloperUser"/>
 		</classes>
@@ -884,6 +887,7 @@
 		<parameter name="blueprint" value="editorial"/>
 		<parameter name="testUser" value="publishersidebar"/>
 		<parameter name="testGroup" value="site_publisher"/>
+		<parameter name="siteDropdownOrderItems" value="Dashboard,Pages,Components,Taxonomy,Static Assets,Templates,Scripts,Get support,Crafter News"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithPublisherUser"/>
 		</classes>
@@ -893,6 +897,7 @@
 		<parameter name="testId" value="sitedropdown005"/>
 		<parameter name="testUser" value="reviewersidebar"/>
 		<parameter name="testGroup" value="site_reviewer"/>
+		<parameter name="siteDropdownOrderItems" value="Dashboard,Pages,Components,Taxonomy,Static Assets,Templates,Scripts,Get support,Crafter News"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitedropdowntestcases.VerifyTheSideBarDropdownOptionsUsingWebEditorialBlueprintWithReviewerUser"/>
 		</classes>
