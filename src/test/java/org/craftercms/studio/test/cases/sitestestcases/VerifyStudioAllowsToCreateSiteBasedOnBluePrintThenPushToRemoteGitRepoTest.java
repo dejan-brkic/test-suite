@@ -32,182 +32,49 @@ import org.testng.annotations.Test;
 // Test Case Studio- Sites ID:10
 public class VerifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRepoTest extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String localRepoName;
 	private String siteId;
-	private String siteDropdownElementXPath;
 	private String topNavSitesOption;
 
 	@Parameters({"testId"})
 	@BeforeMethod
 	public void beforeTest(String testId) {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		localRepoName = constantsPropertiesManager.getSharedExecutionConstants()
 				.getProperty("crafter.gitrepository.localrepositoryname");
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
 		topNavSitesOption = uiElementsPropertiesManager.getSharedUIElementsLocators()
 				.getProperty("general.preview.sitesoption");
 		siteId =  testId + "remotebarerepositoryforpushlocal";
 		this.setup();
 	}
 
-	public void step2() {
-		homePage.clickOnCreateSiteButton();	}
-
-	public void step3() {
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-	}
-
-	public void step4() {
-		createSitePage.setSiteName(siteId);
-	}
-
-	public void step5() {
-		createSitePage.clickAdditionalDeveloperOptions();
-	}
-
-	public void step6() {
-		createSitePage.clickPushSiteToRemoteGitCheckbox();
-	}
-
-	public void step7() {
-		createSitePage.setPushRepositoryName("origin");
-	}
-
-	public void step8() {
-		createSitePage.setRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName));
-	}
-
-	public void step10() {
-		createSitePage.clickReview();
-	}
-
-	public void step11() {
-		// Click on Create button
-		createSitePage.clickOnCreateButton();
-		Assert.assertTrue(this.getWebDriverManager()
-				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
-	}
-
-	public void step12() {
-		this.getWebDriverManager().waitUntilElementIsClickable("xpath", topNavSitesOption).click();
-	}
-
-	public void step13() {
-		homePage.clickOnCreateSiteButton();
-	}
-
-	public void step14() {
-		createSitePage.selectWebSiteEditorialBluePrintOption();
-	}
-
-	public void step15(String siteId) {
-		createSitePage.setSiteName(siteId);
-	}
-
-	public void step16() {
-		createSitePage.clickAdditionalDeveloperOptions();
-	}
-
-	public void step17() {
-		createSitePage.clickPushSiteToRemoteGitCheckbox();
-	}
-
-	public void step18() {
-		createSitePage.setPushRepositoryName("origin");
-	}
-
-	public void step19() {
-		createSitePage.setRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName));
-	}
-
-	public void step21() {
-		createSitePage.clickReview();
-	}
-
-	public void step22() {
-		// Click on Create button
-		createSitePage.clickOnCreateButton();
-		previewPage.clickSidebar();
-		previewPage.clickAdminConsoleOption();
-		siteConfigPage.clickRemoteRepositoriesOption();
-		siteConfigPage.checkThatRepositoriesListIsEmpty();
-	}
-
-
 	@Parameters({"testId"})
 	@Test()
 	public void verifyStudioAllowsToCreateSiteBasedOnBluePrintThenPushToRemoteGitRepoTest(String testId) {
-		this.testScenario(testId);
-	}
+		loginPage.loginToCrafter();
+		homePage.clickOnCreateSiteButton();
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName(siteId)
+				.clickPushSiteToRemoteGitCheckbox()
+				.setRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName))
+				.clickReview()
+				.clickOnCreateButton();
+		previewPage.clickSidebar();
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", localRepoName);
 
-	public void testScenario(String siteId) {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
+		getWebDriverManager().clickElement("xpath", topNavSitesOption);
 
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// Step 2
-		step2();
-
-		// Step 3
-		step3();
-
-		// Step 4
-		step4();
-
-		// Step 5
-		step5();
-
-		// Step 6
-		step6();
-
-		// Step 7
-		step7();
-
-		// Step 8
-		step8();
-
-		// Step 10
-		step10();
-
-		// Step 11
-		step11();
-
-		// Step 12
-		step12();
-
-		// Step 13
-		step13();
-
-		// Step 14
-		step14();
-
-		// Step 15
-		step15(siteId);
-
-		// Step 16
-		step16();
-
-		// Step 17
-		step17();
-
-		// Step 18
-		step18();
-
-		// Step 19
-		step19();
-
-		// Step 20
-		step21();
-
-		// Step 22
-		step22();
-
+		homePage.clickOnCreateSiteButton();
+		createSitePage.selectWebSiteEditorialBluePrintOption()
+				.setSiteName(testId)
+				.clickPushSiteToRemoteGitCheckbox()
+				.setRepositoryURL(this.getWebDriverManager().getLocalBareRepoURL(localRepoName))
+				.clickReview()
+				.clickOnCreateButton();
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsEmpty();
 	}
 
 	public void setup() {

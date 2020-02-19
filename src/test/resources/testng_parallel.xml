@@ -535,7 +535,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote GitHub repository -Authentication type: basic">
 		<parameter name="testId" value="sites012github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests1.git"/>
+		<parameter name="remoteUrl" value="https://github.com/crafter-qa/editorialsite313.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites012github" value=""/>
 		<classes>
@@ -544,7 +544,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote GitLab repository -Authentication type: basic">
 		<parameter name="testId" value="sites012gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstests1.git"/>
+		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/editorialsite313.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites012gitlab" value=""/>
 		<classes>
@@ -553,7 +553,7 @@
 	</test>
 	<test name="Verify that the application allows to create a site based on a remote Bitbucket repository -Authentication type: basic">
 		<parameter name="testId" value="sites012bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstests1.git"/>
+		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/editorialsite313.git"/>
 		<parameter name="remoteUsername" value="crafter-qa"/>
 		<parameter name="sites012bitbucket" value=""/>
 		<classes>
@@ -662,21 +662,21 @@
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote GitHub repository -Authentication type: Remote Git Repository Private Key">
 		<parameter name="testId" value="sites017github"/>
-		<parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftertest4.git"/>
+		<parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftercmstests4.git"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest"/>
 		</classes>
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote GitLab repository -Authentication type: Remote Git Repository Private Key">
 		<parameter name="testId" value="sites017gitlab"/>
-		<parameter name="remoteSshUrl" value="git@gitlab.com:crafter-qa/craftertest4.git"/>
+		<parameter name="remoteSshUrl" value="git@gitlab.com:crafter-qa/craftercmstests4.git"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest"/>
 		</classes>
 	</test>
 	<test name="Automate verification that the application allows to create a site with Link to upstream remote Bitbucket repository -Authentication type: Remote Git Repository Private Key">
 		<parameter name="testId" value="sites017bitbucket"/>
-		<parameter name="remoteSshUrl" value="git@bitbucket.org:crafter-qa/craftertest4.git"/>
+		<parameter name="remoteSshUrl" value="git@bitbucket.org:crafter-qa/craftercmstests4.git"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest"/>
 		</classes>
@@ -835,21 +835,21 @@
 	</test>
 	<test name="Verify that Studio allows to add a remote repository GitHub for the site and to push and pull from the remote repo">
 		<parameter name="testId" value="siteconfig58github"/>
-		<parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftertest6.git"/>
+		<parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftercmstests6.git"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
 		</classes>
 	</test>
 	<test name="Verify that Studio allows to add a remote repository GitLab for the site and to push and pull from the remote repo">
 		<parameter name="testId" value="siteconfig58gitlab"/>
-		<parameter name="remoteSshUrl" value="git@gitlab.com:crafter-qa/craftertest6.git"/>
+		<parameter name="remoteSshUrl" value="git@gitlab.com:crafter-qa/craftercmstests6.git"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
 		</classes>
 	</test>
 	<test name="Verify that Studio allows to add a remote repository Bitbucket for the site and to push and pull from the remote repo">
 		<parameter name="testId" value="siteconfig58bitbucket"/>
-		<parameter name="remoteSshUrl" value="git@bitbucket.org:crafter-qa/craftertest6.git"/>
+		<parameter name="remoteSshUrl" value="git@bitbucket.org:crafter-qa/craftercmstests6.git"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
 		</classes>
