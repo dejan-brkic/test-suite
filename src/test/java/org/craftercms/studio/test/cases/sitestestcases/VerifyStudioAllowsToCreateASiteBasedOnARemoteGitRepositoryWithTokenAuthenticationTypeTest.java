@@ -33,10 +33,7 @@ import org.testng.annotations.Test;
 public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest
 		extends StudioBaseTest {
 
-	private String userName;
-	private String password;
 	private String siteId;
-	private String siteDropdownElementXPath;
 	private String gitUsername;
 	private String gitToken;
 	private String gitRepositoryURL;
@@ -44,119 +41,30 @@ public class VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithToken
 	@Parameters({"testId", "remoteUrl", "remoteUsername", "remoteToken"})
 	@BeforeMethod
 	public void beforeTest(String testId, String remoteUrl, String remoteUsername, String remoteToken) {
-		userName = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.username");
-		password = constantsPropertiesManager.getSharedExecutionConstants().getProperty("crafter.password");
 		gitRepositoryURL = remoteUrl;
 		gitUsername = remoteUsername;
 		gitToken = remoteToken;
-		siteDropdownElementXPath = uiElementsPropertiesManager.getSharedUIElementsLocators()
-				.getProperty("complexscenarios.general.sitedropdown");
-
 		siteId = testId;
-	}
-
-	public void step2() {
-		// Click on the create site button
-		homePage.clickOnCreateSiteButton();
-	}
-
-	public void step3() {
-		createSitePage.clickUseRemoteGitRepoSiteCheckbox();
-
-	}
-
-	public void step4() {
-		createSitePage.clickBasicInformation();
-	}
-
-	public void step5() {
-		createSitePage.setSiteName(siteId);
-	}
-
-	public void step6() {
-		createSitePage.clickBasicDeveloperOptions();
-	}
-
-	public void step7() {
-		createSitePage.setFromGitRepositoryName("origin");
-	}
-
-	public void step8() {
-		createSitePage.setFromGitRepositoryURL(gitRepositoryURL);
-	}
-
-	public void step9() {
-		createSitePage.selectFromGitRepoTokenAuthenticationType();
-	}
-
-	public void step10() {
-		createSitePage.setFromGitRepositoryUserName(gitUsername);
-	}
-
-	public void step11() {
-		createSitePage.setFromGitRepositoryToken(gitToken);
-	}
-
-	public void step12() {
-		createSitePage.clickReview();
-	}
-
-	public void step13() {
-		// Click on Create button
-		createSitePage.clickOnCreateButton();
-		Assert.assertTrue(this.getWebDriverManager()
-				.waitUntilElementIsClickable("xpath", siteDropdownElementXPath)
-				.isDisplayed());
 	}
 
 	@Test()
 	public void verifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest() {
-		this.testScenario();
+		loginPage.loginToCrafter();
+		homePage.clickOnCreateSiteButton();
+		createSitePage.selectRemoteGitRepositorySite()
+				.setSiteName(siteId)
+				.setRepositoryURL(gitRepositoryURL)
+				.selectGitRepoTokenAuthenticationType()
+				.setRepositoryUserName(gitUsername)
+				.setRepositoryToken(gitToken)
+				.clickReview()
+				.clickOnCreateButton();
+		previewPage.clickSidebar();
+		previewPage.clickAdminConsoleOption();
+		siteConfigPage.clickRemoteRepositoriesOption();
+		siteConfigPage.checkThatRepositoriesListIsNotEmptyAndListContainsRepo("origin", gitRepositoryURL);
 	}
 
-	public void testScenario() {
-		// login to application
-		loginPage.loginToCrafter(userName, password);
-
-		getWebDriverManager().waitUntilLoginCloses();
-
-		// Step 2
-		step2();
-
-		// Step 3
-		step3();
-
-		// Step 4
-		step4();
-
-		// Step 5
-		step5();
-
-		// Step 6
-		step6();
-
-		// Step 7
-		step7();
-
-		// Step 8
-		step8();
-		
-		// Step9
-		step9();
-		
-		// Step 10
-		step10();
-
-		// Step 10
-		step11();
-
-		// Step 10
-		step12();
-
-		// Step 10
-		step13();
-
-	}
 
 	@Parameters({"testId"})
 	@AfterMethod(alwaysRun = true)
