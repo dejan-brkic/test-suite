@@ -266,7 +266,7 @@ public class RepositoryAPI2 extends BaseAPI {
     }
 
     public void testListRemoteInvalidSiteId(String siteId){
-        api.post(LIST_REMOTE_URL).urlParam("siteId", siteId).execute().status(HttpStatus.SC_NOT_FOUND)
+        api.get(LIST_REMOTE_URL).urlParam("siteId", siteId).execute().status(HttpStatus.SC_NOT_FOUND)
                 .json("$.response.message", is("Project not found"));
     }
 

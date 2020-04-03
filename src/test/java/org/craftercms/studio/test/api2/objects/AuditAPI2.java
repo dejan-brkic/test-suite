@@ -39,17 +39,17 @@ public class AuditAPI2 extends BaseAPI {
 	}
 
  	public void testGetAuditLog(String siteId) {		
-   		api.get(AUDIT_URL).urlParam("siteId", siteId).execute().status(HttpStatus.SC_OK)
+   		api.get(AUDIT_URL).urlParam("siteName", siteId).execute().status(HttpStatus.SC_OK)
    				.json("$.response.message", is("OK"));
    	}
 
   	public void testGetAuditLogSiteNotFound(String siteId) {
-  		api.get(AUDIT_URL).urlParam("siteId", siteId+"nonvalid").execute().status(HttpStatus.SC_NOT_FOUND)
+  		api.get(AUDIT_URL).urlParam("siteName", siteId+"nonvalid").execute().status(HttpStatus.SC_NOT_FOUND)
 				.json("$.response.message", is("Project not found"));
    	}
   	
   	public void testGetAuditLogUnauthorized(String siteId) {
-  		api.get(AUDIT_URL).urlParam("siteId", siteId).execute().status(HttpStatus.SC_UNAUTHORIZED);
+  		api.get(AUDIT_URL).urlParam("siteName", siteId).execute().status(HttpStatus.SC_UNAUTHORIZED);
    	}
 
    	public void testGetAuditLogEntry(int id) {
