@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License version 3 as published by
+  ~ the Free Software Foundation.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="craftercms - Studio UI - Authoring Github Repository TestSuite" parallel="tests" thread-count="5" preserve-order="false">
+    <test name="Verify that the application allows to create a site based on a remote GitHub repository -Authentication type: basic">
+        <parameter name="testId" value="sites012github"/>
+        <parameter name="remoteUrl" value="https://github.com/crafter-qa/editorialsite313.git"/>
+        <parameter name="remoteUsername" value="crafter-qa"/>
+        <parameter name="sites012github" value=""/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest"/>
+        </classes>
+    </test>
+    <test name="Verify that the application allows to create a site based on a remote GitHub repository -Authentication type: token">
+        <parameter name="testId" value="sites014github"/>
+        <parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests1.git"/>
+        <parameter name="remoteUsername" value="crafter-qa"/>
+        <parameter name="sites014github" value=""/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest"/>
+        </classes>
+    </test>
+    <test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitHub -Authentication type: basic">
+        <parameter name="testId" value="sites013github"/>
+        <parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests2.git"/>
+        <parameter name="remoteUsername" value="crafter-qa"/>
+        <parameter name="sites013github" value=""/>
+        <parameter name="pathRawFile" value="config/studio/site-config.xml"/>
+        <parameter name="expectValueRawFile" value="sites013github"/>
+
+        <classes>
+            <class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest"/>
+        </classes>
+    </test>
+    <test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitHub -Authentication type: token">
+        <parameter name="testId" value="sites015github"/>
+        <parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests3.git"/>
+        <parameter name="remoteUsername" value="crafter-qa"/>
+        <parameter name="sites015github" value=""/>
+        <parameter name="pathRawFile" value="config/studio/site-config.xml"/>
+        <parameter name="expectValueRawFile" value="sites015github"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest"/>
+        </classes>
+    </test>
+    <test name="Automate verification that the application allows to create a site with Link to upstream remote GitHub repository -Authentication type: Remote Git Repository Private Key">
+        <parameter name="testId" value="sites017github"/>
+        <parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftercmstests4.git"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest"/>
+        </classes>
+    </test>
+    <test name="Automate verification of create site after a failed create site with link to upstream remote GitHub repository (With Basic Auth)">
+        <parameter name="testId" value="sites018github"/>
+        <parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstest5.git"/>
+        <parameter name="remoteUsername" value="crafter-qa"/>
+        <parameter name="sites018github" value=""/>
+        <parameter name="pathRawFile" value="config/studio/site-config.xml"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
+        </classes>
+    </test>
+    <test name="Verify that Studio allows to add a remote repository GitHub for the site and to push and pull from the remote repo">
+        <parameter name="testId" value="siteconfig58github"/>
+        <parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftercmstests6.git"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
+        </classes>
+    </test>
+</suite> <!-- Suite -->
