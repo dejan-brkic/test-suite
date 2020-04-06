@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.craftercms.studio.test.api.objects.BaseAPI;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonResponse;
@@ -60,6 +61,25 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		String id = "";
 		JsonResponse response = api.get("/studio/api/2/groups").urlParam("offset", offSet)
 				.urlParam("limit", limit).urlParam("sort", sort).execute();
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Map responseMap = mapper.readValue(response.getRaw(), Map.class);
+			List<Map> groups = (List<Map>) responseMap.get("groups");
+			id = String.valueOf(groups.stream().filter(e -> e.get("name").equals(groupName)).map(e -> e.get("id"))
+					.findFirst().get());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return id;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public String getGroupIDForGroupName(String groupName, BasicClientCookie... cookies) {
+		String id = "";
+		JsonResponse response = api.get("/studio/api/2/groups").urlParam("offset", offSet)
+				.urlParam("limit", limit).urlParam("sort", sort).cookie(cookies).execute();
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -228,6 +248,17 @@ public class GroupsManagementAPI2 extends BaseAPI {
 		json.put("usernames", usernames);
 
 		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).execute().status(HttpStatus.SC_OK);
+	}
+
+	public void testAddMemberToGroupUsingUsername(String groupId, String userName, BasicClientCookie... cookies) {
+
+		JSONArray usernames = new JSONArray();
+		usernames.add(userName);
+
+		JSONObject json = new JSONObject();
+		json.put("usernames", usernames);
+
+		api.post("/studio/api/2/groups/" + groupId + "/members").json(json).cookie(cookies).execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testAddMemberToGroupUsingUsernameNonAuthorized(String groupId, String userName) {

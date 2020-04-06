@@ -3,9 +3,8 @@
   ~ Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
   ~
   ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
+  ~ it under the terms of the GNU General Public License version 3 as published by
+  ~ the Free Software Foundation.
   ~
   ~ This program is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -17,7 +16,7 @@
   -->
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="craftercms - Studio UI -AllTestCases TestSuite" parallel="tests" thread-count="5" preserve-order="false">
+<suite name="craftercms - Studio UI -AllTestCases Authoring TestSuite" parallel="tests" thread-count="5" preserve-order="false">
 	<parameter name="blueprint" value="empty"/>
 	<test name="Open Studio Test">
 		<parameter name="testId" value="sanity001"/>
@@ -111,30 +110,6 @@
 			<class name="org.craftercms.studio.test.cases.contenttestcases.AddNewContentSectionDefaultsTest"/>
 		</classes>
 	</test>
-	<test name="Verify The Application allows to copy and paste of large trees">
-		<parameter name="testId" value="content001"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteLargeTreesTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatCopiedAndPastedLongTreeArticleIsOnLive"/>
-		</classes>
-	</test>
-	<test name="Verify The Application allows to cut and paste of large trees">
-		<parameter name="testId" value="content002"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.CutPasteLargeTreesTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatCutAndPastedLongTreeArticleIsOnLive"/>
-		</classes>
-	</test>
-	<test name="Verify The Application allows to copy and paste content with specific and shared components">
-		<parameter name="testId" value="content003"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteContentWithSharedComponentsTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatCopiedAndPastedLongTreeArticleIsOnLive"/>
-		</classes>
-	</test>
 	<test name="Verify The dependency calculation for what refers to an item">
 		<parameter name="testId" value="content004"/>
 		<parameter name="blueprint" value="editorial"/>
@@ -203,56 +178,6 @@
 		<parameter name="blueprint" value="empty"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteToFolderWithCollisionPageTest"/>
-		</classes>
-	</test>
-	<test name="Verify The Application allows to rename file and publish it (file.xml rename and publish)">
-		<parameter name="testId" value="content040"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageHTML"/>
-		</classes>
-	</test>
-	<test name="Verify The Application allows to rename file and publish it (page rename and publish)">
-		<parameter name="testId" value="content041"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishPageRenameTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName" />
-		</classes>
-	</test>
-	<test name="Verify The Application allows to rename, rename again and publish it (file.xml rename, rename and publish)">
-		<parameter name="testId" value="content042"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameRenameThenPublishTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageHTML"/>
-		</classes>
-	</test>
-	<test name="Verify The Application allows to rename, rename again and publish it (Page rename, rename and publish)">
-		<parameter name="testId" value="content043"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameRenameThenPublishPageRenameTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageName"/>
-		</classes>
-	</test>
-	<test name="Verify The Application allows to rename file and publish it, later rename and delete it (file.xml rename and publish, later rename and delete)">
-		<parameter name="testId" value="content044"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageHTML"/>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameAgainAndDeleteTest"/>
-		</classes>
-	</test>
-	<test name="Verify The Application allows to rename page and publish it, later rename and delete it (Page rename and publish, later rename and delete)">
-		<parameter name="testId" value="content045"/>
-		<parameter name="blueprint" value="editorial"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishPageRenameTest"/>
-			<class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName"/>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameAgainAndDeletePageRenameTest"/>
 		</classes>
 	</test>
 	<test name="Verify that the image crop works correctly">
@@ -496,13 +421,6 @@
 			<class name="org.craftercms.studio.test.cases.generaltestcases.VerifyThatNoBluePrintErrorsDisplayedWhenCreateSite"/>
 		</classes>
 	</test>
-	<test name="Verify The application allows to delete a page or component and the change is reflected on delivery">
-		<parameter name="blueprint" value="editorial"/>
-		<parameter name="testId" value="general006"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.contenttestcases.AddNewContentAndPublishContentTest"/>
-		</classes>
-	</test>
 	<test name="Login Test And Logout Test">
 		<classes>
 			<class name="org.craftercms.studio.test.cases.loginlogouttestcases.LoginTest"/>
@@ -533,183 +451,11 @@
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithNoneAuthenticationTypeTest"/>
 		</classes>
 	</test>
-	<test name="Verify that the application allows to create a site based on a remote GitHub repository -Authentication type: basic">
-		<parameter name="testId" value="sites012github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/editorialsite313.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites012github" value=""/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Verify that the application allows to create a site based on a remote GitLab repository -Authentication type: basic">
-		<parameter name="testId" value="sites012gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/editorialsite313.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites012gitlab" value=""/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Verify that the application allows to create a site based on a remote Bitbucket repository -Authentication type: basic">
-		<parameter name="testId" value="sites012bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/editorialsite313.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites012bitbucket" value=""/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithBasicAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Verify that the application allows to create a site based on a remote GitHub repository -Authentication type: token">
-		<parameter name="testId" value="sites014github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests1.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites014github" value=""/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Verify that the application allows to create a site based on a remote GitLabrepository -Authentication type: token">
-		<parameter name="testId" value="sites014gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstests1.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites014gitlab" value=""/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Verify that the application allows to create a site based on a remote Bitbucket repository -Authentication type: token">
-		<parameter name="testId" value="sites014bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstests1.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites014bitbucket" value=""/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithTokenAuthenticationTypeTest"/>
-		</classes>
-	</test>
+
 	<test name="Verify that the application allows to create a site based on a remote git repository -Authentication type: private key on local repository">
 		<parameter name="testId" value="sites016"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteBasedOnARemoteGitRepositoryWithPrivateKeyAuthenticationTypeOnLocalRepositoryTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitHub -Authentication type: basic">
-		<parameter name="testId" value="sites013github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests2.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites013github" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-		<parameter name="expectValueRawFile" value="sites013github"/>
-
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitLab-Authentication type: basic">
-		<parameter name="testId" value="sites013gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstests2.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites013gitlab" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-		<parameter name="expectValueRawFile" value="sites013gitlab"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository Bitbucket -Authentication type: basic">
-		<parameter name="testId" value="sites013bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstests2.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites013bitbucket" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-		<parameter name="expectValueRawFile" value="sites013bitbucket"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithBasicAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitHub -Authentication type: token">
-		<parameter name="testId" value="sites015github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstests3.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites015github" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-		<parameter name="expectValueRawFile" value="sites015github"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository GitLab -Authentication type: token">
-		<parameter name="testId" value="sites015gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstests3.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites015gitlab" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-		<parameter name="expectValueRawFile" value="sites015gitlab"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote git repository Bitbucket -Authentication type: token">
-		<parameter name="testId" value="sites015bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstests3.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites015bitbucket" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-		<parameter name="expectValueRawFile" value="sites015bitbucket"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithTokenAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote GitHub repository -Authentication type: Remote Git Repository Private Key">
-		<parameter name="testId" value="sites017github"/>
-		<parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftercmstests4.git"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote GitLab repository -Authentication type: Remote Git Repository Private Key">
-		<parameter name="testId" value="sites017gitlab"/>
-		<parameter name="remoteSshUrl" value="git@gitlab.com:crafter-qa/craftercmstests4.git"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification that the application allows to create a site with Link to upstream remote Bitbucket repository -Authentication type: Remote Git Repository Private Key">
-		<parameter name="testId" value="sites017bitbucket"/>
-		<parameter name="remoteSshUrl" value="git@bitbucket.org:crafter-qa/craftercmstests4.git"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteWithLinkToUpstreamRemoteGitRepoWithPrivateKeyAuthenticationTypeTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification of create site after a failed create site with link to upstream remote GitHub repository (With Basic Auth)">
-		<parameter name="testId" value="sites018github"/>
-		<parameter name="remoteUrl" value="https://github.com/crafter-qa/craftercmstest5.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites018github" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification of create site after a failed create site with link to upstream remote GitLab repository (With Basic Auth)">
-		<parameter name="testId" value="sites018gitlab"/>
-		<parameter name="remoteUrl" value="https://gitlab.com/crafter-qa/craftercmstest5.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites018gitlab" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
-		</classes>
-	</test>
-	<test name="Automate verification of create site after a failed create site with link to upstream remote Bitbucket repository (With Basic Auth)">
-		<parameter name="testId" value="sites018bitbucket"/>
-		<parameter name="remoteUrl" value="https://bitbucket.org/crafter-qa/craftercmstest5.git"/>
-		<parameter name="remoteUsername" value="crafter-qa"/>
-		<parameter name="sites018bitbucket" value=""/>
-		<parameter name="pathRawFile" value="config/studio/site-config.xml"/>
-
-		<classes>
-			<class name="org.craftercms.studio.test.cases.sitestestcases.VerifyStudioAllowsToCreateASiteAfterAFailedCreateSiteWithLinkUpstreanRemoteGitRepoWithBasicAuthTest"/>
 		</classes>
 	</test>
 	<test name="Content Type Drag and Drop">
@@ -831,27 +577,6 @@
 		<parameter name="testId" value="siteconfig042"/>
 		<classes>
 			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.ContentTypesAddDataSourceImageUploadedFromCMISRepositoryTest"/>
-		</classes>
-	</test>
-	<test name="Verify that Studio allows to add a remote repository GitHub for the site and to push and pull from the remote repo">
-		<parameter name="testId" value="siteconfig58github"/>
-		<parameter name="remoteSshUrl" value="git@github.com:crafter-qa/craftercmstests6.git"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
-		</classes>
-	</test>
-	<test name="Verify that Studio allows to add a remote repository GitLab for the site and to push and pull from the remote repo">
-		<parameter name="testId" value="siteconfig58gitlab"/>
-		<parameter name="remoteSshUrl" value="git@gitlab.com:crafter-qa/craftercmstests6.git"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
-		</classes>
-	</test>
-	<test name="Verify that Studio allows to add a remote repository Bitbucket for the site and to push and pull from the remote repo">
-		<parameter name="testId" value="siteconfig58bitbucket"/>
-		<parameter name="remoteSshUrl" value="git@bitbucket.org:crafter-qa/craftercmstests6.git"/>
-		<classes>
-			<class name="org.craftercms.studio.test.cases.siteconfigtestcases.VerifyThatStudioAllowsToAddRemoteRepositoryAndPushAndPullFromRemoteTest"/>
 		</classes>
 	</test>
 	<test name="Verify that the application displays the proper set of dropdown Sidebar components options on the Site Dropdown panel Test Case With Admin User">

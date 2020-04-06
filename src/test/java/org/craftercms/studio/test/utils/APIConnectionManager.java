@@ -19,9 +19,9 @@ package org.craftercms.studio.test.utils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.testng.TestException;
 
 /**
@@ -40,19 +40,19 @@ public class APIConnectionManager {
 		try {
 			runtimeProperties.load(APIConnectionManager.class.getResourceAsStream("/runtime.properties"));
 			String enviromentPropertiesPath = runtimeProperties.getProperty("crafter.test.location");
-			
 
 			final Properties envProperties = new Properties();
 			try {
 				envProperties.load(new FileInputStream(enviromentPropertiesPath));
-				String baseURL = envProperties.getProperty("studio.base.url");
-
-				this.protocol = StringUtils.substringBefore(baseURL, ":");
-				this.host = StringUtils
-						.substring(StringUtils.substringBefore(StringUtils.substringAfter(baseURL, ":"), ":"), 2);
-				this.port = Integer.parseInt(StringUtils.substringBefore(
-						StringUtils.substringAfter(StringUtils.substringAfter(baseURL, ":"), ":"), "/"));
-				this.headerLocationBase = this.protocol + "://" + this.host + ":" + port;
+				URL studioBaseURL = new URL(envProperties.getProperty("studio.base.url"));
+				this.protocol = studioBaseURL.getProtocol();
+				this.host = studioBaseURL.getHost();
+				this.port = studioBaseURL.getPort();
+				this.headerLocationBase = this.protocol + "://" + this.host;
+				//add port only when is defined in url
+				if(port != -1) {
+					this.headerLocationBase = headerLocationBase + ":" + port;
+				}
 
 			} catch (IOException ex) {
 				throw new FileNotFoundException("Unable to read runtime properties file");

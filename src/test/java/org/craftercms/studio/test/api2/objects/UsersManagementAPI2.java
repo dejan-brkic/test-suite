@@ -18,6 +18,7 @@
 package org.craftercms.studio.test.api2.objects;
 
 import org.apache.http.HttpStatus;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.craftercms.studio.test.api.objects.BaseAPI;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonResponse;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
 
@@ -83,6 +85,20 @@ public class UsersManagementAPI2 extends BaseAPI {
 		json.put("externallyManaged", true);
 
 		api.post("/studio/api/2/users").json(json).execute().status(HttpStatus.SC_CREATED);
+	}
+
+	public void testCreateUser(String id, String userName, BasicClientCookie... cookies) {
+		Map<String, Object> json = new HashMap<>();
+		json.put("id", id);
+		json.put("username", userName);
+		json.put("password", userName);
+		json.put("firstName", "Test");
+		json.put("lastName", "Test");
+		json.put("email", "test@test.com");
+		json.put("enabled", true);
+		json.put("externallyManaged", true);
+
+		api.post("/studio/api/2/users").json(json).cookie(cookies).execute().status(HttpStatus.SC_CREATED);
 	}
 
 	public void testCreateUserResourceAlreadyExists(String id, String userName) {
@@ -226,6 +242,10 @@ public class UsersManagementAPI2 extends BaseAPI {
 
 	public void testDeleteUserByUserName(String userName) {
 		api.delete("/studio/api/2/users").urlParam("username", userName).execute().status(HttpStatus.SC_OK);
+	}
+
+	public void testDeleteUserByUserName(String userName, BasicClientCookie... cookies) {
+		api.delete("/studio/api/2/users").urlParam("username", userName).cookie(cookies).execute().status(HttpStatus.SC_OK);
 	}
 
 	public void testDeleteUserByUserNameBadRequest(String userName) {

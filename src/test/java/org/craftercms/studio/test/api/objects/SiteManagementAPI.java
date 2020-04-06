@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpStatus;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.craftercms.studio.test.utils.APIConnectionManager;
 import org.craftercms.studio.test.utils.JsonTester;
 
@@ -42,6 +43,18 @@ public class SiteManagementAPI extends BaseAPI {
 		json.put("description", description);
 		json.put("blueprint", blueprint);
 		api.post("/studio/api/1/services/api/1/site/create.json").json(json).execute().status(HttpStatus.SC_CREATED)
+				.header("Location",
+						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
+				.json("$.message", is("OK"));
+		this.setSiteId(siteId);
+	}
+
+	public void testCreateSite(String siteId, String description, String blueprint, BasicClientCookie... cookies){
+		Map<String, Object> json = new HashMap<>();
+		json.put("site_id", siteId);
+		json.put("description", description);
+		json.put("blueprint", blueprint);
+		api.post("/studio/api/1/services/api/1/site/create.json").json(json).cookie(cookies).execute().status(HttpStatus.SC_CREATED)
 				.header("Location",
 						is(headerLocationBase + "/studio/api/1/services/api/1/site/get.json?site_id=" + siteId))
 				.json("$.message", is("OK"));
@@ -98,7 +111,12 @@ public class SiteManagementAPI extends BaseAPI {
 		Map<String, Object> json = new HashMap<>();
 		json.put("siteId", siteId);
 		api.post("/studio/api/1/services/api/1/site/delete-site.json").json(json).execute().status(HttpStatus.SC_OK);
-				
+	}
+
+	public void testDeleteSite(String siteId, BasicClientCookie... cookies) {
+		Map<String, Object> json = new HashMap<>();
+		json.put("siteId", siteId);
+		api.post("/studio/api/1/services/api/1/site/delete-site.json").json(json).cookie(cookies).execute().status(HttpStatus.SC_OK);
 	}
 	
 	public void testDeleteSiteUnauthorized(String siteId) {

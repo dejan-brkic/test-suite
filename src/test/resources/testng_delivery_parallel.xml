@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License version 3 as published by
+  ~ the Free Software Foundation.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="craftercms - Studio UI -AllTestCases Delivery TestSuite" parallel="tests" thread-count="5" preserve-order="false">
+    <test name="Verify The Application allows to copy and paste of large trees">
+        <parameter name="testId" value="content001"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteLargeTreesTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatCopiedAndPastedLongTreeArticleIsOnLive"/>
+        </classes>
+    </test>
+    <test name="Verify The Application allows to cut and paste of large trees">
+        <parameter name="testId" value="content002"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.CutPasteLargeTreesTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatCutAndPastedLongTreeArticleIsOnLive"/>
+        </classes>
+    </test>
+    <test name="Verify The Application allows to copy and paste content with specific and shared components">
+        <parameter name="testId" value="content003"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.CopyPasteContentWithSharedComponentsTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatCopiedAndPastedLongTreeArticleIsOnLive"/>
+        </classes>
+    </test>
+    <test name="Verify The Application allows to rename file and publish it (file.xml rename and publish)">
+        <parameter name="testId" value="content040"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageHTML"/>
+        </classes>
+    </test>
+    <test name="Verify The Application allows to rename file and publish it (page rename and publish)">
+        <parameter name="testId" value="content041"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishPageRenameTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName" />
+        </classes>
+    </test>
+    <test name="Verify The Application allows to rename, rename again and publish it (file.xml rename, rename and publish)">
+        <parameter name="testId" value="content042"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameRenameThenPublishTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageHTML"/>
+        </classes>
+    </test>
+    <test name="Verify The Application allows to rename, rename again and publish it (Page rename, rename and publish)">
+        <parameter name="testId" value="content043"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameRenameThenPublishPageRenameTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedRenamedAndPublishedArticleIsOnLiveRequestingPageName"/>
+        </classes>
+    </test>
+    <test name="Verify The Application allows to rename file and publish it, later rename and delete it (file.xml rename and publish, later rename and delete)">
+        <parameter name="testId" value="content044"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageHTML"/>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameAgainAndDeleteTest"/>
+        </classes>
+    </test>
+    <test name="Verify The Application allows to rename page and publish it, later rename and delete it (Page rename and publish, later rename and delete)">
+        <parameter name="testId" value="content045"/>
+        <parameter name="blueprint" value="editorial"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameThenPublishPageRenameTest"/>
+            <class name="org.craftercms.delivery.test.cases.verification.VerifyThatRenamedAndPublishedArticleIsOnLiveRequestingPageName"/>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.FileRenameAgainAndDeletePageRenameTest"/>
+        </classes>
+    </test>
+    <test name="Verify The application allows to delete a page or component and the change is reflected on delivery">
+        <parameter name="blueprint" value="editorial"/>
+        <parameter name="testId" value="general006"/>
+        <classes>
+            <class name="org.craftercms.studio.test.cases.contenttestcases.AddNewContentAndPublishContentTest"/>
+        </classes>
+    </test>
+</suite> <!-- Suite -->
